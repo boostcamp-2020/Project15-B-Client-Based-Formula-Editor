@@ -9,9 +9,9 @@ const Layout = styled.div`
 `;
 
 const Bottom = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 5px;
+	position: absolute;
+	bottom: 0;
+	right: 5px;
 `;
 
 const Item = styled.div`

@@ -2,31 +2,31 @@ import React from "react";
 import styled from "styled-components";
 
 const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: lightgrey;
-  margin: 5px;
-  border: 1px solid black;
-  border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+	background-color: lightgrey;
+	margin: 5px;
+	border: 1px solid black;
+	border-radius: 15px;
 
-  > * {
-    margin: 5px;
-  }
+	> * {
+		margin: 5px;
+	}
 `;
 
 const Buttons = styled.div`
-  display: flex;
+	display: flex;
 `;
 
 const Button = styled.button`
-  background-color: white;
-  border: 1px solid black;
-  width: 100%;
+	background-color: white;
+	border: 1px solid black;
+	width: 100%;
 
-  &:hover {
-    background-color: grey;
-    cursor: pointer;
-  }
+	&:hover {
+		background-color: grey;
+		cursor: pointer;
+	}
 `;
 
 export default function CustomForm({ buttonName }) {
