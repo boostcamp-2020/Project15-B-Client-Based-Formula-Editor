@@ -16,5 +16,6 @@ module.exports = {
 	rules: {
 		"linebreak-style": "off",
 		"object-curly-spacing": ["error", "always"],
+		"react/prop-types": "off",
 	},
 };
