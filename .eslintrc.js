@@ -15,5 +15,6 @@ module.exports = {
 	plugins: ["react"],
 	rules: {
 		"linebreak-style": "off",
+		"object-curly-spacing": ["error", "always"],
 	},
 };
