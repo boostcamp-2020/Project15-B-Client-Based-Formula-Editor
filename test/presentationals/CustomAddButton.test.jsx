@@ -14,7 +14,7 @@ describe("<CustomAddButton />", () => {
 	});
 
 	describe("with isFormOn state true", () => {
-		it("render custom add button: cancel ", () => {
+		it("renders custom add button: cancel ", () => {
 			const { container } = render(<CustomAddButton isFormOn={true} />);
 
 			expect(container).toHaveTextContent("취소");
