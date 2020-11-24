@@ -2,6 +2,7 @@ import React from "react";
 
 import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
+import FontContainerLayout from "../layouts/FontContainerLayout";
 import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
 
 export default function FontContainer() {
@@ -25,12 +26,12 @@ export default function FontContainer() {
 	};
 
 	return (
-		<div>
+		<FontContainerLayout>
 			<FontSizeSelector fontSize={15} onChange={handleFontSize} />
 			<FontColorSelector onChange={handleFontColor} onClick={handleClickFontColor} fontColor={"#000000"} />
 			<EditTabHeaderButton onClick={handleLeftAlignmentButton} />
 			<EditTabHeaderButton onClick={handleCenterAlignmentButton} />
 			<EditTabHeaderButton onClick={handleRightAlignmentButton} />
-		</div>
+		</FontContainerLayout>
 	);
 }
