@@ -6,6 +6,7 @@ const EditTabButtonStyle = styled.button`
 	height:30px;
 	border-radius:1em 1em 0 0;
 	outline:none;
+	float:right;
 `;
 
 export default function EditTabButton() {
