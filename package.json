@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
-    "test": "jest",
+    "test": "jest --watchAll --verbose",
     "lint": "eslint ."
   },
   "keywords": [],
