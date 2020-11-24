@@ -31,8 +31,11 @@ export default function FormulaButtonContainer() {
 	const Buttons = ButtonsContent.map((elem, index) => (
 		<div key={`Div${index}`}>
 			<FormulaButton key={`Btn${index}`} name={elem.name} onClick={elem.onClick} />
+			{elem.state ?
+				<FormulaDropdownContainer key={`DD${index}`} name={elem.name} /> :
+				<div key={`none${index}`}></div>}
 		</div>
 	));
 
-	return Buttons;
+	return (<ButtonMenuLayout>{Buttons}</ButtonMenuLayout>);
 }
