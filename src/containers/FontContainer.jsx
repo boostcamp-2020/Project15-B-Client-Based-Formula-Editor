@@ -2,6 +2,7 @@ import React from "react";
 
 import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
+import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
 
 export default function FontContainer() {
 	const handleFontSize = () => {
@@ -10,16 +11,26 @@ export default function FontContainer() {
 	const handleFontColor = () => {
 		// dispatch
 	};
+	const handleClickFontColor = () => {
+		// dispatch
+	};
+	const handleLeftAlignmentButton = () => {
+		console.log("clicked left");
+	};
+	const handleCenterAlignmentButton = () => {
+		console.log("clicked center");
+	};
+	const handleRightAlignmentButton = () => {
+		console.log("clicked right");
+	};
 
 	return (
 		<div>
 			<FontSizeSelector fontSize={15} onChange={handleFontSize} />
-			<FontColorSelector onChange={handleFontColor} onClick={handleFontColor} fontColor={"#ffffff"} />
-
-			{/* 폰트 크기
-			폰트 색
-			폰트 종류...?
-			정렬 좌,중,우 */}
+			<FontColorSelector onChange={handleFontColor} onClick={handleClickFontColor} fontColor={"#000000"} />
+			<EditTabHeaderButton onClick={handleLeftAlignmentButton} />
+			<EditTabHeaderButton onClick={handleCenterAlignmentButton} />
+			<EditTabHeaderButton onClick={handleRightAlignmentButton} />
 		</div>
 	);
 }
