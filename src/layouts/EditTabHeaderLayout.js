@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
-const EditTabHeaderStyle = styled.div``;
+const EditTabHeaderLayout = styled.div`
+	display:flex;
+	flex-direction:row;
+	justify-content:space-between;
+	width:100%;
+	height: 40px;
+	border: 1px solid black;
+`;
 
-export default EditTabHeaderStyle;
+export default EditTabHeaderLayout;

@@ -1,18 +1,17 @@
 import React from "react";
 
 import EditTabButton from "../presentationals/EditTabButton";
-import EditTabHeaderStyle from "../layouts/EditTabHeaderLayout";
+import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FontContainer from "./FontContainer";
+import ControlButtonContainer from "./ControlButtonContainer";
 
 export default function BodyContainer() {
 	return (
 		<div>
 			<EditTabButton />
-			<EditTabHeaderStyle>
+			<EditTabHeaderLayout>
 				<FontContainer />
-				{/* 리두 언두 */}
-			</EditTabHeaderStyle>
-			{/* 수식 공간 */}
-			{/* 라텍 공간 */}
-		</div>);
+				<ControlButtonContainer />
+			</EditTabHeaderLayout>
+			</div>
 }
