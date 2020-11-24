@@ -5,6 +5,7 @@ import MainLayout from "./layouts/MainLayout";
 import HeaderContainer from "./containers/HeaderContainer";
 import BodyContainer from "./containers/BodyContainer";
 import FooterContainer from "./containers/FooterContainer";
+import SideBar from "./containers/SideBar";
 
 export default function App() {
 	return (
@@ -15,6 +16,7 @@ export default function App() {
 				<BodyContainer />
 				<FooterContainer />
 			</MainLayout>
+			<SideBar />
 		</>
 	);
 }
