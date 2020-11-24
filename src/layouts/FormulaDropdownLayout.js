@@ -6,7 +6,7 @@ const FormulaDropdownStyle = styled.div`
 	height:250px;
 	border:1px solid black;
 	padding: 8px;
-	background-color:green;
+	background-color:white;
 `;
 
 export default FormulaDropdownStyle;
