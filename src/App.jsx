@@ -1,14 +1,14 @@
 import React from "react";
-import FormulaButtonContainer from "./containers/FormulaButtonContainer";
 
 import GlobalStyle from "./GlobalStyle";
+import HeaderContainer from "./containers/HeaderContainer";
 
 export default function App() {
 	return (
 		<>
 			<GlobalStyle />
 			<div>hello world</div>
-			<FormulaButtonContainer />
+			<HeaderContainer />
 		</>
 	);
 }
