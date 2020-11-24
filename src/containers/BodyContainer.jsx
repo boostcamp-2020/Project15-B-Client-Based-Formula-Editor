@@ -5,15 +5,19 @@ import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
+import LatexRepresentation from "../presentationals/LatexRepresentation";
+import BodyLayout from "../layouts/BodyLayout";
 
 export default function BodyContainer() {
 	return (
-		<div>
+		<BodyLayout>
 			<EditTabButton />
 			<EditTabHeaderLayout>
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
-				<FormulaRepresentation />
-			</div>
+			<FormulaRepresentation />
+			<LatexRepresentation />
+		</BodyLayout>
+	);
 }
