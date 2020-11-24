@@ -9,4 +9,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+export const color = {
+	light: "#82e9de",
+	normal: "#4db6ac",
+	dark: "#00867d",
+};
+
 export default GlobalStyle;
