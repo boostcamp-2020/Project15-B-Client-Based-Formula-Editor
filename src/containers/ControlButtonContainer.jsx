@@ -33,7 +33,10 @@ export default function ControlButtonContainer(params) {
 	};
 
 	const handleResetButton = () => {
-		console.log("clicked reset");
+		const newPast = [presentLatexCommand, ...pastLatexCommands];
+
+		dispatch(setPastLatexCommands(newPast));
+		dispatch(setPresentLatexCommand(""));
 	};
 
 	return (
