@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const FontSizeSelectorStyle = styled.select`
-	width:50px;
-	height:100%;
-	border:0px solid black;
+	width: 50px;
+	height: 100%;
+	border: 0px solid black;
 `;
 
 export default function FontSizeSelector({ fontSize, onChange }) {
@@ -12,7 +12,7 @@ export default function FontSizeSelector({ fontSize, onChange }) {
 
 	return (
 		<FontSizeSelectorStyle value={fontSize} onChange={onChange} >
-			{ ableFontSize.map((elem, index) => <option key={index} value={elem}>{elem}</option>)}
+			{ableFontSize.map((elem, index) => <option key={index} value={elem}>{elem}</option>)}
 		</FontSizeSelectorStyle>
 	);
 }

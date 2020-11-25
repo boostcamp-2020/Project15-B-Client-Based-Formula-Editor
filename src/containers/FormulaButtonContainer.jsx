@@ -2,40 +2,34 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import FormulaButton from "../presentationals/FormulaButton";
+import { setSelectedButton } from "../slice";
 import FormulaDropdownContainer from "../containers/FormulaDropdownContainer";
 import ButtonMenuLayout from "../layouts/ButtonMenuLayout";
-import { setCharacterButtonState, setOperatorButtonState, setFormulaButtonState } from "../slice";
+import FormulaButton from "../presentationals/FormulaButton";
 
 export default function FormulaButtonContainer() {
 	const dispatch = useDispatch();
-	const { OperatorButtonState, CharacterButtonState, FormulaButtonState } =
-		useSelector(state => state.ButtonState);
+	const selectedButton = useSelector(state => state.selectedButton);
 
-	const handleOperatorClick = () => {
-		dispatch(setOperatorButtonState(!OperatorButtonState));
-	};
-	const handleChatacterClick = () => {
-		dispatch(setCharacterButtonState(!CharacterButtonState));
-	};
-	const handleFormulaClick = () => {
-		dispatch(setFormulaButtonState(!FormulaButtonState));
+	const handleButtonClick = state => {
+		if (state === selectedButton) return () => dispatch(setSelectedButton(""));
+		return () => dispatch(setSelectedButton(state));
 	};
 
-	const ButtonsContent = [
-		{ name: "연산자", onClick: handleOperatorClick, state: OperatorButtonState },
-		{ name: "문자", onClick: handleChatacterClick, state: CharacterButtonState },
-		{ name: "수식", onClick: handleFormulaClick, state: FormulaButtonState },
+	const buttonsContent = [
+		{ name: "연산자", onClick: handleButtonClick("연산자") },
+		{ name: "문자", onClick: handleButtonClick("문자") },
+		{ name: "수식", onClick: handleButtonClick("수식") },
 	];
 
-	const Buttons = ButtonsContent.map((elem, index) => (
-		<div key={`Div${index}`}>
-			<FormulaButton key={`Btn${index}`} name={elem.name} onClick={elem.onClick} />
-			{elem.state ?
-				<FormulaDropdownContainer key={`DD${index}`} name={elem.name} /> :
-				<div key={`none${index}`}></div>}
-		</div>
-	));
-
-	return (<ButtonMenuLayout>{Buttons}</ButtonMenuLayout>);
+	return (
+		<ButtonMenuLayout>
+			{buttonsContent.map((elem, index) => (
+				<div key={`D${index}`}>
+					<FormulaButton key={`FB${index}`} name={elem.name} onClick={elem.onClick} />
+					{elem.name === selectedButton && <FormulaDropdownContainer key={`FDC${index}`} name={elem.name} />}
+				</div>
+			))}
+		</ButtonMenuLayout>
+	);
 }

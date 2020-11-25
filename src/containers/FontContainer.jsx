@@ -1,8 +1,8 @@
 import React from "react";
 
+import FontContainerLayout from "../layouts/FontContainerLayout";
 import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
-import FontContainerLayout from "../layouts/FontContainerLayout";
 import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
 
 export default function FontContainer() {

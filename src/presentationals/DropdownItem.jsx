@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const DropdownItemStyle = styled.button`
-	width:30px;
-	height:30px;
-	padding:2px;
-	margin:2px;
+	width: 30px;
+	height: 30px;
+	padding: 2px;
+	margin: 2px;
 	border: 1px solid black;
-	background-color:green;
+	background-color: green;
 `;
 
 export default function DropdownItem({ value, onClick }) {

@@ -3,29 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const { reducer, actions } = createSlice({
 	name: "FEditor",
 	initialState: {
-		ButtonState: {
-			OperatorButtonState: false,
-			CharacterButtonState: false,
-			FormulaButtonState: false,
-		},
+		selectedButton: "",
 	},
 	reducers: {
-		setOperatorButtonState(state, { payload }) {
-			return { ...state, ButtonState: { OperatorButtonState: payload } };
-		},
-		setCharacterButtonState(state, { payload }) {
-			return { ...state, ButtonState: { CharacterButtonState: payload } };
-		},
-		setFormulaButtonState(state, { payload }) {
-			return { ...state, ButtonState: { FormulaButtonState: payload } };
+		setSelectedButton(state, { payload }) {
+			return { ...state, selectedButton: payload };
 		},
 	},
 });
 
 export const {
-	setOperatorButtonState,
-	setCharacterButtonState,
-	setFormulaButtonState,
+	setSelectedButton,
 } = actions;
 
 export default reducer;

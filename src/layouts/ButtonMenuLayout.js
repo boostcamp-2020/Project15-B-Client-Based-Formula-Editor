@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 const ButtonMenuLayout = styled.div`
-	display:flex;
+	display: flex;
 	flex-direction: row;
-	& > div{
-		position:relative;
-		display:flex;
-		flex-direction:column;
-		div{
-			position:absolute;
-			top:80px;
+	& > div {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		div {
+			position: absolute;
+			top: 80px;
 		}
 	}
 `;
