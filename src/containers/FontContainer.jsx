@@ -17,9 +17,6 @@ export default function FontContainer() {
 	const handleFontColor = e => {
 		dispatch(setFont({ color: e.target.value, size: fontInfo.size }));
 	};
-	const handleClickFontColor = () => {
-		// dispatch
-	};
 	const handleLeftAlignmentButton = () => {
 		dispatch(setAlign("left"));
 	};
@@ -33,8 +30,7 @@ export default function FontContainer() {
 	return (
 		<FontContainerLayout>
 			<FontSizeSelector fontSize={fontInfo.size} onChange={handleFontSize} />
-			<FontColorSelector onChange={handleFontColor} onClick={handleClickFontColor}
-				fontColor={fontInfo.color} />
+			<FontColorSelector onChange={handleFontColor} fontColor={fontInfo.color} />
 			<EditTabHeaderButton onClick={handleLeftAlignmentButton} Icon="L" />
 			<EditTabHeaderButton onClick={handleCenterAlignmentButton} Icon="C" />
 			<EditTabHeaderButton onClick={handleRightAlignmentButton} Icon="R" />
