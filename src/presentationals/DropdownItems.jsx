@@ -8,7 +8,7 @@ export default function DropdownItems({ name, onItemClick }) {
 	return (
 		<FormulaDropdownLayout>
 			{characterLatex[name].map((item, index) =>
-				<DropdownItem key={index} value={item.name} onClick={onItemClick(item.latex)} />)}
+				<DropdownItem key={index} item={item} onClick={onItemClick(item.latex)} />)}
 		</FormulaDropdownLayout>
 	);
 }

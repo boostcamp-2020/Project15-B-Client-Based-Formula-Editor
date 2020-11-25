@@ -51,8 +51,8 @@ const characterLatex = {
 		{ name: "ω", latex: "\\omega" },
 	],
 	"수식": [
-		{ name: "근의 공식", latex: "\\frac{-b\\pm \\sqrt{b^2-4ac}}{2a}" },
-		{ name: "이차 방정식", latex: "ax^2+bx+c=0" },
+		{ formula: true, name: "\\frac{-b\\pm \\sqrt{b^2-4ac}}{2a}", latex: "\\frac{-b\\pm \\sqrt{b^2-4ac}}{2a}" },
+		{ formula: true, name: "ax^2+bx+c=0", latex: "ax^2+bx+c=0" },
 	],
 };
 
