@@ -9,6 +9,6 @@ const LatexRepresentationStyle = styled.textarea`
   resize: none;
 `;
 
-export default function LatexRepresentation() {
-	return <LatexRepresentationStyle />;
+export default function LatexRepresentation({ value, onChange }) {
+	return <LatexRepresentationStyle value={value} onChange={onChange}></LatexRepresentationStyle>;
 }
