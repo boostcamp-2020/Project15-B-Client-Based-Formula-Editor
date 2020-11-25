@@ -29,7 +29,7 @@ const Button = styled.button`
 	}
 `;
 
-export default function CustomForm({ buttonName }) {
+export default function customForm({ buttonName }) {
 	return (
 		<Form>
 			<input type="text" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
