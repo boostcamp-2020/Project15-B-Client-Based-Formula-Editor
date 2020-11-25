@@ -1,13 +1,18 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import FontContainerLayout from "../layouts/FontContainerLayout";
 import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
 import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
+import { setFont } from "../slice";
 
 export default function FontContainer() {
-	const handleFontSize = () => {
-		// dispatch
+	const fontInfo = useSelector(state => state.fontInfo);
+	const dispatch = useDispatch();
+
+	const handleFontSize = e => {
+		dispatch(setFont({ color: fontInfo.color, size: e.target.value }));
 	};
 	const handleFontColor = () => {
 		// dispatch
@@ -27,7 +32,7 @@ export default function FontContainer() {
 
 	return (
 		<FontContainerLayout>
-			<FontSizeSelector fontSize={15} onChange={handleFontSize} />
+			<FontSizeSelector fontSize={fontInfo.size} onChange={handleFontSize} />
 			<FontColorSelector onChange={handleFontColor} onClick={handleClickFontColor} fontColor={"#000000"} />
 			<EditTabHeaderButton onClick={handleLeftAlignmentButton} />
 			<EditTabHeaderButton onClick={handleCenterAlignmentButton} />

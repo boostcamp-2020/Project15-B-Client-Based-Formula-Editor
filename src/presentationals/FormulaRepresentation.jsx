@@ -12,18 +12,20 @@ const FormulaRepresentationStyle = styled.div`
   border: 1px solid black;
 	display: flex;
 	flex-direction: row;
+	font-size:${props => props.fontInfo.size}px;
 `;
 
 export default function FormulaRepresentation() {
 	const dispatch = useDispatch();
 	const latexInput = useSelector(state => state.latexInput);
+	const fontInfo = useSelector(state => state.fontInfo);
 
 	const handleLatexInput = mathField => {
 		dispatch(setLatexInput(mathField.latex()));
 	};
 
 	return (
-		<FormulaRepresentationStyle>
+		<FormulaRepresentationStyle fontInfo={fontInfo}>
 			<EditableMathField
 				latex={latexInput}
 				onChange={handleLatexInput}
