@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setSelectedButton } from "../slice";
-import DropdownItems from "../presentationals/DropdownItems";
+import { latexFunction } from "../util";
 import ButtonMenuLayout from "../layouts/ButtonMenuLayout";
+import DropdownItems from "../presentationals/DropdownItems";
 import FormulaButton from "../presentationals/FormulaButton";
 import FxIcon from "../icons/FxIcon";
 import AlphaIcon from "../icons/AlphaIcon";
 import RootIcon from "../icons/RootIcon";
-import { latexFunction } from "../util";
 
 export default function FormulaButtonContainer() {
 	const dispatch = useDispatch();
