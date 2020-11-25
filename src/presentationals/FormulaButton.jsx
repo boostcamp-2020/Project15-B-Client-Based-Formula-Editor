@@ -10,11 +10,10 @@ const FormulaButtonStyle = styled.button`
 	}
 `;
 
-export default function FormulaButton({ name, onClick }) {
+export default function FormulaButton({ children, onClick }) {
 	return (
 		<FormulaButtonStyle onClick={onClick}>
-			<svg></svg>
-			<p>{name}</p>
+			{children}
 		</FormulaButtonStyle>
 	);
 }

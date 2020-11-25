@@ -5,6 +5,9 @@ import { setSelectedButton } from "../slice";
 import DropdownItems from "../presentationals/DropdownItems";
 import ButtonMenuLayout from "../layouts/ButtonMenuLayout";
 import FormulaButton from "../presentationals/FormulaButton";
+import FxIcon from "../icons/FxIcon";
+import AlphaIcon from "../icons/AlphaIcon";
+import RootIcon from "../icons/RootIcon";
 import { latexFunction } from "../util";
 
 export default function FormulaButtonContainer() {
@@ -21,20 +24,19 @@ export default function FormulaButtonContainer() {
 	};
 
 	const buttonsContent = [
-		{ name: "연산자", onClick: handleButtonClick("연산자") },
-		{ name: "문자", onClick: handleButtonClick("문자") },
-		{ name: "수식", onClick: handleButtonClick("수식") },
+		{ name: "연산자", onClick: handleButtonClick("연산자"), icon: <RootIcon /> },
+		{ name: "문자", onClick: handleButtonClick("문자"), icon: <AlphaIcon /> },
+		{ name: "수식", onClick: handleButtonClick("수식"), icon: <FxIcon /> },
 	];
 
 	return (
 		<ButtonMenuLayout>
-			{buttonsContent.map(({ name, onClick }, index) => (
+			{buttonsContent.map(({ name, onClick, icon }, index) => (
 				<div key={`D${index}`}>
 					<FormulaButton
 						key={`FB${index}`}
-						name={name}
 						onClick={onClick}
-					/>
+					>{icon}</FormulaButton>
 					{name === selectedButton && (
 						<DropdownItems
 							key={`FDC${index}`}
