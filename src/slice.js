@@ -4,14 +4,23 @@ const { reducer, actions } = createSlice({
 	name: "FEditor",
 	initialState: {
 		selectedButton: "",
-		latexInput: "",
+		mathquill: {
+			latexInput: "",
+			mathField: null,
+		},
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
 			return { ...state, selectedButton: payload };
 		},
 		setLatexInput(state, { payload }) {
-			return { ...state, latexInput: payload };
+			return {
+				...state,
+				mathquill: {
+					...state.mathquill,
+					latexInput: payload,
+				},
+			};
 		},
 	},
 });

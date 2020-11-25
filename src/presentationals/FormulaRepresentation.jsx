@@ -16,7 +16,7 @@ const FormulaRepresentationStyle = styled.div`
 
 export default function FormulaRepresentation() {
 	const dispatch = useDispatch();
-	const latexInput = useSelector(state => state.latexInput);
+	const latexInput = useSelector(state => state.mathquill.latexInput);
 
 	const handleLatexInput = mathField => {
 		dispatch(setLatexInput(mathField.latex()));
