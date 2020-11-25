@@ -26,7 +26,7 @@ export default function SideBar() {
 
 	return (
 		<SideBarLayout className={isOpenSidebar}>
-			<button onClick={handleToggleSidebar}>{"<"}</button>
+			<button onClick={handleToggleSidebar}>{isOpenSidebar === "hide" ? "<" : ">"}</button>
 			<div>
 				<SideBarTab currentTab={tabState} onClick={handleTabClick} />
 				{tabMap[tabState]}

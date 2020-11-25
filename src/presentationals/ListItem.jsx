@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+import { color } from "../GlobalStyle";
+import EmptyStarIcon from "../icons/EmptyStarIcon";
+import PlusIcon from "../icons/PlusIcon";
 import IconButton from "./IconButton";
 
 const Layout = styled.div`
@@ -15,7 +18,7 @@ const Bottom = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: grey;
+	background-color: #eef1f1;
 	height: 100%;
 	margin: 5px;
 	border-radius: 15px;
@@ -36,8 +39,12 @@ export default function ListItem({ latex, bookmarkOnClick, customOnClick }) {
 				<Formula>{latex}</Formula>
 			</Item>
 			<Bottom>
-				{bookmarkOnClick && <IconButton onClick={bookmarkOnClick} icon={"*"} />}
-				<IconButton onClick={customOnClick} icon={"+"} />
+				{bookmarkOnClick &&
+					<IconButton onClick={bookmarkOnClick}>
+						<EmptyStarIcon fill={color.yellow} />
+					</IconButton>
+				}
+				<IconButton onClick={customOnClick}><PlusIcon /></IconButton>
 			</Bottom>
 		</Layout>
 	);
