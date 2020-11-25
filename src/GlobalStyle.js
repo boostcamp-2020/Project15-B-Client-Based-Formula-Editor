@@ -10,15 +10,6 @@ const GlobalStyle = createGlobalStyle`
 	body {
 		overflow: hidden;
 	}
-
-  .mq-math-mode {
-		width: 100%;
-		height: 100%;
-		margin: auto;
-    padding: 130px;
-		border: none;
-		text-align: center;
-	}
 `;
 
 export const color = {

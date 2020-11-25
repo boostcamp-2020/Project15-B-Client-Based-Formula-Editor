@@ -9,6 +9,15 @@ const FormulaRepresentationStyle = styled.div`
   border: 1px solid black;
 	display: flex;
 	flex-direction: row;
+
+	& > .mq-math-mode {
+		width: 100%;
+		height: 100%;
+		margin: auto;
+    padding: 130px;
+		border: none;
+		text-align: center;
+	}
 `;
 
 export default function FormulaRepresentation({ latexInput, handleLatexInput, mathquillDidMount }) {
