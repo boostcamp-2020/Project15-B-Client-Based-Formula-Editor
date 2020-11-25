@@ -6,6 +6,7 @@ import { setSelectedButton } from "../slice";
 import DropdownItems from "../presentationals/DropdownItems";
 import ButtonMenuLayout from "../layouts/ButtonMenuLayout";
 import FormulaButton from "../presentationals/FormulaButton";
+import { latexFunction } from "../util";
 
 export default function FormulaButtonContainer() {
 	const dispatch = useDispatch();
@@ -16,15 +17,15 @@ export default function FormulaButtonContainer() {
 		return () => dispatch(setSelectedButton(state));
 	};
 
+	const handleItemClick = latex => () => {
+		latexFunction.insertLatex(latex);
+	};
+
 	const buttonsContent = [
 		{ name: "연산자", onClick: handleButtonClick("연산자") },
 		{ name: "문자", onClick: handleButtonClick("문자") },
 		{ name: "수식", onClick: handleButtonClick("수식") },
 	];
-
-	const handleItemClick = latex => () => {
-		// mathField.write(latex);
-	};
 
 	return (
 		<ButtonMenuLayout>

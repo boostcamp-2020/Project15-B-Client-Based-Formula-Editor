@@ -11,7 +11,7 @@ const LatexRepresentationStyle = styled.div`
 `;
 
 export default function LatexRepresentation() {
-	const latexInput = useSelector(state => state.mathquill.latexInput);
+	const latexInput = useSelector(state => state.latexInput);
 
 	return (
 		<LatexRepresentationStyle>
