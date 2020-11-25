@@ -1,5 +1,8 @@
 import React from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { setPastLatexCommands, setPresentLatexCommand } from "../slice";
+
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
@@ -9,6 +12,15 @@ import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
 
 export default function BodyContainer() {
+	const dispatch = useDispatch();
+	const presentLatexCommand = useSelector(state => state.presentLatexCommand);
+	const pastLatexCommands = useSelector(state => state.pastLatexCommands);
+
+	const onChange = ({ target }) => {
+		dispatch(setPastLatexCommands([presentLatexCommand, ...pastLatexCommands]));
+		dispatch(setPresentLatexCommand(target.value));
+	};
+
 	return (
 		<BodyLayout>
 			<EditTabButton />
@@ -17,7 +29,7 @@ export default function BodyContainer() {
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
 			<FormulaRepresentation />
-			<LatexRepresentation />
+			<LatexRepresentation value={presentLatexCommand} onChange={onChange}/>
 		</BodyLayout>
 	);
 }
