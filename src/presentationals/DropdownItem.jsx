@@ -7,7 +7,7 @@ const DropdownItemStyle = styled.button`
 	padding: 2px;
 	margin: 2px;
 	border: 1px solid black;
-	background-color: green;
+	background-color: white;
 `;
 
 export default function DropdownItem({ value, onClick }) {

@@ -3,7 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setSelectedButton } from "../slice";
-import FormulaDropdownContainer from "../containers/FormulaDropdownContainer";
+import DropdownItems from "../presentationals/DropdownItems";
 import ButtonMenuLayout from "../layouts/ButtonMenuLayout";
 import FormulaButton from "../presentationals/FormulaButton";
 
@@ -22,12 +22,26 @@ export default function FormulaButtonContainer() {
 		{ name: "수식", onClick: handleButtonClick("수식") },
 	];
 
+	const handleItemClick = latex => () => {
+		// mathField.write(latex);
+	};
+
 	return (
 		<ButtonMenuLayout>
-			{buttonsContent.map((elem, index) => (
+			{buttonsContent.map(({ name, onClick }, index) => (
 				<div key={`D${index}`}>
-					<FormulaButton key={`FB${index}`} name={elem.name} onClick={elem.onClick} />
-					{elem.name === selectedButton && <FormulaDropdownContainer key={`FDC${index}`} name={elem.name} />}
+					<FormulaButton
+						key={`FB${index}`}
+						name={name}
+						onClick={onClick}
+					/>
+					{name === selectedButton && (
+						<DropdownItems
+							key={`FDC${index}`}
+							name={name}
+							onItemClick={handleItemClick}
+						/>
+					)}
 				</div>
 			))}
 		</ButtonMenuLayout>
