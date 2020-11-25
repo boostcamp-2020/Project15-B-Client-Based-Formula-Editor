@@ -13,6 +13,7 @@ const FormulaRepresentationStyle = styled.div`
 	display: flex;
 	flex-direction: row;
 	font-size:${props => props.fontInfo.size}px;
+	color:${props => props.fontInfo.color};
 `;
 
 export default function FormulaRepresentation() {
