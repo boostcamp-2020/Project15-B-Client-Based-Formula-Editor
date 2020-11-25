@@ -9,6 +9,7 @@ const { reducer, actions } = createSlice({
 			size: "15",
 			color: "black",
 		},
+		alignInfo: "center",
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -20,6 +21,9 @@ const { reducer, actions } = createSlice({
 		setFont(state, { payload }) {
 			return { ...state, fontInfo: { size: payload.size, color: payload.color } };
 		},
+		setAlign(state, { payload }) {
+			return { ...state, alignInfo: payload };
+		},
 	},
 });
 
@@ -27,6 +31,7 @@ export const {
 	setSelectedButton,
 	setLatexInput,
 	setFont,
+	setAlign,
 } = actions;
 
 export default reducer;

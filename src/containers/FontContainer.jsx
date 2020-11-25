@@ -5,7 +5,7 @@ import FontContainerLayout from "../layouts/FontContainerLayout";
 import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
 import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
-import { setFont } from "../slice";
+import { setAlign, setFont } from "../slice";
 
 export default function FontContainer() {
 	const fontInfo = useSelector(state => state.fontInfo);
@@ -21,13 +21,13 @@ export default function FontContainer() {
 		// dispatch
 	};
 	const handleLeftAlignmentButton = () => {
-		console.log("clicked left");
+		dispatch(setAlign("left"));
 	};
 	const handleCenterAlignmentButton = () => {
-		console.log("clicked center");
+		dispatch(setAlign("center"));
 	};
 	const handleRightAlignmentButton = () => {
-		console.log("clicked right");
+		dispatch(setAlign("right"));
 	};
 
 	return (

@@ -14,19 +14,23 @@ const FormulaRepresentationStyle = styled.div`
 	flex-direction: row;
 	font-size:${props => props.fontInfo.size}px;
 	color:${props => props.fontInfo.color};
+	& > .mq-math-mode{
+		text-align:${props => props.align};
+	}
 `;
 
 export default function FormulaRepresentation() {
 	const dispatch = useDispatch();
 	const latexInput = useSelector(state => state.latexInput);
 	const fontInfo = useSelector(state => state.fontInfo);
+	const align = useSelector(state => state.alignInfo);
 
 	const handleLatexInput = mathField => {
 		dispatch(setLatexInput(mathField.latex()));
 	};
 
 	return (
-		<FormulaRepresentationStyle fontInfo={fontInfo}>
+		<FormulaRepresentationStyle fontInfo={fontInfo} align={align}>
 			<EditableMathField
 				latex={latexInput}
 				onChange={handleLatexInput}

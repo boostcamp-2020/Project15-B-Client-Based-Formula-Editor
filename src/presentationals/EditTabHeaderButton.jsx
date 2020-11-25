@@ -15,9 +15,9 @@ const EditTabHeaderButtonStyle = styled.button`
 	}
 `;
 
-export default function EditTabHeaderButton() {
+export default function EditTabHeaderButton({ onClick }) {
 	return (
-		<EditTabHeaderButtonStyle>
+		<EditTabHeaderButtonStyle onClick={onClick}>
 			<svg></svg>
 		</EditTabHeaderButtonStyle>
 	);
