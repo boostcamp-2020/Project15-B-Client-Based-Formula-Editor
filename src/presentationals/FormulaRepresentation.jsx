@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { addStyles, EditableMathField } from "react-mathquill";
 
-import { setLatexInput } from "../slice";
+import { setLatexInput, setMathField } from "../slice";
 
 addStyles();
 
@@ -20,6 +20,7 @@ export default function FormulaRepresentation() {
 
 	const handleLatexInput = mathField => {
 		dispatch(setLatexInput(mathField.latex()));
+		dispatch(setMathField(mathField));
 	};
 
 	return (

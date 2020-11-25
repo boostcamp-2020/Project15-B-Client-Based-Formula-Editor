@@ -11,16 +11,13 @@ const { reducer, actions } = createSlice({
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
-			return { ...state, selectedButton: payload };
+			state.selectedButton = payload;
 		},
 		setLatexInput(state, { payload }) {
-			return {
-				...state,
-				mathquill: {
-					...state.mathquill,
-					latexInput: payload,
-				},
-			};
+			state.mathquill.latexInput = payload;
+		},
+		setMathField(state, { payload }) {
+			state.mathquill.mathField = payload;
 		},
 	},
 });
@@ -28,6 +25,7 @@ const { reducer, actions } = createSlice({
 export const {
 	setSelectedButton,
 	setLatexInput,
+	setMathField,
 } = actions;
 
 export default reducer;
