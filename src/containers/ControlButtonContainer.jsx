@@ -22,8 +22,16 @@ export default function ControlButtonContainer(params) {
 	};
 
 	const handleRedoButton = () => {
-		console.log("clicked redo");
+		if (futureLatexCommands.Length === 0) return;
+		const followingLatexCommand = futureLatexCommands[0];
+		const newFuture = futureLatexCommands.slice(1);
+		const newPast = [presentLatexCommand, ...pastLatexCommands];
+
+		dispatch(setFutureLatexCommands(newFuture));
+		dispatch(setPresentLatexCommand(followingLatexCommand));
+		dispatch(setPastLatexCommands(newPast));
 	};
+
 	const handleResetButton = () => {
 		console.log("clicked reset");
 	};
