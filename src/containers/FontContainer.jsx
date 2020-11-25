@@ -35,9 +35,9 @@ export default function FontContainer() {
 			<FontSizeSelector fontSize={fontInfo.size} onChange={handleFontSize} />
 			<FontColorSelector onChange={handleFontColor} onClick={handleClickFontColor}
 				fontColor={fontInfo.color} />
-			<EditTabHeaderButton onClick={handleLeftAlignmentButton} />
-			<EditTabHeaderButton onClick={handleCenterAlignmentButton} />
-			<EditTabHeaderButton onClick={handleRightAlignmentButton} />
+			<EditTabHeaderButton onClick={handleLeftAlignmentButton} Icon="L" />
+			<EditTabHeaderButton onClick={handleCenterAlignmentButton} Icon="C" />
+			<EditTabHeaderButton onClick={handleRightAlignmentButton} Icon="R" />
 		</FontContainerLayout>
 	);
 }
