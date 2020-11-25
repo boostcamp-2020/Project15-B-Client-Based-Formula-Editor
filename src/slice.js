@@ -13,16 +13,16 @@ const { reducer, actions } = createSlice({
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
-			return { ...state, selectedButton: payload };
+			state.selectedButton = payload;
 		},
 		setLatexInput(state, { payload }) {
-			return { ...state, latexInput: payload };
+			state.latexInput = payload;
 		},
 		setFont(state, { payload }) {
-			return { ...state, fontInfo: { size: payload.size, color: payload.color } };
+			state.fontInfo = { size: payload.size, color: payload.color };
 		},
 		setAlign(state, { payload }) {
-			return { ...state, alignInfo: payload };
+			state.alignInfo = payload;
 		},
 	},
 });

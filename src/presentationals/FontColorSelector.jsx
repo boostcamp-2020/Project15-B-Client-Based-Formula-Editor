@@ -26,9 +26,9 @@ const FontColorSelectorStyle = styled.label`
 
 export default function FontColorSelector({ fontColor, onClick, onChange }) {
 	return (
-		<FontColorSelectorStyle for='colorInput' onClick={onClick}>
+		<FontColorSelectorStyle onClick={onClick}>
 			<svg></svg>
-			<input id='colorInput' type="color" value={fontColor} onChange={onChange} />
+			<input type="color" value={fontColor} onChange={onChange} />
 		</FontColorSelectorStyle>
 	);
 }
