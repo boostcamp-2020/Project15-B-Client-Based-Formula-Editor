@@ -4,13 +4,12 @@ import { addStyles, EditableMathField } from "react-mathquill";
 
 addStyles();
 
-const FormulaRepresentationStyle = styled.div`
+const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo: { color } }) => ({ color }))`
   height: 300px;
   border: 1px solid black;
 	display: flex;
 	flex-direction: row;
 	font-size:${props => props.fontInfo.size}px;
-	color:${props => props.fontInfo.color};
 	
 	> .mq-math-mode {
 		width: 100%;
