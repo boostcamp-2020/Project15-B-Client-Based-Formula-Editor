@@ -2,13 +2,22 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   * {
-    font-family: sans-serif;
     margin: 0;
     padding: 0;
 		box-sizing: border-box;
 	}
-	body{
+
+	body {
 		overflow: hidden;
+	}
+
+  .mq-math-mode {
+		width: 100%;
+		height: 100%;
+		margin: auto;
+    padding: 130px;
+		border: none;
+		text-align: center;
 	}
 `;
 
