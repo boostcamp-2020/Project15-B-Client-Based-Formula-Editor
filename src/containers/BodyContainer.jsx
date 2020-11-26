@@ -29,6 +29,10 @@ export default function BodyContainer() {
 		};
 	};
 
+	const handleLatexTextarea = e => {
+		dispatch(setLatexInput(e.target.value));
+	};
+
 	return (
 		<BodyLayout>
 			<EditTabButton />
@@ -45,6 +49,7 @@ export default function BodyContainer() {
 			/>
 			<LatexRepresentation
 				latexInput={latexInput}
+				onChange={handleLatexTextarea}
 			/>
 		</BodyLayout>
 	);
