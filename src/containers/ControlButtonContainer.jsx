@@ -1,17 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
+import { redoEvent, undoEvent, resetEvent } from "../slice";
 import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
 
 export default function ControlButtonContainer(params) {
-	const handleUndoButton = () => {
-		console.log("clicked undo");
-	};
-	const handleRedoButton = () => {
-		console.log("clicked redo");
-	};
-	const handleResetButton = () => {
-		console.log("clicked reset");
-	};
+	const dispatch = useDispatch();
+
+	const handleUndoButton = () => dispatch(undoEvent());
+	const handleRedoButton = () => dispatch(redoEvent());
+	const handleResetButton = () => dispatch(resetEvent());
 
 	return (
 		<div>
