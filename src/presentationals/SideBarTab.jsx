@@ -11,6 +11,9 @@ const TabLayout = styled.div`
 	display: flex;
 	justify-content: space-around;
 	padding-top: 10px;
+	z-index: 1000;
+	position: relative;
+	${({ isScrollTop }) => (!isScrollTop && "box-shadow: 0 12px 15px -15px grey;")}
 `;
 
 const Tab = styled.div`
@@ -27,11 +30,11 @@ const Tab = styled.div`
 	)}
 `;
 
-export default function SideBarTab({ currentTab, onClick }) {
+export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
 	const tabMenus = [<TimeIcon key="0"/>, <EmptyStarIcon key="1"/>, <CustomIcon key="2"/>];
 
 	return (
-		<TabLayout>
+		<TabLayout isScrollTop={isScrollTop}>
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
 					<IconButton isHover={currentTab !== index} icon={tabMenu} />
