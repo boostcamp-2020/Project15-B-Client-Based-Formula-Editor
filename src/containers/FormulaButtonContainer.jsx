@@ -52,6 +52,7 @@ export default function FormulaButtonContainer() {
 					<FormulaButton
 						key={`FB${index}`}
 						onClick={onClick}
+						isSelected={selectedButton === name}
 					>{icon}</FormulaButton>
 					{name === selectedButton && (
 						<DropdownItems

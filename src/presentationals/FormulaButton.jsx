@@ -7,11 +7,11 @@ const FormulaButtonStyle = styled.button`
 	width: 80px;
 	height: 80px;
 	cursor: pointer;
-	background-color: ${color.light};
+	background-color: ${({ isSelected }) => (isSelected ? color.normal : color.light)};
 	border: 1px solid ${color.dark};
 	outline: none;
 	
-	&:hover, &:focus {
+	&:hover {
 		background-color: ${color.normal};
 	}
 
@@ -21,9 +21,9 @@ const FormulaButtonStyle = styled.button`
 	}
 `;
 
-export default function FormulaButton({ children, onClick }) {
+export default function FormulaButton({ children, onClick, isSelected }) {
 	return (
-		<FormulaButtonStyle onClick={onClick}>
+		<FormulaButtonStyle onClick={onClick} isSelected={isSelected}>
 			{children}
 		</FormulaButtonStyle>
 	);
