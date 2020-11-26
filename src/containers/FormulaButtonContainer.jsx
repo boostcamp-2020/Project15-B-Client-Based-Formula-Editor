@@ -21,6 +21,7 @@ export default function FormulaButtonContainer() {
 
 	const handleItemClick = latex => () => {
 		latexFunction.insertLatex(latex);
+		dispatch(setSelectedButton(""));
 	};
 
 	const buttonsContent = [
