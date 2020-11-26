@@ -9,20 +9,24 @@ const FormulaRepresentationStyle = styled.div`
   border: 1px solid black;
 	display: flex;
 	flex-direction: row;
-
+	font-size:${props => props.fontInfo.size}px;
+	color:${props => props.fontInfo.color};
+	
 	> .mq-math-mode {
 		width: 100%;
 		height: 100%;
 		margin: auto;
     padding: 130px;
 		border: none;
-		text-align: center;
+		text-align: ${props => props.align};
 	}
 `;
 
-export default function FormulaRepresentation({ latexInput, handleLatexInput, mathquillDidMount }) {
+export default function FormulaRepresentation({
+	latexInput, handleLatexInput, mathquillDidMount, fontInfo, alignInfo,
+}) {
 	return (
-		<FormulaRepresentationStyle>
+		<FormulaRepresentationStyle fontInfo={fontInfo} align={alignInfo}>
 			<EditableMathField
 				latex={latexInput}
 				onChange={handleLatexInput}

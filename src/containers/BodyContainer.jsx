@@ -13,7 +13,7 @@ import { latexFunction } from "../util";
 
 export default function BodyContainer() {
 	const dispatch = useDispatch();
-	const latexInput = useSelector(state => state.latexInput);
+	const { latexInput, fontInfo, alignInfo } = useSelector(state => state);
 
 	const handleLatexInput = mathField => {
 		dispatch(setLatexInput(mathField.latex()));
@@ -36,6 +36,8 @@ export default function BodyContainer() {
 				latexInput={latexInput}
 				handleLatexInput={handleLatexInput}
 				mathquillDidMount={setUpLatexInsertFunction}
+				fontInfo={fontInfo}
+				alignInfo={alignInfo}
 			/>
 			<LatexRepresentation
 				latexInput={latexInput}
