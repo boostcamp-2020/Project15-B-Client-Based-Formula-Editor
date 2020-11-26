@@ -4,8 +4,8 @@ import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 
-export default function RecentContainer() {
-	const recentItems = [{ id: 0, latex: "2 + 3" }, { id: 1, latex: "4 + 5" }, { id: 2, latex: "6 + 7" }];
+export default function RecentContainer({ onScroll }) {
+	const recentItems = [{ id: 0, latex: "2 + 3" }, { id: 1, latex: "4 + 5" }, { id: 2, latex: "6 + 7" }, { id: 3, latex: "6 + 7" }, { id: 4, latex: "6 + 7" }];
 
 	const handleBookmarkButtonClick = () => {
 		console.log("bookmark");
@@ -16,7 +16,7 @@ export default function RecentContainer() {
 	};
 
 	return (
-		<ListLayout>
+		<ListLayout onScroll={onScroll}>
 			<SideBarHeader title={"최근 수식 목록"} />
 			{recentItems.map(({ id, latex }) =>
 				<ListItem

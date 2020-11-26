@@ -9,10 +9,15 @@ import CustomContainer from "./CustomContainer";
 export default function SideBar() {
 	const [tabState, setTabState] = useState(0);
 	const [isOpenSidebar, setIsOpenSidebar] = useState("hide");
+	const [isScrollTop, setIsScrollTop] = useState(true);
+
+	const handleSidebarScroll = ({ target }) => {
+		setIsScrollTop(!target.scrollTop);
+	};
 
 	const tabMap = {
-		0: <RecentContainer />,
-		1: <BookmarkContainer />,
+		0: <RecentContainer onScroll={handleSidebarScroll}/>,
+		1: <BookmarkContainer onScroll={handleSidebarScroll}/>,
 		2: <CustomContainer />,
 	};
 
@@ -28,7 +33,7 @@ export default function SideBar() {
 		<SideBarLayout className={isOpenSidebar}>
 			<button onClick={handleToggleSidebar}>{isOpenSidebar === "hide" ? "<" : ">"}</button>
 			<div>
-				<SideBarTab currentTab={tabState} onClick={handleTabClick} />
+				<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
 				{tabMap[tabState]}
 			</div>
 		</SideBarLayout>
