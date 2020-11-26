@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setPastLatexCommands, setPresentLatexCommand } from "../slice";
+import { setControlLatexCommand } from "../slice";
 
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
@@ -13,12 +13,18 @@ import LatexRepresentation from "../presentationals/LatexRepresentation";
 
 export default function BodyContainer() {
 	const dispatch = useDispatch();
-	const presentLatexCommand = useSelector(state => state.presentLatexCommand);
-	const pastLatexCommands = useSelector(state => state.pastLatexCommands);
+	const {
+		presentLatexCommand,
+		pastLatexCommands,
+	} = useSelector(state => state);
 
 	const onChange = ({ target }) => {
-		dispatch(setPastLatexCommands([presentLatexCommand, ...pastLatexCommands]));
-		dispatch(setPresentLatexCommand(target.value));
+		const newState = {
+			pastLatexCommands: [presentLatexCommand, ...pastLatexCommands],
+			presentLatexCommand: target.value,
+		};
+
+		dispatch(setControlLatexCommand(newState));
 	};
 
 	return (

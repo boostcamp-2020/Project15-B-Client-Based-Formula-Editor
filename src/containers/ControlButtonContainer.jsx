@@ -1,42 +1,46 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setPastLatexCommands, setPresentLatexCommand, setFutureLatexCommands } from "../slice";
+import { setControlLatexCommand } from "../slice";
 import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
 
 export default function ControlButtonContainer(params) {
 	const dispatch = useDispatch();
-	const pastLatexCommands = useSelector(state => state.pastLatexCommands);
-	const presentLatexCommand = useSelector(state => state.presentLatexCommand);
-	const futureLatexCommands = useSelector(state => state.futureLatexCommands);
+	const {
+		pastLatexCommands,
+		presentLatexCommand,
+		futureLatexCommands,
+	} = useSelector(state => state);
 
 	const handleUndoButton = () => {
 		if (pastLatexCommands.length === 0) return;
-		const previousLatexCommand = pastLatexCommands[0];
-		const newPast = pastLatexCommands.slice(1);
-		const newFuture = [presentLatexCommand, ...futureLatexCommands];
+		const newState = {
+			pastLatexCommands: pastLatexCommands.slice(1),
+			presentLatexCommand: pastLatexCommands[0],
+			futureLatexCommands: [presentLatexCommand, ...futureLatexCommands],
+		};
 
-		dispatch(setFutureLatexCommands(newFuture));
-		dispatch(setPresentLatexCommand(previousLatexCommand));
-		dispatch(setPastLatexCommands(newPast));
+		dispatch(setControlLatexCommand(newState));
 	};
 
 	const handleRedoButton = () => {
 		if (futureLatexCommands.Length === 0) return;
-		const followingLatexCommand = futureLatexCommands[0];
-		const newFuture = futureLatexCommands.slice(1);
-		const newPast = [presentLatexCommand, ...pastLatexCommands];
+		const newState = {
+			pastLatexCommands: [presentLatexCommand, ...pastLatexCommands],
+			presentLatexCommand: futureLatexCommands[0],
+			futureLatexCommands: futureLatexCommands.slice(1),
+		};
 
-		dispatch(setFutureLatexCommands(newFuture));
-		dispatch(setPresentLatexCommand(followingLatexCommand));
-		dispatch(setPastLatexCommands(newPast));
+		dispatch(setControlLatexCommand(newState));
 	};
 
 	const handleResetButton = () => {
-		const newPast = [presentLatexCommand, ...pastLatexCommands];
+		const newState = {
+			pastLatexCommands: [presentLatexCommand, ...pastLatexCommands],
+			presentLatexCommand: "",
+		};
 
-		dispatch(setPastLatexCommands(newPast));
-		dispatch(setPresentLatexCommand(""));
+		dispatch(setControlLatexCommand(newState));
 	};
 
 	return (
