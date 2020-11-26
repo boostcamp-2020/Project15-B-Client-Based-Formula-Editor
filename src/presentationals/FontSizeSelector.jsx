@@ -8,7 +8,7 @@ const FontSizeSelectorStyle = styled.select`
 `;
 
 export default function FontSizeSelector({ fontSize, onChange }) {
-	const ableFontSize = [11, 13, 15, 17, 19];
+	const ableFontSize = [11, 12, 13, 14, 15, 16, 17, 18, 19];
 
 	return (
 		<FontSizeSelectorStyle value={fontSize} onChange={onChange} >
