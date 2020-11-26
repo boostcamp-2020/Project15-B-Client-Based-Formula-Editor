@@ -25,6 +25,9 @@ export const color = {
 	light: "#82e9de",
 	normal: "#4db6ac",
 	dark: "#00867d",
+	red: "#d73a49",
+	blue: "#0366d6",
+	yellow: "#ffc107",
 };
 
 export default GlobalStyle;

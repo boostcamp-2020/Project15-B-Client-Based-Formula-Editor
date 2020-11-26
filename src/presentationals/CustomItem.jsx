@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 import IconButton from "./IconButton";
+import EditIcon from "../icons/EditIcon";
+import DeleteIcon from "../icons/DeleteIcon";
 
 const Layout = styled.div`
 	position: relative;
@@ -14,7 +16,7 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-background-color: grey;
+	background-color: #eef1f1;
 	border: 1px solid black;
 	height: 50px;
 	cursor: pointer;
@@ -42,8 +44,8 @@ export default function CustomItem({ name, onClick }) {
 				<Title>{name}</Title>
 			</Item>
 			<Buttons>
-				<IconButton icon={"수정"} onClick={onClick} />
-				<IconButton icon={"삭제"} />
+				<IconButton onClick={onClick} isHover={true} icon={<EditIcon />} />
+				<IconButton isHover={true} icon={<DeleteIcon />} />
 			</Buttons>
 		</Layout>
 	);
