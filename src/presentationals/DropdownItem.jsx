@@ -14,7 +14,7 @@ const DropdownItemStyle = styled.button`
 
 	${({ isFormulaType }) => (isFormulaType ? `width: 240px;` : `width: 30px;`)}
 
-	& > .mq-math-mode {
+	> .mq-math-mode {
 		cursor: pointer;
 	}
 `;

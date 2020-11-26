@@ -10,7 +10,7 @@ const FormulaRepresentationStyle = styled.div`
 	display: flex;
 	flex-direction: row;
 
-	& > .mq-math-mode {
+	> .mq-math-mode {
 		width: 100%;
 		height: 100%;
 		margin: auto;
