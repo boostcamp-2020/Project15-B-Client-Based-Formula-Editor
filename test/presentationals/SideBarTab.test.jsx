@@ -8,9 +8,8 @@ describe("<SideBarTab />", () => {
 	it("renders tab menu", () => {
 		const onClick = () => () => {};
 		const { container } = render(<SideBarTab onClick={onClick}/>);
+		const tabMenus = container.querySelectorAll("button");
 
-		expect(container).toHaveTextContent("최근");
-		expect(container).toHaveTextContent("즐찾");
-		expect(container).toHaveTextContent("커스텀");
+		expect(tabMenus).toHaveLength(3);
 	});
 });

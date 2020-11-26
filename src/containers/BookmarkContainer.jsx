@@ -2,6 +2,7 @@ import React from "react";
 
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
+import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 
 export default function BookmarkContainer() {
@@ -13,6 +14,7 @@ export default function BookmarkContainer() {
 
 	return (
 		<ListLayout>
+			<SideBarHeader title={"북마크 수식 목록"} />
 			{bookmarkItems.map(({ id, latex }) =>
 				<ListItem
 					key={id}
