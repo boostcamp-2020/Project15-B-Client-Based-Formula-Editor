@@ -17,5 +17,6 @@ module.exports = {
 		"linebreak-style": "off",
 		"object-curly-spacing": ["error", "always"],
 		"react/prop-types": "off",
+		"array-element-newline": "off",
 	},
 };

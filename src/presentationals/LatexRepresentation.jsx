@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const LatexRepresentationStyle = styled.div`
@@ -10,9 +9,7 @@ const LatexRepresentationStyle = styled.div`
 	border: 1px solid black;
 `;
 
-export default function LatexRepresentation() {
-	const latexInput = useSelector(state => state.latexInput);
-
+export default function LatexRepresentation({ latexInput }) {
 	return (
 		<LatexRepresentationStyle>
 			{latexInput}

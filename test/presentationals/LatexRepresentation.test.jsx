@@ -6,9 +6,9 @@ import LatexRepresentation from "../../src/presentationals/LatexRepresentation";
 
 describe("<LatexRepresentation />", () => {
 	it("renders latex representation", () => {
-		const { container } = render(<LatexRepresentation />);
-		const div = container.querySelector("textarea");
+		const latexInput = "1 + 2";
+		const { container } = render(<LatexRepresentation latexInput={latexInput} />);
 
-		expect(div).toBeVisible();
+		expect(container).toHaveTextContent(latexInput);
 	});
 });

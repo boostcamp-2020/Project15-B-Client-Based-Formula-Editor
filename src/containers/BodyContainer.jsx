@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
@@ -7,8 +8,23 @@ import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import EditTabButton from "../presentationals/EditTabButton";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
+import { setLatexInput } from "../slice";
+import { latexFunction } from "../util";
 
 export default function BodyContainer() {
+	const dispatch = useDispatch();
+	const { latexInput, fontInfo, alignInfo } = useSelector(state => state);
+
+	const handleLatexInput = mathField => {
+		dispatch(setLatexInput(mathField.latex()));
+	};
+
+	const setUpLatexInsertFunction = mathField => {
+		latexFunction.insertLatex = latex => {
+			mathField.write(latex);
+		};
+	};
+
 	return (
 		<BodyLayout>
 			<EditTabButton />
@@ -16,8 +32,16 @@ export default function BodyContainer() {
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
-			<FormulaRepresentation />
-			<LatexRepresentation />
+			<FormulaRepresentation
+				latexInput={latexInput}
+				handleLatexInput={handleLatexInput}
+				mathquillDidMount={setUpLatexInsertFunction}
+				fontInfo={fontInfo}
+				alignInfo={alignInfo}
+			/>
+			<LatexRepresentation
+				latexInput={latexInput}
+			/>
 		</BodyLayout>
 	);
 }
