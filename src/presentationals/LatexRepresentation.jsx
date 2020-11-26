@@ -1,14 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const LatexRepresentationStyle = styled.textarea`
+const LatexRepresentationStyle = styled.div`
 	width: 100%;
-	height: 200px;
+	height: 120px;
 	margin-top: 12px;
   padding: 4px;
-  resize: none;
+	border: 1px solid black;
 `;
 
-export default function LatexRepresentation({ value, onChange }) {
-	return <LatexRepresentationStyle value={value} onChange={onChange}></LatexRepresentationStyle>;
+export default function LatexRepresentation({ latexInput }) {
+	return (
+		<LatexRepresentationStyle>
+			{latexInput}
+		</LatexRepresentationStyle>
+	);
 }

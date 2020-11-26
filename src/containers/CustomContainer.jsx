@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import SideBarHeader from "../presentationals/SideBarHeader";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomList from "../presentationals/CustomList";
@@ -19,6 +20,7 @@ export default function CustomContainer() {
 
 	return (
 		<div>
+			<SideBarHeader title={"사용자 명령어 목록"} />
 			<CustomAddButton
 				isFormOn={isFormOn.state}
 				onClick={handleFormOnButton}

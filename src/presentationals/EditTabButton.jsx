@@ -10,5 +10,5 @@ const EditTabButtonStyle = styled.button`
 `;
 
 export default function EditTabButton() {
-	return <EditTabButtonStyle>{"수식 편집 창"}</EditTabButtonStyle>;
+	return <EditTabButtonStyle>수식 편집 창</EditTabButtonStyle>;
 }

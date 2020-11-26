@@ -1,29 +1,34 @@
 import styled from "styled-components";
 
+const layoutWidth = 300;
+const buttonWidth = 30;
+
 const SideBarLayout = styled.div`
 	display: flex;
 	flex-direction: row;
-	width: 25%;
+	width: ${layoutWidth}px;
 	height: 100%;
 	position: absolute;
 	top: 0;
 	right: 0;
-	& > div {
-		width:100%;
+	transition: 1s;
+
+	> div {
+		width: 100%;
 		border: 1px solid black;
 		z-index: 5;
 		background-color: white;
 	}
-	& > button {
-		width: 30px;
+	> button {
+		width: ${buttonWidth}px;
 		height: 190px;
 		align-self: center;
 	}
 	&.show{
-		margin: 0;
+		right: 0;
 	}
 	&.hide{
-		margin: 0 -23% 0 0;
+		right: -${layoutWidth - buttonWidth}px;
 	}
 `;
 

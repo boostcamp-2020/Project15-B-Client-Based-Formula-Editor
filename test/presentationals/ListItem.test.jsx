@@ -11,11 +11,10 @@ describe("<ListItem />", () => {
 			const bookmarkOnClick = () => {};
 			const customOnClick = () => {};
 			const { container } = render(<ListItem { ...{ latex, bookmarkOnClick, customOnClick } }/>);
-			const [bookmarkButton, customButton] = container.querySelectorAll("button");
+			const buttons = container.querySelectorAll("button");
 
 			expect(container).toHaveTextContent(latex);
-			expect(bookmarkButton).toHaveTextContent("*");
-			expect(customButton).toHaveTextContent("+");
+			expect(buttons).toHaveLength(2);
 		});
 	});
 
@@ -24,11 +23,10 @@ describe("<ListItem />", () => {
 			const latex = "2+3";
 			const customOnClick = () => {};
 			const { container } = render(<ListItem { ...{ latex, customOnClick } }/>);
-			const [customButton] = container.querySelectorAll("button");
+			const buttons = container.querySelectorAll("button");
 
 			expect(container).toHaveTextContent(latex);
-			expect(container).not.toHaveTextContent("*");
-			expect(customButton).toHaveTextContent("+");
+			expect(buttons).toHaveLength(1);
 		});
 	});
 });
