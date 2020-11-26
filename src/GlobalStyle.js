@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const color = {
+	superLight: "#ddfff6",
 	light: "#82e9de",
 	normal: "#4db6ac",
 	dark: "#00867d",

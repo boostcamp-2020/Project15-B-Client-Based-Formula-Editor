@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { color } from "../GlobalStyle";
+
 const layoutWidth = 300;
 const buttonWidth = 30;
 
@@ -16,12 +18,12 @@ const SideBarLayout = styled.div`
 
 	> div {
 		width: 100%;
-		border: 1px solid black;
-		background-color: white;
+		border-left: 2px solid ${color.dark};
+		background-color: ${color.superLight};
 	}
 	> button {
 		width: ${buttonWidth}px;
-		height: 190px;
+		height: 150px;
 		align-self: center;
 	}
 	&.show{

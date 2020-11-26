@@ -18,7 +18,7 @@ const Bottom = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: #eef1f1;
+	background-color: white;
 	height: 100%;
 	margin: 5px;
 	border-radius: 15px;
