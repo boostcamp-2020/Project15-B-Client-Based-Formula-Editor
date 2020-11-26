@@ -34,7 +34,7 @@ export default function SideBarTab({ currentTab, onClick }) {
 		<TabLayout>
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
-					<IconButton isHover={currentTab !== index}>{tabMenu}</IconButton>
+					<IconButton isHover={currentTab !== index} icon={tabMenu} />
 				</Tab>,
 			)}
 		</TabLayout>

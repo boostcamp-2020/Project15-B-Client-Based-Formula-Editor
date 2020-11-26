@@ -8,7 +8,7 @@ import AlignRightIcon from "../icons/alignRightIcon";
 import FontContainerLayout from "../layouts/FontContainerLayout";
 import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
-import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
+import IconButton from "../presentationals/IconButton";
 
 export default function FontContainer() {
 	const fontInfo = useSelector(state => state.fontInfo);
@@ -29,9 +29,9 @@ export default function FontContainer() {
 		<FontContainerLayout>
 			<FontSizeSelector fontSize={fontInfo.size} onChange={handleFontSize} />
 			<FontColorSelector onChange={handleFontColor} fontColor={fontInfo.color} />
-			<EditTabHeaderButton onClick={handleAlignment("left")} icon={<AlignLeftIcon />} />
-			<EditTabHeaderButton onClick={handleAlignment("center")} icon={<AlignCenterIcon />} />
-			<EditTabHeaderButton onClick={handleAlignment("right")} icon={<AlignRightIcon />} />
+			<IconButton onClick={handleAlignment("left")} icon={<AlignLeftIcon />} isHover={true} />
+			<IconButton onClick={handleAlignment("center")} icon={<AlignCenterIcon />} isHover={true} />
+			<IconButton onClick={handleAlignment("right")} icon={<AlignRightIcon />} isHover={true} />
 		</FontContainerLayout>
 	);
 }

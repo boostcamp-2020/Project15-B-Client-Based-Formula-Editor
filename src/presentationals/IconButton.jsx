@@ -18,8 +18,8 @@ const Button = styled.button`
 	
 `;
 
-export default function IconButton({ children, onClick, isHover }) {
+export default function IconButton({ icon, onClick, isHover }) {
 	return (
-		<Button onClick={onClick} isHover={isHover}>{children}</Button>
+		<Button onClick={onClick} isHover={isHover}>{icon}</Button>
 	);
 }

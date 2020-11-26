@@ -40,11 +40,13 @@ export default function ListItem({ latex, bookmarkOnClick, customOnClick }) {
 			</Item>
 			<Bottom>
 				{bookmarkOnClick &&
-					<IconButton onClick={bookmarkOnClick} isHover={true}>
-						<EmptyStarIcon fill={color.yellow} />
-					</IconButton>
+					<IconButton
+						onClick={bookmarkOnClick}
+						isHover={true}
+						icon={<EmptyStarIcon fill={color.yellow} />}
+					/>
 				}
-				<IconButton onClick={customOnClick} isHover={true}><PlusIcon /></IconButton>
+				<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />
 			</Bottom>
 		</Layout>
 	);
