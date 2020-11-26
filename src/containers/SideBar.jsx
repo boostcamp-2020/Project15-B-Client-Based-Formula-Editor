@@ -35,13 +35,10 @@ export default function SideBar() {
 
 	return (
 		<SideBarLayout className={isOpenSidebar ? "show" : "hide"}>
-			{/* <div> */}
 			<IconButton
 				onClick={handleToggleSidebar}
 				icon={isOpenSidebar ? <GreaterThanIcon /> : <LessThanIcon />}
 			/>
-			{/* </div> */}
-			{/* <button onClick={handleToggleSidebar}>{isOpenSidebar === "hide" ? "<" : ">"}</button> */}
 			<div>
 				<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
 				{tabMap[tabState]}
