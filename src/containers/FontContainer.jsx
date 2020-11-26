@@ -6,6 +6,9 @@ import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
 import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
 import { setAlign, setFont } from "../slice";
+import AlignLeftIcon from "../icons/alignLeftIcon";
+import AlignCenterIcon from "../icons/alignCenterIcon";
+import AlignRightIcon from "../icons/alignRightIcon";
 
 export default function FontContainer() {
 	const fontInfo = useSelector(state => state.fontInfo);
@@ -31,9 +34,9 @@ export default function FontContainer() {
 		<FontContainerLayout>
 			<FontSizeSelector fontSize={fontInfo.size} onChange={handleFontSize} />
 			<FontColorSelector onChange={handleFontColor} fontColor={fontInfo.color} />
-			<EditTabHeaderButton onClick={handleLeftAlignmentButton} icon="L" />
-			<EditTabHeaderButton onClick={handleCenterAlignmentButton} icon="C" />
-			<EditTabHeaderButton onClick={handleRightAlignmentButton} icon="R" />
+			<EditTabHeaderButton onClick={handleLeftAlignmentButton} icon={<AlignLeftIcon />} />
+			<EditTabHeaderButton onClick={handleCenterAlignmentButton} icon={<AlignCenterIcon />} />
+			<EditTabHeaderButton onClick={handleRightAlignmentButton} icon={<AlignRightIcon />} />
 		</FontContainerLayout>
 	);
 }
