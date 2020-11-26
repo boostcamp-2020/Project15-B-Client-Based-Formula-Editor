@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setSelectedButton } from "../slice";
@@ -30,8 +30,23 @@ export default function FormulaButtonContainer() {
 		{ name: "수식", onClick: handleButtonClick("수식"), icon: <FxIcon /> },
 	];
 
+	const dropdownRef = useRef();
+
+	useEffect(() => {
+		const outsideClickEvent = ({ target }) => {
+			const isOutsideClick = !dropdownRef.current.contains(target);
+
+			if (isOutsideClick) {
+				dispatch(setSelectedButton(""));
+			}
+		};
+
+		window.addEventListener("click", outsideClickEvent);
+		return () => window.removeEventListener("click", outsideClickEvent);
+	});
+
 	return (
-		<ButtonMenuLayout>
+		<ButtonMenuLayout ref={dropdownRef}>
 			{buttonsContent.map(({ name, onClick, icon }, index) => (
 				<div key={`D${index}`}>
 					<FormulaButton
