@@ -21,16 +21,14 @@ const FormulaRepresentationStyle = styled.div`
 
 export default function FormulaRepresentation() {
 	const dispatch = useDispatch();
-	const latexInput = useSelector(state => state.latexInput);
-	const fontInfo = useSelector(state => state.fontInfo);
-	const align = useSelector(state => state.alignInfo);
+	const { latexInput, fontInfo, alignInfo } = useSelector(state => state);
 
 	const handleLatexInput = mathField => {
 		dispatch(setLatexInput(mathField.latex()));
 	};
 
 	return (
-		<FormulaRepresentationStyle fontInfo={fontInfo} align={align}>
+		<FormulaRepresentationStyle fontInfo={fontInfo} align={alignInfo}>
 			<EditableMathField
 				latex={latexInput}
 				onChange={handleLatexInput}
