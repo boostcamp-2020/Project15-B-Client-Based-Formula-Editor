@@ -5,7 +5,7 @@ import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 
 export default function RecentContainer() {
-	const recentItems = [{ id: 0, latex: "2 + 3" }, { id: 1, latex: "4 + 5" }, { id: 2, latex: "6 + 7" }];
+	const recentItems = [{ id: 0, latex: "2 + 3" }, { id: 1, latex: "4 + 5" }, { id: 2, latex: "6 + 7" }, { id: 3, latex: "6 + 7" }, { id: 4, latex: "6 + 7" }];
 
 	const handleBookmarkButtonClick = () => {
 		console.log("bookmark");
