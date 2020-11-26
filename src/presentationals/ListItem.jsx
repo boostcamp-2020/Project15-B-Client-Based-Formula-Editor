@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
-import EmptyStarIcon from "../icons/FilledStarIcon";
+import EmptyStarIcon from "../icons/EmptyStarIcon";
 import PlusIcon from "../icons/PlusIcon";
 import IconButton from "./IconButton";
 
