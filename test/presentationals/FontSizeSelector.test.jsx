@@ -7,7 +7,7 @@ import FontSizeSelector from "../../src/presentationals/FontSizeSelector";
 describe("<FontSizeSelector />", () => {
 	it("renders font size selector", () => {
 		const defaultFontSize = "15";
-		const ableFontSize = [11, 13, 15, 17, 19];
+		const ableFontSize = [11, 12, 13, 14, 15, 16, 17, 18, 19];
 		const onChange = () => {};
 		const { container } = render(<FontSizeSelector fontSize={defaultFontSize} onChange={onChange} />);
 		const options = container.querySelectorAll("option");

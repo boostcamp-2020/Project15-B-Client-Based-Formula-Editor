@@ -7,7 +7,7 @@ import IconButton from "../../src/presentationals/IconButton";
 describe("<IconButton />", () => {
 	it("renders icon button", () => {
 		const icon = "test";
-		const { container } = render(<IconButton>{icon}</IconButton>);
+		const { container } = render(<IconButton icon={icon} />);
 
 		expect(container).toHaveTextContent(icon);
 	});
