@@ -6,10 +6,18 @@ import FormulaButton from "../../src/presentationals/FormulaButton";
 
 describe("<FormulaButton />", () => {
 	it("renders formula button", () => {
-		const name = "test";
+		const children = "component";
+		const isSelected = false;
 		const onClick = () => {};
-		const { container } = render(<FormulaButton {...{ name, onClick }}/>);
+		const { container } = render(
+			<FormulaButton
+				onClick={onClick}
+				isSelected={isSelected}
+			>
+				{children}
+			</FormulaButton>,
+		);
 
-		expect(container).toHaveTextContent(name);
+		expect(container).toHaveTextContent(children);
 	});
 });

@@ -6,9 +6,20 @@ import FormulaRepresentation from "../../src/presentationals/FormulaRepresentati
 
 describe("<FormulaRepresentation />", () => {
 	it("renders formula representation", () => {
-		const { container } = render(<FormulaRepresentation />);
-		const div = container.querySelector("div");
+		const latexInput = "1+2";
+		const handleLatexInput = () => {};
+		const mathquillDidMount = () => {};
+		const fontInfo = { size: "16px", color: "black" };
+		const alignInfo = "left";
+		const { container } = render(
+			<FormulaRepresentation
+				latexInput={latexInput}
+				handleLatexInput={handleLatexInput}
+				mathquillDidMount={mathquillDidMount}
+				fontInfo={fontInfo}
+				alignInfo={alignInfo}
+			/>);
 
-		expect(div).toBeVisible();
+		expect(container).toHaveTextContent("1+2");
 	});
 });
