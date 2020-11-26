@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
-import EmptyStarIcon from "../icons/EmptyStarIcon";
+import EmptyStarIcon from "../icons/FilledStarIcon";
 import PlusIcon from "../icons/PlusIcon";
 import IconButton from "./IconButton";
 
@@ -40,11 +40,11 @@ export default function ListItem({ latex, bookmarkOnClick, customOnClick }) {
 			</Item>
 			<Bottom>
 				{bookmarkOnClick &&
-					<IconButton onClick={bookmarkOnClick}>
+					<IconButton onClick={bookmarkOnClick} isHover={true}>
 						<EmptyStarIcon fill={color.yellow} />
 					</IconButton>
 				}
-				<IconButton onClick={customOnClick}><PlusIcon /></IconButton>
+				<IconButton onClick={customOnClick} isHover={true}><PlusIcon /></IconButton>
 			</Bottom>
 		</Layout>
 	);

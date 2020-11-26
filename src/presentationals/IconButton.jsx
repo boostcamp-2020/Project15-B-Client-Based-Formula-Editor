@@ -8,15 +8,18 @@ const Button = styled.button`
 	outline: none;
 	cursor: pointer;
 
-	&:hover {
-		svg {
-			fill-opacity: 0.7;
+	${({ isHover }) => isHover && `
+		&:hover {
+			svg {
+				fill-opacity: 0.7;
+			}
 		}
-	}
+	`}
+	
 `;
 
-export default function IconButton({ children, onClick }) {
+export default function IconButton({ children, onClick, isHover }) {
 	return (
-		<Button onClick={onClick}>{children}</Button>
+		<Button onClick={onClick} isHover={isHover}>{children}</Button>
 	);
 }

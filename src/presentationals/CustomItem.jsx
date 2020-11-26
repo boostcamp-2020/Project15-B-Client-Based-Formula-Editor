@@ -44,8 +44,8 @@ export default function CustomItem({ name, onClick }) {
 				<Title>{name}</Title>
 			</Item>
 			<Buttons>
-				<IconButton onClick={onClick}><EditIcon /></IconButton>
-				<IconButton><DeleteIcon /></IconButton>
+				<IconButton onClick={onClick} isHover={true}><EditIcon /></IconButton>
+				<IconButton isHover={true}><DeleteIcon /></IconButton>
 			</Buttons>
 		</Layout>
 	);

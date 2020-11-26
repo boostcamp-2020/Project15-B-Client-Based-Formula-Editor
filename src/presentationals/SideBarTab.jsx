@@ -17,14 +17,11 @@ const Tab = styled.div`
 	${({ isSelected }) => (isSelected &&
 		`
 			border-bottom: 3px solid ${color.normal};
+			button {
+				cursor: default;
+			}
 			svg {
 				fill: ${color.normal};	
-			}
-			button:hover {
-				cursor: default;
-				svg {
-					fill-opacity: 1;
-				}
 			}
 		`
 	)}
@@ -37,7 +34,7 @@ export default function SideBarTab({ currentTab, onClick }) {
 		<TabLayout>
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
-					<IconButton>{tabMenu}</IconButton>
+					<IconButton isHover={currentTab !== index}>{tabMenu}</IconButton>
 				</Tab>,
 			)}
 		</TabLayout>
