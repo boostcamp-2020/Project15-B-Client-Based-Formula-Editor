@@ -7,17 +7,18 @@ const FormulaButtonStyle = styled.button`
 	width: 80px;
 	height: 80px;
 	cursor: pointer;
-	background-color: ${({ isSelected }) => (isSelected ? color.normal : color.light)};
+	background-color: ${({ isSelected }) => (isSelected ? color.light : color.superLight)};
 	border: 1px solid ${color.dark};
 	outline: none;
 	
 	&:hover {
-		background-color: ${color.normal};
+		background-color: ${color.light};
 	}
 
-	> svg {
+	svg {
 		width: 50px;
 		height: 50px;
+		fill: ${color.dark};
 	}
 `;
 
