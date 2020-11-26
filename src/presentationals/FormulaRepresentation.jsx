@@ -4,7 +4,7 @@ import { addStyles, EditableMathField } from "react-mathquill";
 
 addStyles();
 
-const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo: { color } }) => ({ color }))`
+const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo: { color } }) => ({ style: { color } }))`
   height: 300px;
   border: 1px solid black;
 	display: flex;

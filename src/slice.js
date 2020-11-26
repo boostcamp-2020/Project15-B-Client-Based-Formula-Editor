@@ -7,7 +7,7 @@ const { reducer, actions } = createSlice({
 		latexInput: "",
 		fontInfo: {
 			size: "15",
-			color: "black",
+			color: "#000000",
 		},
 		alignInfo: "center",
 	},
