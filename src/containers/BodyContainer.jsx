@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setControlLatexCommand, setLatexInput } from "../slice";
+import { setLatexInput } from "../slice";
 
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
@@ -18,21 +18,10 @@ export default function BodyContainer() {
 		latexInput,
 		fontInfo,
 		alignInfo,
-		pastLatexCommands,
 	} = useSelector(state => state);
 
-	const onChange = ({ target }) => {
-		const newState = {
-			pastLatexCommands: [latexInput, ...pastLatexCommands],
-			latexInput: target.value,
-		};
+	const handleLatexInput = mathField => dispatch(setLatexInput(mathField.latex()));
 
-		dispatch(setControlLatexCommand(newState));
-	};
-
-	const handleLatexInput = mathField => {
-		dispatch(setLatexInput(mathField.latex()));
-	};
 
 	const setUpLatexInsertFunction = mathField => {
 		latexFunction.insertLatex = latex => {
