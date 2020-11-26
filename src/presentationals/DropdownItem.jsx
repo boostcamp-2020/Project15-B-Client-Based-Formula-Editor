@@ -5,14 +5,13 @@ import { addStyles, StaticMathField } from "react-mathquill";
 addStyles();
 
 const DropdownItemStyle = styled.button`
+	width: ${({ isFormulaType }) => (isFormulaType ? "240" : "30")}px;
 	min-height: 30px;
 	padding: 2px;
 	margin: 2px;
 	border: 1px solid black;
 	background-color: white;
 	cursor: pointer;
-
-	${({ isFormulaType }) => (isFormulaType ? `width: 240px;` : `width: 30px;`)}
 
 	> .mq-math-mode {
 		cursor: pointer;
