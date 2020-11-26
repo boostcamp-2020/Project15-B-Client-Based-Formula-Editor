@@ -12,11 +12,11 @@ const SideBarLayout = styled.div`
 	top: 0;
 	right: 0;
 	transition: 1s;
+	z-index: 5;
 
 	> div {
 		width: 100%;
 		border: 1px solid black;
-		z-index: 5;
 		background-color: white;
 	}
 	> button {
