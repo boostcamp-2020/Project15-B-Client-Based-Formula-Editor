@@ -1,10 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
+import { color } from "../GlobalStyle";
+
 const FooterButtonStyle = styled.button`
-	width: 25%;
 	height: 40px;
 	cursor: pointer;
+	padding: 0 30px;
+	background-color: ${color.superLight};
+	border: 1px solid ${color.dark};
+
+	&:hover {
+		background-color: ${color.light};
+	}
 `;
 
 export default function FooterButton({ name, onClick }) {

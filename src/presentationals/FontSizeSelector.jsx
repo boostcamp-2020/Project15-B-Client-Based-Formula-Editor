@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
+import { color } from "../GlobalStyle";
+
 const FontSizeSelectorStyle = styled.select`
 	width: 50px;
 	height: 100%;
-	border: 0px solid black;
+	border: 0;
+	color: ${color.dark};
+	background-color: inherit;
 `;
 
 export default function FontSizeSelector({ fontSize, onChange }) {

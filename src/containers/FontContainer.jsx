@@ -2,9 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setAlign, setFont } from "../slice";
-import AlignLeftIcon from "../icons/alignLeftIcon";
-import AlignCenterIcon from "../icons/alignCenterIcon";
-import AlignRightIcon from "../icons/alignRightIcon";
+import AlignLeftIcon from "../icons/AlignLeftIcon";
+import AlignCenterIcon from "../icons/AlignCenterIcon";
+import AlignRightIcon from "../icons/AlignRightIcon";
 import FontContainerLayout from "../layouts/FontContainerLayout";
 import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
