@@ -7,6 +7,7 @@ const { reducer, actions } = createSlice({
 		pastLatexCommands: [],
 		futureLatexCommands: [],
 		latexInput: "",
+		pastLatexInput: "",
 		fontInfo: {
 			size: "15",
 			color: "#000000",
@@ -18,9 +19,11 @@ const { reducer, actions } = createSlice({
 			state.selectedButton = payload;
 		},
 		setLatexInput(state, { payload }) {
-			state.latexInput = payload;
-			if (state.latexInput === state.pastLatexCommands[0]) return;
+			if (state.pastLatexInput === payload) return;
+			state.futureLatexCommands = [];
 			state.pastLatexCommands.unshift(state.latexInput);
+			state.pastLatexInput = state.latexInput;
+			state.latexInput = payload;
 		},
 		setFont(state, { payload }) {
 			state.fontInfo = { size: payload.size, color: payload.color };
@@ -31,11 +34,13 @@ const { reducer, actions } = createSlice({
 		undoEvent(state) {
 			if (state.pastLatexCommands.length === 0) return;
 			state.futureLatexCommands.unshift(state.latexInput);
+			state.pastLatexInput = state.pastLatexCommands[0];
 			state.latexInput = state.pastLatexCommands.shift();
 		},
 		redoEvent(state) {
 			if (state.futureLatexCommands.length === 0) return;
 			state.pastLatexCommands.unshift(state.latexInput);
+			state.pastLatexInput = state.futureLatexCommands[0];
 			state.latexInput = state.futureLatexCommands.shift();
 		},
 		resetEvent(state) {
