@@ -8,7 +8,7 @@ const characterLatex = {
 		{ name: "∫", latex: "\\int" },
 		{ name: "∬", latex: "\\iint" },
 		{ name: "∮", latex: "\\oint" },
-		{ name: "√", latex: "\\sqrt" },
+		{ name: "√", latex: "\\sqrt{ }" },
 		{ name: "∑", latex: "\\sum" },
 		{ name: "lim", latex: "\\lim" },
 		{ name: "=", latex: "=" },
