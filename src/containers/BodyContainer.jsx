@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLatexInput } from "../slice";
+import { setLatexInput, setLatexTextInput } from "../slice";
 
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
@@ -30,7 +30,7 @@ export default function BodyContainer() {
 	};
 
 	const handleLatexTextarea = e => {
-		dispatch(setLatexInput(e.target.value));
+		dispatch(setLatexTextInput(e.target.value));
 	};
 
 	return (

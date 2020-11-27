@@ -25,6 +25,12 @@ const { reducer, actions } = createSlice({
 			state.pastLatexInput = state.latexInput;
 			state.latexInput = payload;
 		},
+		setLatexTextInput(state, { payload }) {
+			state.futureLatexCommands = [];
+			state.pastLatexCommands.unshift(state.latexInput);
+			state.pastLatexInput = payload;
+			state.latexInput = payload;
+		},
 		setFont(state, { payload }) {
 			state.fontInfo = { size: payload.size, color: payload.color };
 		},
@@ -53,6 +59,7 @@ const { reducer, actions } = createSlice({
 export const {
 	setSelectedButton,
 	setLatexInput,
+	setLatexTextInput,
 	setFont,
 	setAlign,
 	undoEvent,
