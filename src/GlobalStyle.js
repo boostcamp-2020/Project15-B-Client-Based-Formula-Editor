@@ -8,7 +8,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		overflow: hidden;
+		overflow-x: hidden;
 	}
 `;
 
