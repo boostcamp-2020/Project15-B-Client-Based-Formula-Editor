@@ -26,7 +26,7 @@ export default function SideBar() {
 	};
 
 	const handleToggleSidebar = () => {
-		isOpenSidebar ? setIsOpenSidebar(false) : setIsOpenSidebar(true);
+		setIsOpenSidebar(!isOpenSidebar);
 	};
 
 	const handleTabClick = tabId => () => {
