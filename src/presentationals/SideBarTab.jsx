@@ -13,7 +13,8 @@ const TabLayout = styled.div`
 	padding-top: 10px;
 	z-index: 1000;
 	position: relative;
-	${({ isScrollTop }) => (!isScrollTop && "box-shadow: 0 12px 15px -15px grey;")}
+	box-shadow: ${({ isScrollTop }) => (isScrollTop ? "none" : "0 12px 15px -15px grey")};
+	transition: 1s;
 `;
 
 const Tab = styled.div`

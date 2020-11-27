@@ -11,7 +11,7 @@ const FormulaDropdownLayout = styled.div`
 	height: 250px;
 	border: 1px solid ${color.normal};
 	padding: 8px;
-	background-color: ${color.normal};
+	background-color: ${color.light};
 	z-index: 5;
 `;
 

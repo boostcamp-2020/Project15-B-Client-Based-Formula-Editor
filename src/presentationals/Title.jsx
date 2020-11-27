@@ -1,10 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
-const TitleStlye = styled.h1`
+const TitleStlye = styled.div`
 	text-align: center;
+
+	> img {
+		height: 80px;
+	}
 `;
 
 export default function Title() {
-	return <TitleStlye>FEditor</TitleStlye>;
+	return (
+		<TitleStlye>
+			<img src="https://i.imgur.com/Dl9saAC.png" />
+		</TitleStlye>
+	);
 }

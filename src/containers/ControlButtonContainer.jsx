@@ -2,20 +2,22 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { redoEvent, undoEvent, resetEvent } from "../slice";
-import EditTabHeaderButton from "../presentationals/EditTabHeaderButton";
+import ControlContainerLayout from "../layouts/ControlContainerLayout";
+import IconButton from "../presentationals/IconButton";
+import UndoIcon from "../icons/UndoIcon";
+import RedoIcon from "../icons/RedoIcon";
+import ResetIcon from "../icons/ResetIcon";
 
 export default function ControlButtonContainer(params) {
 	const dispatch = useDispatch();
 
-	const handleUndoButton = () => dispatch(undoEvent());
-	const handleRedoButton = () => dispatch(redoEvent());
-	const handleResetButton = () => dispatch(resetEvent());
+	const handleControl = action => () => dispatch(action());
 
 	return (
-		<div>
-			<EditTabHeaderButton onClick={handleUndoButton} />
-			<EditTabHeaderButton onClick={handleRedoButton} />
-			<EditTabHeaderButton onClick={handleResetButton} />
-		</div>
+		<ControlContainerLayout>
+			<IconButton onClick={handleControl(undoEvent)} icon={<UndoIcon/>} isHover={true} />
+			<IconButton onClick={handleControl(redoEvent)} icon={<RedoIcon/>} isHover={true} />
+			<IconButton onClick={handleControl(resetEvent)} icon={<ResetIcon/>} isHover={true} />
+		</ControlContainerLayout>
 	);
 }
