@@ -10,7 +10,7 @@ const SideBarLayout = styled.div`
 	flex-direction: row;
 	width: ${layoutWidth}px;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	right: 0;
 	transition: 1s;
