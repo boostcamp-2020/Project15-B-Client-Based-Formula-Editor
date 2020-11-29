@@ -25,6 +25,8 @@ const SideBarLayout = styled.div`
 		width: ${buttonWidth}px;
 		height: 150px;
 		align-self: center;
+		box-shadow: 0 0 15px 0 ${color.normal};
+    border-radius: 30px 0 0 30px;
 	}
 	&.show{
 		right: 0;
