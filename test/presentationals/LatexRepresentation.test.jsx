@@ -7,7 +7,8 @@ import LatexRepresentation from "../../src/presentationals/LatexRepresentation";
 describe("<LatexRepresentation />", () => {
 	it("renders latex representation", () => {
 		const latexInput = "1 + 2";
-		const { container } = render(<LatexRepresentation latexInput={latexInput} />);
+		const onChange = () => {};
+		const { container } = render(<LatexRepresentation latexInput={latexInput} onChange={onChange} />);
 
 		expect(container).toHaveTextContent(latexInput);
 	});

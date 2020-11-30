@@ -18,7 +18,7 @@ const ButtonMenuLayout = styled.div`
 			top: 80px;
 		}
 
-		button {
+		> button {
 			border-left: 0;
 		}
 
