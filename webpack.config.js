@@ -24,7 +24,8 @@ module.exports = {
 	devtool: "inline-source-map",
 	plugins: [
 		new HtmlWebPackPlugin({
-			template: "./index.html",
+			template: "./public/index.html",
+			favicon: "public/favicon.ico",
 		}), new CleanWebpackPlugin(),
 	],
 	devServer: {
