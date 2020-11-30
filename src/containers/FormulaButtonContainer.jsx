@@ -54,13 +54,12 @@ export default function FormulaButtonContainer() {
 						onClick={onClick}
 						isSelected={selectedButton === name}
 					>{icon}</FormulaButton>
-					{name === selectedButton && (
-						<DropdownItems
-							key={`FDC${index}`}
-							name={name}
-							onItemClick={handleItemClick}
-						/>
-					)}
+					<DropdownItems
+						key={`FDC${index}`}
+						name={name}
+						onItemClick={handleItemClick}
+						isOpen={name === selectedButton}
+					/>
 				</div>
 			))}
 		</ButtonMenuLayout>
