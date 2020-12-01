@@ -8,6 +8,7 @@ import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 import EmptyItem from "../presentationals/EmptyItem";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTabNames";
 
 export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
 	const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 
 	const handleCustomButtonClick = latex => () => {
 		dispatch(setCustomFormValue({ state: true, name: "등록", command: "", latex }));
-		setTabState(2);
+		setTabState(CUSTOM_COMMAND_TAB);
 	};
 
 	const handleFormulaClick = latex => () => {
