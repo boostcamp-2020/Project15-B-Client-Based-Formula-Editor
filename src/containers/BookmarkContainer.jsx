@@ -7,7 +7,7 @@ import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
-
+import EmptyItem from "../presentationals/EmptyItem";
 
 export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
 	const dispatch = useDispatch();
@@ -34,14 +34,18 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	return (
 		<ListLayout onScroll={onScroll}>
 			<SideBarHeader title={"북마크 수식 목록"} />
-			{bookmarkItems.map((val, index) =>
-				<ListItem
-					key={index}
-					latex={val.latex}
-					customOnClick={handleCustomButtonClick(val.latex)}
-					intoLatexFieldOnClick={handleFormulaClick(val.latex)}
-					deleteOnClick={handleDeleteButton(index)}
-				/>)}
+			{bookmarkItems.length ?
+				bookmarkItems.map((val, index) =>
+					<ListItem
+						key={index}
+						latex={val.latex}
+						customOnClick={handleCustomButtonClick(val.latex)}
+						intoLatexFieldOnClick={handleFormulaClick(val.latex)}
+						deleteOnClick={handleDeleteButton(index)}
+					/>,
+				) :
+				<EmptyItem content="북마크 수식이 없습니다."/>
+			}
 			<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
 		</ListLayout>
 	);
