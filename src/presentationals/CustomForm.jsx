@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Form = styled.div`
+const Form = styled.form`
 	display: flex;
 	flex-direction: column;
 	background-color: lightgrey;
@@ -11,32 +11,25 @@ const Form = styled.div`
 
 	> * {
 		margin: 5px;
+		padding: 3px;
 	}
-`;
-
-const Buttons = styled.div`
-	display: flex;
 `;
 
 const Button = styled.button`
 	background-color: white;
 	border: 1px solid black;
-	width: 100%;
-
 	&:hover {
 		background-color: grey;
 		cursor: pointer;
 	}
 `;
 
-export default function CustomForm({ buttonName }) {
+export default function CustomForm({ onSubmit, onClick, onChange, buttonName }) {
 	return (
-		<Form>
-			<input type="text" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
-			<input type="text" placeholder="mathquill 자리입니다." />
-			<Buttons>
-				<Button>{buttonName}</Button>
-			</Buttons>
+		<Form onSubmit={onSubmit}>
+			<input type="text" name="command" onChange={onChange} placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
+			<input type="text" name="latex" placeholder="mathquill 자리입니다." />
+			<Button onClick={onClick}>{buttonName}</Button>
 		</Form>
 	);
 }
