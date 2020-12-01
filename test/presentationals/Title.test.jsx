@@ -7,7 +7,8 @@ import Title from "../../src/presentationals/Title";
 describe("<Title />", () => {
 	it("renders title", () => {
 		const { container } = render(<Title />);
+		const img = container.querySelector("img");
 
-		expect(container).toHaveTextContent("FEditor");
+		expect(img).toBeVisible();
 	});
 });
