@@ -1,14 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import { openBubblePopup } from "../slice";
 import FooterLayout from "../layouts/FooterLayout";
 import FooterButton from "../presentationals/FooterButton";
 
 export default function FooterContainer() {
+	const dispatch = useDispatch();
 	const latexInput = useSelector(state => state.latexInput);
+	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
 
 	const handleDownloadAsImage = () => {
-		console.log("clicked download image button");
+		dispatch(openBubblePopup({ target: "imageDownload", isOpen: true }));
 	};
 	const handleCopyLink = () => {
 		const FROM_BEGINNING = 0;
@@ -26,10 +29,10 @@ export default function FooterContainer() {
 		document.execCommand("copy");
 		document.body.removeChild(temptCopyTarget);
 
-		alert("해당 수식의 링크가 클립보드에 복사되었습니다");
+		dispatch(openBubblePopup({ target: "linkCopy", isOpen: true }));
 	};
 	const handleSaveFormula = () => {
-		console.log("clicked save temporarily formula button");
+		dispatch(openBubblePopup({ target: "formulaSave", isOpen: true }));
 	};
 
 	return (

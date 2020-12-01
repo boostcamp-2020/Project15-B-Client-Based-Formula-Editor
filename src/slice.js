@@ -13,6 +13,11 @@ const { reducer, actions } = createSlice({
 			color: "#000000",
 		},
 		alignInfo: "center",
+		bubblePopup: {
+			imageDownload: false,
+			linkCopy: false,
+			formulaSave: false,
+		},
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -53,6 +58,11 @@ const { reducer, actions } = createSlice({
 			state.pastLatexCommands.unshift(state.latexInput);
 			state.latexInput = "";
 		},
+		setBubblePopupOn(state, { payload }) {
+			const { target, isOpen } = payload;
+
+			state.bubblePopup[target] = isOpen;
+		},
 	},
 });
 
@@ -65,6 +75,15 @@ export const {
 	undoEvent,
 	redoEvent,
 	resetEvent,
+	setBubblePopupOn,
 } = actions;
+
+export const openBubblePopup = payload => dispatch => {
+	dispatch(setBubblePopupOn(payload));
+
+	setTimeout(() => {
+		dispatch(setBubblePopupOn({ target: payload.target, isOpen: false }));
+	}, 1000);
+};
 
 export default reducer;
