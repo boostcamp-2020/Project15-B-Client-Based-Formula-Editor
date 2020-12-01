@@ -6,8 +6,11 @@ import CustomList from "../../src/presentationals/CustomList";
 
 describe("<CustomList />", () => {
 	it("renders custom list items", () => {
-		const customs = [{ id: 0, name: "\\aaa" }, { id: 1, name: "\\bbb" }, { id: 2, name: "\\ccc" }];
-		const { container } = render(<CustomList customs={customs} />);
+		const customs = [{ id: 0, command: "\\aaa", latex: "\\aaa" }, { id: 1, command: "\\bbb", latex: "\\bbb" }, { id: 2, command: "\\ccc", latex: "\\ccc" }];
+		const onClickEdit = () => { };
+		const onClickDelete = () => { };
+		const { container } =
+			render(<CustomList customs={customs} onClickEdit={onClickEdit} onClickDelete={onClickDelete} />);
 		const buttons = container.querySelectorAll("button");
 
 		expect(container).toHaveTextContent("내 코드들");
