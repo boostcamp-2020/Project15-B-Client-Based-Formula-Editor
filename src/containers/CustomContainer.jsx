@@ -31,9 +31,9 @@ export default function CustomContainer() {
 		e.preventDefault();
 		if (e.target.innerText === "등록") {
 			const tempCustomCommands = [
-			...customCommands,
-			{ id: customCommands.length, command: e.target.command.value, latex: e.target.latex.value },
-		];
+				...customCommands,
+				{ id: customCommands.length, command: e.target.command.value, latex: e.target.latex.value },
+			];
 
 			dispatch(setCustomCommands(tempCustomCommands));
 		}
@@ -69,9 +69,10 @@ export default function CustomContainer() {
 			{customFormValue.state &&
 				<CustomForm
 					data={customFormValue}
-					onSubmit={handleSubmit}
+					buttonName={customFormValue.name}
 					onChange={onChangeInput}
-					buttonName={customFormValue.name} />}
+					onSubmit={handleSubmit}
+				/>}
 			<CustomList
 				customs={customCommands}
 				onClickEdit={handleEditClick}

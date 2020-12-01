@@ -24,7 +24,7 @@ const Button = styled.button`
 	}
 `;
 
-export default function CustomForm({ onSubmit, buttonName, onChange, data }) {
+export default function CustomForm({ data, buttonName, onChange, onSubmit }) {
 	return (
 		<Form onSubmit={onSubmit}>
 			<input type="text" value={data.command} onChange={onChange("command")} name="command" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
