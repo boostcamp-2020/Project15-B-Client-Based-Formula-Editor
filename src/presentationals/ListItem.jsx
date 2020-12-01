@@ -46,7 +46,13 @@ const DeleteButton = styled.div`
 	display: none;
 `;
 
-export default function ListItem({ latex, deleteOnClick, bookmarkOnClick, customOnClick, intoLatexFieldOnClick }) {
+export default function ListItem({
+	latex,
+	deleteOnClick,
+	bookmarkOnClick,
+	customOnClick,
+	intoLatexFieldOnClick,
+}) {
 	return (
 		<Layout>
 			<DeleteButton>
