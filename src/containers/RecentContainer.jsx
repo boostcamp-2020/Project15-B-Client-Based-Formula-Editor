@@ -30,13 +30,14 @@ export default function RecentContainer({ onScroll, setTabState }) {
 		<ListLayout onScroll={onScroll}>
 			<SideBarHeader title={"최근 수식 목록"} />
 			{recentItems.length ?
-				recentItems.map((value, index) =>
+				recentItems.map(({ id, latex, isBookmark }) =>
 					<ListItem
-						key={index}
-						latex={value.latex}
-						bookmarkOnClick={handleBookmarkButtonClick(value.latex)}
+						key={id}
+						latex={latex}
+						bookmarkOnClick={handleBookmarkButtonClick(id)}
 						customOnClick={handleCustomButtonClick}
-						deleteOnClick={handleDeleteButtonClick(index)}
+						deleteOnClick={handleDeleteButtonClick(id)}
+						isBookmark={isBookmark}
 					/>,
 				) :
 				<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}

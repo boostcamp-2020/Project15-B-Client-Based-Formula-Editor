@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
+import FilledStarIcon from "../icons/FilledStarIcon";
 import PlusIcon from "../icons/PlusIcon";
 import CloseIcon from "../icons/CloseIcon";
 import IconButton from "./IconButton";
@@ -52,6 +53,7 @@ export default function ListItem({
 	bookmarkOnClick,
 	customOnClick,
 	intoLatexFieldOnClick,
+	isBookmark,
 }) {
 	return (
 		<Layout>
@@ -69,7 +71,9 @@ export default function ListItem({
 					<IconButton
 						onClick={bookmarkOnClick}
 						isHover={true}
-						icon={<EmptyStarIcon fill={color.yellow} />}
+						icon={isBookmark ?
+							<FilledStarIcon /> :
+							<EmptyStarIcon fill={color.yellow} />}
 					/>
 				}
 				<IconButton

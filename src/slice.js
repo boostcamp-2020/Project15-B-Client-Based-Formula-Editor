@@ -2,8 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const RECENT_ITEMS = "recentItems";
 const BOOKMARK_ITEMS = "bookmarkItems";
+const LATEX_LIST = "latexList";
+
 const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 const getLocalStorage = key => JSON.parse(localStorage.getItem(key)) || [];
+const getIdToAdd = list => list.reduce((maxId, { id }) => (maxId < id ? id : maxId), 0) + 1;
+
+const latexList = getLocalStorage(LATEX_LIST);
 
 const { reducer, actions } = createSlice({
 	name: "FEditor",
@@ -19,13 +24,14 @@ const { reducer, actions } = createSlice({
 		},
 		alignInfo: "center",
 		customCommand: "",
-		bookmarkItems: getLocalStorage(BOOKMARK_ITEMS),
-		recentItems: getLocalStorage(RECENT_ITEMS),
 		bubblePopup: {
 			imageDownload: false,
 			linkCopy: false,
 			formulaSave: false,
 		},
+		latexList,
+		bookmarkItems: latexList.filter(item => item.isBookmark),
+		recentItems: latexList.filter(item => item.isRecent),
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -78,6 +84,19 @@ const { reducer, actions } = createSlice({
 			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
 			saveLocalStorage(BOOKMARK_ITEMS, state.bookmarkItems);
 		},
+		addRecentItem(state, { payload }) {
+			if (!payload) return;
+			const newItem = {
+				id: getIdToAdd(state.latexList),
+				latex: payload,
+				isRecent: true,
+				isBookmark: false,
+			};
+
+			state.latexList.push(newItem);
+			state.recentItems.push(newItem);
+			saveLocalStorage(LATEX_LIST, state.latexList);
+		},
 		deleteRecentItem(state, { payload }) {
 			state.recentItems = state.recentItems.filter((_, index) => index !== payload);
 			saveLocalStorage(RECENT_ITEMS, state.recentItems);
@@ -102,6 +121,7 @@ export const {
 	setCustomCommand,
 	addBookmarkItem,
 	deleteBookmarkItem,
+	addRecentItem,
 	deleteRecentItem,
 	setBubblePopupOn,
 } = actions;
