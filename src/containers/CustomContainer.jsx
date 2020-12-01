@@ -45,7 +45,7 @@ export default function CustomContainer() {
 			}
 		}
 
-		if (e.target.innerText === "수정") {
+		if (e.target.submitBtn.innerText === "수정") {
 			const targetId = customFormValue.id;
 			const tempCustomCommands = [...customCommands].filter(elem => elem.id !== targetId);
 
