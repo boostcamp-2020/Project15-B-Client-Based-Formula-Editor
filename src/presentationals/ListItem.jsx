@@ -32,10 +32,10 @@ const Formula = styled.div`
 	transform: translate(-50%, -50%);
 `;
 
-export default function ListItem({ latex, bookmarkOnClick, customOnClick }) {
+export default function ListItem({ latex, bookmarkOnClick, customOnClick, intoLatexFieldOnClick }) {
 	return (
 		<Layout>
-			<Item>
+			<Item onClick={intoLatexFieldOnClick}>
 				<Formula>{latex}</Formula>
 			</Item>
 			<Bottom>
