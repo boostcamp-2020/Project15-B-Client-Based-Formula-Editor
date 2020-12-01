@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const BOOKMARK_ITEMS = "bookmarkItems";
 const LATEX_LIST = "latexList";
 
 const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
@@ -11,6 +10,12 @@ const updateSidebar = state => {
 	state.bookmarkItems = state.latexList.filter(item => item.isBookmark);
 	state.recentItems = state.latexList.filter(item => item.isRecent);
 	saveLocalStorage(LATEX_LIST, state.latexList);
+};
+const addLatexItem = (state, { latex, isRecent = false, isBookmark = false }) => {
+	const id = getIdToAdd(state.latexList);
+	const newItem = { id, latex, isRecent, isBookmark };
+
+	state.latexList.push(newItem);
 };
 
 const latexList = getLocalStorage(LATEX_LIST);
@@ -82,8 +87,8 @@ const { reducer, actions } = createSlice({
 		},
 		addBookmarkItem(state, { payload }) {
 			if (!payload) return;
-			state.bookmarkItems.push({ latex: payload });
-			saveLocalStorage(BOOKMARK_ITEMS, state.bookmarkItems);
+			addLatexItem(state, { latex: payload, isBookmark: true });
+			updateSidebar(state);
 		},
 		deleteBookmarkItem(state, { payload }) {
 			const index = state.latexList.findIndex(({ id }) => id === payload);
@@ -99,14 +104,7 @@ const { reducer, actions } = createSlice({
 		},
 		addRecentItem(state, { payload }) {
 			if (!payload) return;
-			const newItem = {
-				id: getIdToAdd(state.latexList),
-				latex: payload,
-				isRecent: true,
-				isBookmark: false,
-			};
-
-			state.latexList.push(newItem);
+			addLatexItem(state, { latex: payload, isRecent: true });
 			updateSidebar(state);
 		},
 		deleteRecentItem(state, { payload }) {
