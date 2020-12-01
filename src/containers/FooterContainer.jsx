@@ -36,17 +36,17 @@ export default function FooterContainer() {
 		const FROM_BEGINNING = 0;
 		const TO_END = 99999;
 
-		const temptCopyTarget = document.createElement("textarea");
+		const virtualCopyTarget = document.createElement("textarea");
 
 		const parameter = latexInput.replace(/\\/g, "$$$");
 
-		temptCopyTarget.value = `${location.origin}/${parameter}`;
+		virtualCopyTarget.value = `${location.origin}/${parameter}`;
 
-		document.body.appendChild(temptCopyTarget);
-		temptCopyTarget.select();
-		temptCopyTarget.setSelectionRange(FROM_BEGINNING, TO_END);
+		document.body.appendChild(virtualCopyTarget);
+		virtualCopyTarget.select();
+		virtualCopyTarget.setSelectionRange(FROM_BEGINNING, TO_END);
 		document.execCommand("copy");
-		document.body.removeChild(temptCopyTarget);
+		document.body.removeChild(virtualCopyTarget);
 
 		dispatch(openBubblePopup({ target: "linkCopy", isOpen: true }));
 	};
