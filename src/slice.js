@@ -63,6 +63,10 @@ const { reducer, actions } = createSlice({
 			state.bookmarkItems.push({ latex: state.latexInput });
 			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
 		},
+		deleteBookmarkItem(state, { payload }) {
+			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		},
 	},
 });
 
@@ -77,6 +81,7 @@ export const {
 	resetEvent,
 	setCustomCommand,
 	addBookmarkItem,
+	deleteBookmarkItem,
 } = actions;
 
 export default reducer;
