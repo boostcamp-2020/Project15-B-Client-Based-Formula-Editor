@@ -29,25 +29,37 @@ export default function CustomContainer() {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		if (e.target.innerText === "등록") {
-			const tempCustomCommands = [
-				...customCommands,
-				{ id: customCommands.length, command: e.target.command.value, latex: e.target.latex.value },
-			];
+		const isExist = customCommands.filter(elem => elem.command === e.target.command.value).length;
 
-			dispatch(setCustomCommands(tempCustomCommands));
+		if (e.target.submitBtn.innerText === "등록") {
+			if (isExist !== 0) {
+				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
+				return;
+			} else {
+				const tempCustomCommands = [
+					...customCommands,
+					{ id: customCommands.length, command: e.target.command.value, latex: e.target.latex.value },
+				];
+
+				dispatch(setCustomCommands(tempCustomCommands));
+			}
 		}
 
 		if (e.target.innerText === "수정") {
 			const targetId = customFormValue.id;
 			const tempCustomCommands = [...customCommands].filter(elem => elem.id !== targetId);
 
-			dispatch(setCustomCommands([
-				...tempCustomCommands,
-				{ id: targetId, command: customFormValue.command, latex: customFormValue.latex },
-			].sort((a, b) => a.id - b.id)));
+			if (isExist !== 0 && e.target.command.value !== customCommands[targetId].command) {
+				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
+				return;
+			} else {
+				dispatch(setCustomCommands([
+					...tempCustomCommands,
+					{ id: targetId, command: customFormValue.command, latex: customFormValue.latex },
+				].sort((a, b) => a.id - b.id)));
+			}
 		}
-		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "", id: -1 }));
+		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "", id: -1, isDisabled: false }));
 	};
 
 	const onChangeInput = type => e => {
@@ -69,7 +81,6 @@ export default function CustomContainer() {
 			{customFormValue.state &&
 				<CustomForm
 					data={customFormValue}
-					buttonName={customFormValue.name}
 					onChange={onChangeInput}
 					onSubmit={handleSubmit}
 				/>}

@@ -24,12 +24,22 @@ const Button = styled.button`
 	}
 `;
 
-export default function CustomForm({ data, buttonName, onChange, onSubmit }) {
+const WarningMsg = styled.p`
+	display: ${({ isDisabled }) => (isDisabled ? "block" : "none")};
+	margin: 0;
+	padding: 0 10px;
+	font-size: 11px;
+	color: red;
+`;
+
+
+export default function CustomForm({ data, onChange, onSubmit }) {
 	return (
 		<Form onSubmit={onSubmit}>
 			<input type="text" value={data.command} onChange={onChange("command")} name="command" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
+			<WarningMsg isDisabled={data.isDisabled}>이미 있는 명령어입니다.</WarningMsg>
 			<input type="text" value={data.latex} onChange={onChange("latex")} name="latex" placeholder="mathquill 자리입니다." />
-			<Button>{buttonName}</Button>
+			<Button name="submitBtn">{data.name}</Button>
 		</Form>
 	);
 }
