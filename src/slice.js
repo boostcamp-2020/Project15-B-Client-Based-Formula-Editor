@@ -13,7 +13,7 @@ const { reducer, actions } = createSlice({
 			color: "#000000",
 		},
 		alignInfo: "center",
-		CustomCommand: "",
+		customCommand: "",
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -55,7 +55,7 @@ const { reducer, actions } = createSlice({
 			state.latexInput = "";
 		},
 		setCustomCommand(state, { payload }) {
-			state.CustomCommand = payload;
+			state.customCommand = payload;
 		},
 	},
 });
