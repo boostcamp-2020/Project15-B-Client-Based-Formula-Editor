@@ -11,7 +11,7 @@ import EmptyItem from "../presentationals/EmptyItem";
 
 export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
 	const dispatch = useDispatch();
-	const { bookmarkItems } = useSelector(state => state);
+	const { bookmarkItems, latexInput } = useSelector(state => state);
 
 	const handleCustomButtonClick = latex => () => {
 		dispatch(setCustomCommand(latex));
@@ -24,7 +24,7 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	};
 
 	const addCurrentLatexToBookmark = () => {
-		dispatch(addBookmarkItem());
+		dispatch(addBookmarkItem(latexInput));
 	};
 
 	const handleDeleteButton = index => () => {

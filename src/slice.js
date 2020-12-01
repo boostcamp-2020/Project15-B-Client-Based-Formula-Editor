@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const RECENT_ITEMS = "recentItems";
+const BOOKMARK_ITEMS = "bookmarkItems";
+const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+const getLocalStorage = key => JSON.parse(localStorage.getItem(key)) || [];
+
 const { reducer, actions } = createSlice({
 	name: "FEditor",
 	initialState: {
@@ -14,8 +19,8 @@ const { reducer, actions } = createSlice({
 		},
 		alignInfo: "center",
 		customCommand: "",
-		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
-		recentItems: JSON.parse(localStorage.getItem("recentItems")) || [],
+		bookmarkItems: getLocalStorage(BOOKMARK_ITEMS),
+		recentItems: getLocalStorage(RECENT_ITEMS),
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -59,18 +64,18 @@ const { reducer, actions } = createSlice({
 		setCustomCommand(state, { payload }) {
 			state.customCommand = payload;
 		},
-		addBookmarkItem(state) {
-			if (state.latexInput.length === 0) return;
-			state.bookmarkItems.push({ latex: state.latexInput });
-			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		addBookmarkItem(state, { payload }) {
+			if (!payload) return;
+			state.bookmarkItems.push({ latex: payload });
+			saveLocalStorage(BOOKMARK_ITEMS, state.bookmarkItems);
 		},
 		deleteBookmarkItem(state, { payload }) {
 			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
-			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+			saveLocalStorage(BOOKMARK_ITEMS, state.bookmarkItems);
 		},
 		deleteRecentItem(state, { payload }) {
-			state.recentItems = state.recentItems.filter(({ id }) => id !== payload.id);
-			localStorage.setItem("recentItems", JSON.stringify(state.recentItems));
+			state.recentItems = state.recentItems.filter((_, index) => index !== payload);
+			saveLocalStorage(RECENT_ITEMS, state.recentItems);
 		},
 	},
 });
