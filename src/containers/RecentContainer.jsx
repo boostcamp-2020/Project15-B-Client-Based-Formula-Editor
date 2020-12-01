@@ -20,9 +20,9 @@ export default function RecentContainer({ onScroll, setTabState }) {
 		console.log("custom");
 	};
 
-	const handleDeleteButtonClick = index => () => {
+	const handleDeleteButtonClick = id => () => {
 		if (confirm("정말로 삭제하시겠습니까?")) {
-			dispatch(deleteRecentItem(index));
+			dispatch(deleteRecentItem(id));
 		}
 	};
 
