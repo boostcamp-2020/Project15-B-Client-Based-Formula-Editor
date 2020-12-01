@@ -86,11 +86,14 @@ const { reducer, actions } = createSlice({
 			saveLocalStorage(BOOKMARK_ITEMS, state.bookmarkItems);
 		},
 		deleteBookmarkItem(state, { payload }) {
-			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
-			saveLocalStorage(BOOKMARK_ITEMS, state.bookmarkItems);
+			const index = state.latexList.findIndex(({ id }) => id === payload);
+
+			state.latexList[index].isBookmark = false;
+			updateSidebar(state);
 		},
 		setBookmarkItem(state, { payload }) {
 			const index = state.latexList.findIndex(({ id }) => id === payload.id);
+
 			state.latexList[index].isBookmark = payload.isBookmark;
 			updateSidebar(state);
 		},

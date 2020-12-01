@@ -27,21 +27,21 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 		dispatch(addBookmarkItem(latexInput));
 	};
 
-	const handleDeleteButton = index => () => {
-		dispatch(deleteBookmarkItem(index));
+	const handleDeleteButton = id => () => {
+		dispatch(deleteBookmarkItem(id));
 	};
 
 	return (
 		<ListLayout onScroll={onScroll}>
 			<SideBarHeader title={"북마크 수식 목록"} />
 			{bookmarkItems.length ?
-				bookmarkItems.map((val, index) =>
+				bookmarkItems.map(({ id, latex }) =>
 					<ListItem
-						key={index}
-						latex={val.latex}
-						customOnClick={handleCustomButtonClick(val.latex)}
-						intoLatexFieldOnClick={handleFormulaClick(val.latex)}
-						deleteOnClick={handleDeleteButton(index)}
+						key={id}
+						latex={latex}
+						customOnClick={handleCustomButtonClick(latex)}
+						intoLatexFieldOnClick={handleFormulaClick(latex)}
+						deleteOnClick={handleDeleteButton(id)}
 					/>,
 				) :
 				<EmptyItem content="북마크 수식이 없습니다."/>
