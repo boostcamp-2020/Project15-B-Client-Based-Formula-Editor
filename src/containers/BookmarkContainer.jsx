@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addBookmarkItem, setCustomCommand, setLatexInput } from "../slice";
+import { addBookmarkItem, deleteBookmarkItem, setCustomCommand, setLatexInput } from "../slice";
 
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
@@ -27,6 +27,10 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 		dispatch(addBookmarkItem());
 	};
 
+	const handleDeleteButton = index => () => {
+		dispatch(deleteBookmarkItem(index));
+	};
+
 	return (
 		<ListLayout onScroll={onScroll}>
 			<SideBarHeader title={"북마크 수식 목록"} />
@@ -36,6 +40,7 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 					latex={val.latex}
 					customOnClick={handleCustomButtonClick(val.latex)}
 					intoLatexFieldOnClick={handleFormulaClick(val.latex)}
+					deleteOnClick={handleDeleteButton(index)}
 				/>)}
 			<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
 		</ListLayout>
