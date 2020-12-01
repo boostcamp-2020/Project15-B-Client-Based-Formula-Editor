@@ -17,10 +17,10 @@ export default function CustomList({ customs, onClickItem }) {
 	return (
 		<Layout>
 			<div>내 코드들</div>
-			{customs.map(({ id, name }) =>
+			{customs.map(({ id, command }) =>
 				<CustomItem
 					key={id}
-					name={name}
+					name={command}
 					onClick={onClickItem}
 				/>)}
 		</Layout>
