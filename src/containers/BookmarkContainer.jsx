@@ -1,7 +1,6 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
-import { setCustomCommand, setLatexInput } from "../slice";
+import { useDispatch, useSelector } from "react-redux";
 
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
@@ -11,7 +10,7 @@ import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 
 export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
 	const dispatch = useDispatch();
-	const bookmarkItems = localStorage.getItem("bookmarkItems") || [];
+	const { bookmarkItems } = useSelector(state => state);
 
 	const handleCustomButtonClick = latex => () => {
 		dispatch(setCustomCommand(latex));
@@ -26,12 +25,12 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	return (
 		<ListLayout onScroll={onScroll}>
 			<SideBarHeader title={"북마크 수식 목록"} />
-			{bookmarkItems.map((latex, index) =>
+			{bookmarkItems.map((val, index) =>
 				<ListItem
 					key={index}
-					latex={latex}
-					customOnClick={handleCustomButtonClick(latex)}
-					intoLatexFieldOnClick={handleFormulaClick(latex)}
+					latex={val.latex}
+					customOnClick={handleCustomButtonClick(val.latex)}
+					intoLatexFieldOnClick={handleFormulaClick(val.latex)}
 				/>)}
 			<BookmarkAddButton />
 		</ListLayout>
