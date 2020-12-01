@@ -21,6 +21,11 @@ const { reducer, actions } = createSlice({
 		customCommand: "",
 		bookmarkItems: getLocalStorage(BOOKMARK_ITEMS),
 		recentItems: getLocalStorage(RECENT_ITEMS),
+		bubblePopup: {
+			imageDownload: false,
+			linkCopy: false,
+			formulaSave: false,
+		},
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -77,6 +82,11 @@ const { reducer, actions } = createSlice({
 			state.recentItems = state.recentItems.filter((_, index) => index !== payload);
 			saveLocalStorage(RECENT_ITEMS, state.recentItems);
 		},
+		setBubblePopupOn(state, { payload }) {
+			const { target, isOpen } = payload;
+
+			state.bubblePopup[target] = isOpen;
+		},
 	},
 });
 
@@ -93,6 +103,15 @@ export const {
 	addBookmarkItem,
 	deleteBookmarkItem,
 	deleteRecentItem,
+	setBubblePopupOn,
 } = actions;
+
+export const openBubblePopup = payload => dispatch => {
+	dispatch(setBubblePopupOn(payload));
+
+	setTimeout(() => {
+		dispatch(setBubblePopupOn({ target: payload.target, isOpen: false }));
+	}, 1000);
+};
 
 export default reducer;
