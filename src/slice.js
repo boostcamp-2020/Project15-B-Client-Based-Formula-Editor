@@ -14,6 +14,7 @@ const { reducer, actions } = createSlice({
 		},
 		alignInfo: "center",
 		customCommand: "",
+		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -57,6 +58,11 @@ const { reducer, actions } = createSlice({
 		setCustomCommand(state, { payload }) {
 			state.customCommand = payload;
 		},
+		addBookmarkItem(state) {
+			if (state.latexInput.length === 0) return;
+			state.bookmarkItems.push({ latex: state.latexInput });
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		},
 	},
 });
 
@@ -70,6 +76,7 @@ export const {
 	redoEvent,
 	resetEvent,
 	setCustomCommand,
+	addBookmarkItem,
 } = actions;
 
 export default reducer;
