@@ -9,7 +9,7 @@ import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 
 
-export default function BookmarkContainer({ onScroll, setSidebar }) {
+export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
 	const dispatch = useDispatch();
 	const bookmarkItems = localStorage.getItem("bookmarkItems") || [];
 
