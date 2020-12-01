@@ -4,17 +4,19 @@ import styled from "styled-components";
 import { color } from "../GlobalStyle";
 import FontSizeIcon from "../icons/FontSizeIcon";
 
-const Layout = styled.div`
+const Layout = styled.label`
 	display: flex;
 	align-items: center;
+	padding: 0 5px;
+	border-right: 1px dashed ${color.dark};
 `;
 
 const FontSizeSelectorStyle = styled.select`
-	// width: 50px;
-	// height: 100%;
 	border: 0;
 	color: ${color.dark};
 	background-color: inherit;
+	cursor: pointer;
+	outline: none;
 `;
 
 export default function FontSizeSelector({ fontSize, onChange }) {

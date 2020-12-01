@@ -7,25 +7,27 @@ import FontIcon from "../icons/FontIcon";
 const FontColorSelectorStyle = styled.label`
 	display: flex;
 	flex-direction: column;
-	width: 45px;
 	cursor: pointer;
+	padding: 0 5px;
+	border-right: 1px dashed ${color.dark};
+
 	& > svg {
-		margin: 6px auto auto;
+		margin: 0 auto;
 		fill: ${color.dark};
 	}
 	& > input {
 		cursor: pointer;
-		margin: auto;
 		outline: none;
-		height: 15px;
+		height: 13px;
 		border: 0;
 		background-color: inherit;
+		width: 30px;
 	}
 `;
 
-export default function FontColorSelector({ fontColor, onClick, onChange }) {
+export default function FontColorSelector({ fontColor, onChange }) {
 	return (
-		<FontColorSelectorStyle onClick={onClick}>
+		<FontColorSelectorStyle>
 			<FontIcon />
 			<input type="color" value={fontColor} onChange={onChange} />
 		</FontColorSelectorStyle>
