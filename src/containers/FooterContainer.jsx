@@ -37,9 +37,24 @@ export default function FooterContainer() {
 
 	return (
 		<FooterLayout>
-			<FooterButton name="이미지로 다운로드" onClick={handleDownloadAsImage} />
-			<FooterButton name="링크 복사" onClick={handleCopyLink} />
-			<FooterButton name="수식 임시저장" onClick={handleSaveFormula} />
+			<FooterButton
+				name="이미지로 다운로드"
+				onClick={handleDownloadAsImage}
+				isPopupOn={imageDownload}
+				message="수식을 이미지로 저장하였습니다"
+			/>
+			<FooterButton
+				name="링크 복사"
+				onClick={handleCopyLink}
+				isPopupOn={linkCopy}
+				message="수식 링크를 복사하였습니다"
+			/>
+			<FooterButton
+				name="수식 임시저장"
+				onClick={handleSaveFormula}
+				isPopupOn={formulaSave}
+				message="수식을 저장하였습니다"
+			/>
 		</FooterLayout>
 	);
 }
