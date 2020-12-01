@@ -13,7 +13,7 @@ const Layout = styled.div`
 	}
 `;
 
-export default function CustomList({ customs, onClickItem }) {
+export default function CustomList({ customs, onClickEdit }) {
 	return (
 		<Layout>
 			<div>내 코드들</div>
@@ -21,7 +21,7 @@ export default function CustomList({ customs, onClickItem }) {
 				<CustomItem
 					key={id}
 					name={command}
-					onClick={onClickItem}
+					onClickEdit={onClickEdit(command)}
 				/>)}
 		</Layout>
 	);

@@ -24,12 +24,12 @@ const Button = styled.button`
 	}
 `;
 
-export default function CustomForm({ onSubmit, onClick, onChange, buttonName }) {
+export default function CustomForm({ onSubmit, buttonName, onChange, data }) {
 	return (
 		<Form onSubmit={onSubmit}>
-			<input type="text" name="command" onChange={onChange} placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
-			<input type="text" name="latex" placeholder="mathquill 자리입니다." />
-			<Button onClick={onClick}>{buttonName}</Button>
+			<input type="text" value={data.command} onChange={onChange("command")} name="command" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
+			<input type="text" value={data.latex} onChange={onChange("latex")} name="latex" placeholder="mathquill 자리입니다." />
+			<Button>{buttonName}</Button>
 		</Form>
 	);
 }

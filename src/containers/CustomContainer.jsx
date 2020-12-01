@@ -33,6 +33,15 @@ export default function CustomContainer() {
 		e.target.latex.value = "";
 	};
 
+	const onChangeInput = type => e => {
+		if (type === "command") {
+			dispatch(setCustomFormValue({ ...customFormValue, command: e.target.value }));
+		}
+		if (type === "latex") {
+			dispatch(setCustomFormValue({ ...customFormValue, latex: e.target.value }));
+		}
+	};
+
 	return (
 		<div>
 			<SideBarHeader title={"사용자 명령어 목록"} />
@@ -42,7 +51,9 @@ export default function CustomContainer() {
 			/>
 			{customFormValue.state &&
 				<CustomForm
+					data={customFormValue}
 					onSubmit={handleSubmit}
+					onChange={onChangeInput}
 					buttonName={customFormValue.name} />}
 			<CustomList
 				customs={customCommands}
