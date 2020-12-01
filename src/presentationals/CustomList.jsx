@@ -21,7 +21,7 @@ export default function CustomList({ customs, onClickEdit, onClickDelete }) {
 				<CustomItem
 					key={id}
 					name={command}
-					onClickEdit={onClickEdit(command)}
+					onClickEdit={onClickEdit(id, command)}
 					onClickDelete={onClickDelete(command)}
 				/>)}
 		</Layout>

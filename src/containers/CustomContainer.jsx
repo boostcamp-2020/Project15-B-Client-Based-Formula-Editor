@@ -15,10 +15,10 @@ export default function CustomContainer() {
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
 	};
 
-	const handleEditClick = name => () => {
+	const handleEditClick = (id, name) => () => {
 		const target = customCommands.filter(elem => elem.command === name)[0];
 
-		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex }));
+		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id }));
 	};
 
 	const handleDeleteClick = name => () => {
@@ -29,13 +29,25 @@ export default function CustomContainer() {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		const tempCustom = [
+		if (e.target.innerText === "등록") {
+			const tempCustomCommands = [
 			...customCommands,
 			{ id: customCommands.length, command: e.target.command.value, latex: e.target.latex.value },
 		];
 
-		dispatch(setCustomCommands(tempCustom));
-		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "" }));
+			dispatch(setCustomCommands(tempCustomCommands));
+		}
+
+		if (e.target.innerText === "수정") {
+			const targetId = customFormValue.id;
+			const tempCustomCommands = [...customCommands].filter(elem => elem.id !== targetId);
+
+			dispatch(setCustomCommands([
+				...tempCustomCommands,
+				{ id: targetId, command: customFormValue.command, latex: customFormValue.latex },
+			].sort((a, b) => a.id - b.id)));
+		}
+		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "", id: -1 }));
 	};
 
 	const onChangeInput = type => e => {
