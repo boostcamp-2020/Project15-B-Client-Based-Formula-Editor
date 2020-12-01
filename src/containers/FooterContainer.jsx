@@ -16,7 +16,9 @@ export default function FooterContainer() {
 
 		const temptCopyTarget = document.createElement("textarea");
 
-		temptCopyTarget.value = `${location.origin}/${latexInput}`;
+		const parameter = latexInput.replace(/\\/g, "$$$");
+
+		temptCopyTarget.value = `${location.origin}/${parameter}`;
 
 		document.body.appendChild(temptCopyTarget);
 		temptCopyTarget.select();
