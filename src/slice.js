@@ -14,6 +14,7 @@ const { reducer, actions } = createSlice({
 		},
 		alignInfo: "center",
 		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
+		customFormValue: { state: false, name: "등록", command: "", latex: "" },
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -57,6 +58,9 @@ const { reducer, actions } = createSlice({
 		setCustomCommands(state, { payload }) {
 			state.customCommands = payload;
 		},
+		setCustomFormValue(state, { payload }) {
+			state.customFormValue = payload;
+		},
 	},
 });
 
@@ -70,6 +74,7 @@ export const {
 	redoEvent,
 	resetEvent,
 	setCustomCommands,
+	setCustomFormValue,
 } = actions;
 
 export default reducer;
