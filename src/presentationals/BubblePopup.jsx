@@ -13,10 +13,10 @@ const Layout = styled.div`
   ${({ isOpen }) =>
 		(isOpen ? `
       display: block;
-      bottom: 270px;
+      top: 620px;
     ` : `
       display: block;
-      bottom: 230px;
+      top: 660px;
     `)}
 `;
 
