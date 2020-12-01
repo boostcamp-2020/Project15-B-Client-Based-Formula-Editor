@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useDispatch } from "react-redux";
-import { setLatexInput } from "../slice";
+import { setCustomCommand, setLatexInput } from "../slice";
 
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
@@ -13,8 +13,9 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	const dispatch = useDispatch();
 	const bookmarkItems = localStorage.getItem("bookmarkItems") || [];
 
-	const handleCustomButtonClick = () => {
-		console.log("custom");
+	const handleCustomButtonClick = latex => () => {
+		dispatch(setCustomCommand(latex));
+		setTabState(2);
 	};
 
 	const handleFormulaClick = latex => () => {
@@ -29,11 +30,10 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 				<ListItem
 					key={index}
 					latex={latex}
-					customOnClick={handleCustomButtonClick}
+					customOnClick={handleCustomButtonClick(latex)}
 					intoLatexFieldOnClick={handleFormulaClick(latex)}
 				/>)}
 			<BookmarkAddButton />
 		</ListLayout>
 	);
 }
-
