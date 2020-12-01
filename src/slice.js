@@ -15,6 +15,7 @@ const { reducer, actions } = createSlice({
 		alignInfo: "center",
 		customCommand: "",
 		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
+		recentItems: JSON.parse(localStorage.getItem("recentItems")) || [],
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -67,6 +68,10 @@ const { reducer, actions } = createSlice({
 			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
 			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
 		},
+		deleteRecentItem(state, { payload }) {
+			state.recentItems = state.recentItems.filter(({ id }) => id !== payload.id);
+			localStorage.setItem("recentItems", JSON.stringify(state.recentItems));
+		},
 	},
 });
 
@@ -82,6 +87,7 @@ export const {
 	setCustomCommand,
 	addBookmarkItem,
 	deleteBookmarkItem,
+	deleteRecentItem,
 } = actions;
 
 export default reducer;
