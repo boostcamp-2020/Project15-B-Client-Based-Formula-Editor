@@ -24,6 +24,7 @@ export default function CustomContainer() {
 	const handleDeleteClick = name => () => {
 		const newCustomCommands = customCommands.filter(elem => elem.command !== name);
 
+		dispatch(setCustomFormValue({ ...customFormValue, state: false }));
 		dispatch(setCustomCommands(newCustomCommands));
 	};
 
