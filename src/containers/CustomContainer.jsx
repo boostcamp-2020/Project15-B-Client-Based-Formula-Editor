@@ -21,6 +21,12 @@ export default function CustomContainer() {
 		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex }));
 	};
 
+	const handleDeleteClick = name => () => {
+		const newCustomCommands = customCommands.filter(elem => elem.command !== name);
+
+		dispatch(setCustomCommands(newCustomCommands));
+	};
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		const tempCustom = [
@@ -29,8 +35,7 @@ export default function CustomContainer() {
 		];
 
 		dispatch(setCustomCommands(tempCustom));
-		e.target.command.value = "";
-		e.target.latex.value = "";
+		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "" }));
 	};
 
 	const onChangeInput = type => e => {
@@ -58,6 +63,7 @@ export default function CustomContainer() {
 			<CustomList
 				customs={customCommands}
 				onClickEdit={handleEditClick}
+				onClickDelete={handleDeleteClick}
 			/>
 		</div>
 	);
