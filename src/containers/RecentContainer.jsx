@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteRecentItem, setBookmarkItem } from "../slice";
+import { deleteRecentItem, setBookmarkItem, setLatexInput } from "../slice";
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
 
-export default function RecentContainer({ onScroll, setTabState }) {
+export default function RecentContainer({ onScroll, setTabState, setSidebar }) {
 	const { recentItems } = useSelector(state => state);
 	const dispatch = useDispatch();
 
@@ -26,6 +26,11 @@ export default function RecentContainer({ onScroll, setTabState }) {
 		}
 	};
 
+	const handleFormulaClick = latex => () => {
+		dispatch(setLatexInput(latex));
+		setSidebar(false);
+	};
+
 	return (
 		<ListLayout onScroll={onScroll}>
 			<SideBarHeader title={"최근 수식 목록"} />
@@ -37,6 +42,7 @@ export default function RecentContainer({ onScroll, setTabState }) {
 						bookmarkOnClick={handleBookmarkButtonClick(id, isBookmark)}
 						customOnClick={handleCustomButtonClick}
 						deleteOnClick={handleDeleteButtonClick(id)}
+						intoLatexFieldOnClick={handleFormulaClick(latex)}
 						isBookmark={isBookmark}
 					/>,
 				) :

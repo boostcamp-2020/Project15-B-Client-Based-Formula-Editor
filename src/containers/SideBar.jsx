@@ -22,6 +22,7 @@ export default function SideBar() {
 	const tabMap = {
 		0: <RecentContainer
 			onScroll={toFitSimple(handleSidebarScroll)}
+			setSidebar={setIsOpenSidebar}
 			setTabState={setTabState}/>,
 		1: <BookmarkContainer
 			onScroll={toFitSimple(handleSidebarScroll)}
