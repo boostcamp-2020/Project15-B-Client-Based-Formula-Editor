@@ -24,6 +24,7 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	};
 
 	const addCurrentLatexToBookmark = () => {
+		if (!latexInput) return;
 		dispatch(addBookmarkItem(latexInput));
 	};
 

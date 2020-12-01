@@ -75,7 +75,6 @@ const { reducer, actions } = createSlice({
 			state.customCommand = payload;
 		},
 		addBookmarkItem(state, { payload }) {
-			if (!payload) return;
 			addLatexItem(state, { latex: payload, isBookmark: true });
 			updateSidebar(state);
 		},
@@ -92,7 +91,6 @@ const { reducer, actions } = createSlice({
 			updateSidebar(state);
 		},
 		addRecentItem(state, { payload }) {
-			if (!payload) return;
 			addLatexItem(state, { latex: payload, isRecent: true });
 			updateSidebar(state);
 		},

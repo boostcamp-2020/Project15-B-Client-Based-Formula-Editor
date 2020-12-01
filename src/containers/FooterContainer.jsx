@@ -52,6 +52,7 @@ export default function FooterContainer() {
 	};
 
 	const handleSaveFormula = () => {
+		if (!latexInput) return;
 		dispatch(addRecentItem(latexInput));
 		dispatch(openBubblePopup({ target: "formulaSave", isOpen: true }));
 	};
