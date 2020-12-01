@@ -1,14 +1,30 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import FooterLayout from "../layouts/FooterLayout";
 import FooterButton from "../presentationals/FooterButton";
 
 export default function FooterContainer() {
+	const latexInput = useSelector(state => state.latexInput);
+
 	const handleDownloadAsImage = () => {
 		console.log("clicked download image button");
 	};
 	const handleCopyLink = () => {
-		console.log("clicked copy link button");
+		const FROM_BEGINNING = 0;
+		const TO_END = 99999;
+
+		const temptCopyTarget = document.createElement("textarea");
+
+		temptCopyTarget.value = `${location.origin}/${latexInput}`;
+
+		document.body.appendChild(temptCopyTarget);
+		temptCopyTarget.select();
+		temptCopyTarget.setSelectionRange(FROM_BEGINNING, TO_END);
+		document.execCommand("copy");
+		document.body.removeChild(temptCopyTarget);
+
+		alert("해당 수식의 링크가 클립보드에 복사되었습니다");
 	};
 	const handleSaveFormula = () => {
 		console.log("clicked save temporarily formula button");
