@@ -13,6 +13,7 @@ const { reducer, actions } = createSlice({
 			color: "#000000",
 		},
 		alignInfo: "center",
+		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -53,6 +54,9 @@ const { reducer, actions } = createSlice({
 			state.pastLatexCommands.unshift(state.latexInput);
 			state.latexInput = "";
 		},
+		setCustomCommands(state, { payload }) {
+			state.customCommands = payload;
+		},
 	},
 });
 
@@ -65,6 +69,7 @@ export const {
 	undoEvent,
 	redoEvent,
 	resetEvent,
+	setCustomCommands,
 } = actions;
 
 export default reducer;

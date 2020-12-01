@@ -1,21 +1,34 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import SideBarHeader from "../presentationals/SideBarHeader";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomList from "../presentationals/CustomList";
+import { setCustomCommands } from "../slice";
 
 export default function CustomContainer() {
 	const [isFormOn, toggleIsFormOn] = useState({ state: false, name: "등록" });
+	const customs = useSelector(state => state.customCommands);
+	const dispatch = useDispatch();
 
 	const handleFormOnButton = () => {
 		toggleIsFormOn({ state: !isFormOn.state, name: "등록" });
 	};
 
-	const customs = [{ id: 0, name: "\\cmx" }, { id: 1, name: "\\lll" }, { id: 2, name: "\\ggg" }, { id: 3, name: "\\ccc" }];
 
 	const handleCustomItemClick = () => {
 		toggleIsFormOn({ state: true, name: "수정" });
+	};
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		const tempCustom = [
+			...customs,
+			{ id: customs.length, command: e.target.command.value, latex: e.target.latex.value },
+		];
+
+		dispatch(setCustomCommands(tempCustom));
 	};
 
 	return (
@@ -25,7 +38,7 @@ export default function CustomContainer() {
 				isFormOn={isFormOn.state}
 				onClick={handleFormOnButton}
 			/>
-			{isFormOn.state && <CustomForm buttonName={isFormOn.name} />}
+			{isFormOn.state && <CustomForm onSubmit={handleSubmit} buttonName={isFormOn.name} />}
 			<CustomList
 				customs={customs}
 				onClickItem={handleCustomItemClick}
