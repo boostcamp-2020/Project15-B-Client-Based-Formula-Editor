@@ -12,9 +12,13 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.js|.jsx$/,
+				test: /\.jsx?$/,
 				exclude: /node_modules/,
 				use: "babel-loader",
+			},
+			{
+				test: /\.(png|ico|jpg|gif)$/,
+				use: "file-loader",
 			},
 		],
 	},
@@ -23,9 +27,11 @@ module.exports = {
 	},
 	devtool: "inline-source-map",
 	plugins: [
+		new CleanWebpackPlugin(),
 		new HtmlWebPackPlugin({
-			template: "./index.html",
-		}), new CleanWebpackPlugin(),
+			template: "./public/index.html",
+			favicon: "public/favicon.ico",
+		}),
 	],
 	devServer: {
 		inline: true,
