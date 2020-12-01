@@ -14,7 +14,7 @@ describe("<ListItem />", () => {
 			const buttons = container.querySelectorAll("button");
 
 			expect(container).toHaveTextContent(latex);
-			expect(buttons).toHaveLength(2);
+			expect(buttons).toHaveLength(3);
 		});
 	});
 
@@ -26,7 +26,7 @@ describe("<ListItem />", () => {
 			const buttons = container.querySelectorAll("button");
 
 			expect(container).toHaveTextContent(latex);
-			expect(buttons).toHaveLength(1);
+			expect(buttons).toHaveLength(2);
 		});
 	});
 });
