@@ -7,6 +7,10 @@ const LATEX_LIST = "latexList";
 const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 const getLocalStorage = key => JSON.parse(localStorage.getItem(key)) || [];
 const getIdToAdd = list => list.reduce((maxId, { id }) => (maxId < id ? id : maxId), 0) + 1;
+const updateSidebar = state => {
+	state.bookmarkItems = state.latexList.filter(item => item.isBookmark);
+	state.recentItems = state.latexList.filter(item => item.isRecent);
+};
 
 const latexList = getLocalStorage(LATEX_LIST);
 
@@ -84,6 +88,12 @@ const { reducer, actions } = createSlice({
 			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
 			saveLocalStorage(BOOKMARK_ITEMS, state.bookmarkItems);
 		},
+		setBookmarkItem(state, { payload }) {
+			const index = state.latexList.findIndex(({ id }) => id === payload.id);
+			state.latexList[index].isBookmark = payload.isBookmark;
+			updateSidebar(state);
+			saveLocalStorage(LATEX_LIST, state.latexList);
+		},
 		addRecentItem(state, { payload }) {
 			if (!payload) return;
 			const newItem = {
@@ -94,7 +104,7 @@ const { reducer, actions } = createSlice({
 			};
 
 			state.latexList.push(newItem);
-			state.recentItems.push(newItem);
+			updateSidebar(state);
 			saveLocalStorage(LATEX_LIST, state.latexList);
 		},
 		deleteRecentItem(state, { payload }) {
@@ -121,6 +131,7 @@ export const {
 	setCustomCommand,
 	addBookmarkItem,
 	deleteBookmarkItem,
+	setBookmarkItem,
 	addRecentItem,
 	deleteRecentItem,
 	setBubblePopupOn,
