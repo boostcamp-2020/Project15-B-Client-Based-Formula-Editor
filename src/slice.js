@@ -207,14 +207,13 @@ const startBubblePopupDebounce = (dispatch, getState) => {
 	dispatch(setTimerId(timerId));
 };
 
-export const setLatexInputWithDebounce = payload => (dispatch, getState) => {
-	dispatch(setLatexInput(payload));
+const setDebounce = (actionCreater, payload) => (dispatch, getState) => {
+	dispatch(actionCreater(payload));
 	startBubblePopupDebounce(dispatch, getState);
 };
 
-export const setLatexTextInputWithDebounce = payload => (dispatch, getState) => {
-	dispatch(setLatexTextInput(payload));
-	startBubblePopupDebounce(dispatch, getState);
-};
+export const setLatexInputWithDebounce = payload => setDebounce(setLatexInput, payload);
+
+export const setLatexTextInputWithDebounce = payload => setDebounce(setLatexTextInput, payload);
 
 export default reducer;
