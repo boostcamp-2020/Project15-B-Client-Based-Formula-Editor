@@ -77,4 +77,9 @@ export const {
 	setCustomFormValue,
 } = actions;
 
+export const deleteCustomCommand = payload => dispatch => {
+	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
+	dispatch(setCustomCommands(payload.newCustomCommands));
+};
+
 export default reducer;
