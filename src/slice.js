@@ -95,7 +95,7 @@ const { reducer, actions } = createSlice({
 		addRecentItem(state, { payload }) {
 			addLatexItem(state, { latex: payload, isRecent: true });
 
-			if (state.tempSavedLatexId !== 0) {
+			if (state.tempSavedLatexId !== INITIAL_ID) {
 				state.latexList = state.latexList.filter(({ id }) => id !== state.tempSavedLatexId);
 			}
 
