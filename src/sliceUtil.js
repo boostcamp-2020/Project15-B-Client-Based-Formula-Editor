@@ -1,4 +1,5 @@
 export const LATEX_LIST = "latexList";
+export const INITIAL_ID = 0;
 
 export const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 

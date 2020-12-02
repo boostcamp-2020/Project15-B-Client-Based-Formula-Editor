@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import {
 	LATEX_LIST,
+	INITIAL_ID,
 	getLocalStorage,
 	updateSidebar,
 	addLatexItem,
@@ -28,7 +29,7 @@ const { reducer, actions } = createSlice({
 			linkCopy: { isOpen: false, message: "" },
 			formulaSave: { isOpen: false, message: "" },
 		},
-		tempSavedLatexId: 0,
+		tempSavedLatexId: INITIAL_ID,
 		latexList,
 		bookmarkItems: latexList.filter(item => item.isBookmark),
 		recentItems: latexList.filter(item => item.isRecent),
@@ -126,7 +127,7 @@ const { reducer, actions } = createSlice({
 			state.customFormValue.latex = payload;
 		},
 		setTempSavedItem(state, { payload }) {
-			if (state.tempSavedLatexId === 0) {
+			if (state.tempSavedLatexId === INITIAL_ID) {
 				const id = getIdToAdd(state.latexList);
 				const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
 
@@ -180,24 +181,28 @@ export const openBubblePopup = payload => dispatch => {
 	}, 1000);
 };
 
+const saveTempItem = dispatch => () => {
+	dispatch(setTempSavedItem());
+
+	const bubblePopupState = {
+		target: "formulaSave",
+		message: "임시저장 되었습니다",
+		isOpen: true,
+	};
+
+	dispatch(setBubblePopupOn(bubblePopupState));
+
+	setTimeout(() => {
+		dispatch(setBubblePopupOn({ ...bubblePopupState, isOpen: false }));
+	}, 2000);
+};
+
 const startBubblePopupDebounce = (dispatch, getState) => {
 	const state = getState();
 
 	clearTimeout(state.timerId);
-	const timerId = setTimeout(() => {
-		dispatch(setTempSavedItem());
 
-		const bubblePopupState = {
-			target: "formulaSave",
-			isOpen: true,
-			message: "임시저장 되었습니다",
-		};
-
-		dispatch(setBubblePopupOn(bubblePopupState));
-		setTimeout(() => {
-			dispatch(setBubblePopupOn({ ...bubblePopupState, isOpen: false }));
-		}, 2000);
-	}, 10000);
+	const timerId = setTimeout(saveTempItem(dispatch), 10000);
 
 	dispatch(setTimerId(timerId));
 };
