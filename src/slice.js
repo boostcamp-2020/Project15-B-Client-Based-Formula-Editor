@@ -30,6 +30,7 @@ const { reducer, actions } = createSlice({
 		latexList,
 		bookmarkItems: latexList.filter(item => item.isBookmark),
 		recentItems: latexList.filter(item => item.isRecent),
+		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
 	reducers: {
@@ -71,9 +72,6 @@ const { reducer, actions } = createSlice({
 			state.pastLatexCommands.unshift(state.latexInput);
 			state.latexInput = "";
 		},
-		setCustomCommand(state, { payload }) {
-			state.customCommand = payload;
-		},
 		addBookmarkItem(state, { payload }) {
 			addLatexItem(state, { latex: payload, isBookmark: true });
 			updateSidebar(state);
@@ -105,8 +103,14 @@ const { reducer, actions } = createSlice({
 
 			state.bubblePopup[target] = isOpen;
 		},
+		setCustomCommands(state, { payload }) {
+			state.customCommands = payload;
+		},
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
+		},
+		setCustomFormLatex(state, { payload }) {
+			state.customFormValue.latex = payload;
 		},
 	},
 });
@@ -126,8 +130,15 @@ export const {
 	addRecentItem,
 	deleteRecentItem,
 	setBubblePopupOn,
+	setCustomCommands,
 	setCustomFormValue,
+	setCustomFormLatex,
 } = actions;
+
+export const deleteCustomCommand = payload => dispatch => {
+	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
+	dispatch(setCustomCommands(payload.newCustomCommands));
+};
 
 export const openBubblePopup = payload => dispatch => {
 	dispatch(setBubblePopupOn(payload));

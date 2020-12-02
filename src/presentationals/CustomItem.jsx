@@ -37,15 +37,15 @@ const Buttons = styled.div`
 	transform: translateY(-50%);
 `;
 
-export default function CustomItem({ name, onClick }) {
+export default function CustomItem({ name, onClickEdit, onClickDelete }) {
 	return (
 		<Layout>
-			<Item onClick={onClick}>
+			<Item onClick={onClickEdit}>
 				<Title>{name}</Title>
 			</Item>
 			<Buttons>
-				<IconButton onClick={onClick} isHover={true} icon={<EditIcon />} />
-				<IconButton isHover={true} icon={<DeleteIcon />} />
+				<IconButton onClick={onClickEdit} isHover={true} icon={<EditIcon />} />
+				<IconButton onClick={onClickDelete} isHover={true} icon={<DeleteIcon />} />
 			</Buttons>
 		</Layout>
 	);

@@ -64,7 +64,7 @@ export default function ListItem({
 					isHover={true}
 					icon={<CloseIcon fill={color.dark}/>}/>
 			</DeleteButton>
-			<Item onClick={intoLatexFieldOnClick}>
+			<Item>
 				<Formula>{latex}</Formula>
 			</Item>
 			<Bottom>
