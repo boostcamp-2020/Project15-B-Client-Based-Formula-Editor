@@ -30,7 +30,7 @@ const { reducer, actions } = createSlice({
 		latexList,
 		bookmarkItems: latexList.filter(item => item.isBookmark),
 		recentItems: latexList.filter(item => item.isRecent),
-		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
+		customCommands: [{ command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
 	reducers: {

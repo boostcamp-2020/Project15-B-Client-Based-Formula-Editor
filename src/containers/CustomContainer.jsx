@@ -15,21 +15,21 @@ export default function CustomContainer() {
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
 	};
 
-	const handleEditClick = (id, command) => () => {
-		const target = customCommands.filter(elem => elem.command === command)[0];
+	const handleEditClick = index => () => {
+		const target = customCommands[index];
 
-		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id }));
+		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id: index }));
 	};
 
-	const handleDeleteClick = command => () => {
-		const newCustomCommands = customCommands.filter(elem => elem.command !== command);
+	const handleDeleteClick = index => () => {
+		const newCustomCommands = [...customCommands].splice(index, 1);
 
 		dispatch(deleteCustomCommand({ customFormValue, newCustomCommands }));
 	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		const isExist = customCommands.find(elem => elem.command === e.target.command.value);
+		const isExist = customCommands.find(elem => elem.command === customFormValue.command);
 		const buttonName = e.target.submitBtn.innerText;
 
 		if (buttonName === "등록") {
@@ -39,26 +39,25 @@ export default function CustomContainer() {
 			}
 			const tempCustomCommands = [
 				...customCommands,
-				{ id: customCommands.length, command: customFormValue.command, latex: customFormValue.latex },
+				{ command: customFormValue.command, latex: customFormValue.latex },
 			];
 
 			dispatch(setCustomCommands(tempCustomCommands));
 		}
 
 		if (buttonName === "수정") {
-			const targetId = customFormValue.id;
-			const tempCustomCommands = [...customCommands].filter(elem => elem.id !== targetId);
+			const index = customFormValue.id;
+			const tempCustomCommands = [...customCommands];
 
-			if (isExist && e.target.command.value !== customCommands[targetId].command) {
+			tempCustomCommands[index] = { command: customFormValue.command, latex: customFormValue.latex };
+
+			if (isExist && e.target.command.value !== customCommands[index].command) {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}
-			dispatch(setCustomCommands([
-				...tempCustomCommands,
-				{ id: targetId, command: customFormValue.command, latex: customFormValue.latex },
-			].sort((a, b) => a.id - b.id)));
+			dispatch(setCustomCommands(tempCustomCommands));
 		}
-		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "", id: -1, isDisabled: false }));
+		dispatch(setCustomFormValue({ state: false, command: "", latex: "", id: -1, isDisabled: false }));
 	};
 
 	const onChangeCommand = e => {
