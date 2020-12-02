@@ -5,7 +5,7 @@ import SideBarHeader from "../presentationals/SideBarHeader";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomList from "../presentationals/CustomList";
-import { deleteCustomCommand, setCustomCommands, setCustomFormLatex, setCustomFormValue } from "../slice";
+import { deleteCustomCommand, setCustomCommandList, setCustomFormLatex, setCustomFormValue } from "../slice";
 
 export default function CustomContainer() {
 	const { customCommandList, customFormValue } = useSelector(state => state);
@@ -42,7 +42,7 @@ export default function CustomContainer() {
 				{ command: customFormValue.command, latex: customFormValue.latex },
 			];
 
-			dispatch(setCustomCommands(tempCustomCommands));
+			dispatch(setCustomCommandList(tempCustomCommands));
 		}
 
 		if (buttonName === "수정") {
@@ -55,7 +55,7 @@ export default function CustomContainer() {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}
-			dispatch(setCustomCommands(tempCustomCommands));
+			dispatch(setCustomCommandList(tempCustomCommands));
 		}
 		dispatch(setCustomFormValue({ state: false, command: "", latex: "", id: -1, isDisabled: false }));
 	};
@@ -83,7 +83,7 @@ export default function CustomContainer() {
 					onSubmit={handleSubmit}
 				/>}
 			<CustomList
-				customs={customCommands}
+				customs={customCommandList}
 				onClickEdit={handleEditClick}
 				onClickDelete={handleDeleteClick}
 			/>

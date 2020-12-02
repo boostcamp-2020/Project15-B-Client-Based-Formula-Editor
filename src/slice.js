@@ -5,6 +5,7 @@ import {
 	CUSTOM_LIST,
 	getLocalStorage,
 	updateSidebar,
+	updateCustomCommandList,
 	addLatexItem,
 } from "./util";
 
@@ -105,8 +106,9 @@ const { reducer, actions } = createSlice({
 
 			state.bubblePopup[target] = isOpen;
 		},
-		setCustomCommands(state, { payload }) {
-			state.customCommands = payload;
+		setCustomCommandList(state, { payload }) {
+			state.customCommandList = payload;
+			updateCustomCommandList(state);
 		},
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
@@ -132,14 +134,14 @@ export const {
 	addRecentItem,
 	deleteRecentItem,
 	setBubblePopupOn,
-	setCustomCommands,
+	setCustomCommandList,
 	setCustomFormValue,
 	setCustomFormLatex,
 } = actions;
 
 export const deleteCustomCommand = payload => dispatch => {
 	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
-	dispatch(setCustomCommands(payload.newCustomCommands));
+	dispatch(setCustomCommandList(payload.newCustomCommands));
 };
 
 export const openBubblePopup = payload => dispatch => {

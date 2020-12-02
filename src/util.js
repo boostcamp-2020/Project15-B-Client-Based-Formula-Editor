@@ -30,6 +30,10 @@ export const updateSidebar = state => {
 	saveLocalStorage(LATEX_LIST, state.latexList);
 };
 
+export const updateCustomCommandList = state => {
+	saveLocalStorage(CUSTOM_LIST, state.customCommandList);
+};
+
 export const getIdToAdd = list => list.reduce((maxId, { id }) => (maxId < id ? id : maxId), 0) + 1;
 
 export const addLatexItem = (state, { latex, isRecent = false, isBookmark = false }) => {
