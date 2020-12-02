@@ -12,7 +12,7 @@ export default function FooterContainer() {
 	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
 
 	const handleDownloadAsImage = async () => {
-		const mathquillArea = document.querySelector(".mq-root-block");
+		const mathquillArea = document.querySelector(".mq-editable-field > .mq-root-block");
 
 		mathquillArea.style.width = "max-content";
 
