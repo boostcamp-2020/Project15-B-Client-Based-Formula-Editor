@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLatexInputWithDibounce, setLatexTextInputWithDibounce } from "../slice";
+import { setLatexInputWithDebounce, setLatexTextInputWithDebounce } from "../slice";
 
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
@@ -20,7 +20,7 @@ export default function BodyContainer() {
 		alignInfo,
 	} = useSelector(state => state);
 
-	const handleLatexInput = mathField => dispatch(setLatexInputWithDibounce(mathField.latex()));
+	const handleLatexInput = mathField => dispatch(setLatexInputWithDebounce(mathField.latex()));
 
 
 	const setUpLatexInsertFunction = mathField => {
@@ -30,7 +30,7 @@ export default function BodyContainer() {
 	};
 
 	const handleLatexTextarea = e => {
-		dispatch(setLatexTextInputWithDibounce(e.target.value));
+		dispatch(setLatexTextInputWithDebounce(e.target.value));
 	};
 
 	return (

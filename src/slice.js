@@ -202,12 +202,12 @@ const startBubblePopupDebounce = (dispatch, getState) => {
 	dispatch(setTimerId(timerId));
 };
 
-export const setLatexInputWithDibounce = payload => (dispatch, getState) => {
+export const setLatexInputWithDebounce = payload => (dispatch, getState) => {
 	dispatch(setLatexInput(payload));
 	startBubblePopupDebounce(dispatch, getState);
 };
 
-export const setLatexTextInputWithDibounce = payload => (dispatch, getState) => {
+export const setLatexTextInputWithDebounce = payload => (dispatch, getState) => {
 	dispatch(setLatexTextInput(payload));
 	startBubblePopupDebounce(dispatch, getState);
 };
