@@ -76,7 +76,7 @@ export default function FooterContainer() {
 				message="수식 링크를 복사하였습니다"
 			/>
 			<FooterButton
-				name="수식 임시저장"
+				name="수식 저장"
 				onClick={handleSaveFormula}
 				isPopupOn={formulaSave}
 				message="수식을 저장하였습니다"
