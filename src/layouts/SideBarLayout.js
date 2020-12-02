@@ -17,7 +17,7 @@ const SideBarLayout = styled.div`
 	z-index: 5;
 
 	> div {
-		width: 100%;
+		width: ${layoutWidth - buttonWidth}px;
 		border-left: 2px solid ${color.dark};
 		background-color: ${color.superLight};
 	}
