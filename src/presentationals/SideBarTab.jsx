@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
+import { RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import TimeIcon from "../icons/TimeIcon";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import CustomIcon from "../icons/CustomIcon";
@@ -41,7 +42,11 @@ const SelectedTabBorderBottom = styled.div`
 `;
 
 export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
-	const tabMenus = [<TimeIcon key="0"/>, <EmptyStarIcon key="1"/>, <CustomIcon key="2"/>];
+	const tabMenus = [
+		<TimeIcon key={RECENT_TAB}/>,
+		<EmptyStarIcon key={BOOKMARK_TAB}/>,
+		<CustomIcon key={CUSTOM_COMMAND_TAB}/>,
+	];
 
 	return (
 		<TabLayout isScrollTop={isScrollTop}>
