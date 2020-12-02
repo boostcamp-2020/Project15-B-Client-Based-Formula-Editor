@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { StaticMathField } from "react-mathquill";
 
 import { color } from "../GlobalStyle";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
@@ -31,14 +32,16 @@ const Item = styled.div`
 	margin: 5px;
 	border-radius: 15px;
 	border: 1px solid ${color.dark};
-`;
 
-const Formula = styled.div`
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	cursor: pointer;
+	> .mq-math-mode {
+		width: 90%;
+		text-align: center;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		cursor: pointer;
+	}
 `;
 
 const DeleteButton = styled.div`
@@ -65,7 +68,7 @@ export default function ListItem({
 					icon={<CloseIcon fill={color.dark}/>}/>
 			</DeleteButton>
 			<Item onClick={intoLatexFieldOnClick}>
-				<Formula>{latex}</Formula>
+				<StaticMathField>{latex}</StaticMathField>
 			</Item>
 			<Bottom>
 				{bookmarkOnClick &&
