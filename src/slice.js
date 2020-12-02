@@ -13,6 +13,8 @@ const { reducer, actions } = createSlice({
 			color: "#000000",
 		},
 		alignInfo: "center",
+		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
+		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -53,6 +55,18 @@ const { reducer, actions } = createSlice({
 			state.pastLatexCommands.unshift(state.latexInput);
 			state.latexInput = "";
 		},
+		addBookmarkItem(state) {
+			if (state.latexInput.length === 0) return;
+			state.bookmarkItems.push({ latex: state.latexInput });
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		},
+		deleteBookmarkItem(state, { payload }) {
+			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		},
+		setCustomFormValue(state, { payload }) {
+			state.customFormValue = payload;
+		},
 	},
 });
 
@@ -65,6 +79,9 @@ export const {
 	undoEvent,
 	redoEvent,
 	resetEvent,
+	addBookmarkItem,
+	deleteBookmarkItem,
+	setCustomFormValue,
 } = actions;
 
 export default reducer;
