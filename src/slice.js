@@ -173,28 +173,25 @@ export const deleteCustomCommand = payload => dispatch => {
 	dispatch(setCustomCommands(payload.newCustomCommands));
 };
 
-export const openBubblePopup = payload => dispatch => {
-	dispatch(setBubblePopupOn({ ...payload, isOpen: true }));
+const setPopup = (dispatch, config, ms) => {
+	dispatch(setBubblePopupOn({ ...config, isOpen: true }));
 
 	setTimeout(() => {
-		dispatch(setBubblePopupOn({ ...payload, isOpen: false }));
-	}, 1000);
+		dispatch(setBubblePopupOn({ ...config, isOpen: false }));
+	}, ms);
 };
+
+export const openBubblePopup = payload => dispatch => setPopup(dispatch, payload, 1000);
 
 const saveTempItem = dispatch => () => {
 	dispatch(setTempSavedItem());
 
-	const bubblePopupState = {
+	const config = {
 		target: "formulaSave",
 		message: "임시저장 되었습니다",
-		isOpen: true,
 	};
 
-	dispatch(setBubblePopupOn(bubblePopupState));
-
-	setTimeout(() => {
-		dispatch(setBubblePopupOn({ ...bubblePopupState, isOpen: false }));
-	}, 2000);
+	setPopup(dispatch, config, 2000);
 };
 
 const startBubblePopupDebounce = (dispatch, getState) => {
