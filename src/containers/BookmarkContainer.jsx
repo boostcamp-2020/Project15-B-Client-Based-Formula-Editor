@@ -1,21 +1,22 @@
 import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addBookmarkItem, deleteBookmarkItem, setCustomCommand, setLatexInput } from "../slice";
+import { addBookmarkItem, deleteBookmarkItem, setCustomFormValue, setLatexInput } from "../slice";
 
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 import EmptyItem from "../presentationals/EmptyItem";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 
 export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 
 	const handleCustomButtonClick = latex => () => {
-		dispatch(setCustomCommand(latex));
-		setTabState(2);
+		dispatch(setCustomFormValue({ state: true, name: "등록", command: "", latex }));
+		setTabState(CUSTOM_COMMAND_TAB);
 	};
 
 	const handleFormulaClick = latex => () => {

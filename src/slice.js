@@ -22,7 +22,6 @@ const { reducer, actions } = createSlice({
 			color: "#000000",
 		},
 		alignInfo: "center",
-		customCommand: "",
 		bubblePopup: {
 			imageDownload: false,
 			linkCopy: false,
@@ -31,6 +30,7 @@ const { reducer, actions } = createSlice({
 		latexList,
 		bookmarkItems: latexList.filter(item => item.isBookmark),
 		recentItems: latexList.filter(item => item.isRecent),
+		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -105,6 +105,9 @@ const { reducer, actions } = createSlice({
 
 			state.bubblePopup[target] = isOpen;
 		},
+		setCustomFormValue(state, { payload }) {
+			state.customFormValue = payload;
+		},
 	},
 });
 
@@ -117,13 +120,13 @@ export const {
 	undoEvent,
 	redoEvent,
 	resetEvent,
-	setCustomCommand,
 	addBookmarkItem,
 	deleteBookmarkItem,
 	setBookmarkItem,
 	addRecentItem,
 	deleteRecentItem,
 	setBubblePopupOn,
+	setCustomFormValue,
 } = actions;
 
 export const openBubblePopup = payload => dispatch => {
