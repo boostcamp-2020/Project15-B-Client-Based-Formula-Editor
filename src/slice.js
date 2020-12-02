@@ -5,6 +5,7 @@ import {
 	getLocalStorage,
 	updateSidebar,
 	addLatexItem,
+	getIdToAdd,
 } from "./util";
 
 const latexList = getLocalStorage(LATEX_LIST, []);
@@ -27,6 +28,7 @@ const { reducer, actions } = createSlice({
 			linkCopy: { isOpen: false, message: "" },
 			formulaSave: { isOpen: false, message: "" },
 		},
+		tempSavedLatexId: 0,
 		latexList,
 		bookmarkItems: latexList.filter(item => item.isBookmark),
 		recentItems: latexList.filter(item => item.isRecent),
@@ -116,6 +118,23 @@ const { reducer, actions } = createSlice({
 		setCustomFormLatex(state, { payload }) {
 			state.customFormValue.latex = payload;
 		},
+		setTempSavedItem(state, { payload }) {
+			if (state.tempSavedLatexId === 0) {
+				const id = getIdToAdd(state.latexList);
+				const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
+
+				state.latexList.push(newItem);
+				state.tempSavedLatexId = id;
+				updateSidebar(state);
+
+				return;
+			}
+
+			const targetItem = state.latexList.find(({ id }) => id === state.tempSavedLatexId);
+
+			targetItem.latex = state.latexInput;
+			updateSidebar(state);
+		},
 	},
 });
 
@@ -138,6 +157,7 @@ export const {
 	setCustomFormValue,
 	setTimerId,
 	setCustomFormLatex,
+	setTempSavedItem,
 } = actions;
 
 export const deleteCustomCommand = payload => dispatch => {
@@ -158,6 +178,8 @@ const startBubblePopupDebounce = (dispatch, getState) => {
 
 	clearTimeout(state.timerId);
 	const timerId = setTimeout(() => {
+		dispatch(setTempSavedItem());
+
 		const bubblePopupState = {
 			target: "formulaSave",
 			isOpen: true,
