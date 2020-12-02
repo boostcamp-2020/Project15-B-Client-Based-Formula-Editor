@@ -13,6 +13,12 @@ const { reducer, actions } = createSlice({
 			color: "#000000",
 		},
 		alignInfo: "center",
+		bubblePopup: {
+			imageDownload: false,
+			linkCopy: false,
+			formulaSave: false,
+		},
+		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
 		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
@@ -55,8 +61,19 @@ const { reducer, actions } = createSlice({
 			state.pastLatexCommands.unshift(state.latexInput);
 			state.latexInput = "";
 		},
-		setCustomCommands(state, { payload }) {
-			state.customCommands = payload;
+		setBubblePopupOn(state, { payload }) {
+			const { target, isOpen } = payload;
+
+			state.bubblePopup[target] = isOpen;
+		},
+		addBookmarkItem(state) {
+			if (state.latexInput.length === 0) return;
+			state.bookmarkItems.push({ latex: state.latexInput });
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		},
+		deleteBookmarkItem(state, { payload }) {
+			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
 		},
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
@@ -77,6 +94,9 @@ export const {
 	redoEvent,
 	resetEvent,
 	setCustomCommands,
+	setBubblePopupOn,
+	addBookmarkItem,
+	deleteBookmarkItem,
 	setCustomFormValue,
 	setCustomFormLatex,
 } = actions;
@@ -84,6 +104,14 @@ export const {
 export const deleteCustomCommand = payload => dispatch => {
 	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
 	dispatch(setCustomCommands(payload.newCustomCommands));
+};
+
+export const openBubblePopup = payload => dispatch => {
+	dispatch(setBubblePopupOn(payload));
+
+	setTimeout(() => {
+		dispatch(setBubblePopupOn({ target: payload.target, isOpen: false }));
+	}, 1000);
 };
 
 export default reducer;
