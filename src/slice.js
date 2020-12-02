@@ -174,7 +174,7 @@ export const deleteCustomCommand = payload => dispatch => {
 };
 
 export const openBubblePopup = payload => dispatch => {
-	dispatch(setBubblePopupOn(payload));
+	dispatch(setBubblePopupOn({ ...payload, isOpen: true }));
 
 	setTimeout(() => {
 		dispatch(setBubblePopupOn({ ...payload, isOpen: false }));

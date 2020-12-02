@@ -31,7 +31,6 @@ export default function FooterContainer() {
 
 		dispatch(openBubblePopup({
 			target: "imageDownload",
-			isOpen: true,
 			message: "수식을 이미지로 저장하였습니다",
 		}));
 	};
@@ -54,7 +53,6 @@ export default function FooterContainer() {
 
 		dispatch(openBubblePopup({
 			target: "linkCopy",
-			isOpen: true,
 			message: "수식 링크를 복사하였습니다",
 		}));
 	};
@@ -64,7 +62,6 @@ export default function FooterContainer() {
 		dispatch(addRecentItem(latexInput));
 		dispatch(openBubblePopup({
 			target: "formulaSave",
-			isOpen: true,
 			message: "수식을 저장하였습니다",
 		}));
 	};
