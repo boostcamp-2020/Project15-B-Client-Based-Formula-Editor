@@ -6,7 +6,7 @@ import {
 	updateSidebar,
 	addLatexItem,
 	getIdToAdd,
-} from "./util";
+} from "./sliceUtil";
 
 const latexList = getLocalStorage(LATEX_LIST, []);
 
