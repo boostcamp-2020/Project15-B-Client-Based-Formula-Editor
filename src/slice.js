@@ -8,6 +8,7 @@ import {
 	compareRecent,
 	compareBookmark,
 	setBookmark,
+	getItemMatchCondition,
 } from "./util";
 
 const latexList = getLocalStorage(LATEX_LIST, []);
@@ -92,9 +93,9 @@ const { reducer, actions } = createSlice({
 			updateSidebar(state);
 		},
 		deleteRecentItem(state, { payload }) {
-			const index = state.latexList.findIndex(({ id }) => id === payload);
+			const latexItem = getItemMatchCondition(state.latexList, ({ id }) => id === payload);
 
-			state.latexList[index].isRecent = false;
+			latexItem.isRecent = false;
 			updateSidebar(state);
 		},
 		setBubblePopupOn(state, { payload }) {
