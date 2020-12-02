@@ -80,7 +80,7 @@ const { reducer, actions } = createSlice({
 		},
 		setTimerId(state, { payload }) {
 			state.timerId = payload;
-	},
+		},
 	},
 });
 
@@ -97,14 +97,45 @@ export const {
 	addBookmarkItem,
 	deleteBookmarkItem,
 	setCustomFormValue,
+	setTimerId,
 } = actions;
 
 export const openBubblePopup = payload => dispatch => {
 	dispatch(setBubblePopupOn(payload));
 
 	setTimeout(() => {
-		dispatch(setBubblePopupOn({ target: payload.target, isOpen: false }));
+		dispatch(setBubblePopupOn({ ...payload, isOpen: false }));
 	}, 1000);
+};
+
+const startBubblePopupDebounce = (dispatch, getState) => {
+	const state = getState();
+
+	clearTimeout(state.timerId);
+	const timerId = setTimeout(() => {
+		const bubblePopupState = {
+			target: "formulaSave",
+			isOpen: true,
+			message: "임시저장 되었습니다",
+		};
+
+		dispatch(setBubblePopupOn(bubblePopupState));
+		setTimeout(() => {
+			dispatch(setBubblePopupOn({ ...bubblePopupState, isOpen: false }));
+		}, 2000);
+	}, 10000);
+
+	dispatch(setTimerId(timerId));
+};
+
+export const setLatexInputWithDibounce = payload => (dispatch, getState) => {
+	dispatch(setLatexInput(payload));
+	startBubblePopupDebounce(dispatch, getState);
+};
+
+export const setLatexTextInputWithDibounce = payload => (dispatch, getState) => {
+	dispatch(setLatexTextInput(payload));
+	startBubblePopupDebounce(dispatch, getState);
 };
 
 export default reducer;
