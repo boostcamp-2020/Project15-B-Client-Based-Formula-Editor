@@ -29,7 +29,9 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	};
 
 	const handleDeleteButton = id => () => {
-		dispatch(deleteBookmarkItem(id));
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			dispatch(deleteBookmarkItem(id));
+		}
 	};
 
 	return (
