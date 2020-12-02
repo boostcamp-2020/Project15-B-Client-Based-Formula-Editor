@@ -14,7 +14,7 @@ export default function RecentContainer({ onScroll, setTabState, setSidebar }) {
 
 	const handleBookmarkButtonClick = (id, isBookmark) => () => {
 		dispatch(setBookmarkItem({ id, isBookmark: !isBookmark }));
-		setTabState(BOOKMARK_TAB);
+		if (!isBookmark) setTabState(BOOKMARK_TAB);
 	};
 
 	const handleCustomButtonClick = () => {
