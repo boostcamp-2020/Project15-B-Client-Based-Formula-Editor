@@ -7,7 +7,6 @@ import {
 	compareRecent,
 	compareBookmark,
 	setBookmark,
-	getItemMatchCondition,
 } from "./util";
 
 const latexList = initLatexList();
@@ -88,7 +87,7 @@ const { reducer, actions } = createSlice({
 			updateSidebar(state);
 		},
 		deleteRecentItem(state, { payload }) {
-			const latexItem = getItemMatchCondition(state.latexList, ({ id }) => id === payload);
+			const latexItem = state.latexList.find(({ id }) => id === payload);
 
 			latexItem.isRecent = false;
 			updateSidebar(state);

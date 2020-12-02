@@ -52,10 +52,8 @@ export const addLatexItem = (state, { latex, isRecent = false, isBookmark = fals
 	state.latexList.push(newItem);
 };
 
-export const getItemMatchCondition = (array, condition) => array[array.findIndex(condition)];
-
 export const setBookmark = (state, { id, isBookmark }) => {
-	const latexItem = getItemMatchCondition(state.latexList, item => item.id === id);
+	const latexItem = state.latexList.find(item => item.id === id);
 
 	latexItem.isBookmark = isBookmark;
 	latexItem.bookmarkPriority = getBookmarkPriorityToAdd(state.bookmarkItems, isBookmark);
