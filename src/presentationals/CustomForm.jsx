@@ -1,4 +1,5 @@
 import React from "react";
+import { EditableMathField } from "react-mathquill";
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -9,6 +10,10 @@ const Form = styled.form`
 	border: 1px solid black;
 	border-radius: 15px;
 
+	.mq-math-mode{
+		background-color: white;
+		text-align: center;
+	}
 	> * {
 		margin: 5px;
 		padding: 3px;
@@ -33,12 +38,12 @@ const WarningMsg = styled.p`
 `;
 
 
-export default function CustomForm({ data, onChange, onSubmit }) {
+export default function CustomForm({ data, onChangeCommand, onChangeLatex, onSubmit }) {
 	return (
 		<Form onSubmit={onSubmit}>
-			<input type="text" value={data.command} onChange={onChange("command")} name="command" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
+			<input type="text" value={data.command} onChange={onChangeCommand} name="command" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
 			<WarningMsg isDisabled={data.isDisabled}>이미 있는 명령어입니다.</WarningMsg>
-			<input type="text" value={data.latex} onChange={onChange("latex")} name="latex" placeholder="mathquill 자리입니다." />
+			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" placeholder="mathquill 자리입니다." />
 			<Button name="submitBtn">{data.name}</Button>
 		</Form>
 	);

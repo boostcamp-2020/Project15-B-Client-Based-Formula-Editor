@@ -5,11 +5,12 @@ import SideBarHeader from "../presentationals/SideBarHeader";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomList from "../presentationals/CustomList";
-import { deleteCustomCommand, setCustomCommands, setCustomFormValue } from "../slice";
+import { deleteCustomCommand, setCustomCommands, setCustomFormLatex, setCustomFormValue } from "../slice";
 
 export default function CustomContainer() {
 	const { customCommands, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
+
 
 	const handleFormOnButton = () => {
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
@@ -39,7 +40,7 @@ export default function CustomContainer() {
 			}
 			const tempCustomCommands = [
 				...customCommands,
-				{ id: customCommands.length, command: e.target.command.value, latex: e.target.latex.value },
+				{ id: customCommands.length, command: customFormValue.command, latex: customFormValue.latex },
 			];
 
 			dispatch(setCustomCommands(tempCustomCommands));
@@ -61,8 +62,12 @@ export default function CustomContainer() {
 		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "", id: -1, isDisabled: false }));
 	};
 
-	const onChangeInput = type => e => {
-		dispatch(setCustomFormValue({ ...customFormValue, [type]: e.target.value }));
+	const onChangeCommand = e => {
+		dispatch(setCustomFormValue({ ...customFormValue, command: e.target.value }));
+	};
+
+	const onChangeLatex = mathField => {
+		dispatch(setCustomFormLatex(mathField.latex()));
 	};
 
 	return (
@@ -75,7 +80,8 @@ export default function CustomContainer() {
 			{customFormValue.state &&
 				<CustomForm
 					data={customFormValue}
-					onChange={onChangeInput}
+					onChangeCommand={onChangeCommand}
+					onChangeLatex={onChangeLatex}
 					onSubmit={handleSubmit}
 				/>}
 			<CustomList

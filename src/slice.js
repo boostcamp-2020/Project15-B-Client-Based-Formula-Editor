@@ -61,6 +61,9 @@ const { reducer, actions } = createSlice({
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
 		},
+		setCustomFormLatex(state, { payload }) {
+			state.customFormValue.latex = payload;
+		},
 	},
 });
 
@@ -75,6 +78,7 @@ export const {
 	resetEvent,
 	setCustomCommands,
 	setCustomFormValue,
+	setCustomFormLatex,
 } = actions;
 
 export const deleteCustomCommand = payload => dispatch => {
