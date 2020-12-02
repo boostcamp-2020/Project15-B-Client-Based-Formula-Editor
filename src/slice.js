@@ -93,6 +93,13 @@ const { reducer, actions } = createSlice({
 		},
 		addRecentItem(state, { payload }) {
 			addLatexItem(state, { latex: payload, isRecent: true });
+
+			if (state.tempSavedLatexId !== 0) {
+				state.latexList = state.latexList.filter(({ id }) => id !== state.tempSavedLatexId);
+			}
+
+			state.tempSavedLatexId = 0;
+			clearTimeout(state.timerId);
 			updateSidebar(state);
 		},
 		deleteRecentItem(state, { payload }) {
