@@ -8,7 +8,7 @@ export default function RouterExceptionCatcher() {
 	const { latexParameter } = useParams();
 	const dispatch = useDispatch();
 
-	const latex = latexParameter.replace(/\$\$/g, "\\");
+	const latex = latexParameter.replace(/@/g, "\\");
 
 	dispatch(setLatexTextInput(latex));
 

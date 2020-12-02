@@ -38,7 +38,7 @@ export default function FooterContainer() {
 
 		const virtualCopyTarget = document.createElement("textarea");
 
-		const parameter = latexInput.replace(/\\/g, "$$$");
+		const parameter = latexInput.replace(/\\/g, "@");
 
 		virtualCopyTarget.value = `${location.origin}/${parameter}`;
 
