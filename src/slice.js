@@ -79,10 +79,6 @@ const { reducer, actions } = createSlice({
 			addLatexItem(state, { latex: payload, isBookmark: true });
 			updateSidebar(state);
 		},
-		deleteBookmarkItem(state, { payload }) {
-			setBookmark(state, { id: payload, isBookmark: false });
-			updateSidebar(state);
-		},
 		setBookmarkItem(state, { payload }) {
 			setBookmark(state, payload);
 			updateSidebar(state);
@@ -124,7 +120,6 @@ export const {
 	redoEvent,
 	resetEvent,
 	addBookmarkItem,
-	deleteBookmarkItem,
 	setBookmarkItem,
 	addRecentItem,
 	deleteRecentItem,
