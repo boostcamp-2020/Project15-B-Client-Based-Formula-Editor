@@ -15,7 +15,7 @@ export const toFitSimple = cb => {
 
 /* local storage 관련 모듈 */
 
-export const LATEX_LIST = "latexList";
+const LATEX_LIST = "latexList";
 const ID = "id";
 const BOOKMARK_PRIORITY = "bookmarkPriority";
 
@@ -23,6 +23,8 @@ export const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.s
 
 export const getLocalStorage = (key, defaultValue) =>
 	JSON.parse(localStorage.getItem(key)) || defaultValue;
+
+export const initLatexList = () => getLocalStorage(LATEX_LIST, []);
 
 const compareDesc = prop => (a, b) => b[prop] - a[prop];
 

@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-	LATEX_LIST,
-	getLocalStorage,
+	initLatexList,
 	updateSidebar,
 	addLatexItem,
 	compareRecent,
@@ -11,7 +10,7 @@ import {
 	getItemMatchCondition,
 } from "./util";
 
-const latexList = getLocalStorage(LATEX_LIST, []);
+const latexList = initLatexList();
 
 const { reducer, actions } = createSlice({
 	name: "FEditor",
