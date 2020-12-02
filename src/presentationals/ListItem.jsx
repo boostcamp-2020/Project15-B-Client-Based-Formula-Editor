@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
+import FilledStarIcon from "../icons/FilledStarIcon";
 import PlusIcon from "../icons/PlusIcon";
 import CloseIcon from "../icons/CloseIcon";
 import IconButton from "./IconButton";
@@ -37,6 +38,7 @@ const Formula = styled.div`
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
+	cursor: pointer;
 `;
 
 const DeleteButton = styled.div`
@@ -46,7 +48,14 @@ const DeleteButton = styled.div`
 	display: none;
 `;
 
-export default function ListItem({ latex, deleteOnClick, bookmarkOnClick, customOnClick }) {
+export default function ListItem({
+	latex,
+	deleteOnClick,
+	bookmarkOnClick,
+	customOnClick,
+	intoLatexFieldOnClick,
+	isBookmark,
+}) {
 	return (
 		<Layout>
 			<DeleteButton>
@@ -63,7 +72,9 @@ export default function ListItem({ latex, deleteOnClick, bookmarkOnClick, custom
 					<IconButton
 						onClick={bookmarkOnClick}
 						isHover={true}
-						icon={<EmptyStarIcon fill={color.yellow} />}
+						icon={isBookmark ?
+							<FilledStarIcon /> :
+							<EmptyStarIcon fill={color.yellow} />}
 					/>
 				}
 				<IconButton
