@@ -75,6 +75,9 @@ const { reducer, actions } = createSlice({
 			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
 			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
 		},
+		setCustomCommands(state, { payload }) {
+			state.customCommands = payload;
+		},
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
 		},
@@ -93,10 +96,10 @@ export const {
 	undoEvent,
 	redoEvent,
 	resetEvent,
-	setCustomCommands,
 	setBubblePopupOn,
 	addBookmarkItem,
 	deleteBookmarkItem,
+	setCustomCommands,
 	setCustomFormValue,
 	setCustomFormLatex,
 } = actions;

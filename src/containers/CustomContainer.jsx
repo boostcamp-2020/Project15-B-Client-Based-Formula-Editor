@@ -11,7 +11,6 @@ export default function CustomContainer() {
 	const { customCommands, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 
-
 	const handleFormOnButton = () => {
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
 	};
