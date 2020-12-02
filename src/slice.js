@@ -141,7 +141,7 @@ export const {
 
 export const deleteCustomCommand = payload => dispatch => {
 	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
-	dispatch(setCustomCommandList(payload.newCustomCommands));
+	dispatch(setCustomCommandList(payload.tempCustomCommands));
 };
 
 export const openBubblePopup = payload => dispatch => {
