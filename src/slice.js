@@ -20,6 +20,7 @@ const { reducer, actions } = createSlice({
 		},
 		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
+		timerId: "",
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -77,6 +78,9 @@ const { reducer, actions } = createSlice({
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
 		},
+		setTimerId(state, { payload }) {
+			state.timerId = payload;
+	},
 	},
 });
 
