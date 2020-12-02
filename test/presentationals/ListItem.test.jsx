@@ -7,26 +7,34 @@ import ListItem from "../../src/presentationals/ListItem";
 describe("<ListItem />", () => {
 	describe("with bookmarkOnClick prop", () => {
 		it("renders recent list item", () => {
-			const latex = "2+3";
-			const bookmarkOnClick = () => {};
-			const customOnClick = () => {};
-			const { container } = render(<ListItem { ...{ latex, bookmarkOnClick, customOnClick } }/>);
+			const prop = {
+				latex: "2+3",
+				bookmarkOnClick: () => {},
+				customOnClick: () => {},
+				deleteOnClick: () => {},
+				intoLatexFieldOnClick: () => {},
+			};
+			const { container } = render(<ListItem { ...prop }/>);
 			const buttons = container.querySelectorAll("button");
 
-			expect(container).toHaveTextContent(latex);
-			expect(buttons).toHaveLength(2);
+			expect(container).toHaveTextContent(prop.latex);
+			expect(buttons).toHaveLength(3);
 		});
 	});
 
 	describe("without bookmarkOnClick prop", () => {
 		it("renders bookmark list item", () => {
-			const latex = "2+3";
-			const customOnClick = () => {};
-			const { container } = render(<ListItem { ...{ latex, customOnClick } }/>);
+			const prop = {
+				latex: "2+3",
+				customOnClick: () => {},
+				deleteOnClick: () => {},
+				intoLatexFieldOnClick: () => {},
+			};
+			const { container } = render(<ListItem { ...prop }/>);
 			const buttons = container.querySelectorAll("button");
 
-			expect(container).toHaveTextContent(latex);
-			expect(buttons).toHaveLength(1);
+			expect(container).toHaveTextContent(prop.latex);
+			expect(buttons).toHaveLength(2);
 		});
 	});
 });

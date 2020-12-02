@@ -4,11 +4,18 @@ import styled from "styled-components";
 import { color } from "../GlobalStyle";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import PlusIcon from "../icons/PlusIcon";
+import CloseIcon from "../icons/CloseIcon";
 import IconButton from "./IconButton";
 
 const Layout = styled.div`
 	height: 150px;
 	position: relative;
+
+	&:hover {
+		> div:first-child {
+			display: block;
+		}
+	}
 `;
 
 const Bottom = styled.div`
@@ -22,7 +29,7 @@ const Item = styled.div`
 	height: 100%;
 	margin: 5px;
 	border-radius: 15px;
-	border: 1px solid black;
+	border: 1px solid ${color.dark};
 `;
 
 const Formula = styled.div`
@@ -32,10 +39,29 @@ const Formula = styled.div`
 	transform: translate(-50%, -50%);
 `;
 
-export default function ListItem({ latex, bookmarkOnClick, customOnClick }) {
+const DeleteButton = styled.div`
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	display: none;
+`;
+
+export default function ListItem({
+	latex,
+	deleteOnClick,
+	bookmarkOnClick,
+	customOnClick,
+	intoLatexFieldOnClick,
+}) {
 	return (
 		<Layout>
-			<Item>
+			<DeleteButton>
+				<IconButton
+					onClick={deleteOnClick}
+					isHover={true}
+					icon={<CloseIcon fill={color.dark}/>}/>
+			</DeleteButton>
+			<Item onClick={intoLatexFieldOnClick}>
 				<Formula>{latex}</Formula>
 			</Item>
 			<Bottom>
@@ -46,7 +72,10 @@ export default function ListItem({ latex, bookmarkOnClick, customOnClick }) {
 						icon={<EmptyStarIcon fill={color.yellow} />}
 					/>
 				}
-				<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />
+				<IconButton
+					onClick={customOnClick}
+					isHover={true}
+					icon={<PlusIcon />} />
 			</Bottom>
 		</Layout>
 	);

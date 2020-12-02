@@ -18,6 +18,8 @@ const { reducer, actions } = createSlice({
 			linkCopy: false,
 			formulaSave: false,
 		},
+		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
+		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -63,6 +65,18 @@ const { reducer, actions } = createSlice({
 
 			state.bubblePopup[target] = isOpen;
 		},
+		addBookmarkItem(state) {
+			if (state.latexInput.length === 0) return;
+			state.bookmarkItems.push({ latex: state.latexInput });
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		},
+		deleteBookmarkItem(state, { payload }) {
+			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
+			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		},
+		setCustomFormValue(state, { payload }) {
+			state.customFormValue = payload;
+		},
 	},
 });
 
@@ -76,6 +90,9 @@ export const {
 	redoEvent,
 	resetEvent,
 	setBubblePopupOn,
+	addBookmarkItem,
+	deleteBookmarkItem,
+	setCustomFormValue,
 } = actions;
 
 export const openBubblePopup = payload => dispatch => {
