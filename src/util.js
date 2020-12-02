@@ -22,10 +22,12 @@ export const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.s
 export const getLocalStorage = (key, defaultValue) =>
 	JSON.parse(localStorage.getItem(key)) || defaultValue;
 
+export const compareDesc = (a, b) => b.id - a.id;
+
 export const updateSidebar = state => {
 	state.latexList = state.latexList.filter(item => item.isRecent || item.isBookmark);
-	state.bookmarkItems = state.latexList.filter(item => item.isBookmark);
-	state.recentItems = state.latexList.filter(item => item.isRecent);
+	state.bookmarkItems = state.latexList.filter(item => item.isBookmark).sort(compareDesc);
+	state.recentItems = state.latexList.filter(item => item.isRecent).sort(compareDesc);
 	saveLocalStorage(LATEX_LIST, state.latexList);
 };
 

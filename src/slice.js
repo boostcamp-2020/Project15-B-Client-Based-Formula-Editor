@@ -5,6 +5,7 @@ import {
 	getLocalStorage,
 	updateSidebar,
 	addLatexItem,
+	compareDesc,
 } from "./util";
 
 const latexList = getLocalStorage(LATEX_LIST, []);
@@ -28,8 +29,8 @@ const { reducer, actions } = createSlice({
 			formulaSave: false,
 		},
 		latexList,
-		bookmarkItems: latexList.filter(item => item.isBookmark),
-		recentItems: latexList.filter(item => item.isRecent),
+		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareDesc),
+		recentItems: latexList.filter(item => item.isRecent).sort(compareDesc),
 		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
