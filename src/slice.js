@@ -14,9 +14,9 @@ const { reducer, actions } = createSlice({
 		},
 		alignInfo: "center",
 		bubblePopup: {
-			imageDownload: false,
-			linkCopy: false,
-			formulaSave: false,
+			imageDownload: { isOpen: false, message: "" },
+			linkCopy: { isOpen: false, message: "" },
+			formulaSave: { isOpen: false, message: "" },
 		},
 		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
@@ -61,9 +61,9 @@ const { reducer, actions } = createSlice({
 			state.latexInput = "";
 		},
 		setBubblePopupOn(state, { payload }) {
-			const { target, isOpen } = payload;
+			const { target, isOpen, message } = payload;
 
-			state.bubblePopup[target] = isOpen;
+			state.bubblePopup[target] = { isOpen, message };
 		},
 		addBookmarkItem(state) {
 			if (state.latexInput.length === 0) return;
