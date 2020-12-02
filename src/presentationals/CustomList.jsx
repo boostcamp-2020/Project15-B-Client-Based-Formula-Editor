@@ -13,15 +13,16 @@ const Layout = styled.div`
 	}
 `;
 
-export default function CustomList({ customs, onClickItem }) {
+export default function CustomList({ customs, onClickEdit, onClickDelete }) {
 	return (
 		<Layout>
 			<div>내 코드들</div>
-			{customs.map(({ id, name }) =>
+			{customs.map(({ id, command }) =>
 				<CustomItem
 					key={id}
-					name={name}
-					onClick={onClickItem}
+					name={command}
+					onClickEdit={onClickEdit(id, command)}
+					onClickDelete={onClickDelete(command)}
 				/>)}
 		</Layout>
 	);

@@ -46,13 +46,7 @@ const DeleteButton = styled.div`
 	display: none;
 `;
 
-export default function ListItem({
-	latex,
-	deleteOnClick,
-	bookmarkOnClick,
-	customOnClick,
-	intoLatexFieldOnClick,
-}) {
+export default function ListItem({ latex, deleteOnClick, bookmarkOnClick, customOnClick }) {
 	return (
 		<Layout>
 			<DeleteButton>
@@ -61,7 +55,7 @@ export default function ListItem({
 					isHover={true}
 					icon={<CloseIcon fill={color.dark}/>}/>
 			</DeleteButton>
-			<Item onClick={intoLatexFieldOnClick}>
+			<Item>
 				<Formula>{latex}</Formula>
 			</Item>
 			<Bottom>
