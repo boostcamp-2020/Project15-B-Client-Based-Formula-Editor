@@ -12,7 +12,7 @@ export default function FooterContainer() {
 	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
 
 	const handleDownloadAsImage = async () => {
-		const mathquillArea = document.querySelector(".mq-root-block");
+		const mathquillArea = document.querySelector(".mq-editable-field > .mq-root-block");
 
 		mathquillArea.style.width = "max-content";
 
@@ -38,7 +38,7 @@ export default function FooterContainer() {
 
 		const virtualCopyTarget = document.createElement("textarea");
 
-		const parameter = latexInput.replace(/\\/g, "@");
+		const parameter = latexInput.replace(/\\/g, "$$$");
 
 		virtualCopyTarget.value = `${location.origin}/${parameter}`;
 
