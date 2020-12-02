@@ -8,7 +8,7 @@ import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 import EmptyItem from "../presentationals/EmptyItem";
-import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTabNames";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 
 export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
 	const dispatch = useDispatch();
