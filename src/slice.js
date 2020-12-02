@@ -1,5 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import {
+	LATEX_LIST,
+	getLocalStorage,
+	updateSidebar,
+	addLatexItem,
+} from "./util";
+
+const latexList = getLocalStorage(LATEX_LIST, []);
+
 const { reducer, actions } = createSlice({
 	name: "FEditor",
 	initialState: {
@@ -18,7 +27,10 @@ const { reducer, actions } = createSlice({
 			linkCopy: { isOpen: false, message: "" },
 			formulaSave: { isOpen: false, message: "" },
 		},
-		bookmarkItems: JSON.parse(localStorage.getItem("bookmarkItems")) || [],
+		latexList,
+		bookmarkItems: latexList.filter(item => item.isBookmark),
+		recentItems: latexList.filter(item => item.isRecent),
+		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 		timerId: "",
 	},
@@ -61,25 +73,48 @@ const { reducer, actions } = createSlice({
 			state.pastLatexCommands.unshift(state.latexInput);
 			state.latexInput = "";
 		},
+		addBookmarkItem(state, { payload }) {
+			addLatexItem(state, { latex: payload, isBookmark: true });
+			updateSidebar(state);
+		},
+		deleteBookmarkItem(state, { payload }) {
+			const index = state.latexList.findIndex(({ id }) => id === payload);
+
+			state.latexList[index].isBookmark = false;
+			updateSidebar(state);
+		},
+		setBookmarkItem(state, { payload }) {
+			const index = state.latexList.findIndex(({ id }) => id === payload.id);
+
+			state.latexList[index].isBookmark = payload.isBookmark;
+			updateSidebar(state);
+		},
+		addRecentItem(state, { payload }) {
+			addLatexItem(state, { latex: payload, isRecent: true });
+			updateSidebar(state);
+		},
+		deleteRecentItem(state, { payload }) {
+			const index = state.latexList.findIndex(({ id }) => id === payload);
+
+			state.latexList[index].isRecent = false;
+			updateSidebar(state);
+		},
 		setBubblePopupOn(state, { payload }) {
 			const { target, isOpen, message } = payload;
 
 			state.bubblePopup[target] = { isOpen, message };
 		},
-		addBookmarkItem(state) {
-			if (state.latexInput.length === 0) return;
-			state.bookmarkItems.push({ latex: state.latexInput });
-			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
-		},
-		deleteBookmarkItem(state, { payload }) {
-			state.bookmarkItems = state.bookmarkItems.filter((value, index) => index !== payload);
-			localStorage.setItem("bookmarkItems", JSON.stringify(state.bookmarkItems));
+		setCustomCommands(state, { payload }) {
+			state.customCommands = payload;
 		},
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
 		},
 		setTimerId(state, { payload }) {
 			state.timerId = payload;
+		},
+		setCustomFormLatex(state, { payload }) {
+			state.customFormValue.latex = payload;
 		},
 	},
 });
@@ -93,12 +128,22 @@ export const {
 	undoEvent,
 	redoEvent,
 	resetEvent,
-	setBubblePopupOn,
 	addBookmarkItem,
 	deleteBookmarkItem,
+	setBookmarkItem,
+	addRecentItem,
+	deleteRecentItem,
+	setBubblePopupOn,
+	setCustomCommands,
 	setCustomFormValue,
 	setTimerId,
+	setCustomFormLatex,
 } = actions;
+
+export const deleteCustomCommand = payload => dispatch => {
+	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
+	dispatch(setCustomCommands(payload.newCustomCommands));
+};
 
 export const openBubblePopup = payload => dispatch => {
 	dispatch(setBubblePopupOn(payload));

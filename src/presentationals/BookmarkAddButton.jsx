@@ -17,6 +17,6 @@ const Item = styled.button`
 	} 
 `;
 
-export default function BookmarkAddButton({ onClick }) {
-	return <Item onClick={onClick}>현재 수식 즐겨찾기로 추가</Item>;
+export default function BookmarkAddButton() {
+	return <Item>현재 수식 즐겨찾기로 추가</Item>;
 }

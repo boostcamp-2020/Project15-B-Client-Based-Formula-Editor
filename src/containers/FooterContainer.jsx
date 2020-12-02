@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
-import { openBubblePopup } from "../slice";
+import { openBubblePopup, addRecentItem } from "../slice";
 import FooterLayout from "../layouts/FooterLayout";
 import FooterButton from "../presentationals/FooterButton";
 
@@ -42,7 +42,7 @@ export default function FooterContainer() {
 
 		const virtualCopyTarget = document.createElement("textarea");
 
-		const parameter = latexInput.replace(/\\/g, "$$$");
+		const parameter = latexInput.replace(/\\/g, "@");
 
 		virtualCopyTarget.value = `${location.origin}/${parameter}`;
 
@@ -60,12 +60,8 @@ export default function FooterContainer() {
 	};
 
 	const handleSaveFormula = () => {
-		// store로부터 상태를 불러와야 함.
-		const previousValue = ["a", "b", "c"];
-
-		localStorage.setItem("recentItems", JSON.stringify([latexInput, ...previousValue]));
-
-		// recentItems의 상태를 변경하는 dispatch 로직이 들어가야 함.
+		if (!latexInput) return;
+		dispatch(addRecentItem(latexInput));
 		dispatch(openBubblePopup({
 			target: "formulaSave",
 			isOpen: true,
