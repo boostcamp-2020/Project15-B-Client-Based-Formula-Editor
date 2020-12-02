@@ -8,7 +8,7 @@ import CustomList from "../presentationals/CustomList";
 import { deleteCustomCommand, setCustomCommands, setCustomFormLatex, setCustomFormValue } from "../slice";
 
 export default function CustomContainer() {
-	const { customCommands, customFormValue } = useSelector(state => state);
+	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const handleFormOnButton = () => {
@@ -16,20 +16,20 @@ export default function CustomContainer() {
 	};
 
 	const handleEditClick = index => () => {
-		const target = customCommands[index];
+		const target = customCommandList[index];
 
 		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id: index }));
 	};
 
 	const handleDeleteClick = index => () => {
-		const newCustomCommands = [...customCommands].splice(index, 1);
+		const newCustomCommands = [...customCommandList].splice(index, 1);
 
 		dispatch(deleteCustomCommand({ customFormValue, newCustomCommands }));
 	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		const isExist = customCommands.find(elem => elem.command === customFormValue.command);
+		const isExist = customCommandList.find(elem => elem.command === customFormValue.command);
 		const buttonName = e.target.submitBtn.innerText;
 
 		if (buttonName === "등록") {
@@ -38,7 +38,7 @@ export default function CustomContainer() {
 				return;
 			}
 			const tempCustomCommands = [
-				...customCommands,
+				...customCommandList,
 				{ command: customFormValue.command, latex: customFormValue.latex },
 			];
 
@@ -47,11 +47,11 @@ export default function CustomContainer() {
 
 		if (buttonName === "수정") {
 			const index = customFormValue.id;
-			const tempCustomCommands = [...customCommands];
+			const tempCustomCommands = [...customCommandList];
 
 			tempCustomCommands[index] = { command: customFormValue.command, latex: customFormValue.latex };
 
-			if (isExist && e.target.command.value !== customCommands[index].command) {
+			if (isExist && e.target.command.value !== customCommandList[index].command) {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}

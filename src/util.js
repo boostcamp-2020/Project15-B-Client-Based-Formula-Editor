@@ -1,10 +1,10 @@
-export const latexFunction = { insertLatex: () => {} };
+export const latexFunction = { insertLatex: () => { } };
 
 export const toFitSimple = cb => {
 	let tick = false;
 
 	return ({ target }) => {
-		if (tick) return () => {};
+		if (tick) return () => { };
 		tick = true;
 		return requestAnimationFrame(() => {
 			tick = false;
@@ -16,6 +16,7 @@ export const toFitSimple = cb => {
 /* local storage 관련 모듈 */
 
 export const LATEX_LIST = "latexList";
+export const CUSTOM_LIST = "customList";
 
 export const saveLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 

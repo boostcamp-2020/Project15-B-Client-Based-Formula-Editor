@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import {
 	LATEX_LIST,
+	CUSTOM_LIST,
 	getLocalStorage,
 	updateSidebar,
 	addLatexItem,
 } from "./util";
 
 const latexList = getLocalStorage(LATEX_LIST, []);
+const customCommandList = getLocalStorage(CUSTOM_LIST, []);
 
 const { reducer, actions } = createSlice({
 	name: "FEditor",
@@ -28,9 +30,9 @@ const { reducer, actions } = createSlice({
 			formulaSave: false,
 		},
 		latexList,
+		customCommandList,
 		bookmarkItems: latexList.filter(item => item.isBookmark),
 		recentItems: latexList.filter(item => item.isRecent),
-		customCommands: [{ command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
 	reducers: {
