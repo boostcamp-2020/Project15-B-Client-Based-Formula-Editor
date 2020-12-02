@@ -5,7 +5,9 @@ import {
 	getLocalStorage,
 	updateSidebar,
 	addLatexItem,
-	compareDesc,
+	compareRecent,
+	compareBookmark,
+	setBookmark,
 } from "./util";
 
 const latexList = getLocalStorage(LATEX_LIST, []);
@@ -29,8 +31,8 @@ const { reducer, actions } = createSlice({
 			formulaSave: false,
 		},
 		latexList,
-		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareDesc),
-		recentItems: latexList.filter(item => item.isRecent).sort(compareDesc),
+		recentItems: latexList.filter(item => item.isRecent).sort(compareRecent),
+		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
 		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 	},
@@ -78,15 +80,11 @@ const { reducer, actions } = createSlice({
 			updateSidebar(state);
 		},
 		deleteBookmarkItem(state, { payload }) {
-			const index = state.latexList.findIndex(({ id }) => id === payload);
-
-			state.latexList[index].isBookmark = false;
+			setBookmark(state, { id: payload, isBookmark: false });
 			updateSidebar(state);
 		},
 		setBookmarkItem(state, { payload }) {
-			const index = state.latexList.findIndex(({ id }) => id === payload.id);
-
-			state.latexList[index].isBookmark = payload.isBookmark;
+			setBookmark(state, payload);
 			updateSidebar(state);
 		},
 		addRecentItem(state, { payload }) {
