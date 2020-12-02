@@ -71,19 +71,19 @@ export default function FooterContainer() {
 			<FooterButton
 				name="이미지로 다운로드"
 				onClick={handleDownloadAsImage}
-				isPopupOn={imageDownload.isOpen}
+				isOpen={imageDownload.isOpen}
 				message={imageDownload.message}
 			/>
 			<FooterButton
 				name="링크 복사"
 				onClick={handleCopyLink}
-				isPopupOn={linkCopy.isOpen}
+				isOpen={linkCopy.isOpen}
 				message={linkCopy.message}
 			/>
 			<FooterButton
 				name="수식 저장"
 				onClick={handleSaveFormula}
-				isPopupOn={formulaSave.isOpen}
+				isOpen={formulaSave.isOpen}
 				message={formulaSave.message}
 			/>
 		</FooterLayout>

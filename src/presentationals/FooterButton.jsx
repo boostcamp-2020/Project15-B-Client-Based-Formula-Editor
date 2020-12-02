@@ -20,10 +20,10 @@ const FooterButtonStyle = styled.button`
 	}
 `;
 
-export default function FooterButton({ name, onClick, isPopupOn, message }) {
+export default function FooterButton({ name, onClick, isOpen, message }) {
 	return (
 		<Layout onClick={onClick}>
-			<BubblePopup isOpen={isPopupOn} message={message} />
+			<BubblePopup isOpen={isOpen} message={message} />
 			<FooterButtonStyle>{name}</FooterButtonStyle>
 		</Layout>
 	);
