@@ -2,8 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
+import BubblePopup from "./BubblePopup";
+
+const Layout = styled.div``;
 
 const FooterButtonStyle = styled.button`
+	position: relative;
+	z-index: 3;
 	height: 40px;
 	cursor: pointer;
 	padding: 0 30px;
@@ -15,8 +20,11 @@ const FooterButtonStyle = styled.button`
 	}
 `;
 
-export default function FooterButton({ name, onClick }) {
+export default function FooterButton({ name, onClick, isOpen, message }) {
 	return (
-		<FooterButtonStyle onClick={onClick}>{name}</FooterButtonStyle>
+		<Layout onClick={onClick}>
+			<BubblePopup isOpen={isOpen} message={message} />
+			<FooterButtonStyle>{name}</FooterButtonStyle>
+		</Layout>
 	);
 }

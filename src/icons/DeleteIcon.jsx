@@ -4,7 +4,7 @@ import { color } from "../GlobalStyle";
 
 export default function DeleteIcon() {
 	return (
-		<svg width="32" height="32" viewBox="0 0 512 512">
+		<svg width="32" height="32" viewBox="50 -100 700 700">
 			<g fill={color.red}>
 				<rect x="228.903" y="273.432" width="39.917" height="158.67"/>
 				<rect x="308.737" y="273.432" width="39.917" height="158.67"/>

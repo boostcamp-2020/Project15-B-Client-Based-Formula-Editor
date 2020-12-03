@@ -1,34 +1,89 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import SideBarHeader from "../presentationals/SideBarHeader";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomList from "../presentationals/CustomList";
+import { deleteCustomCommand, setCustomCommandList, setCustomFormLatex, setCustomFormValue } from "../slice";
 
 export default function CustomContainer() {
-	const [isFormOn, toggleIsFormOn] = useState({ state: false, name: "등록" });
+	const { customCommandList, customFormValue } = useSelector(state => state);
+	const dispatch = useDispatch();
 
 	const handleFormOnButton = () => {
-		toggleIsFormOn({ state: !isFormOn.state, name: "등록" });
+		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
 	};
 
-	const customs = [{ id: 0, name: "\\cmx" }, { id: 1, name: "\\lll" }, { id: 2, name: "\\ggg" }, { id: 3, name: "\\ccc" }];
+	const handleEditClick = index => () => {
+		const target = customCommandList[index];
 
-	const handleCustomItemClick = () => {
-		toggleIsFormOn({ state: true, name: "수정" });
+		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id: index }));
+	};
+
+	const handleDeleteClick = index => () => {
+		const tempCustomCommands = [...customCommandList].filter((_, id) => id !== index);
+
+		dispatch(deleteCustomCommand({ customFormValue, tempCustomCommands }));
+	};
+
+	const handleSubmit = e => {
+		e.preventDefault();
+		const isExist = customCommandList.find(elem => elem.command === customFormValue.command);
+		const buttonName = e.target.submitBtn.innerText;
+
+		if (buttonName === "등록") {
+			if (isExist) {
+				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
+				return;
+			}
+			const tempCustomCommands = [
+				...customCommandList,
+				{ command: customFormValue.command, latex: customFormValue.latex },
+			];
+
+			dispatch(setCustomCommandList(tempCustomCommands));
+		}
+
+		if (buttonName === "수정") {
+			const index = customFormValue.id;
+			const tempCustomCommands = [...customCommandList];
+
+			tempCustomCommands[index] = { command: customFormValue.command, latex: customFormValue.latex };
+
+			if (isExist && e.target.command.value !== customCommandList[index].command) {
+				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
+				return;
+			}
+			dispatch(setCustomCommandList(tempCustomCommands));
+		}
+		dispatch(setCustomFormValue({ state: false, command: "", latex: "", id: -1, isDisabled: false }));
+	};
+
+	const onChangeCommand = e => {
+		dispatch(setCustomFormValue({ ...customFormValue, command: e.target.value }));
+	};
+
+	const onChangeLatex = mathField => {
+		dispatch(setCustomFormLatex(mathField.latex()));
 	};
 
 	return (
 		<div>
-			<SideBarHeader title={"사용자 명령어 목록"} />
 			<CustomAddButton
-				isFormOn={isFormOn.state}
+				isFormOn={customFormValue.state}
 				onClick={handleFormOnButton}
 			/>
-			{isFormOn.state && <CustomForm buttonName={isFormOn.name} />}
+			{customFormValue.state &&
+				<CustomForm
+					data={customFormValue}
+					onChangeCommand={onChangeCommand}
+					onChangeLatex={onChangeLatex}
+					onSubmit={handleSubmit}
+				/>}
 			<CustomList
-				customs={customs}
-				onClickItem={handleCustomItemClick}
+				customs={customCommandList}
+				onClickEdit={handleEditClick}
+				onClickDelete={handleDeleteClick}
 			/>
 		</div>
 	);

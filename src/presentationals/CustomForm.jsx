@@ -1,42 +1,65 @@
 import React from "react";
+import { EditableMathField } from "react-mathquill";
 import styled from "styled-components";
 
-const Form = styled.div`
+import { color } from "../GlobalStyle";
+
+const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	background-color: lightgrey;
+	background-color: white;
 	margin: 5px;
 	border: 1px solid black;
-	border-radius: 15px;
+	border-radius: 5px;
+	padding: 5px;
 
+	.mq-math-mode{
+		background-color: white;
+		text-align: center;
+	}
 	> * {
-		margin: 5px;
+		padding: 3px;
+		margin: 1px;
+		border: 1px solid black;
+		border-radius: 3px;
 	}
 `;
 
-const Buttons = styled.div`
-	display: flex;
-`;
-
 const Button = styled.button`
-	background-color: white;
+	color: white;
+	background-color: ${color.normal};
 	border: 1px solid black;
-	width: 100%;
+	margin-top: 15px;
+	font-weight: bold;
 
 	&:hover {
-		background-color: grey;
+		background-color: ${color.dark};
 		cursor: pointer;
 	}
 `;
 
-export default function CustomForm({ buttonName }) {
+const WarningMsg = styled.p`
+	display: ${({ isDisabled }) => (isDisabled ? "block" : "none")};
+	margin: 0;
+	padding: 0 10px;
+	font-size: 11px;
+	color: red;
+`;
+
+export default function CustomForm({ data, onChangeCommand, onChangeLatex, onSubmit }) {
 	return (
-		<Form>
-			<input type="text" placeholder="명령어를 다음과 같이 입력하세요> \cmx" />
-			<input type="text" placeholder="mathquill 자리입니다." />
-			<Buttons>
-				<Button>{buttonName}</Button>
-			</Buttons>
+		<Form onSubmit={onSubmit}>
+			<input
+				type="text"
+				value={data.command}
+				onChange={onChangeCommand}
+				name="command"
+				placeholder="명령어를 입력해주세요"
+				autoFocus
+			/>
+			<WarningMsg isDisabled={data.isDisabled}>이미 있는 명령어입니다.</WarningMsg>
+			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" placeholder="mathquill 자리입니다." />
+			<Button name="submitBtn">{data.name}</Button>
 		</Form>
 	);
 }

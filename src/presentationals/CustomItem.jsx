@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { color } from "../GlobalStyle";
 import IconButton from "./IconButton";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
@@ -16,8 +17,11 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: #eef1f1;
-	border: 1px solid black;
+	width: calc(100% - 30px);
+  margin: 0px 15px;
+	background-color: white;
+	border: 1px solid ${color.dark};
+  border-radius: 10px;
 	height: 50px;
 	cursor: pointer;
 `;
@@ -37,15 +41,15 @@ const Buttons = styled.div`
 	transform: translateY(-50%);
 `;
 
-export default function CustomItem({ name, onClick }) {
+export default function CustomItem({ name, onClickEdit, onClickDelete }) {
 	return (
 		<Layout>
-			<Item onClick={onClick}>
+			<Item onClick={onClickEdit}>
 				<Title>{name}</Title>
 			</Item>
 			<Buttons>
-				<IconButton onClick={onClick} isHover={true} icon={<EditIcon />} />
-				<IconButton isHover={true} icon={<DeleteIcon />} />
+				<IconButton onClick={onClickEdit} isHover={true} icon={<EditIcon />} />
+				<IconButton onClick={onClickDelete} isHover={true} icon={<DeleteIcon />} />
 			</Buttons>
 		</Layout>
 	);

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
+import { RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import TimeIcon from "../icons/TimeIcon";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import CustomIcon from "../icons/CustomIcon";
@@ -10,7 +11,7 @@ import IconButton from "../presentationals/IconButton";
 const TabLayout = styled.div`
 	display: flex;
 	justify-content: space-around;
-	padding-top: 10px;
+	padding: 10px 0 3px 0;
 	z-index: 1000;
 	position: relative;
 	box-shadow: ${({ isScrollTop }) => (isScrollTop ? "none" : "0 12px 15px -15px grey")};
@@ -20,7 +21,6 @@ const TabLayout = styled.div`
 const Tab = styled.div`
 	${({ isSelected }) => (isSelected &&
 		`
-			border-bottom: 3px solid ${color.normal};
 			button {
 				cursor: default;
 			}
@@ -31,11 +31,26 @@ const Tab = styled.div`
 	)}
 `;
 
+const SelectedTabBorderBottom = styled.div`
+	width: 42px;
+	height: 3px;
+	background-color: ${color.normal};
+	position: absolute;
+	left: ${({ currentTab }) => (currentTab * 90) + 24}px;
+	top: 47px;
+	transition: 0.3s;
+`;
+
 export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
-	const tabMenus = [<TimeIcon key="0"/>, <EmptyStarIcon key="1"/>, <CustomIcon key="2"/>];
+	const tabMenus = [
+		<TimeIcon key={RECENT_TAB}/>,
+		<EmptyStarIcon key={BOOKMARK_TAB}/>,
+		<CustomIcon key={CUSTOM_COMMAND_TAB}/>,
+	];
 
 	return (
 		<TabLayout isScrollTop={isScrollTop}>
+			<SelectedTabBorderBottom currentTab={currentTab} />
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
 					<IconButton isHover={currentTab !== index} icon={tabMenu} />

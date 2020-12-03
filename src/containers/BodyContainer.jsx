@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLatexInput, setLatexTextInput } from "../slice";
+import { setLatexInputWithDebounce, setLatexTextInputWithDebounce } from "../slice";
 
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
@@ -18,9 +18,18 @@ export default function BodyContainer() {
 		latexInput,
 		fontInfo,
 		alignInfo,
+		customCommandList,
 	} = useSelector(state => state);
 
-	const handleLatexInput = mathField => dispatch(setLatexInput(mathField.latex()));
+	const handleLatexInput = customList => mathField => {
+		let mathFieldLatex = mathField.latex();
+		const target = customList.find(elem => mathFieldLatex.includes(`#${elem.command}\\`));
+
+		if (target) {
+			mathFieldLatex = mathFieldLatex.replace(`#${target.command}\\`, target.latex);
+		}
+		dispatch(setLatexInputWithDebounce(mathFieldLatex));
+	};
 
 
 	const setUpLatexInsertFunction = mathField => {
@@ -30,7 +39,7 @@ export default function BodyContainer() {
 	};
 
 	const handleLatexTextarea = e => {
-		dispatch(setLatexTextInput(e.target.value));
+		dispatch(setLatexTextInputWithDebounce(e.target.value));
 	};
 
 	return (
@@ -42,7 +51,7 @@ export default function BodyContainer() {
 			</EditTabHeaderLayout>
 			<FormulaRepresentation
 				latexInput={latexInput}
-				handleLatexInput={handleLatexInput}
+				onChange={handleLatexInput(customCommandList)}
 				mathquillDidMount={setUpLatexInsertFunction}
 				fontInfo={fontInfo}
 				alignInfo={alignInfo}

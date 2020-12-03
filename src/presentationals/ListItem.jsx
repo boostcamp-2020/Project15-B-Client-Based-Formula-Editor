@@ -1,14 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import { StaticMathField } from "react-mathquill";
 
 import { color } from "../GlobalStyle";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
+import FilledStarIcon from "../icons/FilledStarIcon";
 import PlusIcon from "../icons/PlusIcon";
+import CloseIcon from "../icons/CloseIcon";
 import IconButton from "./IconButton";
 
 const Layout = styled.div`
 	height: 150px;
 	position: relative;
+
+	&:hover {
+		> div:first-child {
+			display: block;
+		}
+	}
 `;
 
 const Bottom = styled.div`
@@ -22,31 +31,59 @@ const Item = styled.div`
 	height: 100%;
 	margin: 5px;
 	border-radius: 15px;
-	border: 1px solid black;
+	border: 1px solid ${color.dark};
+
+	> .mq-math-mode {
+		width: 90%;
+		text-align: center;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		cursor: pointer;
+	}
 `;
 
-const Formula = styled.div`
+const DeleteButton = styled.div`
 	position: absolute;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
+	right: 5px;
+	top: 5px;
+	display: none;
 `;
 
-export default function ListItem({ latex, bookmarkOnClick, customOnClick }) {
+export default function ListItem({
+	latex,
+	deleteOnClick,
+	bookmarkOnClick,
+	customOnClick,
+	intoLatexFieldOnClick,
+	isBookmark,
+}) {
 	return (
 		<Layout>
-			<Item>
-				<Formula>{latex}</Formula>
+			<DeleteButton>
+				<IconButton
+					onClick={deleteOnClick}
+					isHover={true}
+					icon={<CloseIcon fill={color.dark}/>}/>
+			</DeleteButton>
+			<Item onClick={intoLatexFieldOnClick}>
+				<StaticMathField>{latex}</StaticMathField>
 			</Item>
 			<Bottom>
 				{bookmarkOnClick &&
 					<IconButton
 						onClick={bookmarkOnClick}
 						isHover={true}
-						icon={<EmptyStarIcon fill={color.yellow} />}
+						icon={isBookmark ?
+							<FilledStarIcon /> :
+							<EmptyStarIcon fill={color.yellow} />}
 					/>
 				}
-				<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />
+				<IconButton
+					onClick={customOnClick}
+					isHover={true}
+					icon={<PlusIcon />} />
 			</Bottom>
 		</Layout>
 	);

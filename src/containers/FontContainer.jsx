@@ -15,10 +15,10 @@ export default function FontContainer() {
 	const dispatch = useDispatch();
 
 	const handleFontSize = e => {
-		dispatch(setFont({ color: fontInfo.color, size: e.target.value }));
+		dispatch(setFont({ ...fontInfo, size: e.target.value }));
 	};
 	const handleFontColor = e => {
-		dispatch(setFont({ color: e.target.value, size: fontInfo.size }));
+		dispatch(setFont({ ...fontInfo, color: e.target.value }));
 	};
 
 	const handleAlignment = align => () => {
@@ -27,7 +27,7 @@ export default function FontContainer() {
 
 	return (
 		<FontContainerLayout>
-			<FontSizeSelector fontSize={fontInfo.size} onChange={handleFontSize} />
+			<FontSizeSelector onChange={handleFontSize} fontSize={fontInfo.size} />
 			<FontColorSelector onChange={handleFontColor} fontColor={fontInfo.color} />
 			<IconButton onClick={handleAlignment("left")} icon={<AlignLeftIcon />} isHover={true} />
 			<IconButton onClick={handleAlignment("center")} icon={<AlignCenterIcon />} isHover={true} />
