@@ -3,7 +3,7 @@
 ## 프로젝트 소개
 사용자가 필요한 수식을 어느 브라우저든 어느 기기에서든 작성할 수 있는 반응형 웹 편집기  
 
-- [배포 주소](https://kr.object.ncloudstorage.com/client-based-formula-editor-b/index.html)  
+- [배포 주소](https://feditor.netlify.app)  
 - 기간 2020.11.16 ~ 2020.12.18
 
 ## 팀원 소개
