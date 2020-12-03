@@ -4,13 +4,13 @@ import styled from "styled-components";
 import { color } from "../GlobalStyle";
 
 const Item = styled.button`
-	height: 150px;
+	height: 50px;
 	position: relative;
 	color: white;
 	font-weight: bold;
 	background-color: ${color.normal};
-	margin: 2.5px 5px;
-	border-radius: 15px;
+	margin: 5px;
+	border-radius: 10px;
 	border: 1px solid ${color.dark};
 	width: calc(100% - 10px); 
 	cursor: pointer;
