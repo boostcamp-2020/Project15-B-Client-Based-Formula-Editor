@@ -36,6 +36,7 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 
 	return (
 		<ListLayout onScroll={onScroll}>
+			<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
 			<SideBarHeader title={"북마크 수식 목록"} />
 			{bookmarkItems.length ?
 				bookmarkItems.map(({ id, latex }) =>
@@ -49,7 +50,6 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 				) :
 				<EmptyItem content="북마크 수식이 없습니다."/>
 			}
-			<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
 		</ListLayout>
 	);
 }
