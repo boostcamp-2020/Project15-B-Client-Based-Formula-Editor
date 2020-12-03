@@ -98,8 +98,8 @@ const startBubblePopupDebounce = (dispatch, getState) => {
 	dispatch(setTimerId(timerId));
 };
 
-const setDebounce = (actionCreater, payload) => (dispatch, getState) => {
-	dispatch(actionCreater(payload));
+const setDebounce = (actionFunction, payload) => (dispatch, getState) => {
+	dispatch(actionFunction(payload));
 	startBubblePopupDebounce(dispatch, getState);
 };
 
