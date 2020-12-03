@@ -97,9 +97,9 @@ const { reducer, actions } = createSlice({
 
 			if (state.tempSavedLatexId !== INITIAL_ID) {
 				state.latexList = state.latexList.filter(({ id }) => id !== state.tempSavedLatexId);
+				state.tempSavedLatexId = INITIAL_ID;
 			}
 
-			state.tempSavedLatexId = 0;
 			clearTimeout(state.timerId);
 			updateSidebar(state);
 		},
