@@ -11,7 +11,7 @@ const Item = styled.button`
 	background-color: ${color.normal};
 	margin: 5px;
 	border-radius: 10px;
-	border: 1px solid ${color.dark};
+	border: 2px solid ${color.dark};
 	width: calc(100% - 10px); 
 	cursor: pointer;
 	outline: none;
