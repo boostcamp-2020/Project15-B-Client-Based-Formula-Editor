@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { color } from "../GlobalStyle";
 import IconButton from "./IconButton";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
@@ -16,8 +17,11 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: #eef1f1;
-	border: 1px solid black;
+	width: calc(100% - 30px);
+  margin: 0px 15px;
+	background-color: white;
+	border: 1px solid ${color.dark};
+  border-radius: 10px;
 	height: 50px;
 	cursor: pointer;
 `;
