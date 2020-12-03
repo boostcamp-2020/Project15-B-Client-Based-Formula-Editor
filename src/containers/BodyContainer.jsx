@@ -23,10 +23,10 @@ export default function BodyContainer() {
 
 	const handleLatexInput = customList => mathField => {
 		const mathFieldLatex = mathField.latex();
-		const target = customList.find(elem => mathFieldLatex.includes(elem.command));
+		const target = customList.find(elem => mathFieldLatex.includes(`#${elem.command}\\`));
 
 		if (target) {
-			dispatch(setLatexInputWithDebounce(mathFieldLatex.replace(target.command, target.latex)));
+			dispatch(setLatexInputWithDebounce(mathFieldLatex.replace(`#${target.command}\\`, target.latex)));
 			return;
 		}
 		dispatch(setLatexInputWithDebounce(mathFieldLatex));
