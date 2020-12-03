@@ -22,10 +22,13 @@ export const updateSidebar = state => {
 	saveLocalStorage(LATEX_LIST, state.latexList);
 };
 
-export const getIdToAdd = list => (list.length ? Math.max(...list.map(item => item.id)) + 1 : 0);
+const getMaxValueFromList = (list, prop) =>
+	(list.length ? Math.max(...list.map(el => el[prop])) + 1 : 0);
+
+export const getIdToAdd = list => getMaxValueFromList(list, "id");
 
 const getBookmarkPriorityToAdd = (list, isBookmark) =>
-	(isBookmark && list.length ? Math.max(...list.map(item => item.bookmarkPriority)) + 1 : 0);
+	(isBookmark ? getMaxValueFromList(list, "bookmarkPriority") : 0);
 
 export const addLatexItem = (state, { latex, isRecent = false, isBookmark = false }) => {
 	const id = getIdToAdd(state.latexList);
