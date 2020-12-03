@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLatexInput, setLatexTextInput } from "../slice";
+import { setLatexInputWithDebounce, setLatexTextInputWithDebounce } from "../slice";
 
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
@@ -26,10 +26,10 @@ export default function BodyContainer() {
 		const target = customList.find(elem => mathFieldLatex.includes(elem.command));
 
 		if (target) {
-			dispatch(setLatexInput(mathFieldLatex.replace(target.command, target.latex)));
+			dispatch(setLatexInputWithDebounce(mathFieldLatex.replace(target.command, target.latex)));
 			return;
 		}
-		dispatch(setLatexInput(mathFieldLatex));
+		dispatch(setLatexInputWithDebounce(mathFieldLatex));
 	};
 
 
@@ -40,7 +40,7 @@ export default function BodyContainer() {
 	};
 
 	const handleLatexTextarea = e => {
-		dispatch(setLatexTextInput(e.target.value));
+		dispatch(setLatexTextInputWithDebounce(e.target.value));
 	};
 
 	return (

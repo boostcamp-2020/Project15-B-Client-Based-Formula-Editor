@@ -8,6 +8,6 @@ describe("<BookmarkAddButton />", () => {
 	it("renders book mark button", () => {
 		const { container } = render(<BookmarkAddButton />);
 
-		expect(container).toHaveTextContent("현재 수식 즐겨찾기로 추가");
+		expect(container).toHaveTextContent("현재 수식 북마크에 추가");
 	});
 });
