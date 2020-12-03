@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { toFitSimple } from "../util";
 import { RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
@@ -15,6 +15,7 @@ export default function SideBar() {
 	const [tabState, setTabState] = useState(RECENT_TAB);
 	const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 	const [isScrollTop, setIsScrollTop] = useState(true);
+	const sideBarRef = useRef();
 
 	const handleSidebarScroll = ({ target }) => {
 		setIsScrollTop(!target.scrollTop);
@@ -45,8 +46,21 @@ export default function SideBar() {
 		setTabState(tabId);
 	};
 
+	useEffect(() => {
+		const outsideClickEvent = ({ target }) => {
+			const isOutsideClick = !sideBarRef.current.contains(target);
+
+			if (isOutsideClick) {
+				setIsOpenSidebar(false);
+			}
+		};
+
+		window.addEventListener("click", outsideClickEvent);
+		return () => window.removeEventListener("click", outsideClickEvent);
+	}, []);
+
 	return (
-		<SideBarLayout className={isOpenSidebar ? "show" : "hide"}>
+		<SideBarLayout ref={sideBarRef} className={isOpenSidebar ? "show" : "hide"}>
 			<IconButton
 				onClick={handleToggleSidebar}
 				icon={isOpenSidebar ? <GreaterThanIcon /> : <LessThanIcon />}
