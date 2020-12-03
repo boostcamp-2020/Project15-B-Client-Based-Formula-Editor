@@ -16,8 +16,9 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: #eef1f1;
+	background-color: white;
 	border: 1px solid black;
+  border-radius: 5px;
 	height: 50px;
 	cursor: pointer;
 `;

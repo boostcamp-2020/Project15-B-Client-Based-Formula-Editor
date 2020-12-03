@@ -1,10 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+import { color } from "../GlobalStyle";
+
 const Button = styled.button`
 	width: calc(100% - 10px);
 	margin: 5px;
 	height: 50px;
+	font-weight: bold;
+	color: white;
+	background-color: ${color.normal};
+	border: 2px solid ${color.dark};
+	border-radius: 5px;
+	cursor: pointer;
+
+	&:hover {
+		background-color: ${color.dark};
+	}
 `;
 
 export default function CustomAddButton({ isFormOn, onClick }) {
