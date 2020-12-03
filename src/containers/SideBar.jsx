@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { toFitSimple } from "../util";
 import { RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
@@ -11,11 +11,10 @@ import SideBarLayout from "../layouts/SideBarLayout";
 import SideBarTab from "../presentationals/SideBarTab";
 import IconButton from "../presentationals/IconButton";
 
-export default function SideBar() {
+export default function SideBar({ mainWrapperRef }) {
 	const [tabState, setTabState] = useState(RECENT_TAB);
 	const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 	const [isScrollTop, setIsScrollTop] = useState(true);
-	const sideBarRef = useRef();
 
 	const handleSidebarScroll = ({ target }) => {
 		setIsScrollTop(!target.scrollTop);
@@ -48,7 +47,7 @@ export default function SideBar() {
 
 	useEffect(() => {
 		const outsideClickEvent = ({ target }) => {
-			const isOutsideClick = !sideBarRef.current.contains(target);
+			const isOutsideClick = mainWrapperRef.current.contains(target);
 
 			if (isOutsideClick) {
 				setIsOpenSidebar(false);
@@ -60,7 +59,7 @@ export default function SideBar() {
 	}, []);
 
 	return (
-		<SideBarLayout ref={sideBarRef} isOpenSidebar={isOpenSidebar}>
+		<SideBarLayout isOpenSidebar={isOpenSidebar}>
 			<IconButton
 				onClick={handleToggleSidebar}
 				icon={<LessThanIcon />}
