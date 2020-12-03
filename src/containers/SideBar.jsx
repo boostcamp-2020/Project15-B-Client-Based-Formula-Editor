@@ -60,10 +60,14 @@ export default function SideBar() {
 	}, []);
 
 	return (
-		<SideBarLayout ref={sideBarRef} className={isOpenSidebar ? "show" : "hide"}>
+		<SideBarLayout ref={sideBarRef} isOpenSidebar={isOpenSidebar}>
 			<IconButton
 				onClick={handleToggleSidebar}
-				icon={isOpenSidebar ? <GreaterThanIcon /> : <LessThanIcon />}
+				icon={<LessThanIcon />}
+			/>
+			<IconButton
+				onClick={handleToggleSidebar}
+				icon={<GreaterThanIcon />}
 			/>
 			<div>
 				<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
