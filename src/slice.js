@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
-	LATEX_LIST,
 	INITIAL_ID,
-	getLocalStorage,
+	initLatexList,
 	updateSidebar,
 	addLatexItem,
 	getIdToAdd,
+	compareRecent,
+	compareBookmark,
+	setBookmark,
 } from "./sliceUtil";
 
-const latexList = getLocalStorage(LATEX_LIST, []);
+const latexList = initLatexList();
 
 const { reducer, actions } = createSlice({
 	name: "FEditor",
@@ -31,8 +33,8 @@ const { reducer, actions } = createSlice({
 		},
 		tempSavedLatexId: INITIAL_ID,
 		latexList,
-		bookmarkItems: latexList.filter(item => item.isBookmark),
-		recentItems: latexList.filter(item => item.isRecent),
+		recentItems: latexList.filter(item => item.isRecent).sort(compareRecent),
+		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
 		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 		timerId: "",
@@ -80,16 +82,8 @@ const { reducer, actions } = createSlice({
 			addLatexItem(state, { latex: payload, isBookmark: true });
 			updateSidebar(state);
 		},
-		deleteBookmarkItem(state, { payload }) {
-			const index = state.latexList.findIndex(({ id }) => id === payload);
-
-			state.latexList[index].isBookmark = false;
-			updateSidebar(state);
-		},
 		setBookmarkItem(state, { payload }) {
-			const index = state.latexList.findIndex(({ id }) => id === payload.id);
-
-			state.latexList[index].isBookmark = payload.isBookmark;
+			setBookmark(state, payload);
 			updateSidebar(state);
 		},
 		addRecentItem(state, { payload }) {
@@ -104,9 +98,9 @@ const { reducer, actions } = createSlice({
 			updateSidebar(state);
 		},
 		deleteRecentItem(state, { payload }) {
-			const index = state.latexList.findIndex(({ id }) => id === payload);
+			const latexItem = state.latexList.find(({ id }) => id === payload);
 
-			state.latexList[index].isRecent = false;
+			latexItem.isRecent = false;
 			updateSidebar(state);
 		},
 		setBubblePopupOn(state, { payload }) {
@@ -156,7 +150,6 @@ export const {
 	redoEvent,
 	resetEvent,
 	addBookmarkItem,
-	deleteBookmarkItem,
 	setBookmarkItem,
 	addRecentItem,
 	deleteRecentItem,

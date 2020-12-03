@@ -4,6 +4,8 @@ import { color } from "../GlobalStyle";
 
 const layoutWidth = 300;
 const buttonWidth = 30;
+const LessThanIcon = 1;
+const GreaterThanIcon = 2;
 
 const SideBarLayout = styled.div`
 	display: flex;
@@ -12,12 +14,12 @@ const SideBarLayout = styled.div`
 	height: 100%;
 	position: fixed;
 	top: 0;
-	right: 0;
+	right: ${({ isOpenSidebar }) => (isOpenSidebar ? "0" : `-${layoutWidth - buttonWidth}px`)};
 	transition: 1s;
 	z-index: 5;
 
 	> div {
-		width: 100%;
+		width: ${layoutWidth - buttonWidth}px;
 		border-left: 2px solid ${color.dark};
 		background-color: ${color.superLight};
 	}
@@ -28,12 +30,13 @@ const SideBarLayout = styled.div`
 		box-shadow: 0 0 15px 0 ${color.normal};
 		border-radius: 30px 0 0 30px;
 		background-color: white;
-	}
-	&.show{
-		right: 0;
-	}
-	&.hide{
-		right: -${layoutWidth - buttonWidth}px;
+
+		&:nth-child(${LessThanIcon}) {
+			display: ${({ isOpenSidebar }) => (isOpenSidebar ? "none" : "block")};
+		}
+		&:nth-child(${GreaterThanIcon}) {
+			display: ${({ isOpenSidebar }) => (isOpenSidebar ? "block" : "none")};
+		}
 	}
 `;
 
