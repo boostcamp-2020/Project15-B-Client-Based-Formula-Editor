@@ -12,3 +12,13 @@ export const toFitSimple = cb => {
 		});
 	};
 };
+
+export const encodeLatex = latex => encodeURIComponent(latex.replace(/\\ /g, " "));
+
+export const decodeQueryString = () => {
+	const queryParameter = location.search.replace(/\?latex=/g, "").replace(/%20/g, "@");
+	const latexParameter = decodeURIComponent(queryParameter);
+	const latex = latexParameter?.replace(/@/g, "\\ ");
+
+	return latex;
+};

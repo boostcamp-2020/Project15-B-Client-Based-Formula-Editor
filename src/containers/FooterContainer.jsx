@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
 import { openBubblePopup, addRecentItem } from "../slice";
+import { encodeLatex } from "../util";
 import FooterLayout from "../layouts/FooterLayout";
 import FooterButton from "../presentationals/FooterButton";
 
@@ -41,9 +42,9 @@ export default function FooterContainer() {
 
 		const virtualCopyTarget = document.createElement("textarea");
 
-		const parameter = latexInput.replace(/\\/g, "@");
+		const parameter = encodeLatex(latexInput);
 
-		virtualCopyTarget.value = `${location.origin}/${parameter}`;
+		virtualCopyTarget.value = `${location.origin}?latex=${parameter}`;
 
 		document.body.appendChild(virtualCopyTarget);
 		virtualCopyTarget.select();
