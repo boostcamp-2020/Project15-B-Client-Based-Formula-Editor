@@ -88,10 +88,12 @@ const saveTempItem = dispatch => () => {
 	setPopup(dispatch, config, 2000);
 };
 
-const startBubblePopupDebounce = (dispatch, getState) => {
+const startBubblePopupDebounce = (dispatch, getState, isLatexEmpty) => {
 	const state = getState();
 
 	clearTimeout(state.timerId);
+
+	if (isLatexEmpty) return;
 
 	const timerId = setTimeout(saveTempItem(dispatch), 10000);
 
@@ -100,7 +102,10 @@ const startBubblePopupDebounce = (dispatch, getState) => {
 
 const setDebounce = (actionFunction, payload) => (dispatch, getState) => {
 	dispatch(actionFunction(payload));
-	startBubblePopupDebounce(dispatch, getState);
+
+	const isLatexEmpty = payload.length === 0;
+
+	startBubblePopupDebounce(dispatch, getState, isLatexEmpty);
 };
 
 export const setLatexInputWithDebounce = payload => setDebounce(setLatexInput, payload);
