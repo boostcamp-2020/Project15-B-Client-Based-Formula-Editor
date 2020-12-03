@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {
+	INITIAL_ID,
 	initLatexList,
 	updateSidebar,
 	addLatexItem,
+	getIdToAdd,
 	compareRecent,
 	compareBookmark,
 	setBookmark,
-} from "./util";
+} from "./sliceUtil";
 
 const latexList = initLatexList();
 
@@ -25,15 +27,17 @@ const { reducer, actions } = createSlice({
 		},
 		alignInfo: "center",
 		bubblePopup: {
-			imageDownload: false,
-			linkCopy: false,
-			formulaSave: false,
+			imageDownload: { isOpen: false, message: "" },
+			linkCopy: { isOpen: false, message: "" },
+			formulaSave: { isOpen: false, message: "" },
 		},
+		tempSavedLatexId: INITIAL_ID,
 		latexList,
 		recentItems: latexList.filter(item => item.isRecent).sort(compareRecent),
 		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
 		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
+		timerId: "",
 	},
 	reducers: {
 		setSelectedButton(state, { payload }) {
@@ -84,6 +88,13 @@ const { reducer, actions } = createSlice({
 		},
 		addRecentItem(state, { payload }) {
 			addLatexItem(state, { latex: payload, isRecent: true });
+
+			if (state.tempSavedLatexId !== INITIAL_ID) {
+				state.latexList = state.latexList.filter(({ id }) => id !== state.tempSavedLatexId);
+				state.tempSavedLatexId = INITIAL_ID;
+			}
+
+			clearTimeout(state.timerId);
 			updateSidebar(state);
 		},
 		deleteRecentItem(state, { payload }) {
@@ -93,9 +104,9 @@ const { reducer, actions } = createSlice({
 			updateSidebar(state);
 		},
 		setBubblePopupOn(state, { payload }) {
-			const { target, isOpen } = payload;
+			const { target, isOpen, message } = payload;
 
-			state.bubblePopup[target] = isOpen;
+			state.bubblePopup[target] = { isOpen, message };
 		},
 		setCustomCommands(state, { payload }) {
 			state.customCommands = payload;
@@ -103,8 +114,28 @@ const { reducer, actions } = createSlice({
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
 		},
+		setTimerId(state, { payload }) {
+			state.timerId = payload;
+		},
 		setCustomFormLatex(state, { payload }) {
 			state.customFormValue.latex = payload;
+		},
+		setTempSavedItem(state, { payload }) {
+			if (state.tempSavedLatexId === INITIAL_ID) {
+				const id = getIdToAdd(state.latexList);
+				const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
+
+				state.latexList.push(newItem);
+				state.tempSavedLatexId = id;
+				updateSidebar(state);
+
+				return;
+			}
+
+			const targetItem = state.latexList.find(({ id }) => id === state.tempSavedLatexId);
+
+			targetItem.latex = state.latexInput;
+			updateSidebar(state);
 		},
 	},
 });
@@ -125,7 +156,9 @@ export const {
 	setBubblePopupOn,
 	setCustomCommands,
 	setCustomFormValue,
+	setTimerId,
 	setCustomFormLatex,
+	setTempSavedItem,
 } = actions;
 
 export const deleteCustomCommand = payload => dispatch => {
@@ -133,12 +166,44 @@ export const deleteCustomCommand = payload => dispatch => {
 	dispatch(setCustomCommands(payload.newCustomCommands));
 };
 
-export const openBubblePopup = payload => dispatch => {
-	dispatch(setBubblePopupOn(payload));
+const setPopup = (dispatch, config, ms) => {
+	dispatch(setBubblePopupOn({ ...config, isOpen: true }));
 
 	setTimeout(() => {
-		dispatch(setBubblePopupOn({ target: payload.target, isOpen: false }));
-	}, 1000);
+		dispatch(setBubblePopupOn({ ...config, isOpen: false }));
+	}, ms);
 };
+
+export const openBubblePopup = payload => dispatch => setPopup(dispatch, payload, 1000);
+
+const saveTempItem = dispatch => () => {
+	dispatch(setTempSavedItem());
+
+	const config = {
+		target: "formulaSave",
+		message: "임시저장 되었습니다",
+	};
+
+	setPopup(dispatch, config, 2000);
+};
+
+const startBubblePopupDebounce = (dispatch, getState) => {
+	const state = getState();
+
+	clearTimeout(state.timerId);
+
+	const timerId = setTimeout(saveTempItem(dispatch), 10000);
+
+	dispatch(setTimerId(timerId));
+};
+
+const setDebounce = (actionCreater, payload) => (dispatch, getState) => {
+	dispatch(actionCreater(payload));
+	startBubblePopupDebounce(dispatch, getState);
+};
+
+export const setLatexInputWithDebounce = payload => setDebounce(setLatexInput, payload);
+
+export const setLatexTextInputWithDebounce = payload => setDebounce(setLatexTextInput, payload);
 
 export default reducer;

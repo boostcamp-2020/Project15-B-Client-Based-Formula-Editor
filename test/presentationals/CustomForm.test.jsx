@@ -11,14 +11,15 @@ describe("<CustomForm />", () => {
 			const onClick = () => { };
 			const onSubmit = () => { };
 			const { container } = render(<CustomForm data={data} onChange={onClick} onSubmit={onSubmit} />);
-			const [commandInput, mathquillInput] = container.querySelectorAll("input");
+			const commandInput = container.querySelector("input");
+			const mathfield = container.querySelector(".mq-editable-field");
 			const warningMsg = container.querySelector("p");
 			const submitBtn = container.querySelector("button");
 
 			expect(warningMsg).toHaveStyle("display:none");
 			expect(commandInput.placeholder).toContain("명령어를 다음과 같이 입력하세요");
 			expect(commandInput.value).toBe("\\cmx");
-			expect(mathquillInput.value).toBe("\\sum41");
+			expect(mathfield).toBeVisible();
 			expect(submitBtn).toHaveTextContent("테스트 버튼");
 		});
 	});

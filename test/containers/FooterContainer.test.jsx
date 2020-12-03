@@ -14,9 +14,9 @@ describe("<FooterContainer />", () => {
 		useSelector.mockImplementation(selector => selector({
 			latexInput: "3+5",
 			bubblePopup: {
-				imageDownload: null,
-				linkCopy: null,
-				formulaSave: null,
+				imageDownload: { isOpen: false, message: "" },
+				linkCopy: { isOpen: false, message: "" },
+				formulaSave: { isOpen: false, message: "" },
 			},
 		}));
 
@@ -31,7 +31,7 @@ describe("<FooterContainer />", () => {
 
 		const linkCopyButton = getByText("링크 복사");
 		const imageDownloadButton = getByText("이미지로 다운로드");
-		const formulaSaveButton = getByText("수식 임시저장");
+		const formulaSaveButton = getByText("수식 저장");
 
 		expect(linkCopyButton).toBeVisible();
 		expect(imageDownloadButton).toBeVisible();
