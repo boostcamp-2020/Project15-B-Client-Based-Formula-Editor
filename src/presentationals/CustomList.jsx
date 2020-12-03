@@ -17,12 +17,12 @@ export default function CustomList({ customs, onClickEdit, onClickDelete }) {
 	return (
 		<Layout>
 			<div>내 코드들</div>
-			{customs.map(({ id, command }) =>
+			{customs.map(({ command }, index) =>
 				<CustomItem
-					key={id}
+					key={index}
 					name={command}
-					onClickEdit={onClickEdit(id, command)}
-					onClickDelete={onClickDelete(command)}
+					onClickEdit={onClickEdit(index)}
+					onClickDelete={onClickDelete(index)}
 				/>)}
 		</Layout>
 	);

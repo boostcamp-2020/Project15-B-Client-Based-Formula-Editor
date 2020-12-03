@@ -1,10 +1,10 @@
-export const latexFunction = { insertLatex: () => {} };
+export const latexFunction = { insertLatex: () => { } };
 
 export const toFitSimple = cb => {
 	let tick = false;
 
 	return ({ target }) => {
-		if (tick) return () => {};
+		if (tick) return () => { };
 		tick = true;
 		return requestAnimationFrame(() => {
 			tick = false;

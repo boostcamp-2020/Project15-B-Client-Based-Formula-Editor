@@ -4,11 +4,14 @@ import {
 	INITIAL_ID,
 	initLatexList,
 	updateSidebar,
+	updateCustomCommandList,
 	addLatexItem,
 	getIdToAdd,
 	compareRecent,
 	compareBookmark,
 	setBookmark,
+	CUSTOM_LIST,
+	getLocalStorage,
 } from "./sliceUtil";
 
 const latexList = initLatexList();
@@ -33,9 +36,9 @@ const { reducer, actions } = createSlice({
 		},
 		tempSavedLatexId: INITIAL_ID,
 		latexList,
+		customCommandList: getLocalStorage(CUSTOM_LIST, []),
 		recentItems: latexList.filter(item => item.isRecent).sort(compareRecent),
 		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
-		customCommands: [{ id: 0, command: "\\sum", latex: "\\sum" }],
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 		timerId: "",
 	},
@@ -108,8 +111,9 @@ const { reducer, actions } = createSlice({
 
 			state.bubblePopup[target] = { isOpen, message };
 		},
-		setCustomCommands(state, { payload }) {
-			state.customCommands = payload;
+		setCustomCommandList(state, { payload }) {
+			state.customCommandList = payload;
+			updateCustomCommandList(state);
 		},
 		setCustomFormValue(state, { payload }) {
 			state.customFormValue = payload;
@@ -154,7 +158,7 @@ export const {
 	addRecentItem,
 	deleteRecentItem,
 	setBubblePopupOn,
-	setCustomCommands,
+	setCustomCommandList,
 	setCustomFormValue,
 	setTimerId,
 	setCustomFormLatex,
@@ -163,7 +167,7 @@ export const {
 
 export const deleteCustomCommand = payload => dispatch => {
 	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
-	dispatch(setCustomCommands(payload.newCustomCommands));
+	dispatch(setCustomCommandList(payload.tempCustomCommands));
 };
 
 const setPopup = (dispatch, config, ms) => {

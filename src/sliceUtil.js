@@ -1,4 +1,5 @@
 export const LATEX_LIST = "latexList";
+export const CUSTOM_LIST = "customList";
 export const INITIAL_ID = 0;
 const ID = "id";
 const BOOKMARK_PRIORITY = "bookmarkPriority";
@@ -20,6 +21,10 @@ export const updateSidebar = state => {
 	state.recentItems = state.latexList.filter(item => item.isRecent).sort(compareRecent);
 	state.bookmarkItems = state.latexList.filter(item => item.isBookmark).sort(compareBookmark);
 	saveLocalStorage(LATEX_LIST, state.latexList);
+};
+
+export const updateCustomCommandList = state => {
+	saveLocalStorage(CUSTOM_LIST, state.customCommandList);
 };
 
 const getMaxValueFromList = (list, prop) =>

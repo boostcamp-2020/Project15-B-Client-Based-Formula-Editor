@@ -5,31 +5,31 @@ import SideBarHeader from "../presentationals/SideBarHeader";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomList from "../presentationals/CustomList";
-import { deleteCustomCommand, setCustomCommands, setCustomFormLatex, setCustomFormValue } from "../slice";
+import { deleteCustomCommand, setCustomCommandList, setCustomFormLatex, setCustomFormValue } from "../slice";
 
 export default function CustomContainer() {
-	const { customCommands, customFormValue } = useSelector(state => state);
+	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const handleFormOnButton = () => {
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
 	};
 
-	const handleEditClick = (id, command) => () => {
-		const target = customCommands.filter(elem => elem.command === command)[0];
+	const handleEditClick = index => () => {
+		const target = customCommandList[index];
 
-		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id }));
+		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id: index }));
 	};
 
-	const handleDeleteClick = command => () => {
-		const newCustomCommands = customCommands.filter(elem => elem.command !== command);
+	const handleDeleteClick = index => () => {
+		const tempCustomCommands = [...customCommandList].filter((_, id) => id !== index);
 
-		dispatch(deleteCustomCommand({ customFormValue, newCustomCommands }));
+		dispatch(deleteCustomCommand({ customFormValue, tempCustomCommands }));
 	};
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		const isExist = customCommands.find(elem => elem.command === e.target.command.value);
+		const isExist = customCommandList.find(elem => elem.command === customFormValue.command);
 		const buttonName = e.target.submitBtn.innerText;
 
 		if (buttonName === "등록") {
@@ -38,27 +38,26 @@ export default function CustomContainer() {
 				return;
 			}
 			const tempCustomCommands = [
-				...customCommands,
-				{ id: customCommands.length, command: customFormValue.command, latex: customFormValue.latex },
+				...customCommandList,
+				{ command: customFormValue.command, latex: customFormValue.latex },
 			];
 
-			dispatch(setCustomCommands(tempCustomCommands));
+			dispatch(setCustomCommandList(tempCustomCommands));
 		}
 
 		if (buttonName === "수정") {
-			const targetId = customFormValue.id;
-			const tempCustomCommands = [...customCommands].filter(elem => elem.id !== targetId);
+			const index = customFormValue.id;
+			const tempCustomCommands = [...customCommandList];
 
-			if (isExist && e.target.command.value !== customCommands[targetId].command) {
+			tempCustomCommands[index] = { command: customFormValue.command, latex: customFormValue.latex };
+
+			if (isExist && e.target.command.value !== customCommandList[index].command) {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}
-			dispatch(setCustomCommands([
-				...tempCustomCommands,
-				{ id: targetId, command: customFormValue.command, latex: customFormValue.latex },
-			].sort((a, b) => a.id - b.id)));
+			dispatch(setCustomCommandList(tempCustomCommands));
 		}
-		dispatch(setCustomFormValue({ ...customFormValue, command: "", latex: "", id: -1, isDisabled: false }));
+		dispatch(setCustomFormValue({ state: false, command: "", latex: "", id: -1, isDisabled: false }));
 	};
 
 	const onChangeCommand = e => {
@@ -84,7 +83,7 @@ export default function CustomContainer() {
 					onSubmit={handleSubmit}
 				/>}
 			<CustomList
-				customs={customCommands}
+				customs={customCommandList}
 				onClickEdit={handleEditClick}
 				onClickDelete={handleDeleteClick}
 			/>

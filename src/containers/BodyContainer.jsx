@@ -18,9 +18,19 @@ export default function BodyContainer() {
 		latexInput,
 		fontInfo,
 		alignInfo,
+		customCommandList,
 	} = useSelector(state => state);
 
-	const handleLatexInput = mathField => dispatch(setLatexInputWithDebounce(mathField.latex()));
+	const handleLatexInput = customList => mathField => {
+		const mathFieldLatex = mathField.latex();
+		const target = customList.find(elem => mathFieldLatex.includes(elem.command));
+
+		if (target) {
+			dispatch(setLatexInputWithDebounce(mathFieldLatex.replace(target.command, target.latex)));
+			return;
+		}
+		dispatch(setLatexInputWithDebounce(mathFieldLatex));
+	};
 
 
 	const setUpLatexInsertFunction = mathField => {
@@ -42,7 +52,7 @@ export default function BodyContainer() {
 			</EditTabHeaderLayout>
 			<FormulaRepresentation
 				latexInput={latexInput}
-				handleLatexInput={handleLatexInput}
+				onChange={handleLatexInput(customCommandList)}
 				mathquillDidMount={setUpLatexInsertFunction}
 				fontInfo={fontInfo}
 				alignInfo={alignInfo}
