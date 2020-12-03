@@ -10,7 +10,6 @@ import {
 } from "./util";
 
 const latexList = getLocalStorage(LATEX_LIST, []);
-const customCommandList = getLocalStorage(CUSTOM_LIST, []);
 
 const { reducer, actions } = createSlice({
 	name: "FEditor",
@@ -31,7 +30,7 @@ const { reducer, actions } = createSlice({
 			formulaSave: false,
 		},
 		latexList,
-		customCommandList,
+		customCommandList: getLocalStorage(CUSTOM_LIST, []),
 		bookmarkItems: latexList.filter(item => item.isBookmark),
 		recentItems: latexList.filter(item => item.isRecent),
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },

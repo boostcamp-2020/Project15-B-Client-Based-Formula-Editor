@@ -25,13 +25,13 @@ const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: 
 `;
 
 export default function FormulaRepresentation({
-	latexInput, handleLatexInput, mathquillDidMount, fontInfo, alignInfo,
+	latexInput, onChange, mathquillDidMount, fontInfo, alignInfo,
 }) {
 	return (
 		<FormulaRepresentationStyle fontInfo={fontInfo} align={alignInfo}>
 			<EditableMathField
 				latex={latexInput}
-				onChange={handleLatexInput}
+				onChange={onChange}
 				mathquillDidMount={mathquillDidMount}
 			/>
 		</FormulaRepresentationStyle>

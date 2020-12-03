@@ -10,7 +10,7 @@ import EditTabButton from "../presentationals/EditTabButton";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
 
-import { latexFunction, CUSTOM_LIST, getLocalStorage } from "../util";
+import { latexFunction } from "../util";
 
 export default function BodyContainer() {
 	const dispatch = useDispatch();
@@ -18,14 +18,14 @@ export default function BodyContainer() {
 		latexInput,
 		fontInfo,
 		alignInfo,
+		customCommandList,
 	} = useSelector(state => state);
-	const customCommandList = getLocalStorage(CUSTOM_LIST, []);
 
-	const handleLatexInput = mathField => {
+	const handleLatexInput = customList => mathField => {
 		const mathFieldLatex = mathField.latex();
-		const target = customCommandList.find(elem => mathFieldLatex.includes(elem.command));
+		const target = customList.find(elem => mathFieldLatex.includes(elem.command));
 
-		if (target !== undefined) {
+		if (target) {
 			dispatch(setLatexInput(mathFieldLatex.replace(target.command, target.latex)));
 			return;
 		}
@@ -52,7 +52,7 @@ export default function BodyContainer() {
 			</EditTabHeaderLayout>
 			<FormulaRepresentation
 				latexInput={latexInput}
-				handleLatexInput={handleLatexInput}
+				onChange={handleLatexInput(customCommandList)}
 				mathquillDidMount={setUpLatexInsertFunction}
 				fontInfo={fontInfo}
 				alignInfo={alignInfo}

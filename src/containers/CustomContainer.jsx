@@ -22,9 +22,7 @@ export default function CustomContainer() {
 	};
 
 	const handleDeleteClick = index => () => {
-		const tempCustomCommands = [...customCommandList];
-
-		tempCustomCommands.splice(index, 1);
+		const tempCustomCommands = [...customCommandList].filter((_, id) => id !== index);
 
 		dispatch(deleteCustomCommand({ customFormValue, tempCustomCommands }));
 	};
