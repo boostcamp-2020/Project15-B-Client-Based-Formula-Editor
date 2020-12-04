@@ -13,7 +13,7 @@ describe("<CustomList />", () => {
 			render(<CustomList customs={customs} onClickEdit={onClickEdit} onClickDelete={onClickDelete} />);
 		const buttons = container.querySelectorAll("button");
 
-		expect(container).toHaveTextContent("내 코드들");
+		expect(container).toHaveTextContent("사용자 명령어 목록");
 		expect(container).toHaveTextContent("\\aaa");
 		expect(container).toHaveTextContent("\\bbb");
 		expect(container).toHaveTextContent("\\ccc");
