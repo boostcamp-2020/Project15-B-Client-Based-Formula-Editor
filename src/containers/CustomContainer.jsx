@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import ListLayout from "../layouts/ListLayout";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
-import CustomList from "../presentationals/CustomList";
+import CustomItem from "../presentationals/CustomItem";
+import SideBarHeader from "../presentationals/SideBarHeader";
+import EmptyItem from "../presentationals/EmptyItem";
 import { deleteCustomCommand, setCustomCommandList, setCustomFormLatex, setCustomFormValue } from "../slice";
 
 export default function CustomContainer() {
@@ -83,11 +85,17 @@ export default function CustomContainer() {
 					onChangeLatex={onChangeLatex}
 					onSubmit={handleSubmit}
 				/>}
-			<CustomList
-				customs={customCommandList}
-				onClickEdit={handleEditClick}
-				onClickDelete={handleDeleteClick}
-			/>
+			<SideBarHeader title={"사용자 명령어 목록"} />
+			{customCommandList.length ?
+				customCommandList.map(({ command }, index) =>
+					<CustomItem
+						key={index}
+						name={command}
+						onClickEdit={handleEditClick(index)}
+						onClickDelete={handleDeleteClick(index)}
+					/>,
+				) :
+				<EmptyItem content={"최근 저장한 명령어가 없습니다"}/>}
 		</ListLayout>
 	);
 }

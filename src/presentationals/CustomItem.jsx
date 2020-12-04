@@ -17,8 +17,7 @@ const Layout = styled.div`
 `;
 
 const Item = styled.div`
-	width: calc(100% - 30px);
-  margin: 0px 15px;
+	margin: 5px;
 	background-color: white;
 	border: 1px solid ${color.dark};
   border-radius: 10px;
