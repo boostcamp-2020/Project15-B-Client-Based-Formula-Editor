@@ -21,9 +21,11 @@ export default function CustomContainer() {
 	};
 
 	const handleDeleteClick = index => () => {
-		const tempCustomCommands = [...customCommandList].filter((_, id) => id !== index);
+		if (confirm("정말로 삭제하시겠습니까?")) {
+			const tempCustomCommands = [...customCommandList].filter((_, id) => id !== index);
 
-		dispatch(deleteCustomCommand({ customFormValue, tempCustomCommands }));
+			dispatch(deleteCustomCommand({ customFormValue, tempCustomCommands }));
+		}
 	};
 
 	const handleSubmit = e => {
