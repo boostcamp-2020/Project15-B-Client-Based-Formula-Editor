@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLatexInputWithDebounce, setLatexTextInputWithDebounce } from "../slice";
 
+import { getLocalStorage } from "../sliceUtil";
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
@@ -18,11 +19,12 @@ export default function BodyContainer() {
 		latexInput,
 		fontInfo,
 		alignInfo,
-		customCommandList,
 	} = useSelector(state => state);
 
-	const handleLatexInput = customList => mathField => {
+	const handleLatexInput = mathField => {
 		let mathFieldLatex = mathField.latex();
+		const customList = getLocalStorage("customList", []);
+
 		const target = customList.find(elem => mathFieldLatex.includes(`#${elem.command}\\`));
 
 		if (target) {
@@ -51,7 +53,7 @@ export default function BodyContainer() {
 			</EditTabHeaderLayout>
 			<FormulaRepresentation
 				latexInput={latexInput}
-				onChange={handleLatexInput(customCommandList)}
+				onChange={handleLatexInput}
 				mathquillDidMount={setUpLatexInsertFunction}
 				fontInfo={fontInfo}
 				alignInfo={alignInfo}
