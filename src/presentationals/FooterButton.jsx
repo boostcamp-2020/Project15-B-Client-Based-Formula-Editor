@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { color } from "../GlobalStyle";
 import BubblePopup from "./BubblePopup";
 
-const Layout = styled.div``;
+const Layout = styled.div`
+	position: relative;
+`;
 
 const FooterButtonStyle = styled.button`
 	position: relative;

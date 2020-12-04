@@ -3,54 +3,35 @@ import styled from "styled-components";
 
 import { color } from "../GlobalStyle";
 
+const transition = "0.5s";
+
 const Layout = styled.div`
   position: absolute;
-  transition: 0.5s;
+  transition: ${transition};
   width: max-content;
   z-index: 2;
-  transform: translate(-17%, 0);
-  
-  ${({ isOpen }) =>
-		(isOpen ? `
-      display: block;
-      top: 600px;
-    ` : `
-      display: block;
-      top: 640px;
-    `)}
+  transform: translateX(-17%);
+  display: block;
+  top: ${({ isOpen }) => (isOpen ? "-70" : "-30")}px;
 `;
 
 const Message = styled.div`
-  width: max-content;
   padding: 10px 20px;
   font-weight: bold;
   border-radius: 10px;
-  transition: 0.5s;
-
-  ${({ isOpen }) =>
-		(isOpen ? `
-      background-color: ${color.normal};
-      color: white;
-    ` : `
-      background-color: #4db6ac00;
-      color: #ffffff00;
-    `)}
+  transition: ${transition};
+  background-color: ${color.normal};
+  color: white;
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
 `;
 
 const Triangle = styled.div`
   margin: 0 auto;
-  width: 0px;
-  height: 0px;
+  width: 0;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
-  transition: 0.5s;
-
-  ${({ isOpen }) =>
-		(isOpen ? `
-      border-top: 15px solid ${color.normal};
-    ` : `
-      border-top: 15px solid #4db6ac00;
-    `)}
+  border-top: 15px solid ${({ isOpen }) => (isOpen ? color.normal : `transparent`)};
+  transition: ${transition};
 `;
 
 export default function BubblePopup({ isOpen, message }) {
