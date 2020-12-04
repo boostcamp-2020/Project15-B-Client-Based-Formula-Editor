@@ -72,6 +72,12 @@ export default function CustomContainer({ onScroll }) {
 		dispatch(setCustomFormLatex(mathField.latex()));
 	};
 
+	const handleDeleteAllClick = () => {
+		if (confirm("모든 커스텀 명령어를 삭제하시겠습니까?")) {
+			dispatch(setCustomCommandList([]));
+		}
+	};
+
 	return (
 		<ListLayout onScroll={onScroll}>
 			<CustomAddButton
@@ -85,7 +91,10 @@ export default function CustomContainer({ onScroll }) {
 					onChangeLatex={onChangeLatex}
 					onSubmit={handleSubmit}
 				/>}
-			<SideBarHeader title={"사용자 명령어 목록"} />
+			<SideBarHeader
+				title={"사용자 명령어 목록"}
+				onClick={handleDeleteAllClick}
+			/>
 			{customCommandList.length ?
 				customCommandList.map(({ command }, index) =>
 					<CustomItem

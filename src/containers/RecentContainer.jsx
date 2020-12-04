@@ -1,7 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteRecentItem, setBookmarkItem, setLatexInput, setCustomFormValue } from "../slice";
+import {
+	deleteRecentItem,
+	setBookmarkItem,
+	setLatexInput,
+	setCustomFormValue,
+	removeAllRecentItems,
+} from "../slice";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
@@ -32,9 +38,18 @@ export default function RecentContainer({ onScroll, setTabState, setSidebar }) {
 		setSidebar(false);
 	};
 
+	const handleDeleteAllClick = () => {
+		if (confirm("모든 최근 수식을 삭제하시겠습니까?")) {
+			dispatch(removeAllRecentItems());
+		}
+	};
+
 	return (
 		<ListLayout onScroll={onScroll}>
-			<SideBarHeader title={"최근 수식 목록"} />
+			<SideBarHeader
+				title={"최근 수식 목록"}
+				onClick={handleDeleteAllClick}
+			/>
 			{recentItems.length ?
 				recentItems.map(({ id, latex, isBookmark }) =>
 					<ListItem

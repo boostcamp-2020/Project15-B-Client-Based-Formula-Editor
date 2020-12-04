@@ -1,7 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addBookmarkItem, setBookmarkItem, setCustomFormValue, setLatexInput } from "../slice";
+import {
+	addBookmarkItem,
+	setBookmarkItem,
+	setCustomFormValue,
+	setLatexInput,
+	removeAllBookmarkItems,
+} from "../slice";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
@@ -34,10 +40,19 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 		}
 	};
 
+	const handleDeleteAllClick = () => {
+		if (confirm("모든 북마크를 삭제하시겠습니까?")) {
+			dispatch(removeAllBookmarkItems());
+		}
+	};
+
 	return (
 		<ListLayout onScroll={onScroll}>
 			<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
-			<SideBarHeader title={"북마크 수식 목록"} />
+			<SideBarHeader
+				title={"북마크 수식 목록"}
+				onClick={handleDeleteAllClick}
+			/>
 			{bookmarkItems.length ?
 				bookmarkItems.map(({ id, latex }) =>
 					<ListItem
