@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { color } from "../GlobalStyle";
 
 const Button = styled.button`
-	width: calc(100% - 40px);
-  margin: 15px 20px 0px 20px;
+	width: calc(100% - 10px); 
+	margin: 5px;
 	height: 50px;
 	font-weight: bold;
 	color: white;
@@ -13,6 +13,8 @@ const Button = styled.button`
 	border: 2px solid ${color.dark};
 	border-radius: 10px;
 	cursor: pointer;
+	position: relative;
+	outline: none;
 
 	&:hover {
 		background-color: ${color.dark};
