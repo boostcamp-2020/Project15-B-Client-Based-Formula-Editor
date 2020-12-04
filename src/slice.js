@@ -52,6 +52,7 @@ export const {
 	resetEvent,
 	addBookmarkItem,
 	setBookmarkItem,
+	removeAllBookmarkItems,
 	addRecentItem,
 	deleteRecentItem,
 	removeAllRecentItems,
