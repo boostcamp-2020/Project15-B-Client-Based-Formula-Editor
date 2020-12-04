@@ -5,7 +5,7 @@ import { color } from "../GlobalStyle";
 
 const Button = styled.button`
 	width: calc(100% - 40px);
-  margin: 15px 20px;
+  margin: 15px 20px 0px 20px;
 	height: 50px;
 	font-weight: bold;
 	color: white;
