@@ -18,10 +18,13 @@ const Layout = styled.div`
 	}
 `;
 
-export default function CustomList({ customs, onClickEdit, onClickDelete }) {
+export default function CustomList({ customs, onClickEdit, onClickDelete, onClickAllDelete }) {
 	return (
 		<Layout>
-			<SideBarHeader title={"사용자 명령어 목록"} />
+			<SideBarHeader
+				title={"사용자 명령어 목록"}
+				onClick={onClickAllDelete}
+			/>
 			{customs.map(({ command }, index) =>
 				<CustomItem
 					key={index}

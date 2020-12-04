@@ -67,6 +67,14 @@ export default function CustomContainer() {
 		dispatch(setCustomFormLatex(mathField.latex()));
 	};
 
+	const handleDeleteAllClick = () => {
+		const yes = confirm("모든 커스텀 명령어를 삭제하시겠습니까?");
+
+		if (yes) {
+			dispatch(setCustomCommandList([]));
+		}
+	};
+
 	return (
 		<div>
 			<CustomAddButton
@@ -84,6 +92,7 @@ export default function CustomContainer() {
 				customs={customCommandList}
 				onClickEdit={handleEditClick}
 				onClickDelete={handleDeleteClick}
+				onClickAllDelete={handleDeleteAllClick}
 			/>
 		</div>
 	);
