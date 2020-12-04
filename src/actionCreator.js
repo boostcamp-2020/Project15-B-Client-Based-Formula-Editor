@@ -71,6 +71,12 @@ export default {
 		latexItem.isRecent = false;
 		updateSidebar(state);
 	},
+	removeAllRecentItems(state) {
+		state.latexList.forEach(item => {
+			item.isRecent = false;
+		});
+		updateSidebar(state);
+	},
 	setBubblePopupOn(state, { payload }) {
 		const { target, isOpen, message } = payload;
 
