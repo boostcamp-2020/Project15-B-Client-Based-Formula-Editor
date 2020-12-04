@@ -34,7 +34,9 @@ export default function SideBar({ mainWrapperRef }) {
 				setTabState={setTabState}
 			/>,
 		[CUSTOM_COMMAND_TAB]:
-			<CustomContainer />,
+			<CustomContainer
+				onScroll={toFitSimple(handleSidebarScroll)}
+			/>,
 	};
 
 	const handleToggleSidebar = () => {

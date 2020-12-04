@@ -9,7 +9,7 @@ import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
 import { deleteCustomCommand, setCustomCommandList, setCustomFormLatex, setCustomFormValue } from "../slice";
 
-export default function CustomContainer() {
+export default function CustomContainer({ onScroll }) {
 	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 
@@ -73,7 +73,7 @@ export default function CustomContainer() {
 	};
 
 	return (
-		<ListLayout>
+		<ListLayout onScroll={onScroll}>
 			<CustomAddButton
 				isFormOn={customFormValue.state}
 				onClick={handleFormOnButton}
