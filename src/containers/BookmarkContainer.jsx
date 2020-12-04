@@ -41,9 +41,7 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	};
 
 	const handleDeleteAllClick = () => {
-		const yes = confirm("모든 북마크를 삭제하시겠습니까?");
-
-		if (yes) {
+		if (confirm("모든 북마크를 삭제하시겠습니까?")) {
 			dispatch(removeAllBookmarkItems());
 		}
 	};

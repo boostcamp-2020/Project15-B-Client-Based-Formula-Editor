@@ -68,9 +68,7 @@ export default function CustomContainer() {
 	};
 
 	const handleDeleteAllClick = () => {
-		const yes = confirm("모든 커스텀 명령어를 삭제하시겠습니까?");
-
-		if (yes) {
+		if (confirm("모든 커스텀 명령어를 삭제하시겠습니까?")) {
 			dispatch(setCustomCommandList([]));
 		}
 	};

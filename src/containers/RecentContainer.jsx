@@ -39,9 +39,7 @@ export default function RecentContainer({ onScroll, setTabState, setSidebar }) {
 	};
 
 	const handleDeleteAllClick = () => {
-		const yes = confirm("모든 최근 수식을 삭제하시겠습니까?");
-
-		if (yes) {
+		if (confirm("모든 최근 수식을 삭제하시겠습니까?")) {
 			dispatch(removeAllRecentItems());
 		}
 	};
