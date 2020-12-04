@@ -9,16 +9,20 @@ const Layout = styled.div`
 
   > button {
     display: none;
+    position: relative;
   }
 
   &:hover {
     > button {
       display: block;
+      position: absolute;
+      right: 0;
     }
   }
 `;
 
 const Title = styled.div`
+  width: 100%;
   text-align: center;
   margin: 15px 0;
   font-weight: 500;
