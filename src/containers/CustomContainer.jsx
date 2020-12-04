@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import ListLayout from "../layouts/ListLayout";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomList from "../presentationals/CustomList";
@@ -70,7 +71,7 @@ export default function CustomContainer() {
 	};
 
 	return (
-		<div>
+		<ListLayout>
 			<CustomAddButton
 				isFormOn={customFormValue.state}
 				onClick={handleFormOnButton}
@@ -87,6 +88,6 @@ export default function CustomContainer() {
 				onClickEdit={handleEditClick}
 				onClickDelete={handleDeleteClick}
 			/>
-		</div>
+		</ListLayout>
 	);
 }
