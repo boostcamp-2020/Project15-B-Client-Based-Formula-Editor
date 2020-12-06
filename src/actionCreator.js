@@ -54,6 +54,12 @@ export default {
 		setBookmark(state, payload);
 		updateSidebar(state);
 	},
+	removeAllBookmarkItems(state) {
+		state.latexList.forEach(item => {
+			item.isBookmark = false;
+		});
+		updateSidebar(state);
+	},
 	addRecentItem(state, { payload }) {
 		addLatexItem(state, { latex: payload, isRecent: true });
 
@@ -69,6 +75,12 @@ export default {
 		const latexItem = state.latexList.find(({ id }) => id === payload);
 
 		latexItem.isRecent = false;
+		updateSidebar(state);
+	},
+	removeAllRecentItems(state) {
+		state.latexList.forEach(item => {
+			item.isRecent = false;
+		});
 		updateSidebar(state);
 	},
 	setBubblePopupOn(state, { payload }) {

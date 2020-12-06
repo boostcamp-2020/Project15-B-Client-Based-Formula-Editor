@@ -17,7 +17,7 @@ describe("<CustomForm />", () => {
 			const submitBtn = container.querySelector("button");
 
 			expect(warningMsg).toHaveStyle("display:none");
-			expect(commandInput.placeholder).toContain("명령어를 다음과 같이 입력하세요");
+			expect(commandInput.placeholder).toContain("명령어를 입력해주세요");
 			expect(commandInput.value).toBe("\\cmx");
 			expect(mathfield).toBeVisible();
 			expect(submitBtn).toHaveTextContent("테스트 버튼");
