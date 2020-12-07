@@ -33,10 +33,10 @@ export const updateCustomCommandList = state => {
 const getMaxValueFromList = (list, prop) =>
 	(list.length ? Math.max(...list.map(el => el[prop])) + 1 : 0);
 
-export const getIdToAdd = list => getMaxValueFromList(list, "id");
+export const getIdToAdd = list => getMaxValueFromList(list, ID);
 
 const getBookmarkPriorityToAdd = (list, isBookmark) =>
-	(isBookmark ? getMaxValueFromList(list, "bookmarkPriority") : 0);
+	(isBookmark ? getMaxValueFromList(list, BOOKMARK_PRIORITY) : 0);
 
 export const addLatexItem = (state, { latex, isRecent = false, isBookmark = false }) => {
 	const id = getIdToAdd(state.latexList);
