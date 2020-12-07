@@ -46,7 +46,6 @@ export default function BodyContainer() {
 
 	return (
 		<BodyLayout>
-			<EditTabButton />
 			<EditTabHeaderLayout>
 				<FontContainer />
 				<ControlButtonContainer />
