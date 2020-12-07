@@ -1,6 +1,9 @@
 export const LATEX_LIST = "latexList";
 export const CUSTOM_LIST = "customList";
 export const INITIAL_ID = 0;
+export const RECENT_TAB = 0;
+export const BOOKMARK_TAB = 1;
+export const CUSTOM_COMMAND_TAB = 2;
 const ID = "id";
 const BOOKMARK_PRIORITY = "bookmarkPriority";
 
@@ -30,10 +33,10 @@ export const updateCustomCommandList = state => {
 const getMaxValueFromList = (list, prop) =>
 	(list.length ? Math.max(...list.map(el => el[prop])) + 1 : 0);
 
-export const getIdToAdd = list => getMaxValueFromList(list, "id");
+export const getIdToAdd = list => getMaxValueFromList(list, ID);
 
 const getBookmarkPriorityToAdd = (list, isBookmark) =>
-	(isBookmark ? getMaxValueFromList(list, "bookmarkPriority") : 0);
+	(isBookmark ? getMaxValueFromList(list, BOOKMARK_PRIORITY) : 0);
 
 export const addLatexItem = (state, { latex, isRecent = false, isBookmark = false }) => {
 	const id = getIdToAdd(state.latexList);
@@ -43,9 +46,19 @@ export const addLatexItem = (state, { latex, isRecent = false, isBookmark = fals
 	state.latexList.push(newItem);
 };
 
-export const setBookmark = (state, { id, isBookmark }) => {
+export const setLatexItem = (state, { id, isRecent, isBookmark }) => {
 	const latexItem = state.latexList.find(item => item.id === id);
 
-	latexItem.isBookmark = isBookmark;
-	latexItem.bookmarkPriority = getBookmarkPriorityToAdd(state.bookmarkItems, isBookmark);
+	if (isRecent !== undefined) latexItem.isRecent = isRecent;
+	if (isBookmark !== undefined) {
+		latexItem.isBookmark = isBookmark;
+		latexItem.bookmarkPriority = getBookmarkPriorityToAdd(state.bookmarkItems, latexItem.isBookmark);
+	}
+	updateSidebar(state);
+};
+
+export const deleteCustomCommand = (state, { id }) => {
+	state.customFormValue = { ...state.customFormValue, state: false };
+	state.customCommandList = state.customCommandList.filter((_, index) => index !== id);
+	updateCustomCommandList(state);
 };

@@ -1,13 +1,19 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import {
+	setCustomCommandList,
+	setCustomFormLatex,
+	setCustomFormValue,
+	openConfirmModal,
+} from "../slice";
 import ListLayout from "../layouts/ListLayout";
 import CustomAddButton from "../presentationals/CustomAddButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomItem from "../presentationals/CustomItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
-import { deleteCustomCommand, setCustomCommandList, setCustomFormLatex, setCustomFormValue } from "../slice";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 
 export default function CustomContainer({ onScroll }) {
 	const { customCommandList, customFormValue } = useSelector(state => state);
@@ -24,11 +30,7 @@ export default function CustomContainer({ onScroll }) {
 	};
 
 	const handleDeleteClick = index => () => {
-		if (confirm("정말로 삭제하시겠습니까?")) {
-			const tempCustomCommands = [...customCommandList].filter((_, id) => id !== index);
-
-			dispatch(deleteCustomCommand({ customFormValue, tempCustomCommands }));
-		}
+		dispatch(openConfirmModal({ tabId: CUSTOM_COMMAND_TAB, index }));
 	};
 
 	const handleSubmit = e => {
