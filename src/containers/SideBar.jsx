@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { closeConfirmModal } from "../slice";
@@ -8,11 +8,8 @@ import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
 import BookmarkContainer from "./BookmarkContainer";
 import CustomContainer from "./CustomContainer";
-import GreaterThanIcon from "../icons/GreaterThanIcon";
-import LessThanIcon from "../icons/LessThanIcon";
 import SideBarLayout from "../layouts/SideBarLayout";
 import SideBarTab from "../presentationals/SideBarTab";
-import IconButton from "../presentationals/IconButton";
 import ConfirmModal from "../presentationals/ConfirmModal";
 
 export default function SideBar({ mainWrapperRef }) {
