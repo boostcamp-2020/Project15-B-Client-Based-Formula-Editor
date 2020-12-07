@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 import FontIcon from "../icons/FontIcon";
 
 const FontColorSelectorStyle = styled.label`
@@ -9,11 +9,11 @@ const FontColorSelectorStyle = styled.label`
 	flex-direction: column;
 	cursor: pointer;
 	padding: 0 5px;
-	border-right: 1px dashed ${color.dark};
+	border-right: 1px dashed ${themeColor.white};
 
 	& > svg {
 		margin: 0 auto;
-		fill: ${color.dark};
+		fill: ${themeColor.white};
 	}
 	& > input {
 		cursor: pointer;
