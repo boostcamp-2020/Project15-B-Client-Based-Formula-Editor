@@ -4,10 +4,10 @@ import {
 	updateCustomCommandList,
 	addLatexItem,
 	getIdToAdd,
-	setBookmark,
 	RECENT_TAB,
 	BOOKMARK_TAB,
 	CUSTOM_COMMAND_TAB,
+	setLatexItem,
 } from "./sliceUtil";
 
 export default {
@@ -54,8 +54,7 @@ export default {
 		updateSidebar(state);
 	},
 	setBookmarkItem(state, { payload }) {
-		setBookmark(state, payload);
-		updateSidebar(state);
+		setLatexItem(state, payload);
 	},
 	removeAllBookmarkItems(state) {
 		state.latexList.forEach(item => {
@@ -72,12 +71,6 @@ export default {
 		}
 
 		clearTimeout(state.timerId);
-		updateSidebar(state);
-	},
-	deleteRecentItem(state, { payload }) {
-		const latexItem = state.latexList.find(({ id }) => id === payload);
-
-		latexItem.isRecent = false;
 		updateSidebar(state);
 	},
 	removeAllRecentItems(state) {
@@ -104,7 +97,7 @@ export default {
 	setCustomFormLatex(state, { payload }) {
 		state.customFormValue.latex = payload;
 	},
-	setTempSavedItem(state, { payload }) {
+	setTempSavedItem(state) {
 		if (state.tempSavedLatexId === INITIAL_ID) {
 			const id = getIdToAdd(state.latexList);
 			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
@@ -132,12 +125,10 @@ export default {
 
 		switch (dataToDelete.tabId) {
 			case RECENT_TAB:
-				state.latexList.find(({ id }) => id === dataToDelete.id).isRecent = false;
-				updateSidebar(state);
+				setLatexItem(state, { id: dataToDelete.id, isRecent: false });
 				break;
 			case BOOKMARK_TAB:
-				setBookmark(state, { id: dataToDelete.id, isBookmark: false });
-				updateSidebar(state);
+				setLatexItem(state, { id: dataToDelete.id, isBookmark: false });
 				break;
 			case CUSTOM_COMMAND_TAB:
 				state.customFormValue = { ...state.customFormValue, state: false };

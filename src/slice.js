@@ -55,7 +55,6 @@ export const {
 	setBookmarkItem,
 	removeAllBookmarkItems,
 	addRecentItem,
-	deleteRecentItem,
 	removeAllRecentItems,
 	setBubblePopupOn,
 	setCustomCommandList,
@@ -66,11 +65,6 @@ export const {
 	openConfirmModal,
 	closeConfirmModal,
 } = actions;
-
-export const deleteCustomCommand = payload => dispatch => {
-	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
-	dispatch(setCustomCommandList(payload.tempCustomCommands));
-};
 
 const setPopup = (dispatch, config, ms) => {
 	dispatch(setBubblePopupOn({ ...config, isOpen: true }));
