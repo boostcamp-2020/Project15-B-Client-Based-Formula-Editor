@@ -31,16 +31,6 @@ const Tab = styled.div`
 	)}
 `;
 
-const SelectedTabBorderBottom = styled.div`
-	width: 42px;
-	height: 3px;
-	background-color: ${color.normal};
-	position: absolute;
-	left: ${({ currentTab }) => (currentTab * 90) + 24}px;
-	top: 47px;
-	transition: 0.3s;
-`;
-
 export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
 	const tabMenus = [
 		<TimeIcon key={RECENT_TAB}/>,
@@ -50,7 +40,6 @@ export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
 
 	return (
 		<TabLayout isScrollTop={isScrollTop}>
-			<SelectedTabBorderBottom currentTab={currentTab} />
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
 					<IconButton isHover={currentTab !== index} icon={tabMenu} />

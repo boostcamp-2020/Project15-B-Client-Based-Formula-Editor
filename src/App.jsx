@@ -19,13 +19,13 @@ export default function App() {
 				<GlobalStyle />
 				<QueryStringCatcher />
 				<MainWrapper ref={mainWrapperRef} >
+					<SideBar mainWrapperRef={mainWrapperRef} />
 					<MainLayout >
 						<HeaderContainer />
 						<BodyContainer />
 						<FooterContainer />
 					</MainLayout>
 				</MainWrapper>
-				<SideBar mainWrapperRef={mainWrapperRef} />
 			</Route>
 		</BrowserRouter>
 	);
