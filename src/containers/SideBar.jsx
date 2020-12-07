@@ -57,8 +57,8 @@ export default function SideBar({ mainWrapperRef }) {
 				onClickYes={handleConfirmClick(true)}
 				onClickNo={handleConfirmClick(false)}
 			/>
+			<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
 			<SideBarLayout>
-				<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
 				{tabMap[tabState]}
 			</SideBarLayout>
 		</>

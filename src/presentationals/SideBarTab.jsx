@@ -9,16 +9,11 @@ import CustomIcon from "../icons/CustomIcon";
 import IconButton from "../presentationals/IconButton";
 
 const TabLayout = styled.div`
-	display: flex;
-	justify-content: space-around;
 	padding: 10px 0 3px 0;
-	z-index: 1000;
-	position: relative;
-	box-shadow: ${({ isScrollTop }) => (isScrollTop ? "none" : "0 12px 15px -15px grey")};
-	transition: 1s;
 `;
 
 const Tab = styled.div`
+	margin: 12px 0;
 	${({ isSelected }) => (isSelected &&
 		`
 			button {
