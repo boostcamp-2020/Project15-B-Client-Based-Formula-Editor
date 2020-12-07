@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
 	addBookmarkItem,
-	setBookmarkItem,
 	setCustomFormValue,
 	setLatexInput,
 	removeAllBookmarkItems,
+	openConfirmModal,
 } from "../slice";
-import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
@@ -35,9 +35,7 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 	};
 
 	const handleDeleteButton = id => () => {
-		if (confirm("정말로 삭제하시겠습니까?")) {
-			dispatch(setBookmarkItem({ id, isBookmark: false }));
-		}
+		dispatch(openConfirmModal({ tabId: BOOKMARK_TAB, id }));
 	};
 
 	const handleDeleteAllClick = () => {

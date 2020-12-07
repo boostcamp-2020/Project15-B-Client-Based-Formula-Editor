@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	deleteRecentItem,
 	setBookmarkItem,
 	setLatexInput,
 	setCustomFormValue,
 	removeAllRecentItems,
+	openConfirmModal,
 } from "../slice";
-import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import ListLayout from "../layouts/ListLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
@@ -28,9 +28,7 @@ export default function RecentContainer({ onScroll, setTabState, setSidebar }) {
 	};
 
 	const handleDeleteButtonClick = id => () => {
-		if (confirm("정말로 삭제하시겠습니까?")) {
-			dispatch(deleteRecentItem(id));
-		}
+		dispatch(openConfirmModal({ tabId: RECENT_TAB, id }));
 	};
 
 	const handleFormulaClick = latex => () => {

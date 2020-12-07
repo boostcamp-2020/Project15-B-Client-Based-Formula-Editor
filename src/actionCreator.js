@@ -5,6 +5,9 @@ import {
 	addLatexItem,
 	getIdToAdd,
 	setBookmark,
+	RECENT_TAB,
+	BOOKMARK_TAB,
+	CUSTOM_COMMAND_TAB,
 } from "./sliceUtil";
 
 export default {
@@ -117,5 +120,31 @@ export default {
 
 		targetItem.latex = state.latexInput;
 		updateSidebar(state);
+	},
+	openConfirmModal(state, { payload }) {
+		state.confirmModal.isOpen = true;
+		state.confirmModal.data = payload;
+	},
+	closeConfirmModal(state, { payload }) {
+		state.confirmModal.isOpen = false;
+		if (!payload) return;
+		const dataToDelete = state.confirmModal.data;
+
+		switch (dataToDelete.tabId) {
+			case RECENT_TAB:
+				state.latexList.find(({ id }) => id === dataToDelete.id).isRecent = false;
+				updateSidebar(state);
+				break;
+			case BOOKMARK_TAB:
+				setBookmark(state, { id: dataToDelete.id, isBookmark: false });
+				updateSidebar(state);
+				break;
+			case CUSTOM_COMMAND_TAB:
+				state.customFormValue = { ...state.customFormValue, state: false };
+				state.customCommandList = state.customCommandList.filter((_, id) => id !== dataToDelete.index);
+				updateCustomCommandList(state);
+				break;
+			default:
+		}
 	},
 };

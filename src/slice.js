@@ -37,6 +37,7 @@ const { reducer, actions } = createSlice({
 		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 		timerId: "",
+		confirmModal: { isOpen: false, message: "정말로 삭제하시겠습니까?", data: {} },
 	},
 	reducers: actionCreator,
 });
@@ -62,6 +63,8 @@ export const {
 	setTimerId,
 	setCustomFormLatex,
 	setTempSavedItem,
+	openConfirmModal,
+	closeConfirmModal,
 } = actions;
 
 export const deleteCustomCommand = payload => dispatch => {
