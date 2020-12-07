@@ -5,7 +5,7 @@ import title from "../../public/title.png";
 
 const TitleStlye = styled.div`
 	text-align: center;
-	margin: 10px 0;
+	padding: 10px 0;
 	img {
 		height: 50px;
 		margin-left: 10px;
