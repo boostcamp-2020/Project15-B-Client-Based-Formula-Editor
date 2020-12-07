@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { closeConfirmModal } from "../slice";
 import { toFitSimple } from "../util";
-import { RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
 import BookmarkContainer from "./BookmarkContainer";
 import CustomContainer from "./CustomContainer";
@@ -17,7 +18,7 @@ import ConfirmModal from "../presentationals/ConfirmModal";
 export default function SideBar({ mainWrapperRef }) {
 	const dispatch = useDispatch();
 	const confirmModal = useSelector(state => state.confirmModal);
-	const [tabState, setTabState] = useState(RECENT_TAB);
+	const [tabState, setTabState] = useState(CHARACTER_TAB);
 	const [isScrollTop, setIsScrollTop] = useState(true);
 
 	const handleSidebarScroll = ({ target }) => {
@@ -25,6 +26,11 @@ export default function SideBar({ mainWrapperRef }) {
 	};
 
 	const tabMap = {
+		[CHARACTER_TAB]:
+			<CharacterContainer
+				onScroll={toFitSimple(handleSidebarScroll)}
+				setTabState={setTabState}
+			/>,
 		[RECENT_TAB]:
 			<RecentContainer
 				onScroll={toFitSimple(handleSidebarScroll)}
