@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { closeConfirmModal } from "../slice";
 import { toFitSimple } from "../util";
 import { RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import RecentContainer from "./RecentContainer";
@@ -10,8 +12,11 @@ import LessThanIcon from "../icons/LessThanIcon";
 import SideBarLayout from "../layouts/SideBarLayout";
 import SideBarTab from "../presentationals/SideBarTab";
 import IconButton from "../presentationals/IconButton";
+import ConfirmModal from "../presentationals/ConfirmModal";
 
 export default function SideBar({ mainWrapperRef }) {
+	const dispatch = useDispatch();
+	const confirmModal = useSelector(state => state.confirmModal);
 	const [tabState, setTabState] = useState(RECENT_TAB);
 	const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 	const [isScrollTop, setIsScrollTop] = useState(true);
@@ -60,20 +65,32 @@ export default function SideBar({ mainWrapperRef }) {
 		return () => window.removeEventListener("click", outsideClickEvent);
 	}, []);
 
+	const handleConfirmClick = result => () => {
+		dispatch(closeConfirmModal(result));
+	};
+
 	return (
-		<SideBarLayout isOpenSidebar={isOpenSidebar}>
-			<IconButton
-				onClick={handleToggleSidebar}
-				icon={<LessThanIcon />}
+		<>
+			<ConfirmModal
+				isOpen={confirmModal.isOpen}
+				message={confirmModal.message}
+				onClickYes={handleConfirmClick(true)}
+				onClickNo={handleConfirmClick(false)}
 			/>
-			<IconButton
-				onClick={handleToggleSidebar}
-				icon={<GreaterThanIcon />}
-			/>
-			<div>
-				<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
-				{tabMap[tabState]}
-			</div>
-		</SideBarLayout>
+			<SideBarLayout isOpenSidebar={isOpenSidebar}>
+				<IconButton
+					onClick={handleToggleSidebar}
+					icon={<LessThanIcon />}
+				/>
+				<IconButton
+					onClick={handleToggleSidebar}
+					icon={<GreaterThanIcon />}
+				/>
+				<div>
+					<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
+					{tabMap[tabState]}
+				</div>
+			</SideBarLayout>
+		</>
 	);
 }

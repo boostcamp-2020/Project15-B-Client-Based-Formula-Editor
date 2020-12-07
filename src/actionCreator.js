@@ -4,7 +4,11 @@ import {
 	updateCustomCommandList,
 	addLatexItem,
 	getIdToAdd,
-	setBookmark,
+	RECENT_TAB,
+	BOOKMARK_TAB,
+	CUSTOM_COMMAND_TAB,
+	setLatexItem,
+	deleteCustomCommand,
 } from "./sliceUtil";
 
 export default {
@@ -51,8 +55,7 @@ export default {
 		updateSidebar(state);
 	},
 	setBookmarkItem(state, { payload }) {
-		setBookmark(state, payload);
-		updateSidebar(state);
+		setLatexItem(state, payload);
 	},
 	removeAllBookmarkItems(state) {
 		state.latexList.forEach(item => {
@@ -69,12 +72,6 @@ export default {
 		}
 
 		clearTimeout(state.timerId);
-		updateSidebar(state);
-	},
-	deleteRecentItem(state, { payload }) {
-		const latexItem = state.latexList.find(({ id }) => id === payload);
-
-		latexItem.isRecent = false;
 		updateSidebar(state);
 	},
 	removeAllRecentItems(state) {
@@ -101,7 +98,7 @@ export default {
 	setCustomFormLatex(state, { payload }) {
 		state.customFormValue.latex = payload;
 	},
-	setTempSavedItem(state, { payload }) {
+	setTempSavedItem(state) {
 		if (state.tempSavedLatexId === INITIAL_ID) {
 			const id = getIdToAdd(state.latexList);
 			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
@@ -117,5 +114,27 @@ export default {
 
 		targetItem.latex = state.latexInput;
 		updateSidebar(state);
+	},
+	openConfirmModal(state, { payload }) {
+		state.confirmModal.isOpen = true;
+		state.confirmModal.data = payload;
+	},
+	closeConfirmModal(state, { payload }) {
+		state.confirmModal.isOpen = false;
+		if (!payload) return;
+		const dataToDelete = state.confirmModal.data;
+
+		switch (dataToDelete.tabId) {
+			case RECENT_TAB:
+				setLatexItem(state, { id: dataToDelete.id, isRecent: false });
+				break;
+			case BOOKMARK_TAB:
+				setLatexItem(state, { id: dataToDelete.id, isBookmark: false });
+				break;
+			case CUSTOM_COMMAND_TAB:
+				deleteCustomCommand(state, { id: dataToDelete.index });
+				break;
+			default:
+		}
 	},
 };
