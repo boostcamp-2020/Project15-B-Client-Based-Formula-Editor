@@ -24,9 +24,9 @@ const FooterButtonStyle = styled.button`
 
 export default function FooterButton({ name, onClick, isOpen, message }) {
 	return (
-		<Layout onClick={onClick}>
+		<Layout>
 			<BubblePopup isOpen={isOpen} message={message} />
-			<FooterButtonStyle>{name}</FooterButtonStyle>
+			<FooterButtonStyle onClick={onClick}>{name}</FooterButtonStyle>
 		</Layout>
 	);
 }
