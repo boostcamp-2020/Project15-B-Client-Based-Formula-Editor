@@ -21,9 +21,7 @@ export default function App() {
 				<MainWrapper ref={mainWrapperRef} >
 					<SideBar mainWrapperRef={mainWrapperRef} />
 					<MainLayout >
-						<HeaderContainer />
 						<BodyContainer />
-						<FooterContainer />
 					</MainLayout>
 				</MainWrapper>
 			</Route>
