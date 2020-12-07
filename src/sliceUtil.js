@@ -56,3 +56,9 @@ export const setLatexItem = (state, { id, isRecent, isBookmark }) => {
 	}
 	updateSidebar(state);
 };
+
+export const deleteCustomCommand = (state, { id }) => {
+	state.customFormValue = { ...state.customFormValue, state: false };
+	state.customCommandList = state.customCommandList.filter((_, index) => index !== id);
+	updateCustomCommandList(state);
+};

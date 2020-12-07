@@ -8,6 +8,7 @@ import {
 	BOOKMARK_TAB,
 	CUSTOM_COMMAND_TAB,
 	setLatexItem,
+	deleteCustomCommand,
 } from "./sliceUtil";
 
 export default {
@@ -131,9 +132,7 @@ export default {
 				setLatexItem(state, { id: dataToDelete.id, isBookmark: false });
 				break;
 			case CUSTOM_COMMAND_TAB:
-				state.customFormValue = { ...state.customFormValue, state: false };
-				state.customCommandList = state.customCommandList.filter((_, id) => id !== dataToDelete.index);
-				updateCustomCommandList(state);
+				deleteCustomCommand(state, { id: dataToDelete.index });
 				break;
 			default:
 		}
