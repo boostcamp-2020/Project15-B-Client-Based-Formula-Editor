@@ -11,6 +11,8 @@ import {
 	deleteCustomCommand,
 } from "./sliceUtil";
 
+import { getCurrentDate } from "./util";
+
 export default {
 	setSelectedButton(state, { payload }) {
 		state.selectedButton = payload;
@@ -51,7 +53,7 @@ export default {
 		state.latexInput = "";
 	},
 	addBookmarkItem(state, { payload }) {
-		addLatexItem(state, { latex: payload, isBookmark: true });
+		addLatexItem(state, { latex: payload, isBookmark: true, date: getCurrentDate() });
 		updateSidebar(state);
 	},
 	setBookmarkItem(state, { payload }) {
@@ -64,7 +66,7 @@ export default {
 		updateSidebar(state);
 	},
 	addRecentItem(state, { payload }) {
-		addLatexItem(state, { latex: payload, isRecent: true });
+		addLatexItem(state, { latex: payload, isRecent: true, date: getCurrentDate() });
 
 		if (state.tempSavedLatexId !== INITIAL_ID) {
 			state.latexList = state.latexList.filter(({ id }) => id !== state.tempSavedLatexId);
@@ -101,7 +103,7 @@ export default {
 	setTempSavedItem(state) {
 		if (state.tempSavedLatexId === INITIAL_ID) {
 			const id = getIdToAdd(state.latexList);
-			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
+			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false, date: getCurrentDate() };
 
 			state.latexList.push(newItem);
 			state.tempSavedLatexId = id;
@@ -113,6 +115,7 @@ export default {
 		const targetItem = state.latexList.find(({ id }) => id === state.tempSavedLatexId);
 
 		targetItem.latex = state.latexInput;
+		targetItem.date = getCurrentDate();
 		updateSidebar(state);
 	},
 	openConfirmModal(state, { payload }) {

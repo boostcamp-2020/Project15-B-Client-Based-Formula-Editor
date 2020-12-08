@@ -1,3 +1,5 @@
+import { getCurrentDate } from "./util";
+
 export const LATEX_LIST = "latexList";
 export const CUSTOM_LIST = "customList";
 export const INITIAL_ID = 0;
@@ -41,7 +43,7 @@ const getBookmarkPriorityToAdd = (list, isBookmark) =>
 export const addLatexItem = (state, { latex, isRecent = false, isBookmark = false }) => {
 	const id = getIdToAdd(state.latexList);
 	const bookmarkPriority = getBookmarkPriorityToAdd(state.bookmarkItems, isBookmark);
-	const newItem = { id, latex, isRecent, isBookmark, bookmarkPriority };
+	const newItem = { id, latex, isRecent, isBookmark, bookmarkPriority, date: getCurrentDate() };
 
 	state.latexList.push(newItem);
 };
