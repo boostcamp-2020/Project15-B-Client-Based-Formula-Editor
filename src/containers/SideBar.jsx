@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { closeConfirmModal, closePromptModal } from "../slice";
-import { toFitSimple } from "../util";
 import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
