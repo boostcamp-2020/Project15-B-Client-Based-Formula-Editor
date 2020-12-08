@@ -53,6 +53,9 @@ export default function BodyContainer() {
 		dispatch(setLatexTextInputWithDebounce(e.target.value));
 	};
 
+	const handleDragStart = e => {
+		startPageY = e.pageY;
+	};
 	return (
 		<BodyLayout>
 			<EditTabHeaderLayout>
