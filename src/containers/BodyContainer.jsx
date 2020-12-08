@@ -95,23 +95,31 @@ export default function BodyContainer() {
 			window.removeEventListener("resize", resizeEvent);
 		};
 	});
+
+	const preventDefault = e => e.preventDefault();
+
 	return (
 		<BodyLayout>
 			<EditTabHeaderLayout>
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
-			<FormulaRepresentation
-				latexInput={latexInput}
-				onChange={handleLatexInput}
-				mathquillDidMount={setUpLatexInsertFunction}
-				fontInfo={fontInfo}
-				alignInfo={alignInfo}
-			/>
-			<LatexRepresentation
-				latexInput={latexInput}
-				onChange={handleLatexTextarea}
-			/>
+			<DropdownWrapper onDrop={handleDrop} onDragOver={preventDefault}>
+				<FormulaRepresentation
+					height={heights.formula}
+					latexInput={latexInput}
+					onChange={handleLatexInput}
+					mathquillDidMount={setUpLatexInsertFunction}
+					fontInfo={fontInfo}
+					alignInfo={alignInfo}
+				/>
+				<DynamicBar onDrag={preventDefault} onDragStart={handleDragStart} />
+				<LatexRepresentation
+					height={heights.latex}
+					latexInput={latexInput}
+					onChange={handleLatexTextarea}
+				/>
+			</DropdownWrapper>
 		</BodyLayout>
 	);
 }
