@@ -21,8 +21,8 @@ const { reducer, actions } = createSlice({
 		latexInput: "",
 		pastLatexInput: "",
 		fontInfo: {
-			size: "15",
-			color: "#000000",
+			size: "19",
+			color: "#ffffff",
 		},
 		alignInfo: "center",
 		bubblePopup: {
