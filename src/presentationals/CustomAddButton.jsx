@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const Button = styled.button`
 	width: calc(100% - 10px); 
@@ -9,15 +9,15 @@ const Button = styled.button`
 	height: 50px;
 	font-weight: bold;
 	color: white;
-	background-color: ${color.normal};
-	border: 2px solid ${color.dark};
-	border-radius: 10px;
+	background-color: ${themeColor.blue};
+	border: none;
+	border-radius: 5px;
 	cursor: pointer;
 	position: relative;
 	outline: none;
 
 	&:hover {
-		background-color: ${color.dark};
+		background-color: ${themeColor.lightBlue};
 	}
 `;
 

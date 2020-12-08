@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { addStyles, StaticMathField } from "react-mathquill";
 
 import { color } from "../GlobalStyle";
 import IconButton from "./IconButton";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
+
+addStyles();
 
 const Layout = styled.div`
 	position: relative;
@@ -20,7 +23,7 @@ const Item = styled.div`
 	margin: 5px;
 	background-color: white;
 	border: 1px solid ${color.dark};
-  border-radius: 10px;
+  border-radius: 5px;
 	height: 50px;
 	cursor: pointer;
 `;
@@ -44,7 +47,9 @@ export default function CustomItem({ name, onClickEdit, onClickDelete }) {
 	return (
 		<Layout>
 			<Item onClick={onClickEdit}>
-				<Title>{name}</Title>
+				<Title>
+					<StaticMathField>{name}</StaticMathField>
+				</Title>
 			</Item>
 			<Buttons>
 				<IconButton onClick={onClickEdit} isHover={true} icon={<EditIcon />} />
