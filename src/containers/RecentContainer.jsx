@@ -8,20 +8,14 @@ import {
 	removeAllRecentItems,
 	openConfirmModal,
 } from "../slice";
-import { themeColor } from "../GlobalStyle";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
-import ListLayout from "../layouts/ListLayout";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
-import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
 import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
-import IconButton from "../presentationals/IconButton";
-import CloseIcon from "../icons/CloseIcon";
-import SideTabTitleLayout from "../layouts/SideTabTitleLayout";
 
 export default function RecentContainer({ setTabState }) {
 	const { recentItems } = useSelector(state => state);
@@ -56,32 +50,11 @@ export default function RecentContainer({ setTabState }) {
 		<>
 			<Filter />
 			<CharacterContainerLayout>
-				<SideTabTitleLayout>
-					<DirectoryTitle
-						title="최근 수식 목록"
-						isOpen={true}
-					/>
-					<IconButton
-						icon={<CloseIcon fill={themeColor.white} />}
-						isHover={true}
-						onClick={handleDeleteAllClick}
-					/>
-				</SideTabTitleLayout>
-	return (
-		<>
-			<Filter />
-			<CharacterContainerLayout>
-				<SideTabTitleLayout>
-					<DirectoryTitle
-						title="최근 수식 목록"
-						isOpen={true}
-					/>
-					<IconButton
-						icon={<CloseIcon fill={themeColor.white} />}
-						isHover={true}
-						onClick={handleDeleteAllClick}
-					/>
-				</SideTabTitleLayout>
+				<DirectoryTitle
+					title="최근 수식 목록"
+					isOpen={true}
+					onClickDeleteButton={handleDeleteAllClick}
+				/>
 				{recentItems.length ?
 					recentItems.map(item =>
 						<SideTabItemLayout key={item.id}>

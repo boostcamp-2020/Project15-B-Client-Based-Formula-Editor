@@ -7,17 +7,13 @@ import {
 	setCustomFormValue,
 	openConfirmModal,
 } from "../slice";
-import { themeColor } from "../GlobalStyle";
-import ListLayout from "../layouts/ListLayout";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomItem from "../presentationals/CustomItem";
-import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
-import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
-import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
