@@ -52,8 +52,8 @@ export default {
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.latexInput = "";
 	},
-	addBookmarkItem(state, { payload }) {
-		addLatexItem(state, { latex: payload, isBookmark: true, date: getCurrentDate() });
+	addBookmarkItem(state, { payload: { latex, description } }) {
+		addLatexItem(state, { latex, isBookmark: true, date: getCurrentDate(), description });
 		updateSidebar(state);
 	},
 	setBookmarkItem(state, { payload }) {

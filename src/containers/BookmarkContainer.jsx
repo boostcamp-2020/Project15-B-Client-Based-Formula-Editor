@@ -34,7 +34,10 @@ export default function BookmarkContainer({ setTabState }) {
 
 	const addCurrentLatexToBookmark = () => {
 		if (!latexInput) return;
-		dispatch(addBookmarkItem(latexInput));
+
+		const description = prompt("Write the description of this bookmark");
+
+		dispatch(addBookmarkItem({ latex: latexInput, description }));
 	};
 
 	const handleDeleteButton = id => () => {
@@ -61,7 +64,7 @@ export default function BookmarkContainer({ setTabState }) {
 					bookmarkItems.map(item =>
 						<SideTabItemLayout key={item.id}>
 							<CharacterListItem
-								item={{ ...item, symbol: "★", name: item.date }}
+								item={{ ...item, symbol: "★", name: item.description }}
 								onClick={handleFormulaClick}
 							/>
 							<ListItem

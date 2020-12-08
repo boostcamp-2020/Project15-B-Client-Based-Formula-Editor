@@ -28,7 +28,9 @@ export default function RecentContainer({ setTabState }) {
 	const dispatch = useDispatch();
 
 	const handleBookmarkButtonClick = (id, isBookmark) => () => {
-		dispatch(setBookmarkItem({ id, isBookmark: !isBookmark }));
+		const description = prompt("Write the description of this bookmark");
+
+		dispatch(setBookmarkItem({ id, isBookmark: !isBookmark, description }));
 	};
 
 	const handleCustomButtonClick = latex => () => {
