@@ -4,12 +4,15 @@ import {
 	updateCustomCommandList,
 	addLatexItem,
 	getIdToAdd,
-	RECENT_TAB,
-	BOOKMARK_TAB,
-	CUSTOM_COMMAND_TAB,
 	setLatexItem,
 	deleteCustomCommand,
 } from "./sliceUtil";
+
+import {
+	RECENT_TAB,
+	BOOKMARK_TAB,
+	CUSTOM_COMMAND_TAB,
+} from "./constants/sidebarTab";
 
 import { getCurrentDate } from "./util";
 
