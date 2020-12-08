@@ -30,8 +30,8 @@ export const themeColor = {
 	normal: "#252526",
 	dark: "#111111",
 	black: "#000000",
-	blue: "#3f4d92",
-	lightBlue: "#4e5ca0",
+	blue: "#22659A",
+	lightBlue: "#2A7AB8",
 };
 
 export const color = {

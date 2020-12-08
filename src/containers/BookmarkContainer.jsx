@@ -14,6 +14,7 @@ import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
+import BlueButton from "../presentationals/BlueButton";
 import EmptyItem from "../presentationals/EmptyItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
@@ -68,7 +69,7 @@ export default function BookmarkContainer({ onScroll, setTabState }) {
 		<>
 			<Filter />
 			<CharacterContainerLayout>
-				<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
+				<BlueButton value="현재 수식 북마크에 추가" onClick={addCurrentLatexToBookmark}/>
 				<DirectoryTitle
 					title="북마크 수식 목록"
 					isOpen={true}

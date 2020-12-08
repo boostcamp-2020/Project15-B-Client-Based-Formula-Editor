@@ -11,6 +11,7 @@ import {
 import { themeColor } from "../GlobalStyle";
 import ListLayout from "../layouts/ListLayout";
 import CustomAddButton from "../presentationals/CustomAddButton";
+import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomItem from "../presentationals/CustomItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
@@ -107,8 +108,8 @@ export default function CustomContainer({ onScroll }) {
 		<>
 			<Filter />
 			<CharacterContainerLayout>
-				<CustomAddButton
-					isFormOn={customFormValue.state}
+				<BlueButton
+					value={customFormValue.state ? "취소" : "새 커스텀 추가하기"}
 					onClick={handleFormOnButton}
 				/>
 				{customFormValue.state &&
