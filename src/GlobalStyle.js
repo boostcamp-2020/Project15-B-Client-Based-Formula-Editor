@@ -19,10 +19,12 @@ const GlobalStyle = createGlobalStyle`
 export const themeColor = {
 	white: "#cccccc",
 	superLight: "#666666",
-	light: "#333333",
-	normal: "#222222",
+	light: "#313131",
+	normal: "#252526",
 	dark: "#111111",
 	black: "#000000",
+	blue: "#3f4d92",
+	lightBlue: "#4e5ca0",
 };
 
 export const color = {
