@@ -2,11 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	addBookmarkItem,
 	setCustomFormValue,
 	setLatexInput,
 	removeAllBookmarkItems,
 	openConfirmModal,
+	openPromptModal,
 } from "../slice";
 import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
@@ -34,9 +34,7 @@ export default function BookmarkContainer({ setTabState }) {
 	const addCurrentLatexToBookmark = () => {
 		if (!latexInput) return;
 
-		const description = prompt("Write the description of this bookmark");
-
-		dispatch(addBookmarkItem({ latex: latexInput, description }));
+		dispatch(openPromptModal(latexInput));
 	};
 
 	const handleDeleteButton = id => () => {

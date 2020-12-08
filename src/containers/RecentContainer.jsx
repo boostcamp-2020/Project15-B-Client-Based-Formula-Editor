@@ -2,11 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	setBookmarkItem,
 	setLatexInput,
 	setCustomFormValue,
 	removeAllRecentItems,
 	openConfirmModal,
+	openPromptModal,
 } from "../slice";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
@@ -22,9 +22,9 @@ export default function RecentContainer({ setTabState }) {
 	const dispatch = useDispatch();
 
 	const handleBookmarkButtonClick = (id, isBookmark) => () => {
-		const description = prompt("Write the description of this bookmark");
+		const targetItem = recentItems.find(item => item.id === id);
 
-		dispatch(setBookmarkItem({ id, isBookmark: !isBookmark, description }));
+		dispatch(openPromptModal(targetItem.latex));
 	};
 
 	const handleCustomButtonClick = latex => () => {

@@ -127,6 +127,7 @@ export default {
 	},
 	closeConfirmModal(state, { payload }) {
 		state.confirmModal.isOpen = false;
+
 		if (!payload) return;
 		const dataToDelete = state.confirmModal.data;
 
@@ -142,5 +143,22 @@ export default {
 				break;
 			default:
 		}
+	},
+	openPromptModal(state, { payload }) {
+		state.promptModal.isOpen = true;
+		state.promptModal.data = payload;
+	},
+	closePromptModal(state, { payload }) {
+		state.promptModal.isOpen = false;
+
+		if (!payload) return;
+
+		addLatexItem(state, {
+			latex: state.promptModal.data,
+			isBookmark: true,
+			date: getCurrentDate(),
+			description: payload,
+		});
+		updateSidebar(state);
 	},
 };
