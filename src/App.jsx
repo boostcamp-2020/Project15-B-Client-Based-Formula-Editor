@@ -5,8 +5,10 @@ import GlobalStyle from "./GlobalStyle";
 import QueryStringCatcher from "./containers/QueryStringCatcher";
 import BodyContainer from "./containers/BodyContainer";
 import SideBar from "./containers/SideBar";
+import FooterContainer from "./containers/FooterContainer";
 import MainWrapper from "./layouts/MainWrapper";
 import MainLayout from "./layouts/MainLayout";
+
 
 export default function App() {
 	const mainWrapperRef = useRef();
@@ -19,6 +21,7 @@ export default function App() {
 				<MainWrapper ref={mainWrapperRef} >
 					<SideBar mainWrapperRef={mainWrapperRef} />
 					<MainLayout >
+						<FooterContainer />
 						<BodyContainer />
 					</MainLayout>
 				</MainWrapper>
