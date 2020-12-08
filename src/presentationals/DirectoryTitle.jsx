@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
+import { themeColor } from "../GlobalStyle";
 import DownIcon from "../icons/DownIcon";
 import RightIcon from "../icons/RightIcon";
+import CloseIcon from "../icons/CloseIcon";
+import IconButton from "../presentationals/IconButton";
 
 const color = "#86C290";
 
@@ -16,11 +19,21 @@ const Layout = styled.div`
 
   &:hover {
     background-color: #2B2D2E;
+
+    > button {
+      display: block;
+    }
   }
 
   > svg {
     width: 12px;
     margin-right: 10px;
+  }
+
+  > button {
+    position: absolute;
+    right: 5px;
+    display: none;
   }
 `;
 const Title = styled.div`
@@ -34,12 +47,24 @@ const Number = styled.div`
   font-size: 13px;
 `;
 
-export default function DirectoryTitle({ title, onClick, isOpen, length }) {
+export default function DirectoryTitle({
+	title,
+	onClick,
+	isOpen,
+	length,
+	onClickDeleteButton,
+}) {
 	return (
 		<Layout onClick={onClick} isOpen={isOpen}>
 			{isOpen ? <DownIcon /> : <RightIcon/>}
 			<Title>{title}</Title>
-			<Number>{length}</Number>
+			{length && <Number>{length}</Number>}
+			{onClickDeleteButton &&
+        <IconButton
+        	icon={<CloseIcon fill={themeColor.white} />}
+        	isHover={true}
+        	onClick={onClickDeleteButton}
+        />}
 		</Layout>
 	);
 }

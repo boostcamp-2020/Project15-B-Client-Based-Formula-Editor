@@ -20,9 +20,6 @@ import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
-import IconButton from "../presentationals/IconButton";
-import CloseIcon from "../icons/CloseIcon";
-import SideTabTitleLayout from "../layouts/SideTabTitleLayout";
 
 const ItemLayout = styled.div`
 	&:hover {
@@ -121,17 +118,11 @@ export default function CustomContainer({ onScroll }) {
 						onChangeLatex={onChangeLatex}
 						onSubmit={handleSubmit}
 					/>}
-				<SideTabTitleLayout>
-					<DirectoryTitle
-						title="커스텀 명령어 목록"
-						isOpen={true}
-					/>
-					<IconButton
-						icon={<CloseIcon fill={themeColor.white} />}
-						isHover={true}
-						onClick={handleDeleteAllClick}
-					/>
-				</SideTabTitleLayout>
+				<DirectoryTitle
+					title="커스텀 명령어 목록"
+					isOpen={true}
+					onClickDeleteButton={handleDeleteAllClick}
+				/>
 				{customCommandList.length ?
 					customCommandList.map((item, index) =>
 						<ItemLayout key={item.command}>

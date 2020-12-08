@@ -9,19 +9,14 @@ import {
 	removeAllBookmarkItems,
 	openConfirmModal,
 } from "../slice";
-import { themeColor } from "../GlobalStyle";
 import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
-import ListLayout from "../layouts/ListLayout";
+import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 import EmptyItem from "../presentationals/EmptyItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
-import IconButton from "../presentationals/IconButton";
-import CloseIcon from "../icons/CloseIcon";
-import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
-import SideTabTitleLayout from "../layouts/SideTabTitleLayout";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
 const ItemLayout = styled.div`
@@ -74,17 +69,11 @@ export default function BookmarkContainer({ onScroll, setTabState }) {
 			<Filter />
 			<CharacterContainerLayout>
 				<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
-				<SideTabTitleLayout>
-					<DirectoryTitle
-						title="북마크 수식 목록"
-						isOpen={true}
-					/>
-					<IconButton
-						icon={<CloseIcon fill={themeColor.white} />}
-						isHover={true}
-						onClick={handleDeleteAllClick}
-					/>
-				</SideTabTitleLayout>
+				<DirectoryTitle
+					title="북마크 수식 목록"
+					isOpen={true}
+					onClickDeleteButton={handleDeleteAllClick}
+				/>
 				{bookmarkItems.length ?
 					bookmarkItems.map(item =>
 						<ItemLayout key={item.id}>

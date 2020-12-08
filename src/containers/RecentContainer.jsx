@@ -82,6 +82,21 @@ export default function RecentContainer({ onScroll, setTabState }) {
 						onClick={handleDeleteAllClick}
 					/>
 				</SideTabTitleLayout>
+	return (
+		<>
+			<Filter />
+			<CharacterContainerLayout>
+				<SideTabTitleLayout>
+					<DirectoryTitle
+						title="최근 수식 목록"
+						isOpen={true}
+					/>
+					<IconButton
+						icon={<CloseIcon fill={themeColor.white} />}
+						isHover={true}
+						onClick={handleDeleteAllClick}
+					/>
+				</SideTabTitleLayout>
 				{recentItems.length ?
 					recentItems.map(item =>
 						<ItemLayout key={item.id}>
