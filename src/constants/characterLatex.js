@@ -16,7 +16,7 @@ const characterLatex = {
 		{ symbol: "←", name: "left arrow", latex: "\\gets", isSymbol: true },
 		{ symbol: "↑", name: "up arrow", latex: "\\uparrow", isSymbol: true },
 		{ symbol: "↓", name: "down arrow", latex: "\\downarrow", isSymbol: true },
-		{ symbol: "∞", name: "infinity", latex: "\\infty", isSymbol: true },
+		{ symbol: "∞", name: "infinity", latex: "\\infty", isSymbol: false },
 		{ symbol: "∴", name: "therefore", latex: "\\therefore", isSymbol: true },
 		{ symbol: "∵", name: "because", latex: "\\because", isSymbol: true },
 	],
