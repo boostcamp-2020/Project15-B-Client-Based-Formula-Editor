@@ -1,23 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const Item = styled.button`
 	height: 50px;
 	position: relative;
 	color: white;
 	font-weight: bold;
-	background-color: ${color.normal};
+	background-color: ${themeColor.blue};
 	margin: 5px;
-	border-radius: 10px;
-	border: 2px solid ${color.dark};
+	border-radius: 5px;
+	border: none;
 	width: calc(100% - 10px); 
 	cursor: pointer;
 	outline: none;
 
 	&:hover {
-		background-color: ${color.dark};
+		background-color: ${themeColor.lightBlue};
 	} 
 `;
 
