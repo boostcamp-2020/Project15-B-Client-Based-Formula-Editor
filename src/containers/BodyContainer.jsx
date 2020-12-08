@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLatexInputWithDebounce, setLatexTextInputWithDebounce } from "../slice";
 
@@ -9,10 +9,20 @@ import BodyLayout from "../layouts/BodyLayout";
 import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
+import DynamicBar from "../presentationals/DynamicBar";
 
 import { latexFunction } from "../util";
+import DropdownWrapper from "../layouts/DropdownWrapper";
 
 export default function BodyContainer() {
+	let startPageY;
+	let endPageY;
+	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 113;
+	const MIN_HEIGHT = 100;
+	const initFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
+	const initLatex = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 40;
+	const maxHeight = initFormula + initLatex;
+	const [heights, setHeights] = useState({ formula: initFormula, latex: initLatex });
 	const dispatch = useDispatch();
 	const {
 		latexInput,
