@@ -9,8 +9,7 @@ const Layout = styled.input.attrs({ placeholder: "Search" })`
 	color: ${themeColor.white};
 	outline: none;
 	padding: 5px;
-	width: calc(100%-20px);
-	margin: 10px;
+	margin: 12px;
 
 	&:focus {
 		border: 1px solid #247BC3;
