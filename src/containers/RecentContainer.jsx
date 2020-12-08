@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
 import {
 	setBookmarkItem,
@@ -8,11 +9,36 @@ import {
 	removeAllRecentItems,
 	openConfirmModal,
 } from "../slice";
+import { themeColor } from "../GlobalStyle";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import ListLayout from "../layouts/ListLayout";
+import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
+import CharacterListItem from "../presentationals/CharacterListItem";
+import Filter from "../presentationals/Filter";
+import DirectoryTitle from "../presentationals/DirectoryTitle";
+import IconButton from "../presentationals/IconButton";
+import CloseIcon from "../icons/CloseIcon";
+import SideTabTitleLayout from "../layouts/SideTabTitleLayout";
+
+const ItemLayout = styled.div`
+	&:hover {
+		> div:last-child {
+			display: block;
+    	width: 250px;
+    	position: fixed;
+    	left: 270px;
+	    transform: translate(0, -30px);
+			color: black;
+		}
+	}
+	
+	> div:last-child {
+		display: none;
+	}
+`;
 
 export default function RecentContainer({ onScroll, setTabState }) {
 	const { recentItems } = useSelector(state => state);
@@ -42,25 +68,40 @@ export default function RecentContainer({ onScroll, setTabState }) {
 	};
 
 	return (
-		<ListLayout onScroll={onScroll}>
-			<SideBarHeader
-				title={"최근 수식 목록"}
-				onClick={handleDeleteAllClick}
-			/>
-			{recentItems.length ?
-				recentItems.map(({ id, latex, isBookmark }) =>
-					<ListItem
-						key={id}
-						latex={latex}
-						bookmarkOnClick={handleBookmarkButtonClick(id, isBookmark)}
-						customOnClick={handleCustomButtonClick(latex)}
-						deleteOnClick={handleDeleteButtonClick(id)}
-						intoLatexFieldOnClick={handleFormulaClick(latex)}
-						isBookmark={isBookmark}
-					/>,
-				) :
-				<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
-		</ListLayout>
+		<>
+			<Filter />
+			<CharacterContainerLayout>
+				<SideTabTitleLayout>
+					<DirectoryTitle
+						title="최근 수식 목록"
+						isOpen={true}
+					/>
+					<IconButton
+						icon={<CloseIcon fill={themeColor.white} />}
+						isHover={true}
+						onClick={handleDeleteAllClick}
+					/>
+				</SideTabTitleLayout>
+				{recentItems.length ?
+					recentItems.map(item =>
+						<ItemLayout key={item.id}>
+							<CharacterListItem
+								item={{ ...item, symbol: "Σ", name: item.date }}
+								onClick={handleFormulaClick}
+							/>
+							<ListItem
+								latex={item.latex}
+								bookmarkOnClick={handleBookmarkButtonClick(item.id, item.isBookmark)}
+								customOnClick={handleCustomButtonClick(item.latex)}
+								deleteOnClick={handleDeleteButtonClick(item.id)}
+								intoLatexFieldOnClick={handleFormulaClick(item.latex)}
+								isBookmark={item.isBookmark}
+							/>
+						</ItemLayout>,
+					) :
+					<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
+			</CharacterContainerLayout>
+		</>
 	);
 }
 

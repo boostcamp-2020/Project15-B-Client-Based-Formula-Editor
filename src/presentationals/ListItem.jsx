@@ -30,7 +30,7 @@ const Item = styled.div`
 	background-color: white;
 	height: 100%;
 	margin: 5px;
-	border-radius: 15px;
+	border-radius: 7px;
 	border: 1px solid ${color.dark};
 
 	> .mq-math-mode {
