@@ -1,15 +1,11 @@
 import styled from "styled-components";
 
-const MainLayout = styled.div`
-  margin: 0 auto;
-  width: calc(100% - 60px);
+import { themeColor } from "../GlobalStyle";
 
-  @media(max-width: 560px) {
-    width: 500px;
-  }
-  @media(min-width: 1060px) {
-    width: 1000px;
-  }
+const MainLayout = styled.div`
+  background-color: ${themeColor.black};
+  margin: 0 auto;
+  width: 100%;
 `;
 
 export default MainLayout;

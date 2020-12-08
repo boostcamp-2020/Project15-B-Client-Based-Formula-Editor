@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 import FontSizeIcon from "../icons/FontSizeIcon";
 
 const Layout = styled.label`
 	display: flex;
 	align-items: center;
 	padding: 0 5px;
-	border-right: 1px dashed ${color.dark};
+	border-right: 1px dashed ${themeColor.white};
 `;
 
 const FontSizeSelectorStyle = styled.select`
 	border: 0;
-	color: ${color.dark};
+	color: ${themeColor.white};
 	background-color: inherit;
 	cursor: pointer;
 	outline: none;
@@ -24,7 +24,7 @@ export default function FontSizeSelector({ fontSize, onChange }) {
 
 	return (
 		<Layout>
-			<FontSizeIcon fill={color.dark}/>
+			<FontSizeIcon fill={themeColor.white}/>
 			<FontSizeSelectorStyle value={fontSize} onChange={onChange} >
 				{ableFontSize.map((elem, index) => <option key={index} value={elem}>{elem}</option>)}
 			</FontSizeSelectorStyle>

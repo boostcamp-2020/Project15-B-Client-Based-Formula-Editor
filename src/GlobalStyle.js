@@ -16,6 +16,15 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
+export const themeColor = {
+	white: "#cccccc",
+	superLight: "#666666",
+	light: "#333333",
+	normal: "#222222",
+	dark: "#111111",
+	black: "#000000",
+};
+
 export const color = {
 	superLight: "#ddfff6",
 	light: "#82e9de",

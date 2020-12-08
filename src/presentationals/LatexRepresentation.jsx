@@ -1,14 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const LatexRepresentationStyle = styled.textarea`
+	color: ${themeColor.white};
 	width: 100%;
-	height: 120px;
+	height: 20vh;
 	margin-top: 12px;
   padding: 4px;
-	border: 1px solid ${color.dark};
+	background-color: ${themeColor.dark};
+	border: 1px solid ${themeColor.superLight};
 	resize: none;
 `;
 

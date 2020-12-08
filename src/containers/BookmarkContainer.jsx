@@ -15,7 +15,7 @@ import SideBarHeader from "../presentationals/SideBarHeader";
 import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 import EmptyItem from "../presentationals/EmptyItem";
 
-export default function BookmarkContainer({ onScroll, setSidebar, setTabState }) {
+export default function BookmarkContainer({ onScroll, setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 
@@ -26,7 +26,6 @@ export default function BookmarkContainer({ onScroll, setSidebar, setTabState })
 
 	const handleFormulaClick = latex => () => {
 		dispatch(setLatexInput(latex));
-		setSidebar(false);
 	};
 
 	const addCurrentLatexToBookmark = () => {

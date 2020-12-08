@@ -14,7 +14,7 @@ import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
 
-export default function RecentContainer({ onScroll, setTabState, setSidebar }) {
+export default function RecentContainer({ onScroll, setTabState }) {
 	const { recentItems } = useSelector(state => state);
 	const dispatch = useDispatch();
 
@@ -33,7 +33,6 @@ export default function RecentContainer({ onScroll, setTabState, setSidebar }) {
 
 	const handleFormulaClick = latex => () => {
 		dispatch(setLatexInput(latex));
-		setSidebar(false);
 	};
 
 	const handleDeleteAllClick = () => {
