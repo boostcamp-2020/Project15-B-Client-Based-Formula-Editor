@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const EditTabHeaderLayout = styled.div`
 	display: flex;
@@ -8,8 +8,8 @@ const EditTabHeaderLayout = styled.div`
 	justify-content: space-between;
 	width: 100%;
 	height: 40px;
-	border: 1px solid ${color.dark};
-	background-color: ${color.superLight};
+	border: 1px solid ${themeColor.superLight};
+	background-color: ${themeColor.dark};
 `;
 
 export default EditTabHeaderLayout;

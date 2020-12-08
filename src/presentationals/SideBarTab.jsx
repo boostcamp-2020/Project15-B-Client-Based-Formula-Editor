@@ -1,48 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
-import { RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { themeColor } from "../GlobalStyle";
+import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import TimeIcon from "../icons/TimeIcon";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import CustomIcon from "../icons/CustomIcon";
+import PageIcon from "../icons/PageIcon";
 import IconButton from "../presentationals/IconButton";
 
 const TabLayout = styled.div`
-	display: flex;
-	justify-content: space-around;
-	padding: 10px 0 3px 0;
-	z-index: 1000;
-	position: relative;
-	box-shadow: ${({ isScrollTop }) => (isScrollTop ? "none" : "0 12px 15px -15px grey")};
-	transition: 1s;
+	background-color: ${themeColor.light};
+	padding: 20px 10px;
 `;
 
 const Tab = styled.div`
-	${({ isSelected }) => (isSelected &&
-		`
-			button {
-				cursor: default;
-			}
-			svg {
-				fill: ${color.normal};	
-			}
-		`
-	)}
-`;
-
-const SelectedTabBorderBottom = styled.div`
-	width: 42px;
-	height: 3px;
-	background-color: ${color.normal};
-	position: absolute;
-	left: ${({ currentTab }) => (currentTab * 90) + 24}px;
-	top: 47px;
-	transition: 0.3s;
+	margin: 12px 0;
+	
+	svg {
+		fill: ${(({ isSelected }) => (isSelected ? `${themeColor.white}` : `${themeColor.superLight}`))}
+	}
 `;
 
 export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
 	const tabMenus = [
+		<PageIcon key={CHARACTER_TAB} />,
 		<TimeIcon key={RECENT_TAB}/>,
 		<EmptyStarIcon key={BOOKMARK_TAB}/>,
 		<CustomIcon key={CUSTOM_COMMAND_TAB}/>,
@@ -50,7 +32,6 @@ export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
 
 	return (
 		<TabLayout isScrollTop={isScrollTop}>
-			<SelectedTabBorderBottom currentTab={currentTab} />
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
 					<IconButton isHover={currentTab !== index} icon={tabMenu} />
