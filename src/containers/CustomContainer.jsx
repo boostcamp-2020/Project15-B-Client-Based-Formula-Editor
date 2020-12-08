@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 
 import {
 	setCustomCommandList,
@@ -10,6 +9,8 @@ import {
 } from "../slice";
 import { themeColor } from "../GlobalStyle";
 import ListLayout from "../layouts/ListLayout";
+import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
+import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomItem from "../presentationals/CustomItem";
@@ -21,24 +22,7 @@ import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 
-const ItemLayout = styled.div`
-	&:hover {
-		> div:last-child {
-			display: block;
-    	width: 250px;
-    	position: fixed;
-    	left: 270px;
-	    transform: translate(0, -30px);
-			color: black;
-		}
-	}
-	
-	> div:last-child {
-		display: none;
-	}
-`;
-
-export default function CustomContainer({ onScroll }) {
+export default function CustomContainer() {
 	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 
@@ -125,7 +109,7 @@ export default function CustomContainer({ onScroll }) {
 				/>
 				{customCommandList.length ?
 					customCommandList.map((item, index) =>
-						<ItemLayout key={item.command}>
+						<SideTabItemLayout key={item.command}>
 							<CharacterListItem
 								item={{ ...item, symbol: "#", name: item.command }}
 								onClick={() => {}}
@@ -136,7 +120,7 @@ export default function CustomContainer({ onScroll }) {
 								onClickEdit={handleEditClick(index)}
 								onClickDelete={handleDeleteClick(index)}
 							/>
-						</ItemLayout>,
+						</SideTabItemLayout>,
 					) :
 					<EmptyItem content={"최근 저장한 명령어가 없습니다"}/>}
 			</CharacterContainerLayout>

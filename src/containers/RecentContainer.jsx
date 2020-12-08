@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 
 import {
 	setBookmarkItem,
@@ -13,6 +12,7 @@ import { themeColor } from "../GlobalStyle";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import ListLayout from "../layouts/ListLayout";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
+import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
@@ -23,24 +23,7 @@ import IconButton from "../presentationals/IconButton";
 import CloseIcon from "../icons/CloseIcon";
 import SideTabTitleLayout from "../layouts/SideTabTitleLayout";
 
-const ItemLayout = styled.div`
-	&:hover {
-		> div:last-child {
-			display: block;
-    	width: 250px;
-    	position: fixed;
-    	left: 270px;
-	    transform: translate(0, -30px);
-			color: black;
-		}
-	}
-	
-	> div:last-child {
-		display: none;
-	}
-`;
-
-export default function RecentContainer({ onScroll, setTabState }) {
+export default function RecentContainer({ setTabState }) {
 	const { recentItems } = useSelector(state => state);
 	const dispatch = useDispatch();
 
@@ -99,7 +82,7 @@ export default function RecentContainer({ onScroll, setTabState }) {
 				</SideTabTitleLayout>
 				{recentItems.length ?
 					recentItems.map(item =>
-						<ItemLayout key={item.id}>
+						<SideTabItemLayout key={item.id}>
 							<CharacterListItem
 								item={{ ...item, symbol: "Σ", name: item.date }}
 								onClick={handleFormulaClick}
@@ -112,7 +95,7 @@ export default function RecentContainer({ onScroll, setTabState }) {
 								intoLatexFieldOnClick={handleFormulaClick(item.latex)}
 								isBookmark={item.isBookmark}
 							/>
-						</ItemLayout>,
+						</SideTabItemLayout>,
 					) :
 					<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
 			</CharacterContainerLayout>

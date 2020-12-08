@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 
 import {
 	addBookmarkItem,
@@ -11,6 +10,7 @@ import {
 } from "../slice";
 import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
+import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
 import BlueButton from "../presentationals/BlueButton";
@@ -19,24 +19,7 @@ import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
-const ItemLayout = styled.div`
-	&:hover {
-		> div:last-child {
-			display: block;
-    	width: 250px;
-    	position: fixed;
-    	left: 270px;
-	    transform: translate(0, -30px);
-			color: black;
-		}
-	}
-	
-	> div:last-child {
-		display: none;
-	}
-`;
-
-export default function BookmarkContainer({ onScroll, setTabState }) {
+export default function BookmarkContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 
@@ -76,7 +59,7 @@ export default function BookmarkContainer({ onScroll, setTabState }) {
 				/>
 				{bookmarkItems.length ?
 					bookmarkItems.map(item =>
-						<ItemLayout key={item.id}>
+						<SideTabItemLayout key={item.id}>
 							<CharacterListItem
 								item={{ ...item, symbol: "★", name: item.date }}
 								onClick={handleFormulaClick}
@@ -88,7 +71,7 @@ export default function BookmarkContainer({ onScroll, setTabState }) {
 								intoLatexFieldOnClick={handleFormulaClick(item.latex)}
 								deleteOnClick={handleDeleteButton(item.id)}
 							/>
-						</ItemLayout>,
+						</SideTabItemLayout>,
 					) :
 					<EmptyItem content="북마크 수식이 없습니다."/>
 				}
