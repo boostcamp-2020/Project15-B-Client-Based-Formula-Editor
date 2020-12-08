@@ -14,6 +14,12 @@ const Item = styled.div`
 
   &:hover {
     background-color: #2B2D2E;
+
+		> div > div:first-child {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
   }
 
   > div:first-child {
@@ -22,16 +28,44 @@ const Item = styled.div`
   }
 `;
 
-export default function CharacterListItem({ item, onClick }) {
+const Symbol = styled.div`
+	position: relative;
+`;
+
+const Magnifier = styled.div`
+	position: absolute;
+	border: 1px solid ${themeColor.white};
+	background-color: ${themeColor.normal};
+	left: 20px;
+	transform: translate(-50%, -15px);
+	width: 50px;
+	height: 50px;
+	display: none;
+	z-index: 5;
+	border-radius: 5px;
+
+	.mq-math-mode, > div {
+		font-size: 2rem;
+	}
+`;
+const Name = styled.div``;
+
+export default function CharacterListItem({ item, onClick, isMagnifier }) {
 	return (
 		<Item onClick={onClick(item.latex)}>
-			<div>
+			<Symbol>
 				{item.isSymbol ?
-					<StaticMathField>{item.symbol}</StaticMathField> :
-					<div>{item.symbol}</div>
+					<>
+						{isMagnifier && <Magnifier><StaticMathField>{item.symbol}</StaticMathField></Magnifier>}
+						<StaticMathField>{item.symbol}</StaticMathField>
+					</> :
+					<>
+						{isMagnifier && <Magnifier><div>{item.symbol}</div></Magnifier>}
+						<div>{item.symbol}</div>
+					</>
 				}
-			</div>
-			<div>{item.name}</div>
+			</Symbol>
+			<Name>{item.name}</Name>
 		</Item>
 	);
 }

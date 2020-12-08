@@ -13,6 +13,7 @@ export default function CharacterList({ isOpen, list, handleClickItem }) {
 					key={index}
 					item={item}
 					onClick={handleClickItem}
+					isMagnifier={true}
 				/>,
 			)}
 		</Layout>
