@@ -56,6 +56,30 @@ export default function BodyContainer() {
 	const handleDragStart = e => {
 		startPageY = e.pageY;
 	};
+
+	const handleDrop = e => {
+		endPageY = e.pageY;
+		const sub = startPageY - endPageY;
+		let expectedFormulaHeight;
+		let	expectedLatexHeight;
+
+		if (heights.formula - sub < MIN_HEIGHT) {
+			expectedFormulaHeight = MIN_HEIGHT;
+			expectedLatexHeight = maxHeight - MIN_HEIGHT;
+		} else if (heights.latex + sub < MIN_HEIGHT) {
+			expectedLatexHeight = MIN_HEIGHT;
+			expectedFormulaHeight = maxHeight - MIN_HEIGHT;
+		} else {
+			expectedFormulaHeight = heights.formula - sub;
+			expectedLatexHeight = heights.latex + sub;
+		}
+
+		setHeights({
+			formula: expectedFormulaHeight,
+			latex: expectedLatexHeight,
+		});
+	};
+
 	return (
 		<BodyLayout>
 			<EditTabHeaderLayout>
