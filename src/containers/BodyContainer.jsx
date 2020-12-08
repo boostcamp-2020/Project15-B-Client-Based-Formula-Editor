@@ -80,6 +80,21 @@ export default function BodyContainer() {
 		});
 	};
 
+	const resizeEvent = () => {
+		const changedHeight = {
+			formula: (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / 100 * 60,
+			latex: (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / 100 * 40,
+		};
+
+		setHeights(changedHeight);
+	};
+
+	useEffect(() => {
+		window.addEventListener("resize", resizeEvent);
+		return () => {
+			window.removeEventListener("resize", resizeEvent);
+		};
+	});
 	return (
 		<BodyLayout>
 			<EditTabHeaderLayout>
