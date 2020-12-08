@@ -13,7 +13,6 @@ import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import ListItem from "../presentationals/ListItem";
 import SideBarHeader from "../presentationals/SideBarHeader";
-import BookmarkAddButton from "../presentationals/BookmarkAddButton";
 import BlueButton from "../presentationals/BlueButton";
 import EmptyItem from "../presentationals/EmptyItem";
 import Filter from "../presentationals/Filter";

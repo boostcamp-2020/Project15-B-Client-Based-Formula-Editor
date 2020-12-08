@@ -10,7 +10,6 @@ import {
 } from "../slice";
 import { themeColor } from "../GlobalStyle";
 import ListLayout from "../layouts/ListLayout";
-import CustomAddButton from "../presentationals/CustomAddButton";
 import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomItem from "../presentationals/CustomItem";
