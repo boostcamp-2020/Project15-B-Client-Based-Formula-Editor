@@ -42,7 +42,6 @@ export default function BodyContainer() {
 		dispatch(setLatexInputWithDebounce(mathFieldLatex));
 	};
 
-
 	const setUpLatexInsertFunction = mathField => {
 		latexFunction.insertLatex = latex => {
 			mathField.write(latex);
