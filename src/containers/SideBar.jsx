@@ -16,32 +16,12 @@ export default function SideBar({ mainWrapperRef }) {
 	const dispatch = useDispatch();
 	const confirmModal = useSelector(state => state.confirmModal);
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
-	const [isScrollTop, setIsScrollTop] = useState(true);
-
-	const handleSidebarScroll = ({ target }) => {
-		setIsScrollTop(!target.scrollTop);
-	};
 
 	const tabMap = {
-		[CHARACTER_TAB]:
-			<CharacterContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-				setTabState={setTabState}
-			/>,
-		[RECENT_TAB]:
-			<RecentContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-				setTabState={setTabState}
-			/>,
-		[BOOKMARK_TAB]:
-			<BookmarkContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-				setTabState={setTabState}
-			/>,
-		[CUSTOM_COMMAND_TAB]:
-			<CustomContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-			/>,
+		[CHARACTER_TAB]: <CharacterContainer />,
+		[RECENT_TAB]: <RecentContainer setTabState={setTabState} />,
+		[BOOKMARK_TAB]: <BookmarkContainer setTabState={setTabState} />,
+		[CUSTOM_COMMAND_TAB]: <CustomContainer />,
 	};
 
 	const handleTabClick = tabId => () => {
@@ -60,7 +40,7 @@ export default function SideBar({ mainWrapperRef }) {
 				onClickYes={handleConfirmClick(true)}
 				onClickNo={handleConfirmClick(false)}
 			/>
-			<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
+			<SideBarTab currentTab={tabState} onClick={handleTabClick} />
 			<SideBarLayout>
 				{tabMap[tabState]}
 			</SideBarLayout>
