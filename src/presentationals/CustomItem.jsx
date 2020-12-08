@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { addStyles, StaticMathField } from "react-mathquill";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 import IconButton from "./IconButton";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
@@ -21,8 +21,9 @@ const Layout = styled.div`
 
 const Item = styled.div`
 	margin: 5px;
-	background-color: white;
-	border: 1px solid ${color.dark};
+	color: ${themeColor.white};
+	background-color: ${themeColor.normal};
+	border: 1px solid ${themeColor.white};
   border-radius: 5px;
 	height: 50px;
 	cursor: pointer;
