@@ -12,7 +12,7 @@ import SideBarLayout from "../layouts/SideBarLayout";
 import SideBarTab from "../presentationals/SideBarTab";
 import ConfirmModal from "../presentationals/ConfirmModal";
 
-export default function SideBar({ mainWrapperRef }) {
+export default function SideBar() {
 	const dispatch = useDispatch();
 	const confirmModal = useSelector(state => state.confirmModal);
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
