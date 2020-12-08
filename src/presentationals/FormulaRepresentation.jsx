@@ -2,25 +2,31 @@ import React from "react";
 import styled from "styled-components";
 import { addStyles, EditableMathField } from "react-mathquill";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 addStyles();
 
 const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: { color: fontInfo.color } }))`
-  height: 300px;
-	border: 1px solid ${color.dark};
+  height: 60vh;
+	background-color: ${themeColor.dark};
+	border: 1px solid ${themeColor.superLight};
 	border-top: none;
 	display: flex;
 	flex-direction: row;
 	font-size:${props => props.fontInfo.size}px;
 	
 	> .mq-math-mode {
+		color: ${themeColor.white};
 		width: 100%;
 		height: 100%;
 		margin: auto;
-    padding: 130px;
+    padding: 250px;
 		border: none;
 		text-align: ${props => props.align};
+	}
+
+	.mq-cursor {
+		background: ${themeColor.white};
 	}
 `;
 

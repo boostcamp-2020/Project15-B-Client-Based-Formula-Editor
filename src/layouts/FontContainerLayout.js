@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const FontContainerStyle = styled.div`
 	display: flex;
 	margin: 5px 0;
 
 	button svg {
-		fill: ${color.dark};
+		fill: ${themeColor.white};
 	}
 `;
 
