@@ -12,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
+    min-width: 810px;
+    min-height: 313px;
 		overflow-x: hidden;
 	}
 

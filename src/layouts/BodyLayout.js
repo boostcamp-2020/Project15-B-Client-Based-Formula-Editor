@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const BodyLayout = styled.div`
-	margin: 10px;
-	width: 100%;
+	margin: 0 10px;
+	height: fit-content;
 `;
 
 export default BodyLayout;

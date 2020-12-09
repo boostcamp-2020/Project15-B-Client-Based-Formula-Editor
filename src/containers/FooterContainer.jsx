@@ -5,6 +5,7 @@ import html2canvas from "html2canvas";
 import { openBubblePopup, addRecentItem } from "../slice";
 import { encodeLatex } from "../util";
 import FooterLayout from "../layouts/FooterLayout";
+import FooterButtonWrapper from "../layouts/FooterButtonWrapper";
 import FooterButton from "../presentationals/FooterButton";
 
 export default function FooterContainer() {
@@ -70,23 +71,26 @@ export default function FooterContainer() {
 	return (
 		<FooterLayout>
 			<FooterButton
-				name="이미지로 다운로드"
-				onClick={handleDownloadAsImage}
-				isOpen={imageDownload.isOpen}
-				message={imageDownload.message}
-			/>
-			<FooterButton
-				name="링크 복사"
-				onClick={handleCopyLink}
-				isOpen={linkCopy.isOpen}
-				message={linkCopy.message}
-			/>
-			<FooterButton
 				name="수식 저장"
 				onClick={handleSaveFormula}
 				isOpen={formulaSave.isOpen}
 				message={formulaSave.message}
+				marginRight="auto"
 			/>
+			<FooterButtonWrapper>
+				<FooterButton
+					name="링크 복사"
+					onClick={handleCopyLink}
+					isOpen={linkCopy.isOpen}
+					message={linkCopy.message}
+				/>
+				<FooterButton
+					name="이미지로 다운로드"
+					onClick={handleDownloadAsImage}
+					isOpen={imageDownload.isOpen}
+					message={imageDownload.message}
+				/>
+			</FooterButtonWrapper>
 		</FooterLayout>
 	);
 }
