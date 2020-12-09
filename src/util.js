@@ -1,4 +1,4 @@
-const changeOneLetterToTwo = number => number.toString().padStart(2, 0);
+const changeOneLetterToTwo = number => (number > 9 ? number : number.toString().padStart(2, 0));
 
 export const latexFunction = { insertLatex: () => { } };
 
