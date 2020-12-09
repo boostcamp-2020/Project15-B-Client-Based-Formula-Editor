@@ -156,7 +156,11 @@ export default {
 
 		switch (dataToBookmark.tabId) {
 			case RECENT_TAB:
-				setLatexItem(state, { id: dataToBookmark.id, isBookmark: true });
+				setLatexItem(state, {
+					id: dataToBookmark.id,
+					isBookmark: true,
+					description: payload,
+				});
 				break;
 			case BOOKMARK_TAB:
 				addLatexItem(state, {
