@@ -26,8 +26,8 @@ const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: 
 	}
 
 	.mq-cursor {
+    border: 1px solid ${themeColor.white};
 		background-color: ${themeColor.white};
-		color: ${themeColor.white};
 	}
 `;
 
