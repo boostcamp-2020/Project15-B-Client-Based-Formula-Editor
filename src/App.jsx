@@ -1,27 +1,22 @@
-import React, { useRef } from "react";
+import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 
 import GlobalStyle from "./GlobalStyle";
 import QueryStringCatcher from "./containers/QueryStringCatcher";
 import BodyContainer from "./containers/BodyContainer";
 import SideBar from "./containers/SideBar";
-import MainWrapper from "./layouts/MainWrapper";
 import MainLayout from "./layouts/MainLayout";
 
 export default function App() {
-	const mainWrapperRef = useRef();
-
 	return (
 		<BrowserRouter>
 			<Route exact path="/">
 				<GlobalStyle />
 				<QueryStringCatcher />
-				<MainWrapper ref={mainWrapperRef} >
-					<SideBar mainWrapperRef={mainWrapperRef} />
-					<MainLayout >
-						<BodyContainer />
-					</MainLayout>
-				</MainWrapper>
+				<MainLayout >
+					<SideBar />
+					<BodyContainer />
+				</MainLayout>
 			</Route>
 		</BrowserRouter>
 	);

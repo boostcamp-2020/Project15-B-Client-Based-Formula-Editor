@@ -2,20 +2,23 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	addBookmarkItem,
 	setCustomFormValue,
 	setLatexInput,
 	removeAllBookmarkItems,
 	openConfirmModal,
+	openPromptModal,
 } from "../slice";
 import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
-import ListLayout from "../layouts/ListLayout";
+import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
+import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
-import SideBarHeader from "../presentationals/SideBarHeader";
-import BookmarkAddButton from "../presentationals/BookmarkAddButton";
+import BlueButton from "../presentationals/BlueButton";
 import EmptyItem from "../presentationals/EmptyItem";
+import Filter from "../presentationals/Filter";
+import DirectoryTitle from "../presentationals/DirectoryTitle";
+import CharacterListItem from "../presentationals/CharacterListItem";
 
-export default function BookmarkContainer({ onScroll, setTabState }) {
+export default function BookmarkContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 
@@ -30,7 +33,8 @@ export default function BookmarkContainer({ onScroll, setTabState }) {
 
 	const addCurrentLatexToBookmark = () => {
 		if (!latexInput) return;
-		dispatch(addBookmarkItem(latexInput));
+
+		dispatch(openPromptModal({ tabId: BOOKMARK_TAB, latex: latexInput }));
 	};
 
 	const handleDeleteButton = id => () => {
@@ -44,25 +48,35 @@ export default function BookmarkContainer({ onScroll, setTabState }) {
 	};
 
 	return (
-		<ListLayout onScroll={onScroll}>
-			<BookmarkAddButton onClick={addCurrentLatexToBookmark}/>
-			<SideBarHeader
-				title={"북마크 수식 목록"}
-				onClick={handleDeleteAllClick}
-			/>
-			{bookmarkItems.length ?
-				bookmarkItems.map(({ id, latex }) =>
-					<ListItem
-						key={id}
-						latex={latex}
-						customOnClick={handleCustomButtonClick(latex)}
-						intoLatexFieldOnClick={handleFormulaClick(latex)}
-						deleteOnClick={handleDeleteButton(id)}
-					/>,
-				) :
-				<EmptyItem content="북마크 수식이 없습니다."/>
-			}
-		</ListLayout>
+		<>
+			<Filter />
+			<CharacterContainerLayout>
+				<BlueButton value="현재 수식 북마크에 추가" onClick={addCurrentLatexToBookmark}/>
+				<DirectoryTitle
+					title="북마크 수식 목록"
+					isOpen={true}
+					onClickDeleteButton={handleDeleteAllClick}
+				/>
+				{bookmarkItems.length ?
+					bookmarkItems.map(item =>
+						<SideTabItemLayout key={item.id}>
+							<CharacterListItem
+								item={{ ...item, symbol: "★", name: item.description }}
+								onClick={handleFormulaClick}
+							/>
+							<ListItem
+								key={item.id}
+								latex={item.latex}
+								customOnClick={handleCustomButtonClick(item.latex)}
+								intoLatexFieldOnClick={handleFormulaClick(item.latex)}
+								deleteOnClick={handleDeleteButton(item.id)}
+							/>
+						</SideTabItemLayout>,
+					) :
+					<EmptyItem content="북마크 수식이 없습니다."/>
+				}
+			</CharacterContainerLayout>
+		</>
 	);
 }
 

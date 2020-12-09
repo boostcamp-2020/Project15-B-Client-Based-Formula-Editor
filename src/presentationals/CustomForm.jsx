@@ -2,7 +2,7 @@ import React from "react";
 import { EditableMathField } from "react-mathquill";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const Form = styled.form`
 	display: flex;
@@ -27,13 +27,13 @@ const Form = styled.form`
 
 const Button = styled.button`
 	color: white;
-	background-color: ${color.normal};
+	background-color: ${themeColor.blue};
 	border: 1px solid black;
 	margin-top: 15px;
 	font-weight: bold;
 
 	&:hover {
-		background-color: ${color.dark};
+		background-color: ${themeColor.lightBlue};
 		cursor: pointer;
 	}
 `;
@@ -44,6 +44,7 @@ const WarningMsg = styled.p`
 	padding: 0 10px;
 	font-size: 11px;
 	color: red;
+	border: none;
 `;
 
 export default function CustomForm({ data, onChangeCommand, onChangeLatex, onSubmit }) {

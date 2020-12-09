@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { closeConfirmModal } from "../slice";
-import { toFitSimple } from "../util";
+import { closeConfirmModal, closePromptModal } from "../slice";
 import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
@@ -11,37 +10,20 @@ import CustomContainer from "./CustomContainer";
 import SideBarLayout from "../layouts/SideBarLayout";
 import SideBarTab from "../presentationals/SideBarTab";
 import ConfirmModal from "../presentationals/ConfirmModal";
+import PromptModal from "../presentationals/PromptModal";
 
-export default function SideBar({ mainWrapperRef }) {
+export default function SideBar() {
 	const dispatch = useDispatch();
 	const confirmModal = useSelector(state => state.confirmModal);
+	const promptModal = useSelector(state => state.promptModal);
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
-	const [isScrollTop, setIsScrollTop] = useState(true);
-
-	const handleSidebarScroll = ({ target }) => {
-		setIsScrollTop(!target.scrollTop);
-	};
+	const [promptInput, setPromptInput] = useState("");
 
 	const tabMap = {
-		[CHARACTER_TAB]:
-			<CharacterContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-				setTabState={setTabState}
-			/>,
-		[RECENT_TAB]:
-			<RecentContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-				setTabState={setTabState}
-			/>,
-		[BOOKMARK_TAB]:
-			<BookmarkContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-				setTabState={setTabState}
-			/>,
-		[CUSTOM_COMMAND_TAB]:
-			<CustomContainer
-				onScroll={toFitSimple(handleSidebarScroll)}
-			/>,
+		[CHARACTER_TAB]: <CharacterContainer />,
+		[RECENT_TAB]: <RecentContainer setTabState={setTabState} />,
+		[BOOKMARK_TAB]: <BookmarkContainer setTabState={setTabState} />,
+		[CUSTOM_COMMAND_TAB]: <CustomContainer />,
 	};
 
 	const handleTabClick = tabId => () => {
@@ -52,15 +34,32 @@ export default function SideBar({ mainWrapperRef }) {
 		dispatch(closeConfirmModal(result));
 	};
 
+	const handlePromptClick = result => () => {
+		dispatch(closePromptModal(result));
+		setPromptInput("");
+	};
+
+	const handlePromptChange = e => {
+		setPromptInput(e.target.value);
+	};
+
 	return (
 		<>
+			<PromptModal
+				isOpen={promptModal.isOpen}
+				message={promptModal.message}
+				inputValue={promptInput}
+				onChange={handlePromptChange}
+				onClickYes={handlePromptClick(promptInput)}
+				onClickNo={handlePromptClick(false)}
+			/>
 			<ConfirmModal
 				isOpen={confirmModal.isOpen}
 				message={confirmModal.message}
 				onClickYes={handleConfirmClick(true)}
 				onClickNo={handleConfirmClick(false)}
 			/>
-			<SideBarTab currentTab={tabState} onClick={handleTabClick} isScrollTop={isScrollTop}/>
+			<SideBarTab currentTab={tabState} onClick={handleTabClick} />
 			<SideBarLayout>
 				{tabMap[tabState]}
 			</SideBarLayout>
