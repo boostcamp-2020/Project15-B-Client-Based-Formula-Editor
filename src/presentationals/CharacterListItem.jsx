@@ -48,7 +48,15 @@ const Magnifier = styled.div`
 		font-size: 2rem;
 	}
 `;
-const Name = styled.div``;
+
+const Text = styled.div`
+	font-family: -webkit-pictograph;
+`;
+
+const Name = styled.div`
+	${({ isMagnifier }) => !isMagnifier &&
+	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
+`;
 
 export default function CharacterListItem({ item, onClick, isMagnifier }) {
 	return (
@@ -60,12 +68,12 @@ export default function CharacterListItem({ item, onClick, isMagnifier }) {
 						<StaticMathField>{item.symbol}</StaticMathField>
 					</> :
 					<>
-						{isMagnifier && <Magnifier><div>{item.symbol}</div></Magnifier>}
-						<div>{item.symbol}</div>
+						{isMagnifier && <Magnifier><Text>{item.symbol}</Text></Magnifier>}
+						<Text>{item.symbol}</Text>
 					</>
 				}
 			</Symbol>
-			<Name>{item.name}</Name>
+			<Name isMagnifier={isMagnifier}>{item.name}</Name>
 		</Item>
 	);
 }
