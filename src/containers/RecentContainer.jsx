@@ -2,24 +2,32 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	setBookmarkItem,
 	setLatexInput,
 	setCustomFormValue,
 	removeAllRecentItems,
 	openConfirmModal,
+	openPromptModal,
+	setBookmarkItem,
 } from "../slice";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
-import ListLayout from "../layouts/ListLayout";
+import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
+import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
-import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
+import CharacterListItem from "../presentationals/CharacterListItem";
+import Filter from "../presentationals/Filter";
+import DirectoryTitle from "../presentationals/DirectoryTitle";
 
-export default function RecentContainer({ onScroll, setTabState }) {
+export default function RecentContainer({ setTabState }) {
 	const { recentItems } = useSelector(state => state);
 	const dispatch = useDispatch();
 
 	const handleBookmarkButtonClick = (id, isBookmark) => () => {
-		dispatch(setBookmarkItem({ id, isBookmark: !isBookmark }));
+		if (isBookmark) {
+			dispatch(setBookmarkItem({ id, isBookmark: false }));
+			return;
+		}
+		dispatch(openPromptModal({ tabId: RECENT_TAB, id }));
 	};
 
 	const handleCustomButtonClick = latex => () => {
@@ -42,25 +50,34 @@ export default function RecentContainer({ onScroll, setTabState }) {
 	};
 
 	return (
-		<ListLayout onScroll={onScroll}>
-			<SideBarHeader
-				title={"최근 수식 목록"}
-				onClick={handleDeleteAllClick}
-			/>
-			{recentItems.length ?
-				recentItems.map(({ id, latex, isBookmark }) =>
-					<ListItem
-						key={id}
-						latex={latex}
-						bookmarkOnClick={handleBookmarkButtonClick(id, isBookmark)}
-						customOnClick={handleCustomButtonClick(latex)}
-						deleteOnClick={handleDeleteButtonClick(id)}
-						intoLatexFieldOnClick={handleFormulaClick(latex)}
-						isBookmark={isBookmark}
-					/>,
-				) :
-				<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
-		</ListLayout>
+		<>
+			<Filter />
+			<CharacterContainerLayout>
+				<DirectoryTitle
+					title="최근 수식 목록"
+					isOpen={true}
+					onClickDeleteButton={handleDeleteAllClick}
+				/>
+				{recentItems.length ?
+					recentItems.map(item =>
+						<SideTabItemLayout key={item.id}>
+							<CharacterListItem
+								item={{ ...item, symbol: "Σ", name: item.date }}
+								onClick={handleFormulaClick}
+							/>
+							<ListItem
+								latex={item.latex}
+								bookmarkOnClick={handleBookmarkButtonClick(item.id, item.isBookmark)}
+								customOnClick={handleCustomButtonClick(item.latex)}
+								deleteOnClick={handleDeleteButtonClick(item.id)}
+								intoLatexFieldOnClick={handleFormulaClick(item.latex)}
+								isBookmark={item.isBookmark}
+							/>
+						</SideTabItemLayout>,
+					) :
+					<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
+			</CharacterContainerLayout>
+		</>
 	);
 }
 

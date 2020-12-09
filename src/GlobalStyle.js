@@ -16,15 +16,23 @@ const GlobalStyle = createGlobalStyle`
     min-height: 313px;
 		overflow-x: hidden;
 	}
+
+	::-webkit-scrollbar { width: 12px; } /* 스크롤 바 */
+	::-webkit-scrollbar-thumb { background: #fff2; } /* 실질적 스크롤 바 */
+	::-webkit-scrollbar-thumb:hover { background: #fff3; } /* 실질적 스크롤 바 위에 마우스를 올려다 둘 때 */
+	::-webkit-scrollbar-thumb:active { background: #fff4; } /* 실질적 스크롤 바를 클릭할 때 */
+	::-webkit-scrollbar-button { display: none; } /* 스크롤 바 상 하단 버튼 */
 `;
 
 export const themeColor = {
 	white: "#cccccc",
 	superLight: "#666666",
-	light: "#333333",
-	normal: "#222222",
+	light: "#313131",
+	normal: "#252526",
 	dark: "#111111",
 	black: "#000000",
+	blue: "#22659A",
+	lightBlue: "#2A7AB8",
 };
 
 export const color = {

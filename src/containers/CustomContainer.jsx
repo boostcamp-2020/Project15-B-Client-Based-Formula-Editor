@@ -7,15 +7,18 @@ import {
 	setCustomFormValue,
 	openConfirmModal,
 } from "../slice";
-import ListLayout from "../layouts/ListLayout";
-import CustomAddButton from "../presentationals/CustomAddButton";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
+import SideTabItemLayout from "../layouts/SideTabItemLayout";
+import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomItem from "../presentationals/CustomItem";
-import SideBarHeader from "../presentationals/SideBarHeader";
 import EmptyItem from "../presentationals/EmptyItem";
-import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import CharacterListItem from "../presentationals/CharacterListItem";
+import Filter from "../presentationals/Filter";
+import DirectoryTitle from "../presentationals/DirectoryTitle";
 
-export default function CustomContainer({ onScroll }) {
+export default function CustomContainer() {
 	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 
@@ -81,32 +84,42 @@ export default function CustomContainer({ onScroll }) {
 	};
 
 	return (
-		<ListLayout onScroll={onScroll}>
-			<CustomAddButton
-				isFormOn={customFormValue.state}
-				onClick={handleFormOnButton}
-			/>
-			{customFormValue.state &&
-				<CustomForm
-					data={customFormValue}
-					onChangeCommand={onChangeCommand}
-					onChangeLatex={onChangeLatex}
-					onSubmit={handleSubmit}
-				/>}
-			<SideBarHeader
-				title={"사용자 명령어 목록"}
-				onClick={handleDeleteAllClick}
-			/>
-			{customCommandList.length ?
-				customCommandList.map(({ command }, index) =>
-					<CustomItem
-						key={index}
-						name={command}
-						onClickEdit={handleEditClick(index)}
-						onClickDelete={handleDeleteClick(index)}
-					/>,
-				) :
-				<EmptyItem content={"최근 저장한 명령어가 없습니다"}/>}
-		</ListLayout>
+		<>
+			<Filter />
+			<CharacterContainerLayout>
+				<BlueButton
+					value={customFormValue.state ? "취소" : "새 커스텀 추가하기"}
+					onClick={handleFormOnButton}
+				/>
+				{customFormValue.state &&
+					<CustomForm
+						data={customFormValue}
+						onChangeCommand={onChangeCommand}
+						onChangeLatex={onChangeLatex}
+						onSubmit={handleSubmit}
+					/>}
+				<DirectoryTitle
+					title="커스텀 명령어 목록"
+					isOpen={true}
+					onClickDeleteButton={handleDeleteAllClick}
+				/>
+				{customCommandList.length ?
+					customCommandList.map((item, index) =>
+						<SideTabItemLayout key={item.command}>
+							<CharacterListItem
+								item={{ ...item, symbol: "#", name: item.command }}
+								onClick={() => {}}
+							/>
+							<CustomItem
+								key={index}
+								name={item.latex}
+								onClickEdit={handleEditClick(index)}
+								onClickDelete={handleDeleteClick(index)}
+							/>
+						</SideTabItemLayout>,
+					) :
+					<EmptyItem content={"최근 저장한 명령어가 없습니다"}/>}
+			</CharacterContainerLayout>
+		</>
 	);
 }

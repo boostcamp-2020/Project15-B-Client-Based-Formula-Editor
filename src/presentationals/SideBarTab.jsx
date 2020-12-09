@@ -22,7 +22,7 @@ const Tab = styled.div`
 	}
 `;
 
-export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
+export default function SideBarTab({ currentTab, onClick }) {
 	const tabMenus = [
 		<PageIcon key={CHARACTER_TAB} />,
 		<TimeIcon key={RECENT_TAB}/>,
@@ -31,7 +31,7 @@ export default function SideBarTab({ currentTab, onClick, isScrollTop }) {
 	];
 
 	return (
-		<TabLayout isScrollTop={isScrollTop}>
+		<TabLayout>
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
 					<IconButton isHover={currentTab !== index} icon={tabMenu} />

@@ -9,6 +9,7 @@ const MainLayout = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: calc(100% - ${sidebarWidth});
+  display: flex;
 `;
 
 export default MainLayout;

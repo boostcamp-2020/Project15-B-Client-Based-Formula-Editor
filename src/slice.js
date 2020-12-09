@@ -38,6 +38,7 @@ const { reducer, actions } = createSlice({
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 		timerId: "",
 		confirmModal: { isOpen: false, message: "정말로 삭제하시겠습니까?", data: {} },
+		promptModal: { isOpen: false, message: "북마크의 키워드를 적어주세요", data: {} },
 	},
 	reducers: actionCreator,
 });
@@ -64,6 +65,8 @@ export const {
 	setTempSavedItem,
 	openConfirmModal,
 	closeConfirmModal,
+	openPromptModal,
+	closePromptModal,
 } = actions;
 
 const setPopup = (dispatch, config, ms) => {

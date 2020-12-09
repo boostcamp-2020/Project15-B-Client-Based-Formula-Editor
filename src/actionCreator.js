@@ -4,12 +4,17 @@ import {
 	updateCustomCommandList,
 	addLatexItem,
 	getIdToAdd,
-	RECENT_TAB,
-	BOOKMARK_TAB,
-	CUSTOM_COMMAND_TAB,
 	setLatexItem,
 	deleteCustomCommand,
 } from "./sliceUtil";
+
+import {
+	RECENT_TAB,
+	BOOKMARK_TAB,
+	CUSTOM_COMMAND_TAB,
+} from "./constants/sidebarTab";
+
+import { getCurrentDate } from "./util";
 
 export default {
 	setSelectedButton(state, { payload }) {
@@ -50,8 +55,8 @@ export default {
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.latexInput = "";
 	},
-	addBookmarkItem(state, { payload }) {
-		addLatexItem(state, { latex: payload, isBookmark: true });
+	addBookmarkItem(state, { payload: { latex, description } }) {
+		addLatexItem(state, { latex, isBookmark: true, date: getCurrentDate(), description });
 		updateSidebar(state);
 	},
 	setBookmarkItem(state, { payload }) {
@@ -64,7 +69,7 @@ export default {
 		updateSidebar(state);
 	},
 	addRecentItem(state, { payload }) {
-		addLatexItem(state, { latex: payload, isRecent: true });
+		addLatexItem(state, { latex: payload, isRecent: true, date: getCurrentDate() });
 
 		if (state.tempSavedLatexId !== INITIAL_ID) {
 			state.latexList = state.latexList.filter(({ id }) => id !== state.tempSavedLatexId);
@@ -101,7 +106,7 @@ export default {
 	setTempSavedItem(state) {
 		if (state.tempSavedLatexId === INITIAL_ID) {
 			const id = getIdToAdd(state.latexList);
-			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
+			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false, date: getCurrentDate() };
 
 			state.latexList.push(newItem);
 			state.tempSavedLatexId = id;
@@ -113,6 +118,7 @@ export default {
 		const targetItem = state.latexList.find(({ id }) => id === state.tempSavedLatexId);
 
 		targetItem.latex = state.latexInput;
+		targetItem.date = getCurrentDate();
 		updateSidebar(state);
 	},
 	openConfirmModal(state, { payload }) {
@@ -121,6 +127,7 @@ export default {
 	},
 	closeConfirmModal(state, { payload }) {
 		state.confirmModal.isOpen = false;
+
 		if (!payload) return;
 		const dataToDelete = state.confirmModal.data;
 
@@ -133,6 +140,36 @@ export default {
 				break;
 			case CUSTOM_COMMAND_TAB:
 				deleteCustomCommand(state, { id: dataToDelete.index });
+				break;
+			default:
+		}
+	},
+	openPromptModal(state, { payload }) {
+		state.promptModal.isOpen = true;
+		state.promptModal.data = payload;
+	},
+	closePromptModal(state, { payload }) {
+		state.promptModal.isOpen = false;
+
+		if (!payload) return;
+		const dataToBookmark = state.promptModal.data;
+
+		switch (dataToBookmark.tabId) {
+			case RECENT_TAB:
+				setLatexItem(state, {
+					id: dataToBookmark.id,
+					isBookmark: true,
+					description: payload,
+				});
+				break;
+			case BOOKMARK_TAB:
+				addLatexItem(state, {
+					latex: dataToBookmark.latex,
+					isBookmark: true,
+					date: getCurrentDate(),
+					description: payload,
+				});
+				updateSidebar(state);
 				break;
 			default:
 		}
