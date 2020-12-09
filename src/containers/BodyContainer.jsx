@@ -11,7 +11,7 @@ import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
 import DynamicBar from "../presentationals/DynamicBar";
 
-import { latexFunction } from "../util";
+import { latexFunction, toFitSimple } from "../util";
 import DropdownWrapper from "../layouts/DropdownWrapper";
 
 export default function BodyContainer() {
@@ -23,6 +23,7 @@ export default function BodyContainer() {
 	const initialLatex = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 40;
 	const maxHeight = initialFormula + initialLatex;
 	const [heights, setHeights] = useState({ formula: initialFormula, latex: initialLatex });
+	const [rateOfFormulaHeight, setRateOfFormulaHeight] = useState(60);
 	const dispatch = useDispatch();
 	const {
 		latexInput,
@@ -73,25 +74,43 @@ export default function BodyContainer() {
 			expectedLatexHeight = heights.latex + sub;
 		}
 
+		const rate = expectedFormulaHeight / (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) * 100;
+
+		setRateOfFormulaHeight(rate);
+
 		setHeights({
 			formula: expectedFormulaHeight,
 			latex: expectedLatexHeight,
 		});
 	};
 
-	const resizeEvent = () => {
+	const resizeEvent = rate => () => {
+		const allowedHeight = window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT;
+		let expectedFormulaHeight = allowedHeight / 100 * rate;
+		let expectedLatexHeight = allowedHeight / 100 * (100 - rate);
+
+		if (expectedFormulaHeight < 100) {
+			expectedLatexHeight -= 100 - expectedFormulaHeight;
+		}
+
+		if (expectedLatexHeight < 100) {
+			expectedFormulaHeight -= 100 - expectedLatexHeight;
+		}
+
 		const changedHeight = {
-			formula: (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / 100 * 60,
-			latex: (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / 100 * 40,
+			formula: expectedFormulaHeight > 100 ? expectedFormulaHeight : 100,
+			latex: expectedLatexHeight > 100 ? expectedLatexHeight : 100,
 		};
 
 		setHeights(changedHeight);
 	};
 
 	useEffect(() => {
-		window.addEventListener("resize", resizeEvent);
+		const eventFunc = toFitSimple(resizeEvent(rateOfFormulaHeight));
+
+		window.addEventListener("resize", eventFunc);
 		return () => {
-			window.removeEventListener("resize", resizeEvent);
+			window.removeEventListener("resize", eventFunc);
 		};
 	});
 
@@ -112,12 +131,15 @@ export default function BodyContainer() {
 					fontInfo={fontInfo}
 					alignInfo={alignInfo}
 				/>
+				{/* <div> */}
+				{/* <DynamicBar onMouseDown={handleMouseDown}/> */}
 				<DynamicBar onDrag={preventDefault} onDragStart={handleDragStart} />
 				<LatexRepresentation
 					height={heights.latex}
 					latexInput={latexInput}
 					onChange={handleLatexTextarea}
 				/>
+				{/* </div> */}
 			</DropdownWrapper>
 		</BodyLayout>
 	);
