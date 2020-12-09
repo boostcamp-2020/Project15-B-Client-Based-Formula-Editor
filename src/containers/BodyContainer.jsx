@@ -19,10 +19,10 @@ export default function BodyContainer() {
 	let endPageY;
 	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 113;
 	const MIN_HEIGHT = 100;
-	const initFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
-	const initLatex = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 40;
-	const maxHeight = initFormula + initLatex;
-	const [heights, setHeights] = useState({ formula: initFormula, latex: initLatex });
+	const initialFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
+	const initialLatex = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 40;
+	const maxHeight = initialFormula + initialLatex;
+	const [heights, setHeights] = useState({ formula: initialFormula, latex: initialLatex });
 	const dispatch = useDispatch();
 	const {
 		latexInput,
