@@ -36,6 +36,7 @@ export default function SideBar() {
 
 	const handlePromptClick = result => () => {
 		dispatch(closePromptModal(result));
+		setPromptInput("");
 	};
 
 	const handlePromptChange = e => {
@@ -47,6 +48,7 @@ export default function SideBar() {
 			<PromptModal
 				isOpen={promptModal.isOpen}
 				message={promptModal.message}
+				inputValue={promptInput}
 				onChange={handlePromptChange}
 				onClickYes={handlePromptClick(promptInput)}
 				onClickNo={handlePromptClick(false)}

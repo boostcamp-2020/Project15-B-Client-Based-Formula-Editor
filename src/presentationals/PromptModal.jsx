@@ -19,12 +19,14 @@ const Buttons = styled.div``;
 const Button = styled.button``;
 const Input = styled.input``;
 
-export default function PromptModal({ isOpen, message, onChange, onClickYes, onClickNo }) {
+export default function PromptModal({
+	isOpen, message, onChange, onClickYes, onClickNo, inputValue,
+}) {
 	return (
 		<Layout isOpen={isOpen}>
 			<Message>{message}</Message>
 			<Buttons>
-				<Input onChange={onChange}/>
+				<Input onChange={onChange} value={inputValue} />
 				<Button onClick={onClickYes}>Yes</Button>
 				<Button onClick={onClickNo}>No</Button>
 			</Buttons>

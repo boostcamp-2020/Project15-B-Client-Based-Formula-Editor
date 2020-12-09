@@ -34,7 +34,7 @@ export default function BookmarkContainer({ setTabState }) {
 	const addCurrentLatexToBookmark = () => {
 		if (!latexInput) return;
 
-		dispatch(openPromptModal(latexInput));
+		dispatch(openPromptModal({ tabId: BOOKMARK_TAB, latex: latexInput }));
 	};
 
 	const handleDeleteButton = id => () => {

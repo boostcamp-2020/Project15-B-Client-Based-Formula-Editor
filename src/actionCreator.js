@@ -152,13 +152,22 @@ export default {
 		state.promptModal.isOpen = false;
 
 		if (!payload) return;
+		const dataToBookmark = state.promptModal.data;
 
-		addLatexItem(state, {
-			latex: state.promptModal.data,
-			isBookmark: true,
-			date: getCurrentDate(),
-			description: payload,
-		});
-		updateSidebar(state);
+		switch (dataToBookmark.tabId) {
+			case RECENT_TAB:
+				setLatexItem(state, { id: dataToBookmark.id, isBookmark: true });
+				break;
+			case BOOKMARK_TAB:
+				addLatexItem(state, {
+					latex: dataToBookmark.latex,
+					isBookmark: true,
+					date: getCurrentDate(),
+					description: payload,
+				});
+				updateSidebar(state);
+				break;
+			default:
+		}
 	},
 };

@@ -7,6 +7,7 @@ import {
 	removeAllRecentItems,
 	openConfirmModal,
 	openPromptModal,
+	setBookmarkItem,
 } from "../slice";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
@@ -22,9 +23,11 @@ export default function RecentContainer({ setTabState }) {
 	const dispatch = useDispatch();
 
 	const handleBookmarkButtonClick = (id, isBookmark) => () => {
-		const targetItem = recentItems.find(item => item.id === id);
-
-		dispatch(openPromptModal(targetItem.latex));
+		if (isBookmark) {
+			dispatch(setBookmarkItem({ id, isBookmark: false }));
+			return;
+		}
+		dispatch(openPromptModal({ tabId: RECENT_TAB, id }));
 	};
 
 	const handleCustomButtonClick = latex => () => {
