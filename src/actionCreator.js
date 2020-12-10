@@ -174,4 +174,7 @@ export default {
 			default:
 		}
 	},
+	setCursorPosition(state, { payload }) {
+		state.cursorPosition = payload;
+	},
 };
