@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setLatexInput,
 	setCustomFormValue,
+	removeRecentItem,
 	removeAllRecentItems,
 	setBookmarkItem,
-	removeRecentItem,
 	addBookmarkItem,
 } from "../slice";
 import popup from "../popup";

@@ -48,12 +48,12 @@ export default {
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.latexInput = "";
 	},
+	setBookmarkItem(state, { payload }) {
+		setLatexItem(state, payload);
+	},
 	addBookmarkItem(state, { payload: { latex, description } }) {
 		addLatexItem(state, { latex, isBookmark: true, date: getCurrentDate(), description });
 		updateSidebar(state);
-	},
-	setBookmarkItem(state, { payload }) {
-		setLatexItem(state, payload);
 	},
 	removeBookmarkItem(state, { payload: id }) {
 		setLatexItem(state, { id, isBookmark: false });
@@ -98,11 +98,11 @@ export default {
 	setCustomFormValue(state, { payload }) {
 		state.customFormValue = payload;
 	},
-	setTimerId(state, { payload }) {
-		state.timerId = payload;
-	},
 	setCustomFormLatex(state, { payload }) {
 		state.customFormValue.latex = payload;
+	},
+	setTimerId(state, { payload }) {
+		state.timerId = payload;
 	},
 	setTempSavedItem(state) {
 		if (state.tempSavedLatexId === INITIAL_ID) {
