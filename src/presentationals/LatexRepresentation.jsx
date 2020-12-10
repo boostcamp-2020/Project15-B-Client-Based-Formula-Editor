@@ -1,20 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const LatexRepresentationStyle = styled.textarea`
+	color: ${themeColor.white};
 	width: 100%;
-	height: 120px;
-	margin-top: 12px;
-  padding: 4px;
-	border: 1px solid ${color.dark};
+	height: ${props => props.height}px;
+	min-height: 100px;
+  padding: 8px;
+	background-color: ${themeColor.dark};
+	border: none;
+	outline: none;
 	resize: none;
+	font-size: 17px;
 `;
 
-export default function LatexRepresentation({ latexInput, onChange }) {
+export default function LatexRepresentation({ height, latexInput, onChange }) {
 	return (
 		<LatexRepresentationStyle
+			height={height}
 			value={latexInput}
 			onChange={onChange}
 		/>

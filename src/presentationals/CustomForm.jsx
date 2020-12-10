@@ -2,38 +2,37 @@ import React from "react";
 import { EditableMathField } from "react-mathquill";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
 
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	background-color: white;
+	background-color: ${themeColor.light};
 	margin: 5px;
-	border: 1px solid black;
 	border-radius: 5px;
 	padding: 5px;
 
-	.mq-math-mode{
-		background-color: white;
-	}
 	> * {
+		border: none;
+		outline: none;
+		background-color: ${themeColor.dark};
+		color: white;
 		text-align: center;
 		padding: 3px;
-		margin: 1px;
-		border: 1px solid black;
+		margin: 3px;
 		border-radius: 3px;
 	}
 `;
 
 const Button = styled.button`
 	color: white;
-	background-color: ${color.normal};
-	border: 1px solid black;
+	background-color: ${themeColor.blue};
+	border: none;
 	margin-top: 15px;
 	font-weight: bold;
 
 	&:hover {
-		background-color: ${color.dark};
+		background-color: ${themeColor.lightBlue};
 		cursor: pointer;
 	}
 `;
@@ -44,9 +43,12 @@ const WarningMsg = styled.p`
 	padding: 0 10px;
 	font-size: 11px;
 	color: red;
+	border: none;
 `;
 
-export default function CustomForm({ data, onChangeCommand, onChangeLatex, onSubmit }) {
+export default function CustomForm({
+	data, onChangeCommand, onChangeLatex, onChangeDescription, onSubmit,
+}) {
 	return (
 		<Form onSubmit={onSubmit}>
 			<input
@@ -58,7 +60,8 @@ export default function CustomForm({ data, onChangeCommand, onChangeLatex, onSub
 				autoFocus
 			/>
 			<WarningMsg isDisabled={data.isDisabled}>이미 있는 명령어입니다.</WarningMsg>
-			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" placeholder="mathquill 자리입니다." />
+			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" />
+			<input value={data.description} onChange={onChangeDescription} name="description" placeholder="설명을 입력해주세요." />
 			<Button name="submitBtn">{data.name}</Button>
 		</Form>
 	);
