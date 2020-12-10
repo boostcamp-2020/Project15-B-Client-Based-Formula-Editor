@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 
 import { latexFunction } from "../util";
 import KEY_CODE from "../constants/keyCode";
+import mathquillLatex from "../constants/mathquillLatex";
+import AutoComplete from "../presentationals/AutoComplete";
 
 export default function AutoKeywordContainer() {
 	const cursorPosition = useSelector(state => state.cursorPosition);
@@ -12,6 +14,16 @@ export default function AutoKeywordContainer() {
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
+
+	const updateList = () => {
+		const temp = buffer.current.join("").trim()
+			.toLowerCase();
+		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
+			.map(key => mathquillLatex[key]);
+
+		if (list.length > 7) list.length = 7;
+		setRecommandationList(list);
+	};
 
 	const keyupEvent = ({ keyCode }) => {
 		if (keyCode === KEY_CODE.BACK_SLASH) {
@@ -23,6 +35,7 @@ export default function AutoKeywordContainer() {
 			const backslashCountInLatex = latexInput.split("").filter(char => char === "\\").length;
 
 			buffer.current.pop();
+			updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
 				setBackslashCount(backslashCount - 1);
@@ -47,7 +60,7 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
-			const target = recommandationList[itemIndex].title;
+			const target = recommandationList[itemIndex];
 
 			const temp = buffer.current.join("").trim()
 				.toLowerCase();
@@ -72,6 +85,7 @@ export default function AutoKeywordContainer() {
 			const character = String.fromCharCode(keyCode);
 
 			buffer.current.push(character);
+			updateList();
 		}
 
 		if (keyCode === KEY_CODE.SPACE) {
@@ -94,7 +108,7 @@ export default function AutoKeywordContainer() {
 	});
 
 	return (
-		<div // 여기에 자동완성 박스
+		<AutoComplete
 			isOpen={isOpen}
 			x={cursorPosition.x}
 			y={cursorPosition.y}
