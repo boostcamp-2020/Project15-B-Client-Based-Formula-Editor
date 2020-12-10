@@ -45,9 +45,9 @@ export default function SideBottomTab({
 	return (
 		<div>
 			{bottomMenus.map(({ icon, popup, onClick }, idx) =>
-				<Div key={idx}>
+				<Div key={idx} onClick={onClick}>
 					<BubblePopup isOpen={popup.isOpen} message={popup.message} />
-					<IconButton isHover={true} icon={icon} onClick={onClick} />
+					<IconButton isHover={true} icon={icon} hoverColor={themeColor.white} />
 				</Div>,
 			)}
 		</div>

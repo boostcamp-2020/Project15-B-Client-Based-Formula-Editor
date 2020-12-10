@@ -29,7 +29,11 @@ export default function SideTopTab({ currentTab, onClick }) {
 		<div>
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
-					<IconButton isHover={currentTab !== index} icon={tabMenu} />
+					<IconButton
+						isHover={currentTab !== index}
+						hoverColor={themeColor.white}
+						icon={tabMenu}
+					/>
 				</Tab>,
 			)}
 		</div>
