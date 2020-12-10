@@ -12,6 +12,11 @@ const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px
   background-color: white;
 	position: absolute;
 	display: grid;
+	user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
   cursor: ns-resize;
 	svg {
 		pointer-events: none;
