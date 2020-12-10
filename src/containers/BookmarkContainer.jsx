@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -21,6 +21,7 @@ import CharacterListItem from "../presentationals/CharacterListItem";
 export default function BookmarkContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
+	const [searchTerm, setSearchTerm] = useState("");
 
 	const handleCustomButtonClick = latex => () => {
 		dispatch(setCustomFormValue({ state: true, name: "등록", command: "", latex }));
@@ -47,9 +48,19 @@ export default function BookmarkContainer({ setTabState }) {
 		}
 	};
 
+	const handleFilter = ({ target }) => {
+		const inputValue = target.value;
+
+		if (!inputValue) {
+			setSearchTerm("");
+			return;
+		}
+		setSearchTerm(inputValue);
+	};
+
 	return (
 		<>
-			<Filter />
+			<Filter onChange={handleFilter} />
 			<CharacterContainerLayout>
 				<BlueButton value="현재 수식 북마크에 추가" onClick={addCurrentLatexToBookmark}/>
 				<DirectoryTitle
@@ -58,21 +69,23 @@ export default function BookmarkContainer({ setTabState }) {
 					onClickDeleteButton={handleDeleteAllClick}
 				/>
 				{bookmarkItems.length ?
-					bookmarkItems.map(item =>
-						<SideTabItemLayout key={item.id}>
-							<CharacterListItem
-								item={{ ...item, symbol: "★", name: item.description }}
-								onClick={handleFormulaClick}
-							/>
-							<ListItem
-								key={item.id}
-								latex={item.latex}
-								customOnClick={handleCustomButtonClick(item.latex)}
-								intoLatexFieldOnClick={handleFormulaClick(item.latex)}
-								deleteOnClick={handleDeleteButton(item.id)}
-							/>
-						</SideTabItemLayout>,
-					) :
+					bookmarkItems
+						.filter(item => item.description.includes(searchTerm))
+						.map(item =>
+							<SideTabItemLayout key={item.id}>
+								<CharacterListItem
+									item={{ ...item, symbol: "★", name: item.description }}
+									onClick={handleFormulaClick}
+								/>
+								<ListItem
+									key={item.id}
+									latex={item.latex}
+									customOnClick={handleCustomButtonClick(item.latex)}
+									intoLatexFieldOnClick={handleFormulaClick(item.latex)}
+									deleteOnClick={handleDeleteButton(item.id)}
+								/>
+							</SideTabItemLayout>,
+						) :
 					<EmptyItem content="북마크 수식이 없습니다."/>
 				}
 			</CharacterContainerLayout>
