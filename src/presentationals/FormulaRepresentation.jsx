@@ -20,7 +20,7 @@ const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: 
 		width: 100%;
 		height: 100%;
 		margin: auto;
-		padding: ${prop => prop.height / 2}px;
+		padding: ${prop => (prop.height - prop.fontInfo.size) / 2}px 0;
 		border: none;
 		text-align: ${props => props.align};
 	}

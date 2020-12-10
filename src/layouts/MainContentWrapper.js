@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-const sidebarWidth = "360px";
-
-export default styled.div`
-  width: 100%;
-  max-width: calc(100% - ${sidebarWidth});
+const MainContentWrapper = styled.div`
+  min-width: 380px;
+  width: ${({ bodyWidth }) => bodyWidth}%;
 `;
+
+export default MainContentWrapper;

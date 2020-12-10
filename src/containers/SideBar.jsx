@@ -8,11 +8,12 @@ import RecentContainer from "./RecentContainer";
 import BookmarkContainer from "./BookmarkContainer";
 import CustomContainer from "./CustomContainer";
 import SideBarLayout from "../layouts/SideBarLayout";
+import SideBarContentLayout from "../layouts/SideBarContentLayout";
 import SideBarTab from "../presentationals/SideBarTab";
 import ConfirmModal from "../presentationals/ConfirmModal";
 import PromptModal from "../presentationals/PromptModal";
 
-export default function SideBar() {
+export default function SideBar({ sidebarWidth }) {
 	const dispatch = useDispatch();
 	const confirmModal = useSelector(state => state.confirmModal);
 	const promptModal = useSelector(state => state.promptModal);
@@ -59,9 +60,11 @@ export default function SideBar() {
 				onClickYes={handleConfirmClick(true)}
 				onClickNo={handleConfirmClick(false)}
 			/>
-			<SideBarTab currentTab={tabState} onClick={handleTabClick} />
-			<SideBarLayout>
-				{tabMap[tabState]}
+			<SideBarLayout width={sidebarWidth}>
+				<SideBarTab currentTab={tabState} onClick={handleTabClick} />
+				<SideBarContentLayout>
+					{tabMap[tabState]}
+				</SideBarContentLayout>
 			</SideBarLayout>
 		</>
 	);
