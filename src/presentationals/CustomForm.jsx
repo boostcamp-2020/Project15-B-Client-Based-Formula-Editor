@@ -13,12 +13,13 @@ const Form = styled.form`
 	padding: 5px;
 
 	> * {
+		border: none;
+		outline: none;
 		background-color: #1E1E1E;
 		color: white;
 		text-align: center;
 		padding: 3px;
 		margin: 3px;
-		border: 1px solid black;
 		border-radius: 3px;
 	}
 `;
@@ -26,7 +27,7 @@ const Form = styled.form`
 const Button = styled.button`
 	color: white;
 	background-color: ${themeColor.blue};
-	border: 1px solid black;
+	border: none;
 	margin-top: 15px;
 	font-weight: bold;
 
