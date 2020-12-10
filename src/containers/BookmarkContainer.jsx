@@ -51,7 +51,7 @@ export default function BookmarkContainer({ setTabState }) {
 			message: "해당 북마크를 삭제하시겠습니까?",
 		});
 
-		if (answer === true) {
+		if (answer) {
 			dispatch(removeBookmarkItem(id));
 		}
 	};
@@ -62,7 +62,7 @@ export default function BookmarkContainer({ setTabState }) {
 			message: "모든 북마크를 삭제하시겠습니까?",
 		});
 
-		if (answer === true) {
+		if (answer) {
 			dispatch(removeAllBookmarkItems());
 		}
 	};

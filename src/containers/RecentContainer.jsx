@@ -50,7 +50,7 @@ export default function RecentContainer({ setTabState }) {
 			message: "해당 수식을 삭제하시겠습니까?",
 		});
 
-		if (answer === true) {
+		if (answer) {
 			dispatch(removeRecentItem(id));
 		}
 	};
@@ -65,7 +65,7 @@ export default function RecentContainer({ setTabState }) {
 			message: "모든 최근 수식을 삭제하시겠습니까?",
 		});
 
-		if (answer === true) {
+		if (answer) {
 			dispatch(removeAllRecentItems());
 		}
 	};

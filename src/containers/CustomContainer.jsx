@@ -39,7 +39,7 @@ export default function CustomContainer() {
 			message: "해당 커스텀 명령어를 삭제하시겠습니까?",
 		});
 
-		if (answer === true) {
+		if (answer) {
 			dispatch(removeCustomCommand(index));
 		}
 	};
@@ -91,7 +91,7 @@ export default function CustomContainer() {
 			message: "모든 커스텀 명령어를 삭제하시겠습니까?",
 		});
 
-		if (answer === true) {
+		if (answer) {
 			dispatch(setCustomCommandList([]));
 		}
 	};
