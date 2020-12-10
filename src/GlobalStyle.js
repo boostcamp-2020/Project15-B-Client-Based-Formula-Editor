@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import popupStyle from "./popupStyle";
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -27,48 +28,7 @@ const GlobalStyle = createGlobalStyle`
 	::-webkit-scrollbar-thumb:active { background: #fff4; } /* 실질적 스크롤 바를 클릭할 때 */
 	::-webkit-scrollbar-button { display: none; } /* 스크롤 바 상 하단 버튼 */
 
-	.popup {
-		width: max-content;
-    position: fixed;
-    color: #cccccc;
-    background-color: #313131;
-    border: 1px solid #666666;
-    border-radius: 3px;
-    padding: 20px 30px;
-		left: 50%;
-		transform: translate(-50%, 0);
-		transition: 1s;
-		z-index: 3;
-
-		> input {
-			width: 100%;
-		}
-
-		> div:last-child {
-			display: flex;
-			justify-content: flex-end;
-			margin-top: 15px;
-		}
-
-		> div > button {
-			background-color: #666666;
-			color: white;
-			padding: 1px 10px 2px 10px;
-			margin-left: 3px;
-			border: none;
-			cursor: pointer;
-		}
-
-		animation-name: down;
-		animation-duration: 0.5s;
-		animation-iteration-count: 1;
-		animation-fill-mode: forwards;
-	}
-
-	@keyframes down {
-		0%   { top: -100px; }
-		100% { top: 10px; }
-	}
+	${popupStyle}
 `;
 
 export const themeColor = {
