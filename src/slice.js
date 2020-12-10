@@ -21,7 +21,7 @@ const { reducer, actions } = createSlice({
 		latexInput: "",
 		pastLatexInput: "",
 		fontInfo: {
-			size: "19",
+			size: "20",
 			color: "#ffffff",
 		},
 		alignInfo: "center",
