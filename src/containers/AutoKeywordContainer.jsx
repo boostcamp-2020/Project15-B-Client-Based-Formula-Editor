@@ -79,13 +79,11 @@ export default function AutoKeywordContainer() {
 	const keypressEvent = ({ keyCode }) => {
 		if (!isOpen) return;
 
-		const isUpperAlphabet = keyCode >= 65 && keyCode <= 90;
-		const isLowerAlphabet = keyCode >= 97 && keyCode <= 122;
+		const alphabet = String.fromCharCode(keyCode);
+		const isAlphabet = target => target.match(/[a-zA-Z]/i);
 
-		if (isLowerAlphabet || isUpperAlphabet) {
-			const character = String.fromCharCode(keyCode);
-
-			buffer.current.push(character);
+		if (isAlphabet(alphabet)) {
+			buffer.current.push(alphabet);
 			updateList();
 		}
 
