@@ -5,14 +5,7 @@ import {
 	addLatexItem,
 	getIdToAdd,
 	setLatexItem,
-	deleteCustomCommand,
 } from "./sliceUtil";
-
-import {
-	RECENT_TAB,
-	BOOKMARK_TAB,
-	CUSTOM_COMMAND_TAB,
-} from "./constants/sidebarTab";
 
 import { getCurrentDate } from "./util";
 
@@ -128,59 +121,6 @@ export default {
 		targetItem.latex = state.latexInput;
 		targetItem.date = getCurrentDate();
 		updateSidebar(state);
-	},
-	openConfirmModal(state, { payload }) {
-		state.confirmModal.isOpen = true;
-		state.confirmModal.data = payload;
-	},
-	closeConfirmModal(state, { payload }) {
-		state.confirmModal.isOpen = false;
-
-		if (!payload) return;
-		const dataToDelete = state.confirmModal.data;
-
-		switch (dataToDelete.tabId) {
-			case RECENT_TAB:
-				setLatexItem(state, { id: dataToDelete.id, isRecent: false });
-				break;
-			case BOOKMARK_TAB:
-				setLatexItem(state, { id: dataToDelete.id, isBookmark: false });
-				break;
-			case CUSTOM_COMMAND_TAB:
-				deleteCustomCommand(state, { id: dataToDelete.index });
-				break;
-			default:
-		}
-	},
-	openPromptModal(state, { payload }) {
-		state.promptModal.isOpen = true;
-		state.promptModal.data = payload;
-	},
-	closePromptModal(state, { payload }) {
-		state.promptModal.isOpen = false;
-
-		if (!payload) return;
-		const dataToBookmark = state.promptModal.data;
-
-		switch (dataToBookmark.tabId) {
-			case RECENT_TAB:
-				setLatexItem(state, {
-					id: dataToBookmark.id,
-					isBookmark: true,
-					description: payload,
-				});
-				break;
-			case BOOKMARK_TAB:
-				addLatexItem(state, {
-					latex: dataToBookmark.latex,
-					isBookmark: true,
-					date: getCurrentDate(),
-					description: payload,
-				});
-				updateSidebar(state);
-				break;
-			default:
-		}
 	},
 	setCursorPosition(state, { payload }) {
 		state.cursorPosition = payload;

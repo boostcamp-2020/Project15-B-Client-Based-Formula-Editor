@@ -37,8 +37,6 @@ const { reducer, actions } = createSlice({
 		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
 		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
 		timerId: "",
-		confirmModal: { isOpen: false, message: "정말로 삭제하시겠습니까?", data: {} },
-		promptModal: { isOpen: false, message: "북마크의 키워드를 적어주세요", data: {} },
 		cursorPosition: { x: 0, y: 0 },
 		characterTabState: {
 			character: false,
@@ -71,10 +69,6 @@ export const {
 	setTimerId,
 	setCustomFormLatex,
 	setTempSavedItem,
-	openConfirmModal,
-	closeConfirmModal,
-	openPromptModal,
-	closePromptModal,
 	setCursorPosition,
 	setCharacterTabState,
 } = actions;

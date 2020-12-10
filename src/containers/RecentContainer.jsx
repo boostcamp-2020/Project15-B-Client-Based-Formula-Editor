@@ -5,13 +5,12 @@ import {
 	setLatexInput,
 	setCustomFormValue,
 	removeAllRecentItems,
-	openPromptModal,
 	setBookmarkItem,
 	removeRecentItem,
 	addBookmarkItem,
 } from "../slice";
 import popup from "../popup";
-import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
