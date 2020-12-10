@@ -177,4 +177,7 @@ export default {
 	setCursorPosition(state, { payload }) {
 		state.cursorPosition = payload;
 	},
+	setCharacterTabState(state, { payload }) {
+		state.characterTabState[payload] = !state.characterTabState[payload];
+	},
 };
