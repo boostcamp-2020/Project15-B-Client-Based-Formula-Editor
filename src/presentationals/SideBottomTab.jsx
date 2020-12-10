@@ -6,29 +6,50 @@ import SaveIcon from "../icons/SaveIcon";
 import ShareIcon from "../icons/ShareIcon";
 import ImageFileIcon from "../icons/ImageFileIcon";
 import IconButton from "../presentationals/IconButton";
+import BubblePopup from "../presentationals/BubblePopup";
 
-const Layout = styled.div`
-	> button {
-		display: block;
-		margin: 12px 0;
-	}
+const Div = styled.div`
+	margin: 12px 0;
 
 	svg {
 		fill: ${themeColor.superLight};
 	}
 `;
 
-
-export default function SideBottomTab() {
+export default function SideBottomTab({
+	imageDownload,
+	linkCopy,
+	formulaSave,
+	handleSaveFormula,
+	handleCopyLink,
+	handleDownloadAsImage,
+}) {
 	const bottomMenus = [
-		<SaveIcon key={0} />,
-		<ShareIcon key={1} />,
-		<ImageFileIcon key={2} />,
+		{
+			icon: <SaveIcon />,
+			popup: formulaSave,
+			onClick: handleSaveFormula,
+		},
+		{
+			icon: <ShareIcon />,
+			popup: linkCopy,
+			onClick: handleCopyLink,
+		},
+		{
+			icon: <ImageFileIcon />,
+			popup: imageDownload,
+			onClick: handleDownloadAsImage,
+		},
 	];
 
 	return (
-		<Layout>
-			{bottomMenus.map((action, idx) => <IconButton key={idx} isHover={true} icon={action} />)}
-		</Layout>
+		<div>
+			{bottomMenus.map(({ icon, popup, onClick }, idx) =>
+				<Div key={idx}>
+					<BubblePopup isOpen={popup.isOpen} message={popup.message} />
+					<IconButton isHover={true} icon={icon} onClick={onClick} />
+				</Div>,
+			)}
+		</div>
 	);
 }

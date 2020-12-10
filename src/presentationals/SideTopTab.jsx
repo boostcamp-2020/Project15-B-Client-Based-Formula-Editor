@@ -9,8 +9,6 @@ import CustomIcon from "../icons/CustomIcon";
 import PageIcon from "../icons/PageIcon";
 import IconButton from "../presentationals/IconButton";
 
-const Layout = styled.div``;
-
 const Tab = styled.div`
 	margin: 12px 0;
 	
@@ -28,12 +26,12 @@ export default function SideTopTab({ currentTab, onClick }) {
 	];
 
 	return (
-		<Layout>
+		<div>
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
 					<IconButton isHover={currentTab !== index} icon={tabMenu} />
 				</Tab>,
 			)}
-		</Layout>
+		</div>
 	);
 }
