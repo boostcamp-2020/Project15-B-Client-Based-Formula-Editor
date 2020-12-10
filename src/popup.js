@@ -6,8 +6,10 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 	if (mode === "confirm") {
 		popup.innerHTML = `
 			<div>${message}</div>
-			<button type="button">취소</button>
-			<button type="button">확인</button>
+			<div>
+				<button type="button">취소</button>
+				<button type="button">확인</button>
+			</div>
 		`;
 	}
 
@@ -15,8 +17,10 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 		popup.innerHTML = `
 			<div>${message}</div>
 			<input type="text" />
-			<button type="button">취소</button>
-			<button type="button">확인</button>
+			<div>
+				<button type="button">취소</button>
+				<button type="button">확인</button>
+			</div>
 		`;
 	}
 

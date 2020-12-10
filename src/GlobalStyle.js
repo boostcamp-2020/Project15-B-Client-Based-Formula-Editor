@@ -28,11 +28,34 @@ const GlobalStyle = createGlobalStyle`
 	::-webkit-scrollbar-button { display: none; } /* 스크롤 바 상 하단 버튼 */
 
 	.popup {
-		width: 300px;
-		position: fixed;
-		background: yellow;
+		width: max-content;
+    position: fixed;
+    color: #cccccc;
+    background-color: #313131;
+    border: 1px solid #666666;
+    border-radius: 3px;
+    padding: 20px 30px;
 		left: 50%;
 		transition: 1s;
+
+		> input {
+			width: 100%;
+		}
+
+		> div:last-child {
+			display: flex;
+			justify-content: flex-end;
+			margin-top: 15px;
+		}
+
+		> div > button {
+			background-color: #666666;
+			color: white;
+			padding: 1px 10px 2px 10px;
+			margin-left: 3px;
+			border: none;
+			cursor: pointer;
+		}
 
 		animation-name: down;
 		animation-duration: 1s;
