@@ -14,6 +14,7 @@ const AutoKeywordLayout = styled.div`
 	color: white;
 	box-shadow: 0 0 7px 3px black;
 	visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
+  z-index: 500;
 `;
 
 const HightLight = styled.div`
