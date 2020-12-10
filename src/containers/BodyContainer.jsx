@@ -6,17 +6,16 @@ import { getLocalStorage } from "../sliceUtil";
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
+import DropdownWrapper from "../layouts/DropdownWrapper";
 import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
 import DynamicBar from "../presentationals/DynamicBar";
+import GhostBar from "../presentationals/GhostBar";
 
-import { latexFunction, toFitSimple } from "../util";
-import DropdownWrapper from "../layouts/DropdownWrapper";
+import { latexFunction, throttle, toFitSimple } from "../util";
 
 export default function BodyContainer() {
-	let startPageY;
-	let endPageY;
 	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 113;
 	const MIN_HEIGHT = 100;
 	const initialFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
@@ -24,6 +23,9 @@ export default function BodyContainer() {
 	const maxHeight = initialFormula + initialLatex;
 	const [heights, setHeights] = useState({ formula: initialFormula, latex: initialLatex });
 	const [rateOfFormulaHeight, setRateOfFormulaHeight] = useState(60);
+	const [pageYValue, setPageYValue] = useState(0);
+	const [isMove, setIsMove] = useState(false);
+	const [ghostHeight, setGhostHeight] = useState(heights.formula);
 	const dispatch = useDispatch();
 	const {
 		latexInput,
@@ -53,35 +55,42 @@ export default function BodyContainer() {
 		dispatch(setLatexTextInputWithDebounce(e.target.value));
 	};
 
-	const handleDragStart = e => {
-		startPageY = e.pageY;
+	const handleMouseDown = e => {
+		setIsMove(true);
+		setPageYValue(e.pageY);
+		setGhostHeight(e.pageY - 100);
 	};
 
-	const handleDrop = e => {
-		endPageY = e.pageY;
-		const sub = startPageY - endPageY;
-		let expectedFormulaHeight;
-		let	expectedLatexHeight;
+	const handleMouseUp = e => {
+		if (isMove) {
+			setIsMove(false);
 
-		if (heights.formula - sub < MIN_HEIGHT) {
-			expectedFormulaHeight = MIN_HEIGHT;
-			expectedLatexHeight = maxHeight - MIN_HEIGHT;
-		} else if (heights.latex + sub < MIN_HEIGHT) {
-			expectedLatexHeight = MIN_HEIGHT;
-			expectedFormulaHeight = maxHeight - MIN_HEIGHT;
-		} else {
-			expectedFormulaHeight = heights.formula - sub;
-			expectedLatexHeight = heights.latex + sub;
+			const sub = pageYValue - e.pageY;
+
+			let expectedFormulaHeight;
+			let expectedLatexHeight;
+
+			if (heights.formula - sub < MIN_HEIGHT) {
+				expectedFormulaHeight = MIN_HEIGHT;
+				expectedLatexHeight = maxHeight - MIN_HEIGHT;
+			} else if (heights.latex + sub < MIN_HEIGHT) {
+				expectedLatexHeight = MIN_HEIGHT;
+				expectedFormulaHeight = maxHeight - MIN_HEIGHT;
+			} else {
+				expectedFormulaHeight = heights.formula - sub;
+				expectedLatexHeight = heights.latex + sub;
+			}
+
+			const rate = expectedFormulaHeight / (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) * 100;
+
+			setRateOfFormulaHeight(rate);
+
+			setHeights({
+				formula: expectedFormulaHeight,
+				latex: expectedLatexHeight,
+			});
+			setGhostHeight(heights.formula);
 		}
-
-		const rate = expectedFormulaHeight / (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) * 100;
-
-		setRateOfFormulaHeight(rate);
-
-		setHeights({
-			formula: expectedFormulaHeight,
-			latex: expectedLatexHeight,
-		});
 	};
 
 	const resizeEvent = rate => () => {
@@ -105,16 +114,24 @@ export default function BodyContainer() {
 		setHeights(changedHeight);
 	};
 
+	const handleMouseMove = e => {
+		if (isMove) {
+			setGhostHeight(e.pageY - 100);
+		}
+	};
+
 	useEffect(() => {
 		const eventFunc = toFitSimple(resizeEvent(rateOfFormulaHeight));
 
+		if (isMove) {
+			window.addEventListener("mouseup", handleMouseUp);
+		}
 		window.addEventListener("resize", eventFunc);
 		return () => {
+			window.removeEventListener("mouseup", handleMouseUp);
 			window.removeEventListener("resize", eventFunc);
 		};
 	});
-
-	const preventDefault = e => e.preventDefault();
 
 	return (
 		<BodyLayout>
@@ -122,7 +139,7 @@ export default function BodyContainer() {
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
-			<DropdownWrapper onDrop={handleDrop} onDragOver={preventDefault}>
+			<DropdownWrapper onMouseMove={throttle(handleMouseMove, 100)} >
 				<FormulaRepresentation
 					height={heights.formula}
 					latexInput={latexInput}
@@ -131,15 +148,13 @@ export default function BodyContainer() {
 					fontInfo={fontInfo}
 					alignInfo={alignInfo}
 				/>
-				{/* <div> */}
-				{/* <DynamicBar onMouseDown={handleMouseDown}/> */}
-				<DynamicBar onDrag={preventDefault} onDragStart={handleDragStart} />
+				{isMove && <GhostBar ghostHeight={ghostHeight} />}
+				<DynamicBar onMouseDown={handleMouseDown} top={heights.formula} />
 				<LatexRepresentation
 					height={heights.latex}
 					latexInput={latexInput}
 					onChange={handleLatexTextarea}
 				/>
-				{/* </div> */}
 			</DropdownWrapper>
 		</BodyLayout>
 	);
