@@ -20,8 +20,8 @@ const Layout = styled.input.attrs({ placeholder: "Search" })`
 	}
 `;
 
-export default function Filter() {
+export default function Filter({ onChange }) {
 	return (
-		<Layout/>
+		<Layout onChange={onChange} />
 	);
 }

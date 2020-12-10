@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -21,6 +21,7 @@ import DirectoryTitle from "../presentationals/DirectoryTitle";
 export default function CustomContainer() {
 	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
+	const [searchTerm, setSearchTerm] = useState("");
 
 	const handleFormOnButton = () => {
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "", description: "" }));
@@ -102,9 +103,19 @@ export default function CustomContainer() {
 		}
 	};
 
+	const handleFilter = ({ target }) => {
+		const inputValue = target.value;
+
+		if (!inputValue) {
+			setSearchTerm("");
+			return;
+		}
+		setSearchTerm(inputValue);
+	};
+
 	return (
 		<>
-			<Filter />
+			<Filter onChange={handleFilter} />
 			<CharacterContainerLayout>
 				<BlueButton
 					value={customFormValue.state ? "취소" : "새 커스텀 추가하기"}
@@ -124,20 +135,22 @@ export default function CustomContainer() {
 					onClickDeleteButton={handleDeleteAllClick}
 				/>
 				{customCommandList.length ?
-					customCommandList.map((item, index) =>
-						<SideTabItemLayout key={item.command}>
-							<CharacterListItem
-								item={{ ...item, symbol: "#", name: item.command }}
-								onClick={() => { }}
-							/>
-							<CustomItem
-								key={index}
-								name={item.latex}
-								onClickEdit={handleEditClick(index)}
-								onClickDelete={handleDeleteClick(index)}
-							/>
-						</SideTabItemLayout>,
-					) :
+					customCommandList
+						.filter(item => item.command.includes(searchTerm))
+						.map((item, index) =>
+							<SideTabItemLayout key={item.command}>
+								<CharacterListItem
+									item={{ ...item, symbol: "#", name: item.command }}
+									onClick={() => { }}
+								/>
+								<CustomItem
+									key={index}
+									name={item.latex}
+									onClickEdit={handleEditClick(index)}
+									onClickDelete={handleDeleteClick(index)}
+								/>
+							</SideTabItemLayout>,
+						) :
 					<EmptyItem content={"최근 저장한 명령어가 없습니다"} />}
 			</CharacterContainerLayout>
 		</>
