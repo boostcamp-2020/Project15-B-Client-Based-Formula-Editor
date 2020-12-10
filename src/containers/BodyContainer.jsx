@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLatexInputWithDebounce, setLatexTextInputWithDebounce, setCursorPosition } from "../slice";
 
 import { getLocalStorage } from "../sliceUtil";
+import AutoKeywordContainer from "./AutoKeywordContainer";
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
@@ -131,6 +132,7 @@ export default function BodyContainer() {
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
+			<AutoKeywordContainer />
 			<DropdownWrapper onDrop={handleDrop} onDragOver={preventDefault}>
 				<FormulaRepresentation
 					height={heights.formula}
