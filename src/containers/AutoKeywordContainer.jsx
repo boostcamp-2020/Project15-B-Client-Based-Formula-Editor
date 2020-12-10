@@ -14,6 +14,7 @@ export default function AutoKeywordContainer() {
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
+	const MAX_LENGTH = 7;
 
 	const updateList = () => {
 		const temp = buffer.current.join("").trim()
@@ -21,7 +22,7 @@ export default function AutoKeywordContainer() {
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
-		if (list.length > 7) list.length = 7;
+		if (list.length > MAX_LENGTH) list.length = MAX_LENGTH;
 		setRecommandationList(list);
 	};
 
