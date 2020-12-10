@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setCustomFormValue,
 	setLatexInput,
+	removeBookmarkItem,
 	removeAllBookmarkItems,
-	openConfirmModal,
 	openPromptModal,
 } from "../slice";
+import popup from "../popup";
 import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -37,12 +38,24 @@ export default function BookmarkContainer({ setTabState }) {
 		dispatch(openPromptModal({ tabId: BOOKMARK_TAB, latex: latexInput }));
 	};
 
-	const handleDeleteButton = id => () => {
-		dispatch(openConfirmModal({ tabId: BOOKMARK_TAB, id }));
+	const handleDeleteButton = id => async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "해당 북마크를 삭제하시겠습니까?",
+		});
+
+		if (answer === true) {
+			dispatch(removeBookmarkItem(id));
+		}
 	};
 
-	const handleDeleteAllClick = () => {
-		if (confirm("모든 북마크를 삭제하시겠습니까?")) {
+	const handleDeleteAllClick = async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "모든 북마크를 삭제하시겠습니까?",
+		});
+
+		if (answer === true) {
 			dispatch(removeAllBookmarkItems());
 		}
 	};

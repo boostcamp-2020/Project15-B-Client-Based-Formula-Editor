@@ -62,6 +62,10 @@ export default {
 	setBookmarkItem(state, { payload }) {
 		setLatexItem(state, payload);
 	},
+	removeBookmarkItem(state, { payload: id }) {
+		setLatexItem(state, { id, isBookmark: false });
+		updateSidebar(state);
+	},
 	removeAllBookmarkItems(state) {
 		state.latexList.forEach(item => {
 			item.isBookmark = false;

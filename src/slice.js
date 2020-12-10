@@ -60,6 +60,7 @@ export const {
 	resetEvent,
 	addBookmarkItem,
 	setBookmarkItem,
+	removeBookmarkItem,
 	removeAllBookmarkItems,
 	addRecentItem,
 	removeRecentItem,
