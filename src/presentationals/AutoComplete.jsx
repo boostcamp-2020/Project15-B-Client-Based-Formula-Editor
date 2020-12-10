@@ -6,8 +6,8 @@ import { themeColor } from "../GlobalStyle";
 
 const AutoKeywordLayout = styled.div`
 	position: fixed;
-	left: ${(({ x }) => x)}px;
-	top: ${(({ y }) => y + 15)}px;
+	left: ${({ x }) => x}px;
+	top: ${({ y }) => y + 15}px;
 	width: fit-content;
 	height: fit-content;
 	background: ${themeColor.normal};
@@ -22,15 +22,10 @@ const HightLight = styled.div`
 	min-width: 180px;
 	padding: 2px 5px;
 
-	${(({ isFocused }) => {
-		if (isFocused) {
-			return `
-				background: #5F7E97;
-				color: white;`;
-		}
-
-		return ``;
-	})}
+	${({ isFocused }) => (isFocused && `
+    background: #5F7E97;
+    color: white;
+  `)}
 `;
 
 const ItemWrapper = styled.div`
