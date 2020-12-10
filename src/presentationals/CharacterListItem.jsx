@@ -9,8 +9,7 @@ const Item = styled.div`
   align-items: center;
 	cursor: pointer;
 	color: ${themeColor.white};
-  height: 27px;
-	padding: 0 10px;
+	padding: 4px 10px;
 
   &:hover {
     background-color: #2B2D2E;
