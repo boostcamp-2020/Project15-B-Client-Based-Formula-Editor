@@ -1,8 +1,6 @@
-# 클라이언트 기반 수식 편집기
+<p align=center><img src=https://i.imgur.com/4zDHU20.png width=600></p>
 
 ## 프로젝트 소개
-
-<p align=center><img src=https://i.imgur.com/4zDHU20.png width=300></p>
 
 사용자가 필요한 수식을 어느 브라우저든 어느 기기에서든 작성할 수 있는 반응형 웹 편집기  
 
