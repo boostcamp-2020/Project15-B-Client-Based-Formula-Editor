@@ -3,12 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import GlobalStyle from "./GlobalStyle";
 import QueryStringCatcher from "./containers/QueryStringCatcher";
-import BodyContainer from "./containers/BodyContainer";
-import SideBar from "./containers/SideBar";
-import FooterContainer from "./containers/FooterContainer";
-import MainLayout from "./layouts/MainLayout";
-import MainContentWrapper from "./layouts/MainContentWrapper";
-
+import MainContainer from "./containers/MainContainer";
 
 export default function App() {
 	return (
@@ -16,13 +11,7 @@ export default function App() {
 			<Route exact path="/">
 				<GlobalStyle />
 				<QueryStringCatcher />
-				<MainLayout>
-					<SideBar />
-					<MainContentWrapper>
-						<FooterContainer />
-						<BodyContainer />
-					</MainContentWrapper>
-				</MainLayout>
+				<MainContainer />
 			</Route>
 		</BrowserRouter>
 	);
