@@ -91,6 +91,9 @@ export default {
 
 		state.bubblePopup[target] = { isOpen, message };
 	},
+	removeCustomCommand(state, { payload }) {
+		state.customCommandList = state.customCommandList.filter((_, index) => index !== payload);
+	},
 	setCustomCommandList(state, { payload }) {
 		state.customCommandList = payload;
 		updateCustomCommandList(state);

@@ -64,6 +64,7 @@ export const {
 	removeRecentItem,
 	removeAllRecentItems,
 	setBubblePopupOn,
+	removeCustomCommand,
 	setCustomCommandList,
 	setCustomFormValue,
 	setCustomFormLatex,
