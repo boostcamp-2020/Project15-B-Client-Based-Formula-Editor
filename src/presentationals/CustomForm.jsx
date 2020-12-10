@@ -7,20 +7,17 @@ import { themeColor } from "../GlobalStyle";
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	background-color: white;
+	background-color: #313131;
 	margin: 5px;
-	border: 1px solid black;
 	border-radius: 5px;
 	padding: 5px;
 
-	.mq-math-mode{
-		background-color: white;
-		color: black;
-	}
 	> * {
+		background-color: #1E1E1E;
+		color: white;
 		text-align: center;
 		padding: 3px;
-		margin: 1px;
+		margin: 3px;
 		border: 1px solid black;
 		border-radius: 3px;
 	}
