@@ -8,7 +8,7 @@ const ResizeBarHorizontal = styled.div`
 	cursor: col-resize;
 	height: 100%;
 	border-left: 2px solid ${themeColor.normal};
-	border-right: 2px solid ${themeColor.black};
+	border-right: 2px solid ${themeColor.normal};
 
   &:hover {
 		border-color: ${themeColor.superLight};
@@ -31,11 +31,7 @@ const DashedBarHorizontal = styled.div`
 	`}
 `;
 
-export default function DynamicBarHorizontal({
-	isMove,
-	onMouseDown,
-	divLeft,
-}) {
+export default function DynamicBarHorizontal({ isMove, onMouseDown, divLeft }) {
 	return (
 		<>
 			<ResizeBarHorizontal onMouseDown={onMouseDown} />
