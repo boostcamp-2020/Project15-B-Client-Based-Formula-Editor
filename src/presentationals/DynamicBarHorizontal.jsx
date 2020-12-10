@@ -9,9 +9,10 @@ const ResizeBarHorizontal = styled.div`
 	height: 100%;
 	border-left: 2px solid ${themeColor.normal};
 	border-right: 2px solid ${themeColor.normal};
+	transition: 0.2s;
 
   &:hover {
-		border-color: ${themeColor.superLight};
+		border-right: 2px solid ${themeColor.superLight};
   }
 
   @media(max-width: ${SIDE_MIN_WIDTH + BODY_MIN_WIDTH}px) {
@@ -20,14 +21,12 @@ const ResizeBarHorizontal = styled.div`
 		}
 	}
 `;
-
-const DashedBarHorizontal = styled.div`
+const DashedBarHorizontal = styled.div.attrs(({ left }) => ({ style: { left: `${left}%` } }))`
 	${prop => prop.isMove && `
 		height: 100%;
 		position: absolute;
 		border-right: 2px dashed ${themeColor.superLight};
 		z-index: 10;
-		left: ${prop.left}%;
 	`}
 `;
 

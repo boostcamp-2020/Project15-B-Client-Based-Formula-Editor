@@ -58,7 +58,7 @@ export default function BodyContainer({ bodyWidth }) {
 	const handleMouseDown = e => {
 		setIsMove(true);
 		setPageYValue(e.pageY);
-		setGhostHeight(e.pageY - 100);
+		setGhostHeight(e.pageY - 40);
 	};
 
 	const handleMouseUp = e => {
@@ -116,7 +116,7 @@ export default function BodyContainer({ bodyWidth }) {
 
 	const handleMouseMove = e => {
 		if (isMove) {
-			setGhostHeight(e.pageY - 100);
+			setGhostHeight(e.pageY - 40);
 		}
 	};
 
