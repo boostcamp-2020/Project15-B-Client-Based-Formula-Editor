@@ -26,6 +26,7 @@ const DashedBarHorizontal = styled.div`
 		height: 100%;
 		position: absolute;
 		border-right: 2px dashed ${themeColor.superLight};
+		z-index: 10;
 		left: ${prop.left}%;
 	`}
 `;
@@ -37,8 +38,8 @@ export default function DynamicBarHorizontal({
 }) {
 	return (
 		<>
-			<ResizeBarHorizontal onMouseDown={onMouseDown}/>
-			<DashedBarHorizontal isMove={isMove} left={divLeft}/>
+			<ResizeBarHorizontal onMouseDown={onMouseDown} />
+			<DashedBarHorizontal isMove={isMove} left={divLeft} />
 		</>
 	);
 }

@@ -13,7 +13,7 @@ import LatexRepresentation from "../presentationals/LatexRepresentation";
 import DynamicBar from "../presentationals/DynamicBar";
 import GhostBar from "../presentationals/GhostBar";
 
-import { latexFunction, toFitSimple } from "../util";
+import { latexFunction, throttle, toFitSimple } from "../util";
 
 export default function BodyContainer() {
 	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 113;
@@ -139,7 +139,7 @@ export default function BodyContainer() {
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
-			<DropdownWrapper onMouseMove={handleMouseMove} >
+			<DropdownWrapper onMouseMove={throttle(handleMouseMove, 100)} >
 				<FormulaRepresentation
 					height={heights.formula}
 					latexInput={latexInput}
