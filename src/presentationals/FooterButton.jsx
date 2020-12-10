@@ -16,7 +16,7 @@ const FooterButtonStyle = styled.button`
 	z-index: 3;
 	height: 40px;
 	cursor: pointer;
-	padding: 0 30px;
+	padding: 0 20px;
 	background-color: ${themeColor.dark};
 	border: 1px solid ${themeColor.white};
 	color: ${themeColor.white};
