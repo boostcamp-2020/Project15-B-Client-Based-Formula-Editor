@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setCustomFormValue,
 	setLatexInput,
+	addBookmarkItem,
 	removeBookmarkItem,
 	removeAllBookmarkItems,
-	openPromptModal,
 } from "../slice";
 import popup from "../popup";
-import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
@@ -32,10 +32,17 @@ export default function BookmarkContainer({ setTabState }) {
 		dispatch(setLatexInput(latex));
 	};
 
-	const addCurrentLatexToBookmark = () => {
+	const addCurrentLatexToBookmark = async () => {
 		if (!latexInput) return;
 
-		dispatch(openPromptModal({ tabId: BOOKMARK_TAB, latex: latexInput }));
+		const answer = await popup({
+			mode: "prompt",
+			message: "해당 북마크의 키워드를 작성해주세요.",
+		});
+
+		if (answer) {
+			dispatch(addBookmarkItem({ latex: latexInput, description: answer }));
+		}
 	};
 
 	const handleDeleteButton = id => async () => {

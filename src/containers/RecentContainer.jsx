@@ -8,6 +8,7 @@ import {
 	openPromptModal,
 	setBookmarkItem,
 	removeRecentItem,
+	addBookmarkItem,
 } from "../slice";
 import popup from "../popup";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
@@ -23,12 +24,20 @@ export default function RecentContainer({ setTabState }) {
 	const { recentItems } = useSelector(state => state);
 	const dispatch = useDispatch();
 
-	const handleBookmarkButtonClick = (id, isBookmark) => () => {
+	const handleBookmarkButtonClick = (id, isBookmark, latex) => async () => {
 		if (isBookmark) {
 			dispatch(setBookmarkItem({ id, isBookmark: false }));
 			return;
 		}
-		dispatch(openPromptModal({ tabId: RECENT_TAB, id }));
+
+		const answer = await popup({
+			mode: "prompt",
+			message: "해당 북마크의 키워드를 작성해주세요.",
+		});
+
+		if (answer) {
+			dispatch(addBookmarkItem({ latex, description: answer }));
+		}
 	};
 
 	const handleCustomButtonClick = latex => () => {
@@ -80,7 +89,7 @@ export default function RecentContainer({ setTabState }) {
 							/>
 							<ListItem
 								latex={item.latex}
-								bookmarkOnClick={handleBookmarkButtonClick(item.id, item.isBookmark)}
+								bookmarkOnClick={handleBookmarkButtonClick(item.id, item.isBookmark, item.latex)}
 								customOnClick={handleCustomButtonClick(item.latex)}
 								deleteOnClick={handleDeleteButtonClick(item.id)}
 								intoLatexFieldOnClick={handleFormulaClick(item.latex)}
