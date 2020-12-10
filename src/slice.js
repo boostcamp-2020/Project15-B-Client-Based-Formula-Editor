@@ -21,7 +21,7 @@ const { reducer, actions } = createSlice({
 		latexInput: "",
 		pastLatexInput: "",
 		fontInfo: {
-			size: "19",
+			size: "20",
 			color: "#ffffff",
 		},
 		alignInfo: "center",
@@ -39,6 +39,12 @@ const { reducer, actions } = createSlice({
 		timerId: "",
 		confirmModal: { isOpen: false, message: "정말로 삭제하시겠습니까?", data: {} },
 		promptModal: { isOpen: false, message: "북마크의 키워드를 적어주세요", data: {} },
+		cursorPosition: { x: 0, y: 0 },
+		characterTabState: {
+			character: false,
+			operator: false,
+			formula: false,
+		},
 	},
 	reducers: actionCreator,
 });
@@ -67,6 +73,8 @@ export const {
 	closeConfirmModal,
 	openPromptModal,
 	closePromptModal,
+	setCursorPosition,
+	setCharacterTabState,
 } = actions;
 
 const setPopup = (dispatch, config, ms) => {

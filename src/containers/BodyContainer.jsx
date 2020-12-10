@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLatexInputWithDebounce, setLatexTextInputWithDebounce } from "../slice";
+import { setLatexInputWithDebounce, setLatexTextInputWithDebounce, setCursorPosition } from "../slice";
 
 import { getLocalStorage } from "../sliceUtil";
+import AutoKeywordContainer from "./AutoKeywordContainer";
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
@@ -43,6 +44,15 @@ export default function BodyContainer() {
 			mathFieldLatex = mathFieldLatex.replace(`#${target.command}\\`, target.latex);
 		}
 		dispatch(setLatexInputWithDebounce(mathFieldLatex));
+
+		const root = document.querySelector(".mq-editable-field > .mq-root-block");
+		const cursor = root.querySelector(".mq-cursor");
+
+		if (!cursor) return;
+
+		const [{ x, y }] = cursor.getClientRects();
+
+		dispatch(setCursorPosition({ x, y }));
 	};
 
 	const setUpLatexInsertFunction = mathField => {
@@ -139,6 +149,7 @@ export default function BodyContainer() {
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
+			<AutoKeywordContainer />
 			<DropdownWrapper onMouseMove={throttle(handleMouseMove, 100)} >
 				<FormulaRepresentation
 					height={heights.formula}
