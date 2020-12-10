@@ -8,7 +8,7 @@ const popupStyle = `
     border-radius: 3px;
     padding: 20px 30px;
 		left: 50%;
-		transform: translate(-50%, 0);
+		transform: translateX(-50%);
 		transition: 1s;
 		z-index: 3;
 		box-shadow: 0 0 20px 3px black;
