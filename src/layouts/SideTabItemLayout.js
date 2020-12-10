@@ -9,6 +9,7 @@ const SideTabItemLayout = styled.div`
     	left: 270px;
 	    transform: translate(0, -30px);
 			color: black;
+			z-index: 1;
 		}
 	}
 	

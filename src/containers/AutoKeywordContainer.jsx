@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
-import { latexFunction } from "../util";
+import { setLatexInput, setLatexTextInput } from "../slice";
+import { latexFunction, getBackslashCountFromLatex } from "../util";
 import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
 import AutoComplete from "../presentationals/AutoComplete";
 
 export default function AutoKeywordContainer() {
+	const dispatch = useDispatch();
 	const cursorPosition = useSelector(state => state.cursorPosition);
 	const latexInput = useSelector(state => state.latexInput);
 	const [isOpen, toggleIsOpen] = useState(false);
@@ -28,36 +30,64 @@ export default function AutoKeywordContainer() {
 
 	const keyupEvent = ({ keyCode }) => {
 		if (keyCode === KEY_CODE.BACK_SLASH) {
-			setBackslashCount(backslashCount + 1);
+			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
+
+			setBackslashCount(backslashCountInLatex);
 			toggleIsOpen(!isOpen);
+			return;
 		}
 
-		if (isOpen && keyCode === KEY_CODE.BACK_SPACE) {
-			const backslashCountInLatex = latexInput.split("").filter(char => char === "\\").length;
+		const isRemoveKey = k => k === KEY_CODE.BACK_SPACE || k === KEY_CODE.DELETE;
+
+		if (!isOpen && isRemoveKey(keyCode)) {
+			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
+
+			if (backslashCountInLatex !== backslashCount) {
+				setBackslashCount(backslashCountInLatex);
+			}
+			return;
+		}
+
+		if (isOpen && isRemoveKey(keyCode)) {
+			if (latexInput === "\\ ") {
+				toggleIsOpen(false);
+				setRecommandationList([]);
+				setBackslashCount(0);
+				dispatch(setLatexInput(""));
+				dispatch(setLatexTextInput(""));
+			}
+
+			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
 			buffer.current.pop();
 			updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
-				setBackslashCount(backslashCount - 1);
+				setBackslashCount(backslashCountInLatex);
 				toggleIsOpen(false);
 			}
 		}
 	};
 
 	const keydownEvent = ({ keyCode }) => {
+		if (itemIndex > 0) {
+			setItemIndex(0);
+		}
+
 		if (!isOpen) return;
 
 		if (keyCode === KEY_CODE.DOWN) {
 			const nextIndex = (itemIndex + 1) % recommandationList.length;
 
 			setItemIndex(nextIndex);
+			return;
 		}
 
 		if (keyCode === KEY_CODE.UP) {
 			const prevIndex = (itemIndex - 1) < 0 ? recommandationList.length - 1 : itemIndex - 1;
 
 			setItemIndex(prevIndex);
+			return;
 		}
 
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
@@ -70,6 +100,7 @@ export default function AutoKeywordContainer() {
 
 			latexFunction.insertLatex(remainedLatexPart);
 
+			setRecommandationList([]);
 			buffer.current = [];
 			toggleIsOpen(false);
 			setItemIndex(0);

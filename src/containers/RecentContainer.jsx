@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setLatexInput,
 	setCustomFormValue,
+	removeRecentItem,
 	removeAllRecentItems,
-	openConfirmModal,
-	openPromptModal,
 	setBookmarkItem,
+	addBookmarkItem,
 } from "../slice";
-import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import popup from "../popup";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
@@ -23,12 +24,20 @@ export default function RecentContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
 
-	const handleBookmarkButtonClick = (id, isBookmark) => () => {
+	const handleBookmarkButtonClick = (id, isBookmark, latex) => async () => {
 		if (isBookmark) {
 			dispatch(setBookmarkItem({ id, isBookmark: false }));
 			return;
 		}
-		dispatch(openPromptModal({ tabId: RECENT_TAB, id }));
+
+		const answer = await popup({
+			mode: "prompt",
+			message: "해당 북마크의 키워드를 작성해주세요.",
+		});
+
+		if (answer) {
+			dispatch(addBookmarkItem({ latex, description: answer }));
+		}
 	};
 
 	const handleCustomButtonClick = latex => () => {
@@ -36,16 +45,28 @@ export default function RecentContainer({ setTabState }) {
 		setTabState(CUSTOM_COMMAND_TAB);
 	};
 
-	const handleDeleteButtonClick = id => () => {
-		dispatch(openConfirmModal({ tabId: RECENT_TAB, id }));
+	const handleDeleteButtonClick = id => async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "해당 수식을 삭제하시겠습니까?",
+		});
+
+		if (answer) {
+			dispatch(removeRecentItem(id));
+		}
 	};
 
 	const handleFormulaClick = latex => () => {
 		dispatch(setLatexInput(latex));
 	};
 
-	const handleDeleteAllClick = () => {
-		if (confirm("모든 최근 수식을 삭제하시겠습니까?")) {
+	const handleDeleteAllClick = async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "모든 최근 수식을 삭제하시겠습니까?",
+		});
+
+		if (answer) {
 			dispatch(removeAllRecentItems());
 		}
 	};

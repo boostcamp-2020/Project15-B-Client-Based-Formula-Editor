@@ -10,7 +10,8 @@ const LatexRepresentationStyle = styled.textarea`
 	min-height: 100px;
   padding: 8px;
 	background-color: ${themeColor.dark};
-	border: 1px solid ${themeColor.superLight};
+	border: none;
+	outline: none;
 	resize: none;
 	font-size: 17px;
 `;

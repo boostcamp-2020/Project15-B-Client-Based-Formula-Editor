@@ -6,6 +6,7 @@ const KEY_CODE = {
 	BACK_SPACE: 8,
 	DOWN: 40,
 	UP: 38,
+	DELETE: 46,
 };
 
 export default KEY_CODE;

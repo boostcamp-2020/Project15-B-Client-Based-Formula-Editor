@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setCustomFormValue,
 	setLatexInput,
+	addBookmarkItem,
+	removeBookmarkItem,
 	removeAllBookmarkItems,
-	openConfirmModal,
-	openPromptModal,
 } from "../slice";
-import { BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import popup from "../popup";
+import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import ListItem from "../presentationals/ListItem";
@@ -32,18 +33,37 @@ export default function BookmarkContainer({ setTabState }) {
 		dispatch(setLatexInput(latex));
 	};
 
-	const addCurrentLatexToBookmark = () => {
+	const addCurrentLatexToBookmark = async () => {
 		if (!latexInput) return;
 
-		dispatch(openPromptModal({ tabId: BOOKMARK_TAB, latex: latexInput }));
+		const answer = await popup({
+			mode: "prompt",
+			message: "해당 북마크의 키워드를 작성해주세요.",
+		});
+
+		if (answer) {
+			dispatch(addBookmarkItem({ latex: latexInput, description: answer }));
+		}
 	};
 
-	const handleDeleteButton = id => () => {
-		dispatch(openConfirmModal({ tabId: BOOKMARK_TAB, id }));
+	const handleDeleteButton = id => async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "해당 북마크를 삭제하시겠습니까?",
+		});
+
+		if (answer) {
+			dispatch(removeBookmarkItem(id));
+		}
 	};
 
-	const handleDeleteAllClick = () => {
-		if (confirm("모든 북마크를 삭제하시겠습니까?")) {
+	const handleDeleteAllClick = async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "모든 북마크를 삭제하시겠습니까?",
+		});
+
+		if (answer) {
 			dispatch(removeAllBookmarkItems());
 		}
 	};
