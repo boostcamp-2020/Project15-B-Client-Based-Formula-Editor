@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { throttle, calcCurrentXRatio } from "../util";
-import { INIT_SIDE_WIDTH } from "../constants/size";
+import { INITIAL_SIDE_WIDTH } from "../constants/size";
 import BodyContainer from "./BodyContainer";
 import FooterContainer from "./FooterContainer";
 import SideBar from "./SideBar";
@@ -10,10 +10,10 @@ import MainContentWrapper from "../layouts/MainContentWrapper";
 import DynamicBarHorizontal from "../presentationals/DynamicBarHorizontal";
 
 export default function MainContainer() {
-	const initValue = calcCurrentXRatio(INIT_SIDE_WIDTH);
+	const initialValue = calcCurrentXRatio(INITIAL_SIDE_WIDTH);
 	const [isMove, setIsMove] = useState(false);
-	const [divLeft, setDivLeft] = useState(initValue);
-	const [sidebarWidth, setSidebarWidth] = useState(initValue);
+	const [divLeft, setDivLeft] = useState(initialValue);
+	const [sidebarWidth, setSidebarWidth] = useState(initialValue);
 	const bodyWidth = 100 - sidebarWidth;
 
 	const handleMouseDown = e => {
