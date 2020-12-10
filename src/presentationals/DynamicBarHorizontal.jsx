@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
+import { SIDE_MIN_WIDTH, BODY_MIN_WIDTH } from "../constants/size";
 
 const ResizeBarHorizontal = styled.div`
 	cursor: col-resize;
@@ -12,7 +13,7 @@ const ResizeBarHorizontal = styled.div`
 		border-color: ${themeColor.superLight};
   }
 
-  @media(max-width: ${({ maxWidth }) => maxWidth}px) {
+  @media(max-width: ${SIDE_MIN_WIDTH + BODY_MIN_WIDTH}px) {
 		& {
 			display: none;
 		}
@@ -32,11 +33,10 @@ export default function DynamicBarHorizontal({
 	isMove,
 	onMouseDown,
 	divLeft,
-	maxWidth,
 }) {
 	return (
 		<>
-			<ResizeBarHorizontal onMouseDown={onMouseDown} maxWidth={maxWidth}/>
+			<ResizeBarHorizontal onMouseDown={onMouseDown}/>
 			<DashedBarHorizontal isMove={isMove} left={divLeft}/>
 		</>
 	);

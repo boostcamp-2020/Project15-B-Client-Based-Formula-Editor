@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { throttle } from "../util";
+import { throttle, calcCurrentXRatio } from "../util";
+import { INIT_SIDE_WIDTH } from "../constants/size";
 import BodyContainer from "./BodyContainer";
 import FooterContainer from "./FooterContainer";
 import SideBar from "./SideBar";
@@ -9,19 +10,7 @@ import MainContentWrapper from "../layouts/MainContentWrapper";
 import DynamicBarHorizontal from "../presentationals/DynamicBarHorizontal";
 
 export default function MainContainer() {
-	const sidebarMinWidth = 250;
-	const bodyMinWidth = 380;
-
-	const calcCurrentXRatio = pageX => {
-		let left = pageX < sidebarMinWidth ? sidebarMinWidth : pageX;
-		const right = (window.innerWidth - pageX);
-
-		if (right < bodyMinWidth) left = window.innerWidth - bodyMinWidth;
-		return (100 * left / window.innerWidth).toFixed(6);
-	};
-
-
-	const initValue = calcCurrentXRatio(320);
+	const initValue = calcCurrentXRatio(INIT_SIDE_WIDTH);
 	const [isMove, setIsMove] = useState(false);
 	const [divLeft, setDivLeft] = useState(initValue);
 	const [sidebarWidth, setSidebarWidth] = useState(initValue);
@@ -56,7 +45,6 @@ export default function MainContainer() {
 				isMove={isMove}
 				onMouseDown={handleMouseDown}
 				divLeft={divLeft}
-				maxWidth={sidebarMinWidth + bodyMinWidth}
 			/>
 			<MainContentWrapper bodyWidth={bodyWidth}>
 				<FooterContainer />
