@@ -24,20 +24,14 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 
 	const windowClickEvent = ({ target }) => {
 		if (popup.contains(target)) return;
-
-		removeAllEventListener();
-		document.body.removeChild(popup);
+		cleanUp();
 	};
 	const cancelClickEvent = () => {
-		document.body.removeChild(popup);
-
-		removeAllEventListener();
+		cleanUp();
 		resolve(false);
 	};
 	const confirmClickEvent = () => {
-		document.body.removeChild(popup);
-
-		removeAllEventListener();
+		cleanUp();
 		if (mode === "confirm") resolve(true);
 		if (mode === "prompt") resolve(input.value);
 	};
@@ -46,10 +40,12 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 	confirm.addEventListener("click", confirmClickEvent);
 	setTimeout(() => window.addEventListener("click", windowClickEvent), 100);
 
-	const removeAllEventListener = () => {
+	const cleanUp = () => {
 		window.removeEventListener("click", windowClickEvent);
 		cancel.removeEventListener("click", cancelClickEvent);
 		confirm.removeEventListener("click", confirmClickEvent);
+
+		document.body.removeChild(popup);
 	};
 
 	document.body.appendChild(popup);
