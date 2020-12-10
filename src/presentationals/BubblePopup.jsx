@@ -40,7 +40,7 @@ export default function BubblePopup({ isOpen, message }) {
 	return (
 		<Layout isOpen={isOpen}>
 			<Message isOpen={isOpen}>
-				<NotificationIcon />
+				<NotificationIcon fill={themeColor.blue} />
 				{message}
 			</Message>
 		</Layout>
