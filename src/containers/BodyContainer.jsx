@@ -10,7 +10,7 @@ import DropdownWrapper from "../layouts/DropdownWrapper";
 import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
-import DynamicBar from "../presentationals/DynamicBar";
+import DynamicBarVertical from "../presentationals/DynamicBarVertical";
 import GhostBar from "../presentationals/GhostBar";
 
 import { latexFunction, throttle, toFitSimple } from "../util";
@@ -149,7 +149,7 @@ export default function BodyContainer({ bodyWidth }) {
 					alignInfo={alignInfo}
 				/>
 				{isMove && <GhostBar ghostHeight={ghostHeight} />}
-				<DynamicBar onMouseDown={handleMouseDown} top={heights.formula} />
+				<DynamicBarVertical onMouseDown={handleMouseDown} top={heights.formula} />
 				<LatexRepresentation
 					height={heights.latex}
 					latexInput={latexInput}

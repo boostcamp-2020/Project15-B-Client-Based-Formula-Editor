@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
+import { themeColor } from "../GlobalStyle";
 import AngleUpIcon from "../icons/AngleUpIcon";
 import AngleDownIcon from "../icons/AngleDownIcon";
-
-import { themeColor } from "../GlobalStyle";
 
 const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px` } }))`
 	border-top: 1px solid ${themeColor.dark};
@@ -40,7 +39,7 @@ const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px
 	} 
 `;
 
-export default function DynamicBar({ onMouseDown, top }) {
+export default function DynamicBarVertical({ onMouseDown, top }) {
 	return (
 		<DynamicBarStyle onMouseDown={onMouseDown} top={top}>
 			<AngleUpIcon fill={themeColor.white} />
