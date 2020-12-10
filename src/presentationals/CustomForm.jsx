@@ -63,7 +63,7 @@ export default function CustomForm({
 			/>
 			<WarningMsg isDisabled={data.isDisabled}>이미 있는 명령어입니다.</WarningMsg>
 			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" />
-			<input onChange={onChangeDescription} name="description" type="text" placeholder="설명을 입력해주세요." />
+			<input value={data.description} onChange={onChangeDescription} name="description" placeholder="설명을 입력해주세요." />
 			<Button name="submitBtn">{data.name}</Button>
 		</Form>
 	);

@@ -29,7 +29,7 @@ export default function CustomContainer() {
 	const handleEditClick = index => () => {
 		const target = customCommandList[index];
 
-		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id: index }));
+		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, description: target.description, id: index }));
 	};
 
 	const handleDeleteClick = index => () => {
@@ -118,6 +118,7 @@ export default function CustomContainer() {
 								item={{ ...item, symbol: "#", name: item.command }}
 								onClick={() => { }}
 							/>
+							<div	>Description: {item.description}</div>
 							<CustomItem
 								key={index}
 								name={item.latex}
