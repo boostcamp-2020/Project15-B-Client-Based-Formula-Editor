@@ -12,7 +12,7 @@ import LatexRepresentation from "../presentationals/LatexRepresentation";
 
 import { latexFunction } from "../util";
 
-export default function BodyContainer() {
+export default function BodyContainer({ bodyWidth }) {
 	const dispatch = useDispatch();
 	const {
 		latexInput,
@@ -44,7 +44,7 @@ export default function BodyContainer() {
 	};
 
 	return (
-		<BodyLayout>
+		<BodyLayout bodyWidth={bodyWidth}>
 			<EditTabHeaderLayout>
 				<FontContainer />
 				<ControlButtonContainer />

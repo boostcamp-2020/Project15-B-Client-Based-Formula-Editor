@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const BodyLayout = styled.div`
-	margin: 10px;
-	width: 100%;
+	width: ${({ bodyWidth }) => bodyWidth}%;
+	min-width: 360px;
 `;
 
 export default BodyLayout;
