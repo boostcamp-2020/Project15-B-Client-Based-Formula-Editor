@@ -65,7 +65,11 @@ const popupStyle = `
 	@keyframes down {
 		0%   { top: -200px; }
 		100% { top: 10px; }
-	}
+  }
+  @keyframes up {
+    0%   { top: 10px; }
+		100% { top: -200px; }
+  }
 `;
 
 export default popupStyle;
