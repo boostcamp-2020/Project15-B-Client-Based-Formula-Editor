@@ -14,7 +14,7 @@ const Layout = styled.label`
 const FontSizeSelectorStyle = styled.select`
 	border: 0;
 	color: ${themeColor.white};
-	background-color: ${themeColor.dark};
+	background-color: transparent;
 	cursor: pointer;
 	outline: none;
 `;

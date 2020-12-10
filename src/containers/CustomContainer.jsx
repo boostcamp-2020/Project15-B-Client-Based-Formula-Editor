@@ -5,9 +5,9 @@ import {
 	setCustomCommandList,
 	setCustomFormLatex,
 	setCustomFormValue,
-	openConfirmModal,
+	removeCustomCommand,
 } from "../slice";
-import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import popup from "../popup";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import BlueButton from "../presentationals/BlueButton";
@@ -32,8 +32,15 @@ export default function CustomContainer() {
 		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, description: target.description, id: index }));
 	};
 
-	const handleDeleteClick = index => () => {
-		dispatch(openConfirmModal({ tabId: CUSTOM_COMMAND_TAB, index }));
+	const handleDeleteClick = index => async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "해당 커스텀 명령어를 삭제하시겠습니까?",
+		});
+
+		if (answer) {
+			dispatch(removeCustomCommand(index));
+		}
 	};
 
 	const handleSubmit = e => {
@@ -84,8 +91,13 @@ export default function CustomContainer() {
 		dispatch(setCustomFormValue({ ...customFormValue, description: e.target.value }));
 	};
 
-	const handleDeleteAllClick = () => {
-		if (confirm("모든 커스텀 명령어를 삭제하시겠습니까?")) {
+	const handleDeleteAllClick = async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "모든 커스텀 명령어를 삭제하시겠습니까?",
+		});
+
+		if (answer) {
 			dispatch(setCustomCommandList([]));
 		}
 	};

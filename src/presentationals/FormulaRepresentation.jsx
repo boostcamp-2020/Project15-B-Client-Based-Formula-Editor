@@ -10,7 +10,6 @@ const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: 
   height: ${prop => prop.height}px;
 	min-height: 100px;
 	background-color: ${themeColor.dark};
-	border: 1px solid ${themeColor.superLight};
 	border-top: none;
 	display: flex;
 	flex-direction: row;
@@ -23,6 +22,7 @@ const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: 
 		padding: ${prop => (prop.height - prop.fontInfo.size) / 2}px 0;
 		border: none;
 		text-align: ${props => props.align};
+		box-shadow: none;
 	}
 
 	.mq-cursor {

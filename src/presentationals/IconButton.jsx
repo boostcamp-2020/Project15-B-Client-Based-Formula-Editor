@@ -9,18 +9,22 @@ const Button = styled.button`
 	outline: none;
 	cursor: pointer;
 
-	${({ isHover }) => isHover && `
+	${({ isHover, hoverColor }) => isHover && `
 		&:hover {
 			svg {
-				fill-opacity: 0.7;
+				${hoverColor ? `fill: ${hoverColor}` : "fill-opacity: 0.7"};
 			}
 		}
 	`}
 	
 `;
 
-export default function IconButton({ icon, onClick, isHover }) {
+export default function IconButton({ icon, onClick, isHover, hoverColor }) {
 	return (
-		<Button onClick={onClick} isHover={isHover}>{icon}</Button>
+		<Button {...{
+			onClick,
+			isHover,
+			hoverColor,
+		}}>{icon}</Button>
 	);
 }
