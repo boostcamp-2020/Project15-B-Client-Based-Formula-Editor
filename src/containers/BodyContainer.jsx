@@ -15,8 +15,8 @@ import GhostBar from "../presentationals/GhostBar";
 
 import { latexFunction, throttle, toFitSimple } from "../util";
 
-export default function BodyContainer() {
-	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 113;
+export default function BodyContainer({ bodyWidth }) {
+	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 45;
 	const MIN_HEIGHT = 100;
 	const initialFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
 	const initialLatex = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 40;
@@ -134,7 +134,7 @@ export default function BodyContainer() {
 	});
 
 	return (
-		<BodyLayout>
+		<BodyLayout bodyWidth={bodyWidth}>
 			<EditTabHeaderLayout>
 				<FontContainer />
 				<ControlButtonContainer />

@@ -3,10 +3,8 @@ import React, { useState } from "react";
 import { throttle, calcCurrentXRatio } from "../util";
 import { INITIAL_SIDE_WIDTH } from "../constants/size";
 import BodyContainer from "./BodyContainer";
-import FooterContainer from "./FooterContainer";
 import SideBar from "./SideBar";
 import MainLayout from "../layouts/MainLayout";
-import MainContentWrapper from "../layouts/MainContentWrapper";
 import DynamicBarHorizontal from "../presentationals/DynamicBarHorizontal";
 
 export default function MainContainer() {
@@ -46,10 +44,7 @@ export default function MainContainer() {
 				onMouseDown={handleMouseDown}
 				divLeft={divLeft}
 			/>
-			<MainContentWrapper bodyWidth={bodyWidth}>
-				<FooterContainer />
-				<BodyContainer />
-			</MainContentWrapper>
+			<BodyContainer bodyWidth={bodyWidth}/>
 		</MainLayout>
 	);
 }
