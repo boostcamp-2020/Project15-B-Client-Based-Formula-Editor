@@ -58,3 +58,5 @@ export const calcCurrentXRatio = pageX => {
 	if (right < BODY_MIN_WIDTH) left = window.innerWidth - BODY_MIN_WIDTH;
 	return (100 * left / window.innerWidth).toFixed(6);
 };
+
+export const getBackslashCountFromLatex = latex => latex.split("").filter(char => char === "\\").length;

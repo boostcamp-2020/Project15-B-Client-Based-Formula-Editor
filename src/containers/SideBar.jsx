@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
-import { closeConfirmModal, closePromptModal, openBubblePopup, addRecentItem } from "../slice";
+import { openBubblePopup, addRecentItem } from "../slice";
 import { encodeLatex } from "../util";
 import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
@@ -12,21 +12,16 @@ import CustomContainer from "./CustomContainer";
 import SideBarLayout from "../layouts/SideBarLayout";
 import SideBarTabLayout from "../layouts/SideBarTabLayout";
 import SideBarContentLayout from "../layouts/SideBarContentLayout";
-import ConfirmModal from "../presentationals/ConfirmModal";
-import PromptModal from "../presentationals/PromptModal";
 import SideTopTab from "../presentationals/SideTopTab";
 import SideBottomTab from "../presentationals/SideBottomTab";
 
 export default function SideBar({ sidebarWidth }) {
 	const dispatch = useDispatch();
+	const [tabState, setTabState] = useState(CHARACTER_TAB);
 	const {
-		confirmModal,
-		promptModal,
 		latexInput,
 		bubblePopup: { imageDownload, linkCopy, formulaSave },
 	} = useSelector(state => state);
-	const [tabState, setTabState] = useState(CHARACTER_TAB);
-	const [promptInput, setPromptInput] = useState("");
 
 	const tabMap = {
 		[CHARACTER_TAB]: <CharacterContainer />,
@@ -37,19 +32,6 @@ export default function SideBar({ sidebarWidth }) {
 
 	const handleTabClick = tabId => () => {
 		setTabState(tabId);
-	};
-
-	const handleConfirmClick = result => () => {
-		dispatch(closeConfirmModal(result));
-	};
-
-	const handlePromptClick = result => () => {
-		dispatch(closePromptModal(result));
-		setPromptInput("");
-	};
-
-	const handlePromptChange = e => {
-		setPromptInput(e.target.value);
 	};
 
 	const handleDownloadAsImage = async () => {
@@ -106,20 +88,6 @@ export default function SideBar({ sidebarWidth }) {
 
 	return (
 		<>
-			<PromptModal
-				isOpen={promptModal.isOpen}
-				message={promptModal.message}
-				inputValue={promptInput}
-				onChange={handlePromptChange}
-				onClickYes={handlePromptClick(promptInput)}
-				onClickNo={handlePromptClick(false)}
-			/>
-			<ConfirmModal
-				isOpen={confirmModal.isOpen}
-				message={confirmModal.message}
-				onClickYes={handleConfirmClick(true)}
-				onClickNo={handleConfirmClick(false)}
-			/>
 			<SideBarLayout width={sidebarWidth}>
 				<SideBarTabLayout>
 					<SideTopTab currentTab={tabState} onClick={handleTabClick} />

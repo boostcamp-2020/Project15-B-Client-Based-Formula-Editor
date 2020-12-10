@@ -20,7 +20,7 @@ const FontSizeSelectorStyle = styled.select`
 `;
 
 export default function FontSizeSelector({ fontSize, onChange }) {
-	const ableFontSize = [11, 12, 13, 14, 15, 16, 17, 18, 19];
+	const ableFontSize = [10, 12, 14, 16, 20, 24, 32, 40, 48];
 
 	return (
 		<Layout>

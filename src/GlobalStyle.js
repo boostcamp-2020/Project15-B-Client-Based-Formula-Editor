@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import popupStyle from "./popupStyle";
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -26,6 +27,8 @@ const GlobalStyle = createGlobalStyle`
 	::-webkit-scrollbar-thumb:hover { background: #fff3; } /* 실질적 스크롤 바 위에 마우스를 올려다 둘 때 */
 	::-webkit-scrollbar-thumb:active { background: #fff4; } /* 실질적 스크롤 바를 클릭할 때 */
 	::-webkit-scrollbar-button { display: none; } /* 스크롤 바 상 하단 버튼 */
+
+	${popupStyle}
 `;
 
 export const themeColor = {

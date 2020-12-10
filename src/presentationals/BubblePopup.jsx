@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
+import NotificationIcon from "../icons/NotificationIcon";
 
 const transition = "0.5s";
 
@@ -19,19 +20,29 @@ const Layout = styled.div`
 `;
 
 const Message = styled.div`
-  padding: 10px 20px;
+  padding: 15px 30px;
   font-weight: bold;
-  border-radius: 10px;
   transition: ${transition};
-  background-color: ${color.normal};
+  background-color: ${themeColor.normal};
+  box-shadow: 0 0 7px 3px black;
   color: white;
   opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
+
+  > svg {
+    width: 20px;
+    position: relative;
+    top: 4px;
+    right: 8px;
+  }
 `;
 
 export default function BubblePopup({ isOpen, message }) {
 	return (
 		<Layout isOpen={isOpen}>
-			<Message isOpen={isOpen}>{message}</Message>
+			<Message isOpen={isOpen}>
+				<NotificationIcon fill={themeColor.blue} />
+				{message}
+			</Message>
 		</Layout>
 	);
 }
