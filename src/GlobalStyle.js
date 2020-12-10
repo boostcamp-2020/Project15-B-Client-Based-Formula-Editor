@@ -13,6 +13,11 @@ const GlobalStyle = createGlobalStyle`
 
 	body {
 		overflow-x: hidden;
+		-ms-user-select: none; 
+		-moz-user-select: -moz-none; 
+		-webkit-user-select: none; 
+		-khtml-user-select: none; 
+		user-select:none;
 	}
 
 	::-webkit-scrollbar { width: 12px; } /* 스크롤 바 */
