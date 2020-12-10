@@ -12,9 +12,13 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-    min-width: 810px;
     min-height: 313px;
 		overflow-x: hidden;
+		-ms-user-select: none; /* Internet Explorer/Edge */
+		-moz-user-select: -moz-none; /* Firefox */ 
+		-webkit-user-select: none; /* Safari */ 
+		-khtml-user-select: none; /* Konqueror HTML */ 
+		user-select:none; /* supported by Chrome and Opera */
 	}
 
 	::-webkit-scrollbar { width: 12px; } /* 스크롤 바 */
