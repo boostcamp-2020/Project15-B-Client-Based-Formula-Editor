@@ -6,6 +6,7 @@ import { getLocalStorage } from "../sliceUtil";
 import FontContainer from "./FontContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
+import DropdownWrapper from "../layouts/DropdownWrapper";
 import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
@@ -53,15 +54,12 @@ export default function BodyContainer() {
 		dispatch(setLatexTextInputWithDebounce(e.target.value));
 	};
 
-	const handleDragStart = e => {
-		startPageY = e.pageY;
+	const handleMouseDown = e => {
 	};
 
-	const handleDrop = e => {
-		endPageY = e.pageY;
-		const sub = startPageY - endPageY;
+	const handleMouseUp = e => {
 		let expectedFormulaHeight;
-		let	expectedLatexHeight;
+			let expectedLatexHeight;
 
 		if (heights.formula - sub < MIN_HEIGHT) {
 			expectedFormulaHeight = MIN_HEIGHT;
@@ -105,6 +103,9 @@ export default function BodyContainer() {
 		setHeights(changedHeight);
 	};
 
+	const handleMouseMove = e => {
+	};
+
 	useEffect(() => {
 		const eventFunc = toFitSimple(resizeEvent(rateOfFormulaHeight));
 
@@ -122,7 +123,7 @@ export default function BodyContainer() {
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
-			<DropdownWrapper onDrop={handleDrop} onDragOver={preventDefault}>
+			<DropdownWrapper onMouseMove={handleMouseMove} >
 				<FormulaRepresentation
 					height={heights.formula}
 					latexInput={latexInput}
@@ -131,9 +132,7 @@ export default function BodyContainer() {
 					fontInfo={fontInfo}
 					alignInfo={alignInfo}
 				/>
-				{/* <div> */}
-				{/* <DynamicBar onMouseDown={handleMouseDown}/> */}
-				<DynamicBar onDrag={preventDefault} onDragStart={handleDragStart} />
+				<DynamicBar onMouseDown={handleMouseDown} top={heights.formula} />
 				<LatexRepresentation
 					height={heights.latex}
 					latexInput={latexInput}

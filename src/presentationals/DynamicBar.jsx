@@ -6,7 +6,7 @@ import AngleDownIcon from "../icons/AngleDownIcon";
 
 import { themeColor } from "../GlobalStyle";
 
-const DynamicBarStyle = styled.div`
+const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px` } }))`
 	height: 5px;
 	width: 100%;
   background-color: white;
@@ -31,11 +31,11 @@ const DynamicBarStyle = styled.div`
 	}
 `;
 
-export default function DynamicBar({ onDrag, onDragStart }) {
+export default function DynamicBar({ onMouseDown, top }) {
 	return (
-		<DynamicBarStyle draggable='true' onDrag={onDrag} onDragStart={onDragStart}>
-			<AngleUpIcon fill={themeColor.white}/>
-			<AngleDownIcon fill={themeColor.white}/>
+		<DynamicBarStyle onMouseDown={onMouseDown} top={top}>
+			<AngleUpIcon fill={themeColor.white} />
+			<AngleDownIcon fill={themeColor.white} />
 		</DynamicBarStyle>
 	);
 }
