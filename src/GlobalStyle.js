@@ -37,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 20px 30px;
 		left: 50%;
 		transition: 1s;
+		z-index: 3;
 
 		> input {
 			width: 100%;
@@ -58,14 +59,14 @@ const GlobalStyle = createGlobalStyle`
 		}
 
 		animation-name: down;
-		animation-duration: 1s;
+		animation-duration: 0.5s;
 		animation-iteration-count: 1;
 		animation-fill-mode: forwards;
 	}
 
 	@keyframes down {
 		0%   { top: -100px; }
-		100% { top: 300px; }
+		100% { top: 10px; }
 	}
 `;
 
