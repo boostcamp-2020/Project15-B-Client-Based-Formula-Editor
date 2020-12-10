@@ -11,6 +11,7 @@ import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
 import DynamicBar from "../presentationals/DynamicBar";
+import GhostBar from "../presentationals/GhostBar";
 
 import { latexFunction, toFitSimple } from "../util";
 
@@ -24,6 +25,7 @@ export default function BodyContainer() {
 	const [rateOfFormulaHeight, setRateOfFormulaHeight] = useState(60);
 	const [pageYValue, setPageYValue] = useState(0);
 	const [isMove, setIsMove] = useState(false);
+	const [ghostHeight, setGhostHeight] = useState(heights.formula);
 	const dispatch = useDispatch();
 	const {
 		latexInput,
@@ -56,6 +58,7 @@ export default function BodyContainer() {
 	const handleMouseDown = e => {
 		setIsMove(true);
 		setPageYValue(e.pageY);
+		setGhostHeight(e.pageY - 100);
 	};
 
 	const handleMouseUp = e => {
@@ -64,28 +67,30 @@ export default function BodyContainer() {
 
 			const sub = pageYValue - e.pageY;
 
-		let expectedFormulaHeight;
+			let expectedFormulaHeight;
 			let expectedLatexHeight;
 
-		if (heights.formula - sub < MIN_HEIGHT) {
-			expectedFormulaHeight = MIN_HEIGHT;
-			expectedLatexHeight = maxHeight - MIN_HEIGHT;
-		} else if (heights.latex + sub < MIN_HEIGHT) {
-			expectedLatexHeight = MIN_HEIGHT;
-			expectedFormulaHeight = maxHeight - MIN_HEIGHT;
-		} else {
-			expectedFormulaHeight = heights.formula - sub;
-			expectedLatexHeight = heights.latex + sub;
+			if (heights.formula - sub < MIN_HEIGHT) {
+				expectedFormulaHeight = MIN_HEIGHT;
+				expectedLatexHeight = maxHeight - MIN_HEIGHT;
+			} else if (heights.latex + sub < MIN_HEIGHT) {
+				expectedLatexHeight = MIN_HEIGHT;
+				expectedFormulaHeight = maxHeight - MIN_HEIGHT;
+			} else {
+				expectedFormulaHeight = heights.formula - sub;
+				expectedLatexHeight = heights.latex + sub;
+			}
+
+			const rate = expectedFormulaHeight / (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) * 100;
+
+			setRateOfFormulaHeight(rate);
+
+			setHeights({
+				formula: expectedFormulaHeight,
+				latex: expectedLatexHeight,
+			});
+			setGhostHeight(heights.formula);
 		}
-
-		const rate = expectedFormulaHeight / (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) * 100;
-
-		setRateOfFormulaHeight(rate);
-
-		setHeights({
-			formula: expectedFormulaHeight,
-			latex: expectedLatexHeight,
-		});
 	};
 
 	const resizeEvent = rate => () => {
@@ -110,6 +115,9 @@ export default function BodyContainer() {
 	};
 
 	const handleMouseMove = e => {
+		if (isMove) {
+			setGhostHeight(e.pageY - 100);
+		}
 	};
 
 	useEffect(() => {
@@ -140,13 +148,13 @@ export default function BodyContainer() {
 					fontInfo={fontInfo}
 					alignInfo={alignInfo}
 				/>
+				{isMove && <GhostBar ghostHeight={ghostHeight} />}
 				<DynamicBar onMouseDown={handleMouseDown} top={heights.formula} />
 				<LatexRepresentation
 					height={heights.latex}
 					latexInput={latexInput}
 					onChange={handleLatexTextarea}
 				/>
-				{/* </div> */}
 			</DropdownWrapper>
 		</BodyLayout>
 	);
