@@ -7,7 +7,8 @@ import { SIDE_MIN_WIDTH, BODY_MIN_WIDTH } from "../constants/size";
 const ResizeBarHorizontal = styled.div`
 	cursor: col-resize;
 	height: 100%;
-	border-right: 3px solid ${themeColor.normal};
+	border-left: 2px solid ${themeColor.normal};
+	border-right: 2px solid ${themeColor.black};
 
   &:hover {
 		border-color: ${themeColor.superLight};
