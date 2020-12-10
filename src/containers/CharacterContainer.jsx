@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setCharacterTabState } from "../slice";
@@ -12,6 +12,8 @@ import Filter from "../presentationals/Filter";
 export default function CharacterContainer() {
 	const dispatch = useDispatch();
 	const isOpenMenu = useSelector(state => state.characterTabState);
+	const [searchTerm, setSearchTerm] = useState("");
+	const titles = Object.keys(isOpenMenu);
 
 	const handleClickItem = latex => () => {
 		latexFunction.insertLatex(latex);
@@ -21,24 +23,47 @@ export default function CharacterContainer() {
 		dispatch(setCharacterTabState(title));
 	};
 
+
+	const handleFilter = ({ target }) => {
+		const inputValue = target.value;
+
+		if (!inputValue) {
+			setSearchTerm("");
+			titles.forEach(title => {
+				if (isOpenMenu[title]) { dispatch(setCharacterTabState(title)); }
+			});
+			return;
+		}
+		setSearchTerm(inputValue);
+
+		titles.forEach(title => {
+			if (!isOpenMenu[title]) dispatch(setCharacterTabState(title));
+		});
+	};
+
 	return (
 		<>
-			<Filter />
+			<Filter onChange={handleFilter}/>
 			<CharacterContainerLayout>
-				{Object.keys(isOpenMenu).map(title =>
-					<div key={title}>
-						<DirectoryTitle
-							title={title}
-							onClick={handleClickMenu(title)}
-							isOpen={isOpenMenu[title]}
-							length={characterLatex[title].length}
-						/>
-						<CharacterList
-							isOpen={isOpenMenu[title]}
-							list={characterLatex[title]}
-							handleClickItem={handleClickItem}
-						/>
-					</div>,
+				{titles.map(title => {
+					const filteredList = characterLatex[title].filter(item => (searchTerm ? item.name.includes(searchTerm) || item.symbol.includes(searchTerm) : true));
+
+					return (
+						<div key={title}>
+							<DirectoryTitle
+								title={title}
+								onClick={handleClickMenu(title)}
+								isOpen={isOpenMenu[title]}
+								length={`${filteredList.length}`}
+							/>
+							<CharacterList
+								isOpen={isOpenMenu[title]}
+								list={filteredList}
+								handleClickItem={handleClickItem}
+							/>
+						</div>
+					);
+				},
 				)}
 			</CharacterContainerLayout>
 		</>
