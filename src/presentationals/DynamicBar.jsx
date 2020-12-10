@@ -10,10 +10,11 @@ const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px
 	height: 5px;
 	width: 100%;
   background-color: white;
-	position: relative;
+	position: absolute;
 	display: grid;
   cursor: ns-resize;
 	svg {
+		pointer-events: none;
 		position: relative;
 		opacity: 0;
 		margin: 0 auto;
