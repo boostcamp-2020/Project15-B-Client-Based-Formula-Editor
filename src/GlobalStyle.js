@@ -26,6 +26,24 @@ const GlobalStyle = createGlobalStyle`
 	::-webkit-scrollbar-thumb:hover { background: #fff3; } /* 실질적 스크롤 바 위에 마우스를 올려다 둘 때 */
 	::-webkit-scrollbar-thumb:active { background: #fff4; } /* 실질적 스크롤 바를 클릭할 때 */
 	::-webkit-scrollbar-button { display: none; } /* 스크롤 바 상 하단 버튼 */
+
+	.popup {
+		width: 300px;
+		position: fixed;
+		background: yellow;
+		left: 50%;
+		transition: 1s;
+
+		animation-name: down;
+		animation-duration: 1s;
+		animation-iteration-count: 1;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes down {
+		0%   { top: -100px; }
+		100% { top: 300px; }
+	}
 `;
 
 export const themeColor = {
