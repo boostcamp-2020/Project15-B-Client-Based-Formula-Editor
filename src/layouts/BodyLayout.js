@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 const BodyLayout = styled.div`
-	width: ${({ bodyWidth }) => bodyWidth}%;
-	min-width: 360px;
+	width: 100%;
+	padding: 0 10px;
+	/* height: fit-content; */
 `;
 
 export default BodyLayout;

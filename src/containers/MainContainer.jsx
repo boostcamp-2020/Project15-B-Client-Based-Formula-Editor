@@ -2,13 +2,15 @@ import React, { useState } from "react";
 
 import { throttle } from "../util";
 import BodyContainer from "./BodyContainer";
+import FooterContainer from "./FooterContainer";
 import SideBar from "./SideBar";
 import MainLayout from "../layouts/MainLayout";
+import MainContentWrapper from "../layouts/MainContentWrapper";
 import DynamicBarHorizontal from "../presentationals/DynamicBarHorizontal";
 
 export default function MainContainer() {
 	const sidebarMinWidth = 250;
-	const bodyMinWidth = 360;
+	const bodyMinWidth = 380;
 	const initValue = 40;
 	const [isMove, setIsMove] = useState(false);
 	const [divLeft, setDivLeft] = useState(initValue);
@@ -54,7 +56,10 @@ export default function MainContainer() {
 				divLeft={divLeft}
 				maxWidth={sidebarMinWidth + bodyMinWidth}
 			/>
-			<BodyContainer bodyWidth={bodyWidth} />
+			<MainContentWrapper bodyWidth={bodyWidth}>
+				<FooterContainer />
+				<BodyContainer />
+			</MainContentWrapper>
 		</MainLayout>
 	);
 }

@@ -5,7 +5,7 @@ const FooterLayout = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	width: 100%;
-	margin-top: 8px;
+	padding: 8px 10px;
 `;
 
 export default FooterLayout;

@@ -12,6 +12,7 @@ import IconButton from "./IconButton";
 const Layout = styled.div`
 	height: 150px;
 	position: relative;
+  z-index: 500;
 
 	&:hover {
 		> div:first-child {
