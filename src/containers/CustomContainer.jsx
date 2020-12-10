@@ -130,7 +130,6 @@ export default function CustomContainer() {
 								item={{ ...item, symbol: "#", name: item.command }}
 								onClick={() => { }}
 							/>
-							<div	>Description: {item.description}</div>
 							<CustomItem
 								key={index}
 								name={item.latex}
