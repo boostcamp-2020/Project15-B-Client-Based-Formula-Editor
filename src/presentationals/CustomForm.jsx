@@ -15,6 +15,7 @@ const Form = styled.form`
 
 	.mq-math-mode{
 		background-color: white;
+		color: black;
 	}
 	> * {
 		text-align: center;
