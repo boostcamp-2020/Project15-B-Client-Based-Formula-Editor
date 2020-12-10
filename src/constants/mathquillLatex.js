@@ -107,7 +107,7 @@ const mathquillLatex = {
 	"\\ngtr": "\\ngtr",
 	"\\ni": "\\ni",
 	"\\nless": "\\nless",
-	"\\nsubset": "\\not\\subset",
+	"\\nsubset": "\\nsubset",
 	"\\nsubseteq": "\\nsubseteq",
 	"\\nsupset": "\\nsupset",
 	"\\nsupseteq": "\\nsupseteq",
