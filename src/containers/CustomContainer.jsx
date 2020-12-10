@@ -23,7 +23,7 @@ export default function CustomContainer() {
 	const dispatch = useDispatch();
 
 	const handleFormOnButton = () => {
-		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
+		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "", description: "" }));
 	};
 
 	const handleEditClick = index => () => {
@@ -38,34 +38,37 @@ export default function CustomContainer() {
 
 	const handleSubmit = e => {
 		e.preventDefault();
+		const tempCustomCommandList = [...customCommandList];
 		const isExist = customCommandList.find(elem => elem.command === customFormValue.command);
 		const buttonName = e.target.submitBtn.innerText;
+		const index = customFormValue.id;
 
 		if (buttonName === "등록") {
 			if (isExist) {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}
-			const tempCustomCommands = [
-				...customCommandList,
-				{ command: customFormValue.command, latex: customFormValue.latex },
-			];
-
-			dispatch(setCustomCommandList(tempCustomCommands));
+			tempCustomCommandList.push({
+				command: customFormValue.command,
+				latex: customFormValue.latex,
+				description: customFormValue.description,
+			});
 		}
 
 		if (buttonName === "수정") {
-			const index = customFormValue.id;
-			const tempCustomCommands = [...customCommandList];
-
-			tempCustomCommands[index] = { command: customFormValue.command, latex: customFormValue.latex };
-
 			if (isExist && e.target.command.value !== customCommandList[index].command) {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}
-			dispatch(setCustomCommandList(tempCustomCommands));
+			tempCustomCommandList[index] =
+			{
+				command: customFormValue.command,
+				latex: customFormValue.latex,
+				description: customFormValue.description,
+			};
 		}
+
+		dispatch(setCustomCommandList(tempCustomCommandList));
 		dispatch(setCustomFormValue({ state: false, command: "", latex: "", id: -1, isDisabled: false }));
 	};
 
@@ -75,6 +78,10 @@ export default function CustomContainer() {
 
 	const onChangeLatex = mathField => {
 		dispatch(setCustomFormLatex(mathField.latex()));
+	};
+
+	const onChangeDescription = e => {
+		dispatch(setCustomFormValue({ ...customFormValue, description: e.target.value }));
 	};
 
 	const handleDeleteAllClick = () => {
@@ -96,6 +103,7 @@ export default function CustomContainer() {
 						data={customFormValue}
 						onChangeCommand={onChangeCommand}
 						onChangeLatex={onChangeLatex}
+						onChangeDescription={onChangeDescription}
 						onSubmit={handleSubmit}
 					/>}
 				<DirectoryTitle
@@ -108,7 +116,7 @@ export default function CustomContainer() {
 						<SideTabItemLayout key={item.command}>
 							<CharacterListItem
 								item={{ ...item, symbol: "#", name: item.command }}
-								onClick={() => {}}
+								onClick={() => { }}
 							/>
 							<CustomItem
 								key={index}
@@ -118,7 +126,7 @@ export default function CustomContainer() {
 							/>
 						</SideTabItemLayout>,
 					) :
-					<EmptyItem content={"최근 저장한 명령어가 없습니다"}/>}
+					<EmptyItem content={"최근 저장한 명령어가 없습니다"} />}
 			</CharacterContainerLayout>
 		</>
 	);

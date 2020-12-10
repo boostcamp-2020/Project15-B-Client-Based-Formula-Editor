@@ -48,7 +48,9 @@ const WarningMsg = styled.p`
 	border: none;
 `;
 
-export default function CustomForm({ data, onChangeCommand, onChangeLatex, onSubmit }) {
+export default function CustomForm({
+	data, onChangeCommand, onChangeLatex, onChangeDescription, onSubmit,
+}) {
 	return (
 		<Form onSubmit={onSubmit}>
 			<input
@@ -60,7 +62,8 @@ export default function CustomForm({ data, onChangeCommand, onChangeLatex, onSub
 				autoFocus
 			/>
 			<WarningMsg isDisabled={data.isDisabled}>이미 있는 명령어입니다.</WarningMsg>
-			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" placeholder="mathquill 자리입니다." />
+			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" />
+			<input onChange={onChangeDescription} name="description" type="text" placeholder="설명을 입력해주세요." />
 			<Button name="submitBtn">{data.name}</Button>
 		</Form>
 	);
