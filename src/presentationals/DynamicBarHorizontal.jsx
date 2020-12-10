@@ -6,10 +6,10 @@ import { themeColor } from "../GlobalStyle";
 const ResizeBarHorizontal = styled.div`
 	cursor: col-resize;
 	height: 100%;
-	border-right: 2px solid ${themeColor.normal};
+	border-right: 3px solid ${themeColor.normal};
 
   &:hover {
-    border-right: 2px solid ${themeColor.superLight};
+		border-color: ${themeColor.superLight};
   }
 
   @media(max-width: ${({ maxWidth }) => maxWidth}px) {
