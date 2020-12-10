@@ -7,7 +7,7 @@ import { themeColor } from "../GlobalStyle";
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	background-color: #313131;
+	background-color: ${themeColor.light};
 	margin: 5px;
 	border-radius: 5px;
 	padding: 5px;
@@ -15,7 +15,7 @@ const Form = styled.form`
 	> * {
 		border: none;
 		outline: none;
-		background-color: #1E1E1E;
+		background-color: ${themeColor.dark};
 		color: white;
 		text-align: center;
 		padding: 3px;
