@@ -11,13 +11,13 @@ import DropdownWrapper from "../layouts/DropdownWrapper";
 import EditTabHeaderLayout from "../layouts/EditTabHeaderLayout";
 import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
-import DynamicBar from "../presentationals/DynamicBar";
+import DynamicBarVertical from "../presentationals/DynamicBarVertical";
 import GhostBar from "../presentationals/GhostBar";
 
 import { latexFunction, throttle, toFitSimple } from "../util";
 
-export default function BodyContainer() {
-	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 113;
+export default function BodyContainer({ bodyWidth }) {
+	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 45;
 	const MIN_HEIGHT = 100;
 	const initialFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
 	const initialLatex = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 40;
@@ -68,7 +68,7 @@ export default function BodyContainer() {
 	const handleMouseDown = e => {
 		setIsMove(true);
 		setPageYValue(e.pageY);
-		setGhostHeight(e.pageY - 100);
+		setGhostHeight(e.pageY - 40);
 	};
 
 	const handleMouseUp = e => {
@@ -126,7 +126,7 @@ export default function BodyContainer() {
 
 	const handleMouseMove = e => {
 		if (isMove) {
-			setGhostHeight(e.pageY - 100);
+			setGhostHeight(e.pageY - 40);
 		}
 	};
 
@@ -144,7 +144,7 @@ export default function BodyContainer() {
 	});
 
 	return (
-		<BodyLayout>
+		<BodyLayout bodyWidth={bodyWidth}>
 			<EditTabHeaderLayout>
 				<FontContainer />
 				<ControlButtonContainer />
@@ -160,7 +160,7 @@ export default function BodyContainer() {
 					alignInfo={alignInfo}
 				/>
 				{isMove && <GhostBar ghostHeight={ghostHeight} />}
-				<DynamicBar onMouseDown={handleMouseDown} top={heights.formula} />
+				<DynamicBarVertical onMouseDown={handleMouseDown} top={heights.formula} />
 				<LatexRepresentation
 					height={heights.latex}
 					latexInput={latexInput}

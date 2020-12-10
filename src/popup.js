@@ -44,8 +44,12 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 		window.removeEventListener("click", windowClickEvent);
 		cancel.removeEventListener("click", cancelClickEvent);
 		confirm.removeEventListener("click", confirmClickEvent);
+		popup.style.animationName = "up";
+		popup.style.animationDuration = "1s";
 
-		document.body.removeChild(popup);
+		setTimeout(() => {
+			document.body.removeChild(popup);
+		}, 1000);
 	};
 
 	document.body.appendChild(popup);

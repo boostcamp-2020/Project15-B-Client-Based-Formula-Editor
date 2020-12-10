@@ -9,11 +9,6 @@ import CustomIcon from "../icons/CustomIcon";
 import PageIcon from "../icons/PageIcon";
 import IconButton from "../presentationals/IconButton";
 
-const TabLayout = styled.div`
-	background-color: ${themeColor.light};
-	padding: 20px 10px;
-`;
-
 const Tab = styled.div`
 	margin: 12px 0;
 	
@@ -22,7 +17,7 @@ const Tab = styled.div`
 	}
 `;
 
-export default function SideBarTab({ currentTab, onClick }) {
+export default function SideTopTab({ currentTab, onClick }) {
 	const tabMenus = [
 		<PageIcon key={CHARACTER_TAB} />,
 		<TimeIcon key={RECENT_TAB}/>,
@@ -31,12 +26,16 @@ export default function SideBarTab({ currentTab, onClick }) {
 	];
 
 	return (
-		<TabLayout>
+		<div>
 			{tabMenus.map((tabMenu, index) =>
 				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
-					<IconButton isHover={currentTab !== index} icon={tabMenu} />
+					<IconButton
+						isHover={currentTab !== index}
+						hoverColor={themeColor.white}
+						icon={tabMenu}
+					/>
 				</Tab>,
 			)}
-		</TabLayout>
+		</div>
 	);
 }

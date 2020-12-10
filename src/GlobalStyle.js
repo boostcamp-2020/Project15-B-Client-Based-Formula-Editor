@@ -36,7 +36,7 @@ export const themeColor = {
 	superLight: "#666666",
 	light: "#313131",
 	normal: "#252526",
-	dark: "#111111",
+	dark: "#1E1E1E",
 	black: "#000000",
 	blue: "#22659A",
 	lightBlue: "#2A7AB8",
