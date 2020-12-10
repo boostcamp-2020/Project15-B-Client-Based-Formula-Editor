@@ -36,6 +36,7 @@ const GlobalStyle = createGlobalStyle`
     border-radius: 3px;
     padding: 20px 30px;
 		left: 50%;
+		transform: translate(-50%, 0);
 		transition: 1s;
 		z-index: 3;
 
