@@ -5,10 +5,11 @@ import {
 	setLatexInput,
 	setCustomFormValue,
 	removeAllRecentItems,
-	openConfirmModal,
 	openPromptModal,
 	setBookmarkItem,
+	removeRecentItem,
 } from "../slice";
+import popup from "../popup";
 import { RECENT_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -35,16 +36,28 @@ export default function RecentContainer({ setTabState }) {
 		setTabState(CUSTOM_COMMAND_TAB);
 	};
 
-	const handleDeleteButtonClick = id => () => {
-		dispatch(openConfirmModal({ tabId: RECENT_TAB, id }));
+	const handleDeleteButtonClick = id => async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "해당 수식을 삭제하시겠습니까?",
+		});
+
+		if (answer === true) {
+			dispatch(removeRecentItem(id));
+		}
 	};
 
 	const handleFormulaClick = latex => () => {
 		dispatch(setLatexInput(latex));
 	};
 
-	const handleDeleteAllClick = () => {
-		if (confirm("모든 최근 수식을 삭제하시겠습니까?")) {
+	const handleDeleteAllClick = async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "모든 최근 수식을 삭제하시겠습니까?",
+		});
+
+		if (answer === true) {
 			dispatch(removeAllRecentItems());
 		}
 	};

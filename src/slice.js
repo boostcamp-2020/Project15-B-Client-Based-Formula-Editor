@@ -62,6 +62,7 @@ export const {
 	setBookmarkItem,
 	removeAllBookmarkItems,
 	addRecentItem,
+	removeRecentItem,
 	removeAllRecentItems,
 	setBubblePopupOn,
 	setCustomCommandList,

@@ -79,6 +79,10 @@ export default {
 		clearTimeout(state.timerId);
 		updateSidebar(state);
 	},
+	removeRecentItem(state, { payload: id }) {
+		setLatexItem(state, { id, isRecent: false });
+		updateSidebar(state);
+	},
 	removeAllRecentItems(state) {
 		state.latexList.forEach(item => {
 			item.isRecent = false;
