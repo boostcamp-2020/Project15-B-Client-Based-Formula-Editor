@@ -13,11 +13,8 @@ import LatexRepresentation from "../presentationals/LatexRepresentation";
 import DynamicBar from "../presentationals/DynamicBar";
 
 import { latexFunction, toFitSimple } from "../util";
-import DropdownWrapper from "../layouts/DropdownWrapper";
 
 export default function BodyContainer() {
-	let startPageY;
-	let endPageY;
 	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 113;
 	const MIN_HEIGHT = 100;
 	const initialFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
@@ -25,6 +22,8 @@ export default function BodyContainer() {
 	const maxHeight = initialFormula + initialLatex;
 	const [heights, setHeights] = useState({ formula: initialFormula, latex: initialLatex });
 	const [rateOfFormulaHeight, setRateOfFormulaHeight] = useState(60);
+	const [pageYValue, setPageYValue] = useState(0);
+	const [isMove, setIsMove] = useState(false);
 	const dispatch = useDispatch();
 	const {
 		latexInput,
@@ -55,9 +54,16 @@ export default function BodyContainer() {
 	};
 
 	const handleMouseDown = e => {
+		setIsMove(true);
+		setPageYValue(e.pageY);
 	};
 
 	const handleMouseUp = e => {
+		if (isMove) {
+			setIsMove(false);
+
+			const sub = pageYValue - e.pageY;
+
 		let expectedFormulaHeight;
 			let expectedLatexHeight;
 
@@ -109,13 +115,15 @@ export default function BodyContainer() {
 	useEffect(() => {
 		const eventFunc = toFitSimple(resizeEvent(rateOfFormulaHeight));
 
+		if (isMove) {
+			window.addEventListener("mouseup", handleMouseUp);
+		}
 		window.addEventListener("resize", eventFunc);
 		return () => {
+			window.removeEventListener("mouseup", handleMouseUp);
 			window.removeEventListener("resize", eventFunc);
 		};
 	});
-
-	const preventDefault = e => e.preventDefault();
 
 	return (
 		<BodyLayout>
