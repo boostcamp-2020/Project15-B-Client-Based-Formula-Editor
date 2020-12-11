@@ -10,41 +10,41 @@ import IconButton from "../presentationals/IconButton";
 const color = "#86C290";
 
 const Layout = styled.div`
-  display: flex;
-  cursor: pointer;
-  height: 27px;
-  align-items: center;
-  position: relative;
-  padding: 0 10px;
+	display: flex;
+	cursor: pointer;
+	height: 27px;
+	align-items: center;
+	position: relative;
+	padding: 0 10px;
 
-  &:hover {
-    background-color: #2B2D2E;
+	&:hover {
+		background-color: #2B2D2E;
 
-    > button {
-      display: block;
-    }
-  }
+		> button {
+			display: block;
+		}
+	}
 
-  > svg {
-    width: 12px;
-    margin-right: 10px;
-  }
+	> svg {
+		width: 12px;
+		margin-right: 10px;
+	}
 
-  > button {
-    position: absolute;
-    right: 5px;
-    display: none;
-  }
+	> button {
+		position: absolute;
+		right: 5px;
+		display: none;
+	}
 `;
 const Title = styled.div`
-  color: ${color};
+	color: ${color};
 `;
 
 const Number = styled.div`
-  color: ${color};
-  position: absolute;
-  right: 20px;
-  font-size: 13px;
+	color: ${color};
+	position: absolute;
+	right: 20px;
+	font-size: 13px;
 `;
 
 export default function DirectoryTitle({
@@ -60,11 +60,11 @@ export default function DirectoryTitle({
 			<Title>{title}</Title>
 			{length && <Number>{length}</Number>}
 			{onClickDeleteButton &&
-        <IconButton
-        	icon={<CloseIcon fill={themeColor.white} />}
-        	isHover={true}
-        	onClick={onClickDeleteButton}
-        />}
+				<IconButton
+					icon={<CloseIcon fill={themeColor.white} />}
+					isHover={true}
+					onClick={onClickDeleteButton}
+				/>}
 		</Layout>
 	);
 }

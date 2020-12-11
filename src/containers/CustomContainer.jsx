@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -8,7 +8,6 @@ import {
 	removeCustomCommand,
 } from "../slice";
 import popup from "../popup";
-import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import BlueButton from "../presentationals/BlueButton";
@@ -22,15 +21,16 @@ import DirectoryTitle from "../presentationals/DirectoryTitle";
 export default function CustomContainer() {
 	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
+	const [searchTerm, setSearchTerm] = useState("");
 
 	const handleFormOnButton = () => {
-		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "" }));
+		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "", description: "" }));
 	};
 
 	const handleEditClick = index => () => {
 		const target = customCommandList[index];
 
-		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, id: index }));
+		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, description: target.description, id: index }));
 	};
 
 	const handleDeleteClick = index => async () => {
@@ -46,34 +46,37 @@ export default function CustomContainer() {
 
 	const handleSubmit = e => {
 		e.preventDefault();
+		const tempCustomCommandList = [...customCommandList];
 		const isExist = customCommandList.find(elem => elem.command === customFormValue.command);
 		const buttonName = e.target.submitBtn.innerText;
+		const index = customFormValue.id;
 
 		if (buttonName === "등록") {
 			if (isExist) {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}
-			const tempCustomCommands = [
-				...customCommandList,
-				{ command: customFormValue.command, latex: customFormValue.latex },
-			];
-
-			dispatch(setCustomCommandList(tempCustomCommands));
+			tempCustomCommandList.push({
+				command: customFormValue.command,
+				latex: customFormValue.latex,
+				description: customFormValue.description,
+			});
 		}
 
 		if (buttonName === "수정") {
-			const index = customFormValue.id;
-			const tempCustomCommands = [...customCommandList];
-
-			tempCustomCommands[index] = { command: customFormValue.command, latex: customFormValue.latex };
-
 			if (isExist && e.target.command.value !== customCommandList[index].command) {
 				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
 				return;
 			}
-			dispatch(setCustomCommandList(tempCustomCommands));
+			tempCustomCommandList[index] =
+			{
+				command: customFormValue.command,
+				latex: customFormValue.latex,
+				description: customFormValue.description,
+			};
 		}
+
+		dispatch(setCustomCommandList(tempCustomCommandList));
 		dispatch(setCustomFormValue({ state: false, command: "", latex: "", id: -1, isDisabled: false }));
 	};
 
@@ -83,6 +86,10 @@ export default function CustomContainer() {
 
 	const onChangeLatex = mathField => {
 		dispatch(setCustomFormLatex(mathField.latex()));
+	};
+
+	const onChangeDescription = e => {
+		dispatch(setCustomFormValue({ ...customFormValue, description: e.target.value }));
 	};
 
 	const handleDeleteAllClick = async () => {
@@ -96,9 +103,19 @@ export default function CustomContainer() {
 		}
 	};
 
+	const handleFilter = ({ target }) => {
+		const inputValue = target.value;
+
+		if (!inputValue) {
+			setSearchTerm("");
+			return;
+		}
+		setSearchTerm(inputValue);
+	};
+
 	return (
 		<>
-			<Filter />
+			<Filter onChange={handleFilter} />
 			<CharacterContainerLayout>
 				<BlueButton
 					value={customFormValue.state ? "취소" : "새 커스텀 추가하기"}
@@ -109,6 +126,7 @@ export default function CustomContainer() {
 						data={customFormValue}
 						onChangeCommand={onChangeCommand}
 						onChangeLatex={onChangeLatex}
+						onChangeDescription={onChangeDescription}
 						onSubmit={handleSubmit}
 					/>}
 				<DirectoryTitle
@@ -117,21 +135,23 @@ export default function CustomContainer() {
 					onClickDeleteButton={handleDeleteAllClick}
 				/>
 				{customCommandList.length ?
-					customCommandList.map((item, index) =>
-						<SideTabItemLayout key={item.command}>
-							<CharacterListItem
-								item={{ ...item, symbol: "#", name: item.command }}
-								onClick={() => {}}
-							/>
-							<CustomItem
-								key={index}
-								name={item.latex}
-								onClickEdit={handleEditClick(index)}
-								onClickDelete={handleDeleteClick(index)}
-							/>
-						</SideTabItemLayout>,
-					) :
-					<EmptyItem content={"최근 저장한 명령어가 없습니다"}/>}
+					customCommandList
+						.filter(item => item.command.includes(searchTerm))
+						.map((item, index) =>
+							<SideTabItemLayout key={item.command}>
+								<CharacterListItem
+									item={{ ...item, symbol: "#", name: item.command }}
+									onClick={() => { }}
+								/>
+								<CustomItem
+									key={index}
+									name={item.latex}
+									onClickEdit={handleEditClick(index)}
+									onClickDelete={handleDeleteClick(index)}
+								/>
+							</SideTabItemLayout>,
+						) :
+					<EmptyItem content={"최근 저장한 명령어가 없습니다"} />}
 			</CharacterContainerLayout>
 		</>
 	);
