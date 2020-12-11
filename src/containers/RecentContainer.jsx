@@ -36,7 +36,7 @@ export default function RecentContainer({ setTabState }) {
 		});
 
 		if (answer) {
-			dispatch(addBookmarkItem({ latex, description: answer }));
+			dispatch(setBookmarkItem({ id, isBookmark: true, description: answer }));
 		}
 	};
 
