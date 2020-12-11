@@ -35,8 +35,6 @@ const GlobalStyle = createGlobalStyle`
 
 	body {
 		background-color: ${themeColor.dark};
-    min-height: 313px;
-		overflow-x: hidden;
 		-ms-user-select: none; /* Internet Explorer/Edge */
 		-moz-user-select: -moz-none; /* Firefox */ 
 		-webkit-user-select: none; /* Safari */ 
