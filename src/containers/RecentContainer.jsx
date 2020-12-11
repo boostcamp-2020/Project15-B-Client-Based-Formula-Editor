@@ -7,7 +7,6 @@ import {
 	removeRecentItem,
 	removeAllRecentItems,
 	setBookmarkItem,
-	addBookmarkItem,
 } from "../slice";
 import popup from "../popup";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
