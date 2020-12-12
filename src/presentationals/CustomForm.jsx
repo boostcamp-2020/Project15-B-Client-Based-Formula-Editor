@@ -39,11 +39,12 @@ const Button = styled.button`
 
 const WarningMsg = styled.p`
 	display: ${({ isDisabled }) => (isDisabled ? "block" : "none")};
-	margin: 0;
-	padding: 0 10px;
+	margin: 0 3px;
+	padding: 0;
 	font-size: 11px;
 	color: red;
 	border: none;
+	background-color: transparent;
 `;
 
 export default function CustomForm({
