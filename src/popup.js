@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 const customPopup = ({ mode, message }) => new Promise(resolve => {
 	const popup = document.createElement("div");
 
