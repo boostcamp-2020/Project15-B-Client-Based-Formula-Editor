@@ -45,7 +45,10 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 		if (mode === "image") {
 			const targetRadio = popup.querySelector("input[type='radio']:checked");
 
-			resolve({ fileName: input.value, extension: targetRadio.value });
+			resolve({
+				fileName: input.value || "fecode_formula",
+				extension: targetRadio.value,
+			});
 		}
 	};
 
