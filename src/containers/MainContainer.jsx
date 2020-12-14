@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { throttle, calcCurrentXRatio } from "../util";
 import { INITIAL_SIDE_WIDTH } from "../constants/size";
@@ -12,6 +13,7 @@ export default function MainContainer() {
 	const [isMove, setIsMove] = useState(false);
 	const [divLeft, setDivLeft] = useState(initialValue);
 	const [sidebarWidth, setSidebarWidth] = useState(initialValue);
+	const sidebarState = useSelector(state => state.sidebarState);
 	const bodyWidth = 100 - sidebarWidth;
 
 	const handleMouseDown = e => {
@@ -39,12 +41,14 @@ export default function MainContainer() {
 			onMouseUp={isMove ? handleMouseUp : undefined}
 		>
 			<SideBar sidebarWidth={sidebarWidth} />
-			<DynamicBarHorizontal
-				isMove={isMove}
-				onMouseDown={handleMouseDown}
-				divLeft={divLeft}
-			/>
-			<BodyContainer bodyWidth={bodyWidth}/>
+			{sidebarState &&
+				<DynamicBarHorizontal
+					isMove={isMove}
+					onMouseDown={handleMouseDown}
+					divLeft={divLeft}
+				/>
+			}
+			<BodyContainer bodyWidth={bodyWidth} />
 		</MainLayout>
 	);
 }
