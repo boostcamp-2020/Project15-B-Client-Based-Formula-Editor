@@ -17,7 +17,11 @@ export default function FontContainer() {
 	const dispatch = useDispatch();
 
 	const handleFontSizeChange = e => {
-		dispatch(setFont({ ...fontInfo, size: e.target.value }));
+		const MAX_FONT_SIZE = 99;
+		const value = e.target.value;
+		const size = value < MAX_FONT_SIZE ? value : MAX_FONT_SIZE;
+
+		dispatch(setFont({ ...fontInfo, size }));
 	};
 
 	const handleFontSizeItemClick = size => () => {
