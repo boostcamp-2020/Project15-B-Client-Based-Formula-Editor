@@ -1,4 +1,6 @@
 /* eslint-disable no-use-before-define */
+import KEY_CODE from "./constants/keyCode";
+
 const customPopup = ({ mode, message }) => new Promise(resolve => {
 	const popup = document.createElement("div");
 
@@ -35,9 +37,10 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 	const [cancel, confirm] = popup.querySelectorAll("button");
 	const input = popup.querySelector("input[type='text']");
 
-	const windowClickEvent = ({ target }) => {
-		if (popup.contains(target)) return;
-		cleanUp();
+	const enterKeyEvent = ({ keyCode }) => {
+		if (keyCode !== KEY_CODE.ENTER) return;
+
+		confirm.click();
 	};
 	const cancelClickEvent = () => {
 		cleanUp();
@@ -56,12 +59,18 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 			});
 		}
 	};
+	const windowClickEvent = ({ target }) => {
+		if (popup.contains(target)) return;
+		cleanUp();
+	};
 
+	popup.addEventListener("keydown", enterKeyEvent);
 	cancel.addEventListener("click", cancelClickEvent);
 	confirm.addEventListener("click", confirmClickEvent);
 	setTimeout(() => window.addEventListener("click", windowClickEvent), 100);
 
 	const cleanUp = () => {
+		popup.removeEventListener("keydown", enterKeyEvent);
 		window.removeEventListener("click", windowClickEvent);
 		cancel.removeEventListener("click", cancelClickEvent);
 		confirm.removeEventListener("click", confirmClickEvent);
