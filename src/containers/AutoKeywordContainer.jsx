@@ -19,8 +19,7 @@ export default function AutoKeywordContainer() {
 	const MAX_LENGTH = 7;
 
 	const updateList = () => {
-		const temp = buffer.current.join("").trim()
-			.toLowerCase();
+		const temp = buffer.current.join("").trim();
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
@@ -94,8 +93,7 @@ export default function AutoKeywordContainer() {
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
 			const target = recommandationList[itemIndex];
 
-			const temp = buffer.current.join("").trim()
-				.toLowerCase();
+			const temp = buffer.current.join("").trim();
 
 			const remainedLatexPart = target.replace(`\\${temp}`, "");
 
