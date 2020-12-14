@@ -60,6 +60,13 @@ const popupStyle = `
           &:last-child {
             background-color: #15ab15;
           }
+          &:disabled {
+            &:last-child {
+              background-color: #0f5d0f;
+              color: #666666;
+              cursor: default;
+            }
+          }
         }
       }
     }

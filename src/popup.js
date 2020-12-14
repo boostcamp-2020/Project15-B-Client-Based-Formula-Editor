@@ -25,7 +25,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 			${content[mode]}
 			<div>
 				<button type="button">취소</button>
-				<button type="button">확인</button>
+				<button type="button" disabled>확인</button>
 			</div>
 		</div>
 	`;
@@ -55,14 +55,21 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 		}
 	};
 
+	const inputChangeEvent = ({ target }) => {
+		if (!target.value) confirm.disabled = "disabled";
+		else confirm.disabled = "";
+	};
+
 	cancel.addEventListener("click", cancelClickEvent);
 	confirm.addEventListener("click", confirmClickEvent);
+	input.addEventListener("keyup", inputChangeEvent);
 	setTimeout(() => window.addEventListener("click", windowClickEvent), 100);
 
 	const cleanUp = () => {
 		window.removeEventListener("click", windowClickEvent);
 		cancel.removeEventListener("click", cancelClickEvent);
 		confirm.removeEventListener("click", confirmClickEvent);
+		input.removeEventListener("keyup", inputChangeEvent);
 		popup.style.animationName = "up";
 		popup.style.animationDuration = "1s";
 
