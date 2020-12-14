@@ -37,13 +37,14 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 
 	const enterKeyEvent = ({ keyCode }) => {
 		if (keyCode !== KEY_CODE.ENTER) return;
-
 		confirm.click();
 	};
+
 	const cancelClickEvent = () => {
 		cleanUp();
 		resolve(false);
 	};
+
 	const confirmClickEvent = () => {
 		cleanUp();
 		if (mode === "confirm") resolve(true);
@@ -54,6 +55,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 			resolve({ fileName: input.value, extension: targetRadio.value });
 		}
 	};
+
 	const windowClickEvent = ({ target }) => {
 		if (popup.contains(target)) return;
 		cleanUp();
