@@ -137,4 +137,19 @@ export default {
 	setCharacterTabState(state, { payload }) {
 		state.characterTabState[payload] = !state.characterTabState[payload];
 	},
+	setBuffer(state, { payload }) {
+		switch (payload.type) {
+			case "pop" :
+				state.buffer.pop();
+				break;
+			case "push" :
+				state.buffer.push(payload.item);
+				break;
+			case "init" :
+				state.buffer = [];
+				break;
+			default :
+				throw new Error(`payload.type is invalid. Input type is ${payload.type}`);
+		}
+	},
 };

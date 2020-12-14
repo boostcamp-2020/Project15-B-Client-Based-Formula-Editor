@@ -43,6 +43,7 @@ const { reducer, actions } = createSlice({
 			operator: false,
 			formula: false,
 		},
+		buffer: [],
 	},
 	reducers: actionCreator,
 });
@@ -72,6 +73,7 @@ export const {
 	setTempSavedItem,
 	setCursorPosition,
 	setCharacterTabState,
+	setBuffer,
 } = actions;
 
 const setPopup = (dispatch, config, ms) => {
