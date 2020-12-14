@@ -124,6 +124,10 @@ export default function AutoKeywordContainer() {
 		}
 	};
 
+	const onMouseEnter = e => {
+		setItemIndex(e.target.id);
+	};
+
 	useEffect(() => {
 		const rootBlock = document.querySelector(".mq-textarea");
 
@@ -145,6 +149,7 @@ export default function AutoKeywordContainer() {
 			y={cursorPosition.y}
 			recommandationList={recommandationList}
 			targetIndex={itemIndex}
+			onMouseEnter={onMouseEnter}
 		/>
 	);
 }
