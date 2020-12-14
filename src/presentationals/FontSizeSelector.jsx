@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { themeColor } from "../GlobalStyle";
 import { fontSizes } from "../constants/fontConfig";
 import FontSizeIcon from "../icons/FontSizeIcon";
+import CheckIcon from "../icons/CheckIcon";
 
 const Layout = styled.div`
 	display: flex;
@@ -22,9 +23,12 @@ const FontSizeInput = styled.input`
 
 const FontDropdown = styled.div`
 	position: absolute;
-	top: 30px;
-	transform: translateX(8px);
-	background-color: #ffffff45;
+	top: 35px;
+	transform: translateX(-5px);
+	background: linear-gradient(180deg, #5c5c5c, #303030 );
+	color: white;
+	font-size: 13px;
+	font-weight: bold;
 	border-radius: 4px;
 	padding: 5px 0;
 	z-index: 3;
@@ -32,12 +36,22 @@ const FontDropdown = styled.div`
 `;
 
 const FontItem = styled.div`
-	color: #1a1a1a;
-	padding: 0px 10px;
+	display: flex;
+  padding: 0px 18px 0px 9px;
+
+	> svg {
+		width: 10px;
+		margin-right: 4px;
+		visibility: hidden;
+	}
 
 	&:hover {
-		background-color: ${themeColor.white};
-		color: black;
+    background-color: #43c343;
+    color: white;
+		
+		svg {
+			visibility: visible;
+		}
 	}
 `;
 
@@ -60,7 +74,10 @@ export default function FontSizeSelector({
 			{isFontSizeFocused &&
 				<FontDropdown>
 					{fontSizes.map((size, index) =>
-						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>{size}</FontItem>,
+						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>
+							<CheckIcon />
+							<div>{size}</div>
+						</FontItem>,
 					)}
 				</FontDropdown>
 			}
