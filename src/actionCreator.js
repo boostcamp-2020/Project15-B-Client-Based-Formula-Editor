@@ -15,12 +15,14 @@ export default {
 	},
 	setLatexInput(state, { payload }) {
 		if (state.pastLatexInput === payload) return;
+		if (state.buffer.length) return;
 		state.futureLatexCommands = [];
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.pastLatexInput = state.latexInput;
 		state.latexInput = payload;
 	},
 	setLatexTextInput(state, { payload }) {
+		if (state.buffer.length) return;
 		state.futureLatexCommands = [];
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.pastLatexInput = payload;
