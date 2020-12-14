@@ -30,13 +30,8 @@ export default function SideBar({ sidebarWidth }) {
 	};
 
 	const handleTabClick = (tabId, isSelected) => () => {
-		if (isSelected) {
-			dispatch(setSidebarState(false));
-			setTabState(CLOSE_TAB);
-			return;
-		}
-		dispatch(setSidebarState(true));
-		setTabState(tabId);
+		dispatch(setSidebarState(!isSelected));
+		setTabState(isSelected ? CLOSE_TAB : tabId);
 	};
 
 	const handleDownloadAsImage = async () => {
