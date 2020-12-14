@@ -22,14 +22,17 @@ export default function CustomContainer() {
 	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
+	const [warningMessage, setWarningMessage] = useState({});
 
 	const handleFormOnButton = () => {
+		setWarningMessage({});
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "", description: "" }));
 	};
 
 	const handleEditClick = index => () => {
 		const target = customCommandList[index];
 
+		setWarningMessage({});
 		dispatch(setCustomFormValue({ state: true, name: "수정", command: target.command, latex: target.latex, description: target.description, id: index }));
 	};
 
@@ -51,9 +54,18 @@ export default function CustomContainer() {
 		const buttonName = e.target.submitBtn.innerText;
 		const index = customFormValue.id;
 
+		if (!customFormValue.command) {
+			setWarningMessage({ command: "명령어는 공백일 수 없습니다." });
+			return;
+		}
+		if (!customFormValue.latex) {
+			setWarningMessage({ latex: "수식은 공백일 수 없습니다." });
+			return;
+		}
+
 		if (buttonName === "등록") {
 			if (isExist) {
-				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
+				setWarningMessage({ command: "이미 존재하는 명령어입니다." });
 				return;
 			}
 			tempCustomCommandList.push({
@@ -64,8 +76,8 @@ export default function CustomContainer() {
 		}
 
 		if (buttonName === "수정") {
-			if (isExist && e.target.command.value !== customCommandList[index].command) {
-				dispatch(setCustomFormValue({ ...customFormValue, isDisabled: true }));
+			if (isExist && customFormValue.command !== customCommandList[index].command) {
+				setWarningMessage({ command: "이미 존재하는 명령어입니다." });
 				return;
 			}
 			tempCustomCommandList[index] =
@@ -123,11 +135,12 @@ export default function CustomContainer() {
 				/>
 				{customFormValue.state &&
 					<CustomForm
-						data={customFormValue}
+						value={customFormValue}
 						onChangeCommand={onChangeCommand}
 						onChangeLatex={onChangeLatex}
 						onChangeDescription={onChangeDescription}
 						onSubmit={handleSubmit}
+						warningMessage={warningMessage}
 					/>}
 				<DirectoryTitle
 					title="커스텀 명령어 목록"

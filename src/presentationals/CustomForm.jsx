@@ -29,7 +29,6 @@ const Button = styled.button`
 	background-color: ${themeColor.blue};
 	border: none;
 	margin-top: 15px;
-	font-weight: bold;
 
 	&:hover {
 		background-color: ${themeColor.lightBlue};
@@ -37,8 +36,7 @@ const Button = styled.button`
 	}
 `;
 
-const WarningMsg = styled.p`
-	display: ${({ isDisabled }) => (isDisabled ? "block" : "none")};
+const WarningMsg = styled.div`
 	margin: 0 3px;
 	padding: 0;
 	font-size: 11px;
@@ -48,22 +46,30 @@ const WarningMsg = styled.p`
 `;
 
 export default function CustomForm({
-	data, onChangeCommand, onChangeLatex, onChangeDescription, onSubmit,
+	value,
+	onChangeCommand,
+	onChangeLatex,
+	onChangeDescription,
+	onSubmit,
+	warningMessage,
 }) {
 	return (
 		<Form onSubmit={onSubmit}>
 			<input
-				type="text"
-				value={data.command}
+				value={value.command}
 				onChange={onChangeCommand}
-				name="command"
 				placeholder="명령어를 입력해주세요"
 				autoFocus
 			/>
-			<WarningMsg isDisabled={data.isDisabled}>이미 있는 명령어입니다.</WarningMsg>
-			<EditableMathField latex={data.latex} onChange={onChangeLatex} name="latex" />
-			<input value={data.description} onChange={onChangeDescription} name="description" placeholder="설명을 입력해주세요." />
-			<Button name="submitBtn">{data.name}</Button>
+			{warningMessage.command && <WarningMsg>{warningMessage.command}</WarningMsg>}
+			<EditableMathField latex={value.latex} onChange={onChangeLatex} name="latex" />
+			{warningMessage.latex && <WarningMsg>{warningMessage.latex}</WarningMsg>}
+			<input
+				value={value.description}
+				onChange={onChangeDescription}
+				placeholder="설명을 입력해주세요."
+			/>
+			<Button name="submitBtn">{value.name}</Button>
 		</Form>
 	);
 }
