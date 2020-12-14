@@ -116,10 +116,6 @@ export default function AutoKeywordContainer() {
 			buffer.current.push(alphabet);
 			updateList();
 		}
-
-		if (keyCode === KEY_CODE.SPACE) {
-			toggleIsOpen(false);
-		}
 	};
 
 	useEffect(() => {
