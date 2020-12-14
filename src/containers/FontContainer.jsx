@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setAlign, setFont } from "../slice";
@@ -11,12 +11,24 @@ import FontSizeSelector from "../presentationals/FontSizeSelector";
 import IconButton from "../presentationals/IconButton";
 
 export default function FontContainer() {
+	const fontSizeRef = useRef();
+	const [isFontSizeFocused, toggleIsFontSizeFocused] = useState(false);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const dispatch = useDispatch();
 
-	const handleFontSize = e => {
+	const handleFontSizeChange = e => {
 		dispatch(setFont({ ...fontInfo, size: e.target.value }));
 	};
+
+	const handleFontSizeItemClick = size => () => {
+		dispatch(setFont({ ...fontInfo, size }));
+		toggleIsFontSizeFocused(false);
+	};
+
+	const handleFontSizeInputClick = () => {
+		toggleIsFontSizeFocused(true);
+	};
+
 	const handleFontColor = e => {
 		dispatch(setFont({ ...fontInfo, color: e.target.value }));
 	};
@@ -25,13 +37,43 @@ export default function FontContainer() {
 		dispatch(setAlign(align));
 	};
 
+	useEffect(() => {
+		const fontSizeOutsideClickEvent = ({ target }) => {
+			if (!fontSizeRef.current.contains(target)) {
+				toggleIsFontSizeFocused(false);
+			}
+		};
+
+		window.addEventListener("click", fontSizeOutsideClickEvent);
+		return () => window.removeEventListener("click", fontSizeOutsideClickEvent);
+	});
+
 	return (
 		<FontContainerLayout>
-			<FontSizeSelector onChange={handleFontSize} fontSize={fontInfo.size} />
-			<FontColorSelector onChange={handleFontColor} fontColor={fontInfo.color} />
-			<IconButton onClick={handleAlignment("left")} icon={<AlignLeftIcon />} isHover={true} />
-			<IconButton onClick={handleAlignment("center")} icon={<AlignCenterIcon />} isHover={true} />
-			<IconButton onClick={handleAlignment("right")} icon={<AlignRightIcon />} isHover={true} />
+			<FontSizeSelector
+				fontSizeRef={fontSizeRef}
+				fontSize={fontInfo.size}
+				isFontSizeFocused={isFontSizeFocused}
+				handleFontSizeChange={handleFontSizeChange}
+				handleFontSizeItemClick={handleFontSizeItemClick}
+				handleFontSizeInputClick={handleFontSizeInputClick}
+			/>
+			<FontColorSelector
+				onChange={handleFontColor}
+				fontColor={fontInfo.color}
+			/>
+			<IconButton
+				onClick={handleAlignment("left")}
+				icon={<AlignLeftIcon />}
+				isHover={true} />
+			<IconButton
+				onClick={handleAlignment("center")}
+				icon={<AlignCenterIcon />}
+				isHover={true} />
+			<IconButton
+				onClick={handleAlignment("right")}
+				icon={<AlignRightIcon />}
+				isHover={true} />
 		</FontContainerLayout>
 	);
 }

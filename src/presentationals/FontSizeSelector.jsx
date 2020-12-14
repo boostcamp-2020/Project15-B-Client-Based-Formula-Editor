@@ -4,30 +4,67 @@ import styled from "styled-components";
 import { themeColor } from "../GlobalStyle";
 import FontSizeIcon from "../icons/FontSizeIcon";
 
-const Layout = styled.label`
+const Layout = styled.div`
 	display: flex;
 	align-items: center;
 	padding: 0 5px;
 	border-right: 1px dashed ${themeColor.white};
 `;
 
-const FontSizeSelectorStyle = styled.select`
-	border: 0;
-	color: ${themeColor.white};
-	background-color: transparent;
-	cursor: pointer;
-	outline: none;
+const FontSizeInput = styled.input`
+	width: 24px;
+	margin-left: 3px;
+	border: none;
+	border-radius: 2px;
+	padding: 0 4px;
 `;
 
-export default function FontSizeSelector({ fontSize, onChange }) {
+const FontDropdown = styled.div`
+	position: absolute;
+	top: 30px;
+	transform: translateX(8px);
+	background-color: #ffffff45;
+	border-radius: 4px;
+	padding: 5px 0;
+	z-index: 3;
+	cursor: pointer;
+`;
+
+const FontItem = styled.div`
+	color: #1a1a1a;
+	padding: 0px 10px;
+
+	&:hover {
+		background-color: ${themeColor.white};
+		color: black;
+	}
+`;
+
+export default function FontSizeSelector({
+	fontSizeRef,
+	fontSize,
+	isFontSizeFocused,
+	handleFontSizeChange,
+	handleFontSizeItemClick,
+	handleFontSizeInputClick,
+}) {
 	const ableFontSize = [10, 12, 14, 16, 20, 24, 32, 40, 48];
 
 	return (
-		<Layout>
+		<Layout ref={fontSizeRef}>
 			<FontSizeIcon fill={themeColor.white}/>
-			<FontSizeSelectorStyle value={fontSize} onChange={onChange} >
-				{ableFontSize.map((elem, index) => <option key={index} value={elem}>{elem}</option>)}
-			</FontSizeSelectorStyle>
+			<FontSizeInput
+				value={fontSize}
+				onChange={handleFontSizeChange}
+				onClick={handleFontSizeInputClick}
+			/>
+			{isFontSizeFocused &&
+				<FontDropdown>
+					{ableFontSize.map((size, index) =>
+						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>{size}</FontItem>,
+					)}
+				</FontDropdown>
+			}
 		</Layout>
 	);
 }
