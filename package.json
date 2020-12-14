@@ -1,5 +1,5 @@
 {
-  "name": "feditor",
+  "name": "fecode",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,6 +7,7 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "test": "jest --watchAll --verbose",
+    "ci-test": "jest",
     "lint": "eslint ."
   },
   "keywords": [],
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@testing-library/jest-dom": "^5.11.6",

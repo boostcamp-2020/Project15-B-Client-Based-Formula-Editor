@@ -110,7 +110,13 @@ export default {
 	setTempSavedItem(state) {
 		if (state.tempSavedLatexId === INITIAL_ID) {
 			const id = getIdToAdd(state.latexList);
-			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false, date: getCurrentDate() };
+			const newItem = {
+				id,
+				latex: state.latexInput,
+				isRecent: true,
+				isBookmark: false,
+				date: getCurrentDate(),
+			};
 
 			state.latexList.push(newItem);
 			state.tempSavedLatexId = id;
