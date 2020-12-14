@@ -15,9 +15,7 @@ const Item = styled.div`
     background-color: #2B2D2E;
 
 		> div > div:first-child {
-			display: flex;
-			justify-content: center;
-			align-items: center;
+			visibility: visible;
 		}
   }
 
@@ -39,9 +37,12 @@ const Magnifier = styled.div`
 	transform: translate(-50%, -15px);
 	width: 50px;
 	height: 50px;
-	display: none;
 	z-index: 5;
 	border-radius: 5px;
+	visibility: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
 	.mq-math-mode, > div {
 		font-size: 2rem;
@@ -53,6 +54,7 @@ const Text = styled.div`
 `;
 
 const Name = styled.div`
+	margin-left: 7px;
 	${({ isMagnifier }) => !isMagnifier &&
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;

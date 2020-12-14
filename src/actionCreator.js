@@ -95,6 +95,7 @@ export default {
 	},
 	removeCustomCommand(state, { payload }) {
 		state.customCommandList = state.customCommandList.filter((_, index) => index !== payload);
+		updateCustomCommandList(state);
 	},
 	setCustomCommandList(state, { payload }) {
 		state.customCommandList = payload;
@@ -141,5 +142,8 @@ export default {
 	},
 	setBuffer(state, { payload }) {
 		state.buffer = payload;
+	},
+	setSidebarState(state, { payload }) {
+		state.sidebarState = payload;
 	},
 };

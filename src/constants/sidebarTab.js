@@ -1,3 +1,4 @@
+export const CLOSE_TAB = -1;
 export const CHARACTER_TAB = 0;
 export const RECENT_TAB = 1;
 export const BOOKMARK_TAB = 2;

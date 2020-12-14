@@ -27,15 +27,17 @@ export default function SideTopTab({ currentTab, onClick }) {
 
 	return (
 		<div>
-			{tabMenus.map((tabMenu, index) =>
-				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
+			{tabMenus.map((tabMenu, index) => {
+				const isSelected = currentTab === index;
+
+				return (<Tab onClick={onClick(index, isSelected)} key={index} isSelected={isSelected}>
 					<IconButton
-						isHover={currentTab !== index}
+						isHover={!isSelected}
 						hoverColor={themeColor.white}
 						icon={tabMenu}
 					/>
-				</Tab>,
-			)}
+				</Tab>);
+			})}
 		</div>
 	);
 }
