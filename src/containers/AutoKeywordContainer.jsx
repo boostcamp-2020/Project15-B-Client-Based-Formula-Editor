@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setLatexInput, setLatexTextInput } from "../slice";
+import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
 import { latexFunction, getBackslashCountFromLatex } from "../util";
 import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
@@ -14,12 +14,12 @@ export default function AutoKeywordContainer() {
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
-	const buffer = useRef([]);
+	const buffer = useSelector(state => state.buffer);
 	const [recommandationList, setRecommandationList] = useState([]);
 	const MAX_LENGTH = 7;
 
 	const updateList = () => {
-		const temp = buffer.current.join("").trim()
+		const temp = buffer.join("").trim()
 			.toLowerCase();
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
@@ -59,7 +59,7 @@ export default function AutoKeywordContainer() {
 
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
-			buffer.current.pop();
+			dispatch(setBuffer({ type: "pop" }));
 			updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
@@ -93,7 +93,7 @@ export default function AutoKeywordContainer() {
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
 			const target = recommandationList[itemIndex];
 
-			const temp = buffer.current.join("").trim()
+			const temp = buffer.join("").trim()
 				.toLowerCase();
 
 			const remainedLatexPart = target.replace(`\\${temp}`, "");
@@ -101,7 +101,7 @@ export default function AutoKeywordContainer() {
 			latexFunction.insertLatex(remainedLatexPart);
 
 			setRecommandationList([]);
-			buffer.current = [];
+			dispatch(setBuffer({ type: "init" }));
 			toggleIsOpen(false);
 			setItemIndex(0);
 		}
@@ -114,7 +114,7 @@ export default function AutoKeywordContainer() {
 		const isAlphabet = target => target.match(/[a-zA-Z]/i);
 
 		if (isAlphabet(alphabet)) {
-			buffer.current.push(alphabet);
+			dispatch(setBuffer({ type: "push", item: alphabet }));
 			updateList();
 		}
 
