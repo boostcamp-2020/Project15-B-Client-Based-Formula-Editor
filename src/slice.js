@@ -35,7 +35,7 @@ const { reducer, actions } = createSlice({
 		customCommandList: getLocalStorage(CUSTOM_LIST, []),
 		recentItems: latexList.filter(item => item.isRecent).sort(compareRecent),
 		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
-		customFormValue: { state: false, name: "등록", command: "", latex: "", description: "", id: -1, isDisabled: false },
+		customFormValue: { state: false, name: "등록", command: "", latex: "", description: "", id: -1 },
 		timerId: "",
 		cursorPosition: { x: 0, y: 0 },
 		characterTabState: {
