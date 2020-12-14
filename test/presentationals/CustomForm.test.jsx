@@ -11,32 +11,49 @@ describe("<CustomForm />", () => {
 
 	describe("with default placeholder", () => {
 		it("renders custom form", () => {
-			const data = { command: "\\cmx", latex: "\\sum41", name: "테스트 버튼", isDisabled: false };
-			const onClick = () => { };
-			const onSubmit = () => { };
-			const { container } = render(<CustomForm data={data} onChange={onClick} onSubmit={onSubmit} />);
-			const commandInput = container.querySelector("input");
+			const value = { command: "\\cmx", latex: "\\sum41", name: "테스트 버튼", description: "설명" };
+			const onEvent = () => {};
+			const warningMessage = {};
+
+			const { container } = render(<CustomForm
+				value={value}
+				onChangeCommand={onEvent}
+				onChangeLatex={onEvent}
+				onChangeDescription={onEvent}
+				onSubmit={onEvent}
+				warningMessage={warningMessage}
+			/>);
+
+			const [command, description] = container.querySelectorAll("input");
 			const mathfield = container.querySelector(".mq-editable-field");
-			const warningMsg = container.querySelector("p");
 			const submitBtn = container.querySelector("button");
 
-			expect(warningMsg).toHaveStyle("display:none");
-			expect(commandInput.placeholder).toContain("명령어를 입력해주세요");
-			expect(commandInput.value).toBe("\\cmx");
+			expect(command.placeholder).toContain("명령어를 입력해주세요");
+			expect(command.value).toBe(value.command);
+			expect(description.placeholder).toContain("설명을 입력해주세요");
+			expect(description.value).toBe(value.description);
 			expect(mathfield).toBeVisible();
-			expect(submitBtn).toHaveTextContent("테스트 버튼");
+			expect(submitBtn).toHaveTextContent(value.name);
 		});
 	});
 
-	describe("with exist commands(isDisabled is true)", () => {
-		it("renders warningMsg", () => {
-			const data = { command: "\\sum", latex: "\\sum41", name: "테스트 버튼", isDisabled: true };
-			const onClick = () => { };
-			const onSubmit = () => { };
-			const { container } = render(<CustomForm data={data} onChange={onClick} onSubmit={onSubmit} />);
-			const warningMsg = container.querySelector("p");
+	describe("with warning message", () => {
+		it("renders warning message", () => {
+			const value = { command: "", latex: "\\sum41", name: "테스트 버튼", description: "설명" };
+			const onEvent = () => {};
+			const warningMessage = { command: "이미 존재하는 이름입니다.", latex: "수식은 공백일 수 없습니다." };
 
-			expect(warningMsg).toHaveStyle("display:block");
+			const { container } = render(<CustomForm
+				value={value}
+				onChangeCommand={onEvent}
+				onChangeLatex={onEvent}
+				onChangeDescription={onEvent}
+				onSubmit={onEvent}
+				warningMessage={warningMessage}
+			/>);
+
+			expect(container).toHaveTextContent(warningMessage.command);
+			expect(container).toHaveTextContent(warningMessage.latex);
 		});
 	});
 });

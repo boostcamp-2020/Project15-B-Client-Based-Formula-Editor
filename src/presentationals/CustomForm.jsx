@@ -67,7 +67,7 @@ export default function CustomForm({
 			<input
 				value={value.description}
 				onChange={onChangeDescription}
-				placeholder="설명을 입력해주세요."
+				placeholder="설명을 입력해주세요"
 			/>
 			<Button name="submitBtn">{value.name}</Button>
 		</Form>
