@@ -4,6 +4,7 @@ import html2canvas from "html2canvas";
 
 import { openBubblePopup, addRecentItem } from "../slice";
 import { encodeLatex } from "../util";
+import popup from "../popup";
 import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
@@ -21,6 +22,7 @@ export default function SideBar({ sidebarWidth }) {
 	const {
 		latexInput,
 		bubblePopup: { imageDownload, linkCopy, formulaSave },
+		fontInfo,
 	} = useSelector(state => state);
 
 	const tabMap = {
@@ -35,6 +37,15 @@ export default function SideBar({ sidebarWidth }) {
 	};
 
 	const handleDownloadAsImage = async () => {
+		const answer = await popup({
+			mode: "image",
+			message: "저장하실 파일명을 입력해주세요",
+		});
+
+		if (!answer) return;
+
+		const { fileName, extension } = answer;
+
 		const mathquillArea = document.querySelector(".mq-editable-field > .mq-root-block");
 
 		mathquillArea.style.width = "max-content";
@@ -45,8 +56,8 @@ export default function SideBar({ sidebarWidth }) {
 		const canvas = await html2canvas(mathquillArea);
 		const virtualLink = document.createElement("a");
 
-		virtualLink.href = canvas.toDataURL("image/png");
-		virtualLink.download = "feditor_formula.png";
+		virtualLink.href = canvas.toDataURL(`image/${extension}`);
+		virtualLink.download = `${fileName}.${extension}`;
 
 		document.body.appendChild(virtualLink);
 		virtualLink.click();
