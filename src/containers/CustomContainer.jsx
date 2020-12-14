@@ -8,21 +8,22 @@ import {
 	removeCustomCommand,
 } from "../slice";
 import popup from "../popup";
-import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
+import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
+import Filter from "../presentationals/Filter";
+import EmptyItem from "../presentationals/EmptyItem";
 import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
 import CustomItem from "../presentationals/CustomItem";
-import EmptyItem from "../presentationals/EmptyItem";
-import CharacterListItem from "../presentationals/CharacterListItem";
-import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
+import CharacterListItem from "../presentationals/CharacterListItem";
 
 export default function CustomContainer() {
-	const { customCommandList, customFormValue } = useSelector(state => state);
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
 	const [warningMessage, setWarningMessage] = useState({});
+	const customFormValue = useSelector(state => state.customFormValue);
+	const customCommandList = useSelector(state => state.customCommandList);
 
 	const handleFormOnButton = () => {
 		setWarningMessage({});
