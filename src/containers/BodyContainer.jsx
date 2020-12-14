@@ -32,6 +32,7 @@ export default function BodyContainer({ bodyWidth }) {
 		latexInput,
 		fontInfo,
 		alignInfo,
+		sidebarState,
 	} = useSelector(state => state);
 
 	const handleLatexInput = mathField => {
@@ -144,7 +145,7 @@ export default function BodyContainer({ bodyWidth }) {
 	});
 
 	return (
-		<BodyLayout bodyWidth={bodyWidth}>
+		<BodyLayout width={bodyWidth} sidebarState={sidebarState}>
 			<EditTabHeaderLayout>
 				<FontContainer />
 				<ControlButtonContainer />

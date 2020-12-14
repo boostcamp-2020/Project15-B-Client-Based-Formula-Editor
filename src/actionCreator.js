@@ -131,4 +131,7 @@ export default {
 	setCharacterTabState(state, { payload }) {
 		state.characterTabState[payload] = !state.characterTabState[payload];
 	},
+	setSidebarState(state, { payload }) {
+		state.sidebarState = payload;
+	},
 };

@@ -24,13 +24,14 @@ export default function SideTopTab({ currentTab, onClick }) {
 		<EmptyStarIcon key={BOOKMARK_TAB}/>,
 		<CustomIcon key={CUSTOM_COMMAND_TAB}/>,
 	];
+	const isSelected = index => currentTab === index;
 
 	return (
 		<div>
 			{tabMenus.map((tabMenu, index) =>
-				<Tab onClick={onClick(index)} key={index} isSelected={currentTab === index}>
+				<Tab onClick={onClick(index, isSelected(index))} key={index} isSelected={isSelected(index)}>
 					<IconButton
-						isHover={currentTab !== index}
+						isHover={!isSelected(index)}
 						hoverColor={themeColor.white}
 						icon={tabMenu}
 					/>

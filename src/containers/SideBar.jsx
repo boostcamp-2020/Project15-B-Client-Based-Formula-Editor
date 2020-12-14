@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
-import { openBubblePopup, addRecentItem } from "../slice";
+import { openBubblePopup, addRecentItem, setSidebarState } from "../slice";
 import { encodeLatex } from "../util";
-import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { CLOSE_TAB, CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
 import BookmarkContainer from "./BookmarkContainer";
@@ -21,6 +21,7 @@ export default function SideBar({ sidebarWidth }) {
 	const {
 		latexInput,
 		bubblePopup: { imageDownload, linkCopy, formulaSave },
+		sidebarState,
 	} = useSelector(state => state);
 
 	const tabMap = {
@@ -30,7 +31,13 @@ export default function SideBar({ sidebarWidth }) {
 		[CUSTOM_COMMAND_TAB]: <CustomContainer />,
 	};
 
-	const handleTabClick = tabId => () => {
+	const handleTabClick = (tabId, isSelected) => () => {
+		if (isSelected) {
+			dispatch(setSidebarState(false));
+			setTabState(CLOSE_TAB);
+			return;
+		}
+		dispatch(setSidebarState(true));
 		setTabState(tabId);
 	};
 
@@ -88,7 +95,7 @@ export default function SideBar({ sidebarWidth }) {
 
 	return (
 		<>
-			<SideBarLayout width={sidebarWidth}>
+			<SideBarLayout width={sidebarWidth} sidebarState={sidebarState}>
 				<SideBarTabLayout>
 					<SideTopTab currentTab={tabState} onClick={handleTabClick} />
 					<SideBottomTab {...{
@@ -100,9 +107,11 @@ export default function SideBar({ sidebarWidth }) {
 						handleDownloadAsImage,
 					}} />
 				</SideBarTabLayout>
+				{sidebarState &&
 				<SideBarContentLayout>
 					{tabMap[tabState]}
 				</SideBarContentLayout>
+				}
 			</SideBarLayout>
 		</>
 	);
