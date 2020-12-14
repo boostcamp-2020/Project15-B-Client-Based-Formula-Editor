@@ -8,7 +8,7 @@ const LatexRepresentationStyle = styled.textarea`
 	width: 100%;
 	height: ${props => props.height}px;
 	min-height: 100px;
-  padding: 8px;
+  padding: 16px 8px;
 	background-color: ${themeColor.dark};
 	border: none;
 	outline: none;
