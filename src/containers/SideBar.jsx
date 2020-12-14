@@ -5,6 +5,7 @@ import html2canvas from "html2canvas";
 import { openBubblePopup, addRecentItem, setSidebarState } from "../slice";
 import { encodeLatex } from "../util";
 import popup from "../popup";
+import { color } from "../GlobalStyle";
 import { CLOSE_TAB, CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
@@ -18,8 +19,8 @@ import SideBottomTab from "../presentationals/SideBottomTab";
 
 export default function SideBar({ sidebarWidth }) {
 	const dispatch = useDispatch();
-	const fontInfo = useSelector(state => state.fontInfo);
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
+	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
 	const sidebarState = useSelector(state => state.sidebarState);
 	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
@@ -50,7 +51,7 @@ export default function SideBar({ sidebarWidth }) {
 
 		mathquillArea.style.width = "max-content";
 		if (fontInfo.color === "#ffffff") {
-			mathquillArea.style.color = "black";
+			mathquillArea.style.color = color.black;
 		}
 
 		const canvas = await html2canvas(mathquillArea);
@@ -64,8 +65,8 @@ export default function SideBar({ sidebarWidth }) {
 		document.body.removeChild(virtualLink);
 
 		mathquillArea.style.width = "100%";
-		if (mathquillArea.style.color === "black") {
-			mathquillArea.style.color = "white";
+		if (mathquillArea.style.color === color.black) {
+			mathquillArea.style.color = color.white;
 		}
 
 		dispatch(openBubblePopup({

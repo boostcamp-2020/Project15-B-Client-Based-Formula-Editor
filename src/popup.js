@@ -4,6 +4,18 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 
 	popup.classList.add("popup");
 
+	const content = {
+		confirm: ``,
+		prompt: `<input type="text" />`,
+		image: `
+			<input type="text" />
+			<div>
+				<label><input type="radio" name="extension" value="png" checked />png</label>
+				<label><input type="radio" name="extension" value="jpeg" />jpeg</label>
+			</div>
+		`,
+	};
+
 	popup.innerHTML = `
 		<div>
 			<svg viewBox="0 0 512 512">
@@ -11,14 +23,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 			</svg>
 			<div>
 				<div>${message}</div>
-				${mode === "prompt" ? `<input type="text" />` : ``}
-				${mode === "image" ? `
-					<input type="text" />
-					<div>
-						<label><input type="radio" name="extension" value="png" checked />png</label>
-						<label><input type="radio" name="extension" value="jpeg" />jpeg</label>
-					</div>
-				` : ``}
+				${content[mode]}
 				<div>
 					<button type="button">취소</button>
 					<button type="button">확인</button>
