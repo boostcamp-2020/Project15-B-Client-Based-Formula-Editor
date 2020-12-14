@@ -4,6 +4,18 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 
 	popup.classList.add("popup");
 
+	const content = {
+		confirm: ``,
+		prompt: `<input type="text" />`,
+		image: `
+			<input type="text" />
+			<div>
+				<label><input type="radio" name="extension" value="png" checked />png</label>
+				<label><input type="radio" name="extension" value="jpeg" />jpeg</label>
+			</div>
+		`,
+	};
+
 	popup.innerHTML = `
 		<div>
 			<svg viewBox="0 0 512 512">
@@ -11,7 +23,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 			</svg>
 			<div>
 				<div>${message}</div>
-				${mode === "prompt" ? `<input type="text" />` : ``}
+				${content[mode]}
 				<div>
 					<button type="button">취소</button>
 					<button type="button">확인</button>
@@ -21,7 +33,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 	`;
 
 	const [cancel, confirm] = popup.querySelectorAll("button");
-	const input = popup.querySelector("input");
+	const input = popup.querySelector("input[type='text']");
 
 	const windowClickEvent = ({ target }) => {
 		if (popup.contains(target)) return;
@@ -35,6 +47,14 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 		cleanUp();
 		if (mode === "confirm") resolve(true);
 		if (mode === "prompt") resolve(input.value);
+		if (mode === "image") {
+			const targetRadio = popup.querySelector("input[type='radio']:checked");
+
+			resolve({
+				fileName: input.value || "fecode_formula",
+				extension: targetRadio.value,
+			});
+		}
 	};
 
 	cancel.addEventListener("click", cancelClickEvent);
@@ -54,6 +74,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 	};
 
 	document.body.appendChild(popup);
+	input?.focus();
 });
 
 export default customPopup;

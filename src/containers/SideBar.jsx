@@ -4,6 +4,8 @@ import html2canvas from "html2canvas";
 
 import { openBubblePopup, addRecentItem, setSidebarState } from "../slice";
 import { encodeLatex } from "../util";
+import popup from "../popup";
+import { color } from "../GlobalStyle";
 import { CLOSE_TAB, CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
@@ -18,6 +20,7 @@ import SideBottomTab from "../presentationals/SideBottomTab";
 export default function SideBar({ sidebarWidth }) {
 	const dispatch = useDispatch();
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
+	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
 	const sidebarState = useSelector(state => state.sidebarState);
 	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
@@ -35,21 +38,36 @@ export default function SideBar({ sidebarWidth }) {
 	};
 
 	const handleDownloadAsImage = async () => {
+		const answer = await popup({
+			mode: "image",
+			message: "저장하실 파일명을 입력해주세요",
+		});
+
+		if (!answer) return;
+
+		const { fileName, extension } = answer;
+
 		const mathquillArea = document.querySelector(".mq-editable-field > .mq-root-block");
 
 		mathquillArea.style.width = "max-content";
+		if (fontInfo.color === "#ffffff") {
+			mathquillArea.style.color = color.black;
+		}
 
 		const canvas = await html2canvas(mathquillArea);
 		const virtualLink = document.createElement("a");
 
-		virtualLink.href = canvas.toDataURL("image/png");
-		virtualLink.download = "feditor_formula.png";
+		virtualLink.href = canvas.toDataURL(`image/${extension}`);
+		virtualLink.download = `${fileName}.${extension}`;
 
 		document.body.appendChild(virtualLink);
 		virtualLink.click();
 		document.body.removeChild(virtualLink);
 
 		mathquillArea.style.width = "100%";
+		if (mathquillArea.style.color === color.black) {
+			mathquillArea.style.color = color.white;
+		}
 
 		dispatch(openBubblePopup({
 			target: "imageDownload",
