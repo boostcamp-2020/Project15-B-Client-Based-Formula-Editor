@@ -5,6 +5,10 @@ import "@testing-library/jest-dom";
 import CustomForm from "../../src/presentationals/CustomForm";
 
 describe("<CustomForm />", () => {
+	beforeEach(() => {
+		window.console.error = jest.fn();
+	});
+
 	describe("with default placeholder", () => {
 		it("renders custom form", () => {
 			const data = { command: "\\cmx", latex: "\\sum41", name: "테스트 버튼", isDisabled: false };
