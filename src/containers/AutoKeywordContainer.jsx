@@ -33,6 +33,7 @@ export default function AutoKeywordContainer() {
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
 			setBackslashCount(backslashCountInLatex);
+			updateList();
 			toggleIsOpen(!isOpen);
 			return;
 		}
