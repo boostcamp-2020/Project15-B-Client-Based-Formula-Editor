@@ -10,7 +10,12 @@ import DeleteIcon from "../icons/DeleteIcon";
 addStyles();
 
 const Layout = styled.div`
-	position: relative;
+	position: fixed;
+	width: 250px;
+	left: 270px;
+	transform: translate(0, -30px);
+	color: black;
+	z-index: 1;
 
 	&:hover {
 		> div:last-child {
@@ -24,8 +29,8 @@ const Item = styled.div`
 	color: ${themeColor.white};
 	background-color: ${themeColor.normal};
 	border: 1px solid ${themeColor.white};
-  border-radius: 5px;
-	height: 50px;
+  border-radius: 7px;
+	height: 150px;
 	cursor: pointer;
 `;
 
