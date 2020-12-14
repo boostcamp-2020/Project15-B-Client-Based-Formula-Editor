@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
-import { openBubblePopup, addRecentItem } from "../slice";
+import { openBubblePopup, addRecentItem, setSidebarState } from "../slice";
 import { encodeLatex } from "../util";
 import popup from "../popup";
-import { CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import { CLOSE_TAB, CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
 import BookmarkContainer from "./BookmarkContainer";
@@ -19,11 +19,10 @@ import SideBottomTab from "../presentationals/SideBottomTab";
 export default function SideBar({ sidebarWidth }) {
 	const dispatch = useDispatch();
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
-	const {
-		latexInput,
-		bubblePopup: { imageDownload, linkCopy, formulaSave },
-		fontInfo,
-	} = useSelector(state => state);
+	const latexInput = useSelector(state => state.latexInput);
+	const sidebarState = useSelector(state => state.sidebarState);
+	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
+	const fontInfo = useSelector(state => state.fontInfo);
 
 	const tabMap = {
 		[CHARACTER_TAB]: <CharacterContainer />,
@@ -32,8 +31,9 @@ export default function SideBar({ sidebarWidth }) {
 		[CUSTOM_COMMAND_TAB]: <CustomContainer />,
 	};
 
-	const handleTabClick = tabId => () => {
-		setTabState(tabId);
+	const handleTabClick = (tabId, isSelected) => () => {
+		dispatch(setSidebarState(!isSelected));
+		setTabState(isSelected ? CLOSE_TAB : tabId);
 	};
 
 	const handleDownloadAsImage = async () => {
@@ -105,7 +105,7 @@ export default function SideBar({ sidebarWidth }) {
 
 	return (
 		<>
-			<SideBarLayout width={sidebarWidth}>
+			<SideBarLayout width={sidebarWidth} sidebarState={sidebarState}>
 				<SideBarTabLayout>
 					<SideTopTab currentTab={tabState} onClick={handleTabClick} />
 					<SideBottomTab {...{
@@ -117,9 +117,11 @@ export default function SideBar({ sidebarWidth }) {
 						handleDownloadAsImage,
 					}} />
 				</SideBarTabLayout>
+				{sidebarState &&
 				<SideBarContentLayout>
 					{tabMap[tabState]}
 				</SideBarContentLayout>
+				}
 			</SideBarLayout>
 		</>
 	);
