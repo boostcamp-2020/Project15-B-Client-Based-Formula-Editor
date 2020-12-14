@@ -41,6 +41,12 @@ const popupStyle = `
           justify-content: flex-end;
           margin-top: 15px;
 
+          > label {
+            margin: auto 0;
+            margin-left: 10px;
+            cursor: pointer;
+          }
+
           > button {
             color: white;
             padding: 1px 20px 2px 20px;

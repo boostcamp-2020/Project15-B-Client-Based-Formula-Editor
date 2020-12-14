@@ -12,6 +12,13 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 			<div>
 				<div>${message}</div>
 				${mode === "prompt" ? `<input type="text" />` : ``}
+				${mode === "image" ? `
+					<input type="text" />
+					<div>
+						<label><input type="radio" name="extension" value="png" checked />png</label>
+						<label><input type="radio" name="extension" value="jpeg" />jpeg</label>
+					</div>
+				` : ``}
 				<div>
 					<button type="button">취소</button>
 					<button type="button">확인</button>
@@ -21,7 +28,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 	`;
 
 	const [cancel, confirm] = popup.querySelectorAll("button");
-	const input = popup.querySelector("input");
+	const [input, ...radioInputs] = popup.querySelectorAll("input");
 
 	const windowClickEvent = ({ target }) => {
 		if (popup.contains(target)) return;
@@ -35,6 +42,11 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 		cleanUp();
 		if (mode === "confirm") resolve(true);
 		if (mode === "prompt") resolve(input.value);
+		if (mode === "image") {
+			const targetRadio = radioInputs.find(radio => radio.checked === true);
+
+			resolve({ fileName: input.value, extension: targetRadio.value });
+		}
 	};
 
 	cancel.addEventListener("click", cancelClickEvent);
