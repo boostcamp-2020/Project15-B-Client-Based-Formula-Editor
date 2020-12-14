@@ -38,6 +38,9 @@ export default function SideBar({ sidebarWidth }) {
 		const mathquillArea = document.querySelector(".mq-editable-field > .mq-root-block");
 
 		mathquillArea.style.width = "max-content";
+		if (fontInfo.color === "#ffffff") {
+			mathquillArea.style.color = "black";
+		}
 
 		const canvas = await html2canvas(mathquillArea);
 		const virtualLink = document.createElement("a");
@@ -50,6 +53,9 @@ export default function SideBar({ sidebarWidth }) {
 		document.body.removeChild(virtualLink);
 
 		mathquillArea.style.width = "100%";
+		if (mathquillArea.style.color === "black") {
+			mathquillArea.style.color = "white";
+		}
 
 		dispatch(openBubblePopup({
 			target: "imageDownload",
