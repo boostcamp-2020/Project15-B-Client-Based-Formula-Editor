@@ -18,11 +18,9 @@ import SideBottomTab from "../presentationals/SideBottomTab";
 export default function SideBar({ sidebarWidth }) {
 	const dispatch = useDispatch();
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
-	const {
-		latexInput,
-		bubblePopup: { imageDownload, linkCopy, formulaSave },
-		sidebarState,
-	} = useSelector(state => state);
+	const latexInput = useSelector(state => state.latexInput);
+	const sidebarState = useSelector(state => state.sidebarState);
+	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
 
 	const tabMap = {
 		[CHARACTER_TAB]: <CharacterContainer />,

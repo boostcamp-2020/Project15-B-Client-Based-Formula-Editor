@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setLatexInputWithDebounce, setLatexTextInputWithDebounce, setCursorPosition } from "../slice";
 
+import { setLatexInputWithDebounce, setLatexTextInputWithDebounce, setCursorPosition } from "../slice";
+import { latexFunction, throttle, toFitSimple } from "../util";
 import { getLocalStorage } from "../sliceUtil";
 import AutoKeywordContainer from "./AutoKeywordContainer";
 import FontContainer from "./FontContainer";
@@ -13,8 +14,6 @@ import FormulaRepresentation from "../presentationals/FormulaRepresentation";
 import LatexRepresentation from "../presentationals/LatexRepresentation";
 import DynamicBarVertical from "../presentationals/DynamicBarVertical";
 import GhostBar from "../presentationals/GhostBar";
-
-import { latexFunction, throttle, toFitSimple } from "../util";
 
 export default function BodyContainer({ bodyWidth }) {
 	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 45;
@@ -28,12 +27,10 @@ export default function BodyContainer({ bodyWidth }) {
 	const [isMove, setIsMove] = useState(false);
 	const [ghostHeight, setGhostHeight] = useState(heights.formula);
 	const dispatch = useDispatch();
-	const {
-		latexInput,
-		fontInfo,
-		alignInfo,
-		sidebarState,
-	} = useSelector(state => state);
+	const latexInput = useSelector(state => state.latexInput);
+	const fontInfo = useSelector(state => state.fontInfo);
+	const alignInfo = useSelector(state => state.alignInfo);
+	const sidebarState = useSelector(state => state.sidebarState);
 
 	const handleLatexInput = mathField => {
 		let mathFieldLatex = mathField.latex();
