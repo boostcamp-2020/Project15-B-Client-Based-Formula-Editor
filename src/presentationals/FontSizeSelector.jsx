@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
+import { fontSizes } from "../constants/fontConfig";
 import FontSizeIcon from "../icons/FontSizeIcon";
 
 const Layout = styled.div`
@@ -48,8 +49,6 @@ export default function FontSizeSelector({
 	handleFontSizeItemClick,
 	handleFontSizeInputClick,
 }) {
-	const ableFontSize = [10, 12, 14, 16, 20, 24, 32, 40, 48];
-
 	return (
 		<Layout ref={fontSizeRef}>
 			<FontSizeIcon fill={themeColor.white}/>
@@ -60,7 +59,7 @@ export default function FontSizeSelector({
 			/>
 			{isFontSizeFocused &&
 				<FontDropdown>
-					{ableFontSize.map((size, index) =>
+					{fontSizes.map((size, index) =>
 						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>{size}</FontItem>,
 					)}
 				</FontDropdown>
