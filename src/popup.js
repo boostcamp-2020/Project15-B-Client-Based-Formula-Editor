@@ -28,7 +28,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 	`;
 
 	const [cancel, confirm] = popup.querySelectorAll("button");
-	const [input, ...radioInputs] = popup.querySelectorAll("input");
+	const input = popup.querySelector("input[type='text']");
 
 	const windowClickEvent = ({ target }) => {
 		if (popup.contains(target)) return;
@@ -43,7 +43,7 @@ const customPopup = ({ mode, message }) => new Promise(resolve => {
 		if (mode === "confirm") resolve(true);
 		if (mode === "prompt") resolve(input.value);
 		if (mode === "image") {
-			const targetRadio = radioInputs.find(radio => radio.checked === true);
+			const targetRadio = popup.querySelector("input[type='radio']:checked");
 
 			resolve({ fileName: input.value, extension: targetRadio.value });
 		}
