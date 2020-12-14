@@ -71,3 +71,5 @@ export const deleteCustomCommand = (state, { id }) => {
 	state.customCommandList = state.customCommandList.filter((_, index) => index !== id);
 	updateCustomCommandList(state);
 };
+
+export const checkIfPayloadEndsSpace = payload => payload.charAt(payload.length - 1) === " " && payload.charAt(payload.length - 2) !== "\\";

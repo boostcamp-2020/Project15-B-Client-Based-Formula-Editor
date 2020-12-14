@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setLatexInput, setLatexTextInput } from "../slice";
+import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
 import { latexFunction, getBackslashCountFromLatex } from "../util";
 import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
@@ -19,8 +19,7 @@ export default function AutoKeywordContainer() {
 	const MAX_LENGTH = 7;
 
 	const updateList = () => {
-		const temp = buffer.current.join("").trim()
-			.toLowerCase();
+		const temp = buffer.current.join("").trim();
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
@@ -67,6 +66,8 @@ export default function AutoKeywordContainer() {
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
 			buffer.current.pop();
+			dispatch(setBuffer([...buffer.current]));
+
 			updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
@@ -92,8 +93,7 @@ export default function AutoKeywordContainer() {
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
 			const target = recommandationList[itemIndex];
 
-			const temp = buffer.current.join("").trim()
-				.toLowerCase();
+			const temp = buffer.current.join("").trim();
 
 			const remainedLatexPart = target.replace(`\\${temp}`, "");
 
@@ -101,6 +101,7 @@ export default function AutoKeywordContainer() {
 
 			setRecommandationList([]);
 			buffer.current = [];
+			dispatch(setBuffer([]));
 			toggleIsOpen(false);
 			setItemIndex(0);
 		}

@@ -43,6 +43,7 @@ const { reducer, actions } = createSlice({
 			operator: false,
 			formula: false,
 		},
+		buffer: [],
 		sidebarState: true,
 	},
 	reducers: actionCreator,
@@ -73,6 +74,7 @@ export const {
 	setTempSavedItem,
 	setCursorPosition,
 	setCharacterTabState,
+	setBuffer,
 	setSidebarState,
 } = actions;
 
