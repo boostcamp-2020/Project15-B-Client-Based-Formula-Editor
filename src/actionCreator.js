@@ -5,6 +5,7 @@ import {
 	addLatexItem,
 	getIdToAdd,
 	setLatexItem,
+	checkIfPayloadEndsSpace,
 } from "./sliceUtil";
 
 import { getCurrentDate } from "./util";
@@ -19,6 +20,10 @@ export default {
 		state.futureLatexCommands = [];
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.pastLatexInput = state.latexInput;
+		if (checkIfPayloadEndsSpace(payload)) {
+			state.latexInput = payload.trim();
+			return;
+		}
 		state.latexInput = payload;
 	},
 	setLatexTextInput(state, { payload }) {
