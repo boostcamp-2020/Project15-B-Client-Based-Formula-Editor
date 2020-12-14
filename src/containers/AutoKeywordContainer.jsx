@@ -110,12 +110,9 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		const alphabet = String.fromCharCode(keyCode);
-		const isAlphabet = target => target.match(/[a-zA-Z]/i);
 
-		if (isAlphabet(alphabet)) {
-			buffer.current.push(alphabet);
-			updateList();
-		}
+		buffer.current.push(alphabet);
+		updateList();
 	};
 
 	useEffect(() => {
