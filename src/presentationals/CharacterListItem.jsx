@@ -54,6 +54,7 @@ const Text = styled.div`
 `;
 
 const Name = styled.div`
+	margin-left: 7px;
 	${({ isMagnifier }) => !isMagnifier &&
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
