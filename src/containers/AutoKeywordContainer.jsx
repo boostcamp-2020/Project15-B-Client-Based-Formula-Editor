@@ -35,10 +35,15 @@ export default function AutoKeywordContainer() {
 			setBackslashCount(backslashCountInLatex);
 			updateList();
 			toggleIsOpen(!isOpen);
-			return;
+		}
+	};
+
+	const keydownEvent = ({ keyCode }) => {
+		if (itemIndex > 0) {
+			setItemIndex(0);
 		}
 
-		const isRemoveKey = k => k === KEY_CODE.BACK_SPACE || k === KEY_CODE.DELETE;
+		const isRemoveKey = key => key === KEY_CODE.BACK_SPACE || key === KEY_CODE.DELETE;
 
 		if (!isOpen && isRemoveKey(keyCode)) {
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
@@ -46,10 +51,11 @@ export default function AutoKeywordContainer() {
 			if (backslashCountInLatex !== backslashCount) {
 				setBackslashCount(backslashCountInLatex);
 			}
-			return;
 		}
 
-		if (isOpen && isRemoveKey(keyCode)) {
+		if (!isOpen) return;
+
+		if (isRemoveKey(keyCode)) {
 			if (latexInput === "\\ ") {
 				toggleIsOpen(false);
 				setRecommandationList([]);
@@ -70,14 +76,6 @@ export default function AutoKeywordContainer() {
 				toggleIsOpen(false);
 			}
 		}
-	};
-
-	const keydownEvent = ({ keyCode }) => {
-		if (itemIndex > 0) {
-			setItemIndex(0);
-		}
-
-		if (!isOpen) return;
 
 		if (keyCode === KEY_CODE.DOWN) {
 			const nextIndex = (itemIndex + 1) % recommandationList.length;
@@ -115,17 +113,9 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		const alphabet = String.fromCharCode(keyCode);
-		const isAlphabet = target => target.match(/[a-zA-Z]/i);
 
-		if (isAlphabet(alphabet)) {
-			buffer.current.push(alphabet);
-			dispatch(setBuffer([...buffer.current]));
-			updateList();
-		}
-
-		if (keyCode === KEY_CODE.SPACE) {
-			toggleIsOpen(false);
-		}
+		buffer.current.push(alphabet);
+		updateList();
 	};
 
 	useEffect(() => {

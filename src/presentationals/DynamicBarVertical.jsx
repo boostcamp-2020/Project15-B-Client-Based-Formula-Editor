@@ -24,10 +24,10 @@ const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px
 		transition: 0.2s;
 
 		:first-child {
-			top: -120%
+			top: -100%
 		}
 		:last-child {
-			top: -60%
+			top: -90%
 		}
 	}
 
