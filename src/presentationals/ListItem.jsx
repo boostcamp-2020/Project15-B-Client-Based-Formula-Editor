@@ -27,11 +27,12 @@ const Bottom = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: ${themeColor.normal};
+	background-color: ${themeColor.light};
 	color: ${themeColor.white};
 	height: 150px;
 	border-radius: 7px;
-	border: 1px solid ${themeColor.white};
+	border: 1px solid black;
+	box-shadow: inset 0 0 2px white;
 
 	> .mq-math-mode {
 		width: 90%;
