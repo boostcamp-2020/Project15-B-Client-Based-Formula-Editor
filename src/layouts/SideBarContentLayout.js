@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { themeColor } from "../GlobalStyle";
 
 const SideBarContentLayout = styled.div`
-	width: 100%;
+	width: calc(100% - 60px);
 	height: 100%;
 	display: flex;
 	flex-direction: column;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setLatexInput, setLatexTextInput } from "../slice";
+import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
 import { latexFunction, getBackslashCountFromLatex } from "../util";
 import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
@@ -20,8 +20,7 @@ export default function AutoKeywordContainer() {
 	const rootBlock = document.querySelector(".mq-textarea");
 
 	const updateList = () => {
-		const temp = buffer.current.join("").trim()
-			.toLowerCase();
+		const temp = buffer.current.join("").trim();
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
@@ -36,10 +35,15 @@ export default function AutoKeywordContainer() {
 			setBackslashCount(backslashCountInLatex);
 			updateList();
 			toggleIsOpen(!isOpen);
-			return;
+		}
+	};
+
+	const keydownEvent = ({ keyCode }) => {
+		if (itemIndex > 0) {
+			setItemIndex(0);
 		}
 
-		const isRemoveKey = k => k === KEY_CODE.BACK_SPACE || k === KEY_CODE.DELETE;
+		const isRemoveKey = key => key === KEY_CODE.BACK_SPACE || key === KEY_CODE.DELETE;
 
 		if (!isOpen && isRemoveKey(keyCode)) {
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
@@ -47,10 +51,11 @@ export default function AutoKeywordContainer() {
 			if (backslashCountInLatex !== backslashCount) {
 				setBackslashCount(backslashCountInLatex);
 			}
-			return;
 		}
 
-		if (isOpen && isRemoveKey(keyCode)) {
+		if (!isOpen) return;
+
+		if (isRemoveKey(keyCode)) {
 			if (latexInput === "\\ ") {
 				toggleIsOpen(false);
 				setRecommandationList([]);
@@ -62,6 +67,8 @@ export default function AutoKeywordContainer() {
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
 			buffer.current.pop();
+			dispatch(setBuffer([...buffer.current]));
+
 			updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
@@ -69,14 +76,6 @@ export default function AutoKeywordContainer() {
 				toggleIsOpen(false);
 			}
 		}
-	};
-
-	const keydownEvent = ({ keyCode }) => {
-		if (itemIndex > 0) {
-			setItemIndex(0);
-		}
-
-		if (!isOpen) return;
 
 		if (keyCode === KEY_CODE.DOWN) {
 			const nextIndex = (itemIndex + 1) % recommandationList.length;
@@ -95,8 +94,7 @@ export default function AutoKeywordContainer() {
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
 			const target = recommandationList[itemIndex];
 
-			const temp = buffer.current.join("").trim()
-				.toLowerCase();
+			const temp = buffer.current.join("").trim();
 
 			const remainedLatexPart = target.replace(`\\${temp}`, "");
 
@@ -104,6 +102,7 @@ export default function AutoKeywordContainer() {
 
 			setRecommandationList([]);
 			buffer.current = [];
+			dispatch(setBuffer([]));
 			toggleIsOpen(false);
 			setItemIndex(0);
 		}
@@ -113,16 +112,9 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		const alphabet = String.fromCharCode(keyCode);
-		const isAlphabet = target => target.match(/[a-zA-Z]/i);
 
-		if (isAlphabet(alphabet)) {
-			buffer.current.push(alphabet);
-			updateList();
-		}
-
-		if (keyCode === KEY_CODE.SPACE) {
-			toggleIsOpen(false);
-		}
+		buffer.current.push(alphabet);
+		updateList();
 	};
 
 	const onClick = () => {

@@ -20,6 +20,8 @@ export const color = {
 	red: "#d73a49",
 	blue: "#0366d6",
 	yellow: "#ffc107",
+	black: "black",
+	white: "white",
 };
 
 const GlobalStyle = createGlobalStyle`

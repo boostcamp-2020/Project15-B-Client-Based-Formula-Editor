@@ -5,6 +5,7 @@ import {
 	addLatexItem,
 	getIdToAdd,
 	setLatexItem,
+	checkIfPayloadEndsSpace,
 } from "./sliceUtil";
 
 import { getCurrentDate } from "./util";
@@ -15,12 +16,18 @@ export default {
 	},
 	setLatexInput(state, { payload }) {
 		if (state.pastLatexInput === payload) return;
+		if (state.buffer.length) return;
 		state.futureLatexCommands = [];
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.pastLatexInput = state.latexInput;
+		if (checkIfPayloadEndsSpace(payload)) {
+			state.latexInput = payload.trim();
+			return;
+		}
 		state.latexInput = payload;
 	},
 	setLatexTextInput(state, { payload }) {
+		if (state.buffer.length) return;
 		state.futureLatexCommands = [];
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.pastLatexInput = payload;
@@ -93,6 +100,7 @@ export default {
 	},
 	removeCustomCommand(state, { payload }) {
 		state.customCommandList = state.customCommandList.filter((_, index) => index !== payload);
+		updateCustomCommandList(state);
 	},
 	setCustomCommandList(state, { payload }) {
 		state.customCommandList = payload;
@@ -136,6 +144,9 @@ export default {
 	},
 	setCharacterTabState(state, { payload }) {
 		state.characterTabState[payload] = !state.characterTabState[payload];
+	},
+	setBuffer(state, { payload }) {
+		state.buffer = payload;
 	},
 	setSidebarState(state, { payload }) {
 		state.sidebarState = payload;

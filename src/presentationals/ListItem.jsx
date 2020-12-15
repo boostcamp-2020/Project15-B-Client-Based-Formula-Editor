@@ -10,9 +10,12 @@ import CloseIcon from "../icons/CloseIcon";
 import IconButton from "./IconButton";
 
 const Layout = styled.div`
-	height: 150px;
-	position: relative;
-  z-index: 500;
+	position: fixed;
+	width: 250px;
+	left: 270px;
+	transform: translate(0, -30px);
+	color: black;
+	z-index: 1;
 
 	&:hover {
 		> div:first-child {
@@ -30,7 +33,7 @@ const Bottom = styled.div`
 const Item = styled.div`
 	background-color: ${themeColor.normal};
 	color: ${themeColor.white};
-	height: 100%;
+	height: 150px;
 	margin: 5px;
 	border-radius: 7px;
 	border: 1px solid ${themeColor.white};
