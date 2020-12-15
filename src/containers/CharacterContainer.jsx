@@ -46,7 +46,8 @@ export default function CharacterContainer() {
 			<Filter onChange={handleFilter}/>
 			<CharacterContainerLayout>
 				{titles.map(title => {
-					const filteredList = characterLatex[title].filter(item => (searchTerm ? item.name.includes(searchTerm) || item.symbol.includes(searchTerm) : true));
+					const filteredList = characterLatex[title].filter(item =>
+						(searchTerm ? item.name.includes(searchTerm) || item.symbol.includes(searchTerm) : true));
 
 					return (
 						<div key={title}>
@@ -57,6 +58,7 @@ export default function CharacterContainer() {
 								length={`${filteredList.length}`}
 							/>
 							<CharacterList
+								title={title}
 								isOpen={isOpenMenu[title]}
 								list={filteredList}
 								handleClickItem={handleClickItem}

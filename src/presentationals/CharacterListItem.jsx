@@ -14,19 +14,34 @@ const Item = styled.div`
   &:hover {
     background-color: #2B2D2E;
 
-		> div > div:first-child {
+		> div > div > div:first-child {
+			visibility: visible;
+		}
+		> div:last-child {
 			visibility: visible;
 		}
   }
+`;
 
-  > div:first-child {
-    width: 40px;
-    text-align: center;
-  }
+const SymbolWrapper = styled.div`
+  width: 40px;
+  text-align: center;
 `;
 
 const Symbol = styled.div`
 	position: relative;
+
+	width: 40px;
+	text-align: center;
+
+	> i > span:first-child {
+		font-size: 16px;
+	}
+
+	> i > span:last-child {
+		font-size: 10px;
+		font-weight: bold;
+	}
 `;
 
 const Magnifier = styled.div`
@@ -59,22 +74,60 @@ const Name = styled.div`
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
 
-export default function CharacterListItem({ item, onClick, isMagnifier }) {
+const FormulaViewBox = styled.div`
+	position: fixed;
+	left: 300px;
+	transform: translateY(60px);
+	z-index: 3;
+	color: ${themeColor.white};
+	background-color: ${themeColor.normal};
+	width: 250px;
+	height: 150px;
+	visibility: hidden;
+	margin: 5px;
+	border-radius: 7px;
+	border: 1px solid ${themeColor.white};
+
+	> .mq-math-mode {
+		width: 90%;
+		text-align: center;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		cursor: pointer;
+	}
+`;
+
+export default function CharacterListItem({ title, item, onClick, isMagnifier }) {
+	const getItemComponent = WrapperComponent =>
+		<SymbolWrapper>
+			{isMagnifier &&
+				<Magnifier>
+					<WrapperComponent>{item.symbol}</WrapperComponent>
+				</Magnifier>}
+			<WrapperComponent>{item.symbol}</WrapperComponent>
+		</SymbolWrapper>;
+
 	return (
 		<Item onClick={onClick(item.latex)}>
-			<Symbol>
-				{item.isSymbol ?
-					<>
-						{isMagnifier && <Magnifier><StaticMathField>{item.symbol}</StaticMathField></Magnifier>}
-						<StaticMathField>{item.symbol}</StaticMathField>
-					</> :
-					<>
-						{isMagnifier && <Magnifier><Text>{item.symbol}</Text></Magnifier>}
-						<Text>{item.symbol}</Text>
-					</>
-				}
-			</Symbol>
-			<Name isMagnifier={isMagnifier}>{item.name}</Name>
+			{title !== "example" &&
+				<>
+					<Symbol>
+						{item.isSymbol ? getItemComponent(StaticMathField) : getItemComponent(Text)}
+					</Symbol>
+					<Name isMagnifier={isMagnifier}>{item.name}</Name>
+				</>}
+			{title === "example" &&
+				<>
+					<Symbol>
+						<i><span>f</span><span>(x)</span></i>
+					</Symbol>
+					<Name isMagnifier={isMagnifier}>{item.name}</Name>
+					<FormulaViewBox>
+						<StaticMathField>{item.latex}</StaticMathField>
+					</FormulaViewBox>
+				</>}
 		</Item>
 	);
 }
