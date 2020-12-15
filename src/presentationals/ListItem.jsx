@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
 import { color, themeColor } from "../GlobalStyle";
-import EmptyStarIcon from "../icons/EmptyStarIcon";
-import FilledStarIcon from "../icons/FilledStarIcon";
 import PlusIcon from "../icons/PlusIcon";
 import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
+import EmptyStarIcon from "../icons/EmptyStarIcon";
+import FilledStarIcon from "../icons/FilledStarIcon";
 import IconButton from "./IconButton";
 
 const Layout = styled.div`
@@ -52,6 +52,8 @@ export default function ListItem({
 	intoLatexFieldOnClick,
 	isBookmark,
 }) {
+	const StarIcon = isBookmark ? <FilledStarIcon /> : <EmptyStarIcon fill={color.yellow} />;
+
 	return (
 		<Layout>
 			<Item onClick={intoLatexFieldOnClick}>
@@ -59,33 +61,12 @@ export default function ListItem({
 			</Item>
 			<Bottom>
 				{bookmarkOnClick &&
-					<IconButton
-						onClick={bookmarkOnClick}
-						isHover={true}
-						icon={isBookmark ?
-							<FilledStarIcon /> :
-							<EmptyStarIcon fill={color.yellow} />}
-					/>
-				}
+					<IconButton onClick={bookmarkOnClick} isHover={true} icon={StarIcon} />}
 				{customOnClick &&
-					<IconButton
-						onClick={customOnClick}
-						isHover={true}
-						icon={<PlusIcon />}
-					/>
-				}
+					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
 				{editOnClick &&
-					<IconButton
-						onClick={editOnClick}
-						isHover={true}
-						icon={<EditIcon />}
-					/>
-				}
-				<IconButton
-					onClick={deleteOnClick}
-					isHover={true}
-					icon={<DeleteIcon />}
-				/>
+					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
+				<IconButton onClick={deleteOnClick} isHover={true} icon={<DeleteIcon />} />
 			</Bottom>
 		</Layout>
 	);
