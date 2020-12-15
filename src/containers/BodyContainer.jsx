@@ -59,7 +59,8 @@ export default function BodyContainer({ bodyWidth }) {
 		};
 		latexFunction.insertClickedLatex = latex => {
 			mathField.cmd(`${latex} `);
-			mathField.focus();
+			mathField.keystroke("Shift-Left");
+			mathField.keystroke("Del");
 		};
 	};
 
