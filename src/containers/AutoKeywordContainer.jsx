@@ -39,24 +39,21 @@ export default function AutoKeywordContainer() {
 
 		if (!isOpen) return;
 
+		const bufferShift = (fromBuffer, toBuffer) => {
+			const item = fromBuffer.current.pop();
+
+			if (item) {
+				toBuffer.current.push(item);
+				dispatch(setBuffer([...buffer.current]));
+				updateList();
+			}
+		};
+
 		if (keyCode === KEY_CODE.LEFT) {
-			const item = buffer.current.pop();
-
-			if (item) {
-				dispatch(setBuffer([...buffer.current]));
-				secondBuffer.current.unshift(item);
-				updateList();
-			}
+			bufferShift(buffer, secondBuffer);
 		}
-
 		if (keyCode === KEY_CODE.RIGHT) {
-			const item = secondBuffer.current.shift();
-
-			if (item) {
-				buffer.current.push(item);
-				dispatch(setBuffer([...buffer.current]));
-				updateList();
-			}
+			bufferShift(secondBuffer, buffer);
 		}
 	};
 
