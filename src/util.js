@@ -2,7 +2,7 @@ import { SIDE_MIN_WIDTH, BODY_MIN_WIDTH } from "./constants/size";
 
 const changeOneLetterToTwo = number => (number > 9 ? number : number.toString().padStart(2, 0));
 
-export const latexFunction = { insertLatex: () => { } };
+export const latexFunction = { insertLatex: () => { }, insertClickedLatex: () => { } };
 
 export const toFitSimple = cb => {
 	let tick = false;

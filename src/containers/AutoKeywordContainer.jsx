@@ -116,6 +116,26 @@ export default function AutoKeywordContainer() {
 		updateList();
 	};
 
+	const onClick = () => {
+		const target = recommandationList[itemIndex];
+
+		const temp = buffer.current.join("").trim();
+
+		const remainedLatexPart = target.replace(`\\${temp}`, "");
+
+		latexFunction.insertClickedLatex(remainedLatexPart);
+
+		setRecommandationList([]);
+		buffer.current = [];
+		dispatch(setBuffer([]));
+		toggleIsOpen(false);
+		setItemIndex(0);
+	};
+
+	const onMouseEnter = e => {
+		setItemIndex(e.target.dataset.id);
+	};
+
 	useEffect(() => {
 		const rootBlock = document.querySelector(".mq-textarea");
 
@@ -137,6 +157,8 @@ export default function AutoKeywordContainer() {
 			y={cursorPosition.y}
 			recommandationList={recommandationList}
 			targetIndex={itemIndex}
+			onClick={onClick}
+			onMouseEnter={onMouseEnter}
 		/>
 	);
 }
