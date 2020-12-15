@@ -5,15 +5,8 @@ import { themeColor } from "../GlobalStyle";
 import ExclamationIcon from "../icons/ExclamationIcon";
 
 const Layout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translateX(-50%);
-  top: 30%;
-  position: absolute;
-  left: 50%;
   text-align: center;
-  padding: 0 20px;
+  padding-top: 80px;
   width: 100%;
 `;
 
