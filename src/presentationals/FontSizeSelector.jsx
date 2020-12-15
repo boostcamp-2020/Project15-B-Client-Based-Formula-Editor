@@ -11,6 +11,7 @@ const Layout = styled.div`
 	align-items: center;
 	padding: 0 5px;
 	border-right: 1px dashed ${themeColor.white};
+	position: relative;
 `;
 
 const FontSizeInput = styled.input`
@@ -23,35 +24,36 @@ const FontSizeInput = styled.input`
 
 const FontDropdown = styled.div`
 	position: absolute;
-	top: 35px;
-	transform: translateX(-5px);
+	bottom: 0;
+	transform: translate(-4px, 100%);
 	background: linear-gradient(180deg, #5c5c5c, #303030 );
 	color: white;
 	font-size: 13px;
 	font-weight: bold;
-	border-radius: 4px;
 	padding: 5px 0;
 	z-index: 3;
+	width: 55px;
 	cursor: pointer;
+	border-radius: 5px;
+	border: 1px solid black;
+	box-shadow: inset 0 0 1px white;
 `;
 
 const FontItem = styled.div`
-	display: flex;
-  padding: 0px 18px 0px 9px;
+	text-align: center;
+	width: 100%;
+	position: relative;
 
 	> svg {
+		position: absolute;
 		width: 10px;
-		margin-right: 4px;
-		visibility: hidden;
+		left: 5px;
+		top: 50%;
+		transform: translateY(-50%);
 	}
 
 	&:hover {
     background-color: #43c343;
-    color: white;
-		
-		svg {
-			visibility: visible;
-		}
 	}
 `;
 
@@ -75,8 +77,8 @@ export default function FontSizeSelector({
 				<FontDropdown>
 					{fontSizes.map((size, index) =>
 						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>
-							<CheckIcon />
 							<div>{size}</div>
+							{fontSize === size && <CheckIcon />}
 						</FontItem>,
 					)}
 				</FontDropdown>
