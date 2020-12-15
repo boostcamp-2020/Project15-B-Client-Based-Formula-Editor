@@ -57,6 +57,22 @@ const characterLatex = {
 		{ symbol: "∮", name: "contour integral", latex: "\\oint_{ }^{ }", isSymbol: true },
 		// { symbol: "∬", name: "", latex: "\\iint", isSymbol: true },
 	],
+	example: [
+		{ symbol: "ax^2+bx+c=0", name: "이차 방정식", latex: "ax^2+bx+c=0", isSymbol: true },
+		{ symbol: "D=b^2-4ac", name: "판별식", latex: "D=b^2-4ac", isSymbol: true },
+		{ symbol: "\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}", name: "근의 공식", latex: "\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}", isSymbol: true },
+		{ symbol: "_nP_r=\\frac{n!}{\\left(n-r\\right)!}", name: "순열", latex: "_nP_r=\\frac{n!}{\\left(n-r\\right)!}", isSymbol: true },
+		{ symbol: "_nC_r=\\frac{_nP_r}{r!}=\\frac{n!}{r!\\left(n-r\\right)!}", name: "조합", latex: "_nC_r=\\frac{_nP_r}{r!}=\\frac{n!}{r!\\left(n-r\\right)!}", isSymbol: true },
+		{ symbol: "a_n=a+\\left(n-1\\right)d", name: "등차수열의 일반항", latex: "a_n=a+\\left(n-1\\right)d", isSymbol: true },
+		{ symbol: "2a_{n+1}=a_n+a_{n+2}", name: "등차수열의 조건", latex: "2a_{n+1}=a_n+a_{n+2}", isSymbol: true },
+		{ symbol: "S_n=\\frac{n\\left(a+1\\right)}{2}", name: "등차수열의 합", latex: "S_n=\\frac{n\\left(a+1\\right)}{2}", isSymbol: true },
+		{ symbol: "\\frac{2}{a_{n+1}}=\\frac{1}{a_n}+\\frac{1}{a_{n+2}}", name: "조화수열의 조건", latex: "\\frac{2}{a_{n+1}}=\\frac{1}{a_n}+\\frac{1}{a_{n+2}}", isSymbol: true },
+		{ symbol: "a_n=ar^{n-1}\\quad \\left(단,\\quad r\\ne 0\\right)", name: "등비수열의 일반항", latex: "a_n=ar^{n-1}\\quad \\left(단,\\quad r\\ne 0\\right)", isSymbol: true },
+		{ symbol: "x=\\pm \\sqrt{ab}\\left(a_{n+1}\\right)^2=a_na_{n+2}", name: "등비수열의 조건", latex: "x=\\pm \\sqrt{ab}\\left(a_{n+1}\\right)^2=a_na_{n+2}", isSymbol: true },
+		{ symbol: "S_n=\\frac{a\\left(r^n-1\\right)}{r-1}", name: "등비수열의 합", latex: "S_n=\\frac{a\\left(r^n-1\\right)}{r-1}", isSymbol: true },
+		{ symbol: "\\sum _{ }^{ }k=\\frac{n\\left(n+1\\right)}{2}", name: "수열의 합", latex: "\\sum _{ }^{ }k=\\frac{n\\left(n+1\\right)}{2}", isSymbol: true },
+		{ symbol: "\\sum _{k=1}^nk^2=\\frac{n\\left(n+1\\right)\\left(2n+1\\right)}{6}", name: "거듭제곱의 합", latex: "\\sum _{k=1}^nk^2=\\frac{n\\left(n+1\\right)\\left(2n+1\\right)}{6}", isSymbol: true },
+	],
 };
 
 export default characterLatex;
