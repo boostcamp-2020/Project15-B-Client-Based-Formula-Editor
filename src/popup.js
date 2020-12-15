@@ -1,14 +1,14 @@
 /* eslint-disable no-use-before-define */
 import KEY_CODE from "./constants/keyCode";
 
-const customPopup = ({ mode, message }) => new Promise(resolve => {
+const customPopup = ({ mode, message, placeholder }) => new Promise(resolve => {
 	const popup = document.createElement("div");
 
 	popup.classList.add("popup");
 
 	const content = {
 		confirm: ``,
-		prompt: `<input type="text" />`,
+		prompt: `<input type="text" placeholder="${placeholder}"/>`,
 		image: `
 			<input type="text" />
 			<div>
