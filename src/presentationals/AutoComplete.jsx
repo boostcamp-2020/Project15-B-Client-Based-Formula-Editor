@@ -47,12 +47,13 @@ export default function AutoComplete({
 	y,
 	recommandationList,
 	targetIndex,
+	onClick,
 	onMouseEnter,
 }) {
 	return (
 		<AutoKeywordLayout x={x} y={y} isOpen={isOpen}>
 			{ isOpen && recommandationList.map((item, index) => (
-				<HightLight id={index} onMouseEnter={onMouseEnter}
+				<HightLight id={index} onClick={onClick} onMouseEnter={onMouseEnter}
 					key={index} isFocused={index === parseInt(targetIndex, 10)}>
 					<ItemWrapper>{item}</ItemWrapper>
 					<MathFieldWrapper>

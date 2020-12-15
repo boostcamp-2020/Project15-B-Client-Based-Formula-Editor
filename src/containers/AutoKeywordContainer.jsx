@@ -124,6 +124,21 @@ export default function AutoKeywordContainer() {
 		}
 	};
 
+	const onClick = () => {
+		const target = recommandationList[itemIndex];
+
+		const temp = buffer.current.join("").trim();
+
+		const remainedLatexPart = target.replace(`\\${temp}`, "");
+
+		latexFunction.insertLatex(remainedLatexPart);
+
+		setRecommandationList([]);
+		buffer.current = [];
+		toggleIsOpen(false);
+		setItemIndex(0);
+	};
+
 	const onMouseEnter = e => {
 		setItemIndex(e.target.id);
 	};
@@ -149,6 +164,7 @@ export default function AutoKeywordContainer() {
 			y={cursorPosition.y}
 			recommandationList={recommandationList}
 			targetIndex={itemIndex}
+			onClick={onClick}
 			onMouseEnter={onMouseEnter}
 		/>
 	);
