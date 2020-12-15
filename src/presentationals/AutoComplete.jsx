@@ -62,10 +62,10 @@ export default function AutoComplete({
 							<div key={`C${item}`}>{item.description}</div>
 						</> :
 						<>
-					<ItemWrapper>{item}</ItemWrapper>
-					<MathFieldWrapper>
-						<StaticMathField key={`S${item}`}>{item}</StaticMathField>
-					</MathFieldWrapper>
+							<ItemWrapper>{item}</ItemWrapper>
+							<MathFieldWrapper>
+								<StaticMathField key={`S${item}`}>{item}</StaticMathField>
+							</MathFieldWrapper>
 						</>
 					}
 				</HightLight>
