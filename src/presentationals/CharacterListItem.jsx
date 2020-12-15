@@ -47,6 +47,10 @@ const Magnifier = styled.div`
 	.mq-math-mode, > div {
 		font-size: 2rem;
 	}
+
+	* {
+		cursor: pointer;
+	}
 `;
 
 const Text = styled.div`
