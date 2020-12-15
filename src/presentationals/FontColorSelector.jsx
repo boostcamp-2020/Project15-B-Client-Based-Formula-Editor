@@ -35,11 +35,10 @@ const ColorChartLayout = styled.div``;
 const ColorChart = styled.div`
 	position: absolute;
 	top: 40px;
-	background-color: #f4f4f4;
-	border: none;
 	border-radius: 3px;
 	padding: 10px;
 	z-index: 3;
+	background: ${themeColor.light};
 `;
 
 const ColorChartRow = styled.div`
@@ -64,6 +63,8 @@ const ColorCodeInput = styled.input`
   margin-left: 10px;
   width: 144px;
   text-align: center;
+	background: ${themeColor.white};
+  border: none;
 `;
 
 export default function FontColorSelector({
