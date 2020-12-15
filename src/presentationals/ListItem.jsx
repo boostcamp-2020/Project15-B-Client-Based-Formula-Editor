@@ -5,7 +5,7 @@ import { StaticMathField } from "react-mathquill";
 import { color, themeColor } from "../GlobalStyle";
 import PlusIcon from "../icons/PlusIcon";
 import EditIcon from "../icons/EditIcon";
-import DeleteIcon from "../icons/DeleteIcon";
+import MinusIcon from "../icons/MinusIcon";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import FilledStarIcon from "../icons/FilledStarIcon";
 import IconButton from "./IconButton";
@@ -66,7 +66,7 @@ export default function ListItem({
 					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
 				{editOnClick &&
 					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
-				<IconButton onClick={deleteOnClick} isHover={true} icon={<DeleteIcon />} />
+				<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />
 			</Bottom>
 		</Layout>
 	);
