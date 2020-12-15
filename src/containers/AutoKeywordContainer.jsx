@@ -17,6 +17,7 @@ export default function AutoKeywordContainer() {
 	const buffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
 	const MAX_LENGTH = 7;
+	const rootBlock = document.querySelector(".mq-textarea");
 
 	const updateList = () => {
 		const temp = buffer.current.join("").trim()
@@ -125,18 +126,7 @@ export default function AutoKeywordContainer() {
 	};
 
 	const onClick = () => {
-		const target = recommandationList[itemIndex];
-
-		const temp = buffer.current.join("").trim();
-
-		const remainedLatexPart = target.replace(`\\${temp}`, "");
-
-		latexFunction.insertLatex(remainedLatexPart);
-
-		setRecommandationList([]);
-		buffer.current = [];
-		toggleIsOpen(false);
-		setItemIndex(0);
+		rootBlock.dispatchEvent(new KeyboardEvent("keydown", { keyCode: KEY_CODE.ENTER }));
 	};
 
 	const onMouseEnter = e => {
@@ -144,8 +134,6 @@ export default function AutoKeywordContainer() {
 	};
 
 	useEffect(() => {
-		const rootBlock = document.querySelector(".mq-textarea");
-
 		rootBlock?.addEventListener("keypress", keypressEvent);
 		rootBlock?.addEventListener("keydown", keydownEvent);
 		rootBlock?.addEventListener("keyup", keyupEvent);
