@@ -85,7 +85,13 @@ export default function FontColorSelector({
 					<ColorChart>
 						{colorChart.map((row, index) =>
 							<ColorChartRow key={index}>
-								{row.map((color, i) => <ColorItem key={i} color={color} onClick={onClickItem(color)}/>)}
+								{row.map((color, i) =>
+									<ColorItem
+										key={i}
+										data-testid={color}
+										color={color}
+										onClick={onClickItem(color)}
+									/>)}
 							</ColorChartRow>,
 						)}
 						<ColorCodeLayout>
