@@ -17,12 +17,15 @@ const Item = styled.div`
 		> div > div:first-child {
 			visibility: visible;
 		}
+		> div:last-child {
+			visibility: visible;
+		}
   }
+`;
 
-  > div:first-child {
-    width: 40px;
-    text-align: center;
-  }
+const SymbolWrapper = styled.div`
+  width: 40px;
+  text-align: center;
 `;
 
 const Symbol = styled.div`
@@ -59,22 +62,71 @@ const Name = styled.div`
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
 
-export default function CharacterListItem({ item, onClick, isMagnifier }) {
+const AdditionalBox = styled.div`
+	position: fixed;
+	left: 300px;
+	transform: translateY(60px);
+	z-index: 3;
+	color: ${themeColor.white};
+	background-color: ${themeColor.normal};
+	width: 250px;
+	height: 150px;
+	visibility: hidden;
+	margin: 5px;
+	border-radius: 7px;
+	border: 1px solid ${themeColor.white};
+
+	> .mq-math-mode {
+		width: 90%;
+		text-align: center;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		cursor: pointer;
+	}
+`;
+
+const ExampleSymbolLayout = styled.div`
+	width: 40px;
+	text-align: center;
+
+	> i > span:first-child {
+		font-size: 16px;
+	}
+
+	> i > span:last-child {
+		font-size: 10px;
+		font-weight: bold;
+	}
+`;
+
+export default function CharacterListItem({ title, item, onClick, isMagnifier }) {
 	return (
 		<Item onClick={onClick(item.latex)}>
-			<Symbol>
-				{item.isSymbol ?
-					<>
-						{isMagnifier && <Magnifier><StaticMathField>{item.symbol}</StaticMathField></Magnifier>}
-						<StaticMathField>{item.symbol}</StaticMathField>
-					</> :
-					<>
-						{isMagnifier && <Magnifier><Text>{item.symbol}</Text></Magnifier>}
-						<Text>{item.symbol}</Text>
-					</>
-				}
-			</Symbol>
+			{title !== "example" ?
+				<Symbol>
+					{item.isSymbol ?
+						<SymbolWrapper>
+							{isMagnifier && <Magnifier><StaticMathField>{item.symbol}</StaticMathField></Magnifier>}
+							<StaticMathField>{item.symbol}</StaticMathField>
+						</SymbolWrapper> :
+						<SymbolWrapper>
+							{isMagnifier && <Magnifier><Text>{item.symbol}</Text></Magnifier>}
+							<Text>{item.symbol}</Text>
+						</SymbolWrapper>
+					}
+				</Symbol> :
+				<ExampleSymbolLayout>
+					<i><span>f</span><span>(x)</span></i>
+				</ExampleSymbolLayout>
+			}
 			<Name isMagnifier={isMagnifier}>{item.name}</Name>
+			{title === "example" &&
+				<AdditionalBox>
+					<StaticMathField>{item.latex}</StaticMathField>
+				</AdditionalBox>
+			}
 		</Item>
 	);
 }
