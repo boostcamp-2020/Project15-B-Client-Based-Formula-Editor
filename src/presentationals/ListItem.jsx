@@ -6,7 +6,7 @@ import { color, themeColor } from "../GlobalStyle";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import FilledStarIcon from "../icons/FilledStarIcon";
 import PlusIcon from "../icons/PlusIcon";
-import CloseIcon from "../icons/CloseIcon";
+import DeleteIcon from "../icons/DeleteIcon";
 import IconButton from "./IconButton";
 
 const Layout = styled.div`
@@ -16,17 +16,11 @@ const Layout = styled.div`
 	transform: translate(0, -30px);
 	color: black;
 	z-index: 1;
-
-	&:hover {
-		> div:first-child {
-			display: block;
-		}
-	}
 `;
 
 const Bottom = styled.div`
 	position: absolute;
-	bottom: 0;
+	bottom: 5px;
 	right: 5px;
 `;
 
@@ -34,7 +28,6 @@ const Item = styled.div`
 	background-color: ${themeColor.normal};
 	color: ${themeColor.white};
 	height: 150px;
-	margin: 5px;
 	border-radius: 7px;
 	border: 1px solid ${themeColor.white};
 
@@ -49,13 +42,6 @@ const Item = styled.div`
 	}
 `;
 
-const DeleteButton = styled.div`
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	display: none;
-`;
-
 export default function ListItem({
 	latex,
 	deleteOnClick,
@@ -66,12 +52,6 @@ export default function ListItem({
 }) {
 	return (
 		<Layout>
-			<DeleteButton>
-				<IconButton
-					onClick={deleteOnClick}
-					isHover={true}
-					icon={<CloseIcon fill={themeColor.white}/>}/>
-			</DeleteButton>
 			<Item onClick={intoLatexFieldOnClick}>
 				<StaticMathField>{latex}</StaticMathField>
 			</Item>
@@ -89,6 +69,11 @@ export default function ListItem({
 					onClick={customOnClick}
 					isHover={true}
 					icon={<PlusIcon />} />
+				<IconButton
+					onClick={deleteOnClick}
+					isHover={true}
+					icon={<DeleteIcon />}
+				/>
 			</Bottom>
 		</Layout>
 	);
