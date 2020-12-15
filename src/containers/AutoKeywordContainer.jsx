@@ -11,11 +11,13 @@ export default function AutoKeywordContainer() {
 	const dispatch = useDispatch();
 	const cursorPosition = useSelector(state => state.cursorPosition);
 	const latexInput = useSelector(state => state.latexInput);
+	const customCommandList = useSelector(state => state.customCommandList);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
+	const [isCustom, setIsCustom] = useState(false);
 	const MAX_LENGTH = 7;
 
 	const updateList = () => {
@@ -25,6 +27,15 @@ export default function AutoKeywordContainer() {
 
 		if (list.length > MAX_LENGTH) list.length = MAX_LENGTH;
 		setRecommandationList(list);
+		setIsCustom(false);
+	};
+
+	const updateCustomList = () => {
+		const temp = buffer.current.join("").trim();
+		const list = customCommandList.filter(elem => elem.command.includes(`${temp}`));
+
+		setRecommandationList(list);
+		setIsCustom(true);
 	};
 
 	const keyupEvent = ({ keyCode }) => {
@@ -55,7 +66,7 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		if (isRemoveKey(keyCode)) {
-			if (latexInput === "\\ ") {
+			if (latexInput === "\\ " || latexInput === "#") {
 				toggleIsOpen(false);
 				setRecommandationList([]);
 				setBackslashCount(0);
@@ -68,7 +79,7 @@ export default function AutoKeywordContainer() {
 			buffer.current.pop();
 			dispatch(setBuffer([...buffer.current]));
 
-			updateList();
+			isCustom ? updateCustomList() : updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
 				setBackslashCount(backslashCountInLatex);
@@ -95,7 +106,7 @@ export default function AutoKeywordContainer() {
 
 			const temp = buffer.current.join("").trim();
 
-			const remainedLatexPart = target.replace(`\\${temp}`, "");
+			const remainedLatexPart = isCustom ? target.command.replace(`${temp}`, "") : target.replace(`\\${temp}`, "");
 
 			latexFunction.insertLatex(remainedLatexPart);
 
@@ -108,12 +119,17 @@ export default function AutoKeywordContainer() {
 	};
 
 	const keypressEvent = ({ keyCode }) => {
+		if (keyCode === 35) {
+			updateCustomList();
+			toggleIsOpen(!isOpen);
+			return;
+		}
 		if (!isOpen) return;
 
 		const alphabet = String.fromCharCode(keyCode);
 
 		buffer.current.push(alphabet);
-		updateList();
+		isCustom ? updateCustomList() : updateList();
 	};
 
 	const onClick = () => {
@@ -159,6 +175,7 @@ export default function AutoKeywordContainer() {
 			targetIndex={itemIndex}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
+			type={isCustom}
 		/>
 	);
 }
