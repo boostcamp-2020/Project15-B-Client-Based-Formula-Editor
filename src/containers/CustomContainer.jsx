@@ -8,6 +8,7 @@ import {
 	removeCustomCommand,
 } from "../slice";
 import popup from "../popup";
+import { calcTopPreviewItem } from "../util";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import Filter from "../presentationals/Filter";
@@ -21,6 +22,7 @@ import CharacterListItem from "../presentationals/CharacterListItem";
 export default function CustomContainer() {
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
+	const [previewItem, setPreviewItem] = useState({ id: -1, top: 0 });
 	const [warningMessage, setWarningMessage] = useState({});
 	const customFormValue = useSelector(state => state.customFormValue);
 	const customCommandList = useSelector(state => state.customCommandList);
@@ -28,6 +30,7 @@ export default function CustomContainer() {
 	const handleFormOnButton = () => {
 		setWarningMessage({});
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "", description: "" }));
+		setPreviewItem({ id: -1 });
 	};
 
 	const handleEditClick = index => () => {
@@ -126,6 +129,10 @@ export default function CustomContainer() {
 		setSearchTerm(inputValue);
 	};
 
+	const handleMouseEnterItem = id => e => {
+		setPreviewItem({ id, top: calcTopPreviewItem(e.pageY) });
+	};
+
 	return (
 		<>
 			<Filter onChange={handleFilter} />
@@ -156,13 +163,17 @@ export default function CustomContainer() {
 								<CharacterListItem
 									item={{ ...item, symbol: "#", name: item.command }}
 									onClick={() => { }}
+									onMouseEnter={handleMouseEnterItem(index)}
 								/>
-								<ListItem
-									latex={item.latex}
-									editOnClick={handleEditClick(index)}
-									deleteOnClick={handleDeleteClick(index)}
-									intoLatexFieldOnClick={handleEditClick(index)}
-								/>
+								{previewItem.id === index &&
+									<ListItem
+										latex={item.latex}
+										editOnClick={handleEditClick(index)}
+										deleteOnClick={handleDeleteClick(index)}
+										intoLatexFieldOnClick={handleEditClick(index)}
+										top={previewItem.top}
+									/>
+								}
 							</SideTabItemLayout>,
 						) :
 					<EmptyItem content={"최근 저장한 명령어가 없습니다"} />}
