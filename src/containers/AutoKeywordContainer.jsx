@@ -11,6 +11,7 @@ export default function AutoKeywordContainer() {
 	const dispatch = useDispatch();
 	const cursorPosition = useSelector(state => state.cursorPosition);
 	const latexInput = useSelector(state => state.latexInput);
+	const customCommandList = useSelector(state => state.customCommandList);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
@@ -28,6 +29,12 @@ export default function AutoKeywordContainer() {
 		setRecommandationList(list);
 	};
 
+	const updateCustomList = () => {
+		const temp = buffer.current.join("").trim();
+		const list = customCommandList.filter(elem => elem.command.includes(`${temp}`));
+
+		setRecommandationList(list);
+	};
 	const keyupEvent = ({ keyCode }) => {
 		if (keyCode === KEY_CODE.BACK_SLASH) {
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
@@ -109,6 +116,11 @@ export default function AutoKeywordContainer() {
 	};
 
 	const keypressEvent = ({ keyCode }) => {
+		if (keyCode === 35) {
+			updateCustomList();
+			toggleIsOpen(!isOpen);
+			return;
+		}
 		if (!isOpen) return;
 
 		const alphabet = String.fromCharCode(keyCode);
