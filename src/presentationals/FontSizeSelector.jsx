@@ -58,7 +58,7 @@ const FontItem = styled.div`
 export default function FontSizeSelector({
 	fontSizeRef,
 	fontSize,
-	isFontSizeFocused,
+	fontDropdown,
 	handleFontSizeChange,
 	handleFontSizeItemClick,
 	handleFontSizeInputClick,
@@ -71,7 +71,7 @@ export default function FontSizeSelector({
 				onChange={handleFontSizeChange}
 				onClick={handleFontSizeInputClick}
 			/>
-			{isFontSizeFocused &&
+			{fontDropdown.size &&
 				<FontDropdown>
 					{fontSizes.map((size, index) =>
 						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>

@@ -12,7 +12,7 @@ import IconButton from "../presentationals/IconButton";
 
 export default function FontContainer() {
 	const fontSizeRef = useRef();
-	const [isFontSizeFocused, toggleIsFontSizeFocused] = useState(false);
+	const [fontDropdown, setFontDropdown] = useState({ size: false, color: false });
 	const fontInfo = useSelector(state => state.fontInfo);
 	const dispatch = useDispatch();
 
@@ -26,11 +26,11 @@ export default function FontContainer() {
 
 	const handleFontSizeItemClick = size => () => {
 		dispatch(setFont({ ...fontInfo, size }));
-		toggleIsFontSizeFocused(false);
+		setFontDropdown({ ...fontDropdown, size: false });
 	};
 
 	const handleFontSizeInputClick = () => {
-		toggleIsFontSizeFocused(true);
+		setFontDropdown({ ...fontDropdown, size: true });
 	};
 
 	const handleFontColor = e => {
@@ -42,14 +42,15 @@ export default function FontContainer() {
 	};
 
 	useEffect(() => {
-		const fontSizeOutsideClickEvent = ({ target }) => {
+		const outsideClickEvent = ({ target }) => {
 			if (!fontSizeRef.current.contains(target)) {
-				toggleIsFontSizeFocused(false);
+				setFontDropdown(prevState => ({ ...prevState, size: false }));
+			}
 			}
 		};
 
-		window.addEventListener("click", fontSizeOutsideClickEvent);
-		return () => window.removeEventListener("click", fontSizeOutsideClickEvent);
+		window.addEventListener("click", outsideClickEvent);
+		return () => window.removeEventListener("click", outsideClickEvent);
 	});
 
 	return (
@@ -57,7 +58,7 @@ export default function FontContainer() {
 			<FontSizeSelector
 				fontSizeRef={fontSizeRef}
 				fontSize={fontInfo.size}
-				isFontSizeFocused={isFontSizeFocused}
+				fontDropdown={fontDropdown}
 				handleFontSizeChange={handleFontSizeChange}
 				handleFontSizeItemClick={handleFontSizeItemClick}
 				handleFontSizeInputClick={handleFontSizeInputClick}
