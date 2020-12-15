@@ -120,11 +120,19 @@ export default function AutoKeywordContainer() {
 
 			const remainedLatexPart = target.replace(`\\${temp}`, "");
 
+			if (secondBuffer.current.length) {
+				let length = secondBuffer.current.length;
+
+				while (length-- > 0) {
+					latexFunction.keystroke("Shift-Right Del");
+				}
+			}
 			latexFunction.insertLatex(remainedLatexPart);
 
 			setRecommandationList([]);
 			buffer.current = [];
 			dispatch(setBuffer([]));
+			secondBuffer.current = [];
 			toggleIsOpen(false);
 			setItemIndex(0);
 		}
@@ -136,6 +144,7 @@ export default function AutoKeywordContainer() {
 		const alphabet = String.fromCharCode(keyCode);
 
 		buffer.current.push(alphabet);
+		dispatch(setBuffer([...buffer.current]));
 		updateList();
 	};
 
