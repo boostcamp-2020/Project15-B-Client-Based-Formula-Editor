@@ -57,6 +57,7 @@ export default function BodyContainer({ bodyWidth }) {
 		latexFunction.insertLatex = latex => {
 			mathField.cmd(latex);
 			mathField.cmd("");
+			mathField.focus();
 		};
 	};
 

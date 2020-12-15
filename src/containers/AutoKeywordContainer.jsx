@@ -107,7 +107,7 @@ export default function AutoKeywordContainer() {
 
 			const temp = buffer.current.join("").trim();
 
-			const remainedLatexPart = target.replace(`\\${temp}`, "");
+			const remainedLatexPart = isCustom ? target.command.replace(`${temp}`, "") : target.replace(`\\${temp}`, "");
 
 			latexFunction.insertLatex(remainedLatexPart);
 
