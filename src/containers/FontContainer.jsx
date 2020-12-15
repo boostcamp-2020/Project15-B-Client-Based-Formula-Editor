@@ -12,6 +12,7 @@ import IconButton from "../presentationals/IconButton";
 
 export default function FontContainer() {
 	const fontSizeRef = useRef();
+	const fontColorRef = useRef();
 	const [fontDropdown, setFontDropdown] = useState({ size: false, color: false });
 	const fontInfo = useSelector(state => state.fontInfo);
 	const dispatch = useDispatch();
@@ -33,8 +34,16 @@ export default function FontContainer() {
 		setFontDropdown({ ...fontDropdown, size: true });
 	};
 
-	const handleFontColor = e => {
+	const handleFontColorChange = e => {
 		dispatch(setFont({ ...fontInfo, color: e.target.value }));
+	};
+
+	const handleFontColorClick = color => () => {
+		dispatch(setFont({ ...fontInfo, color }));
+	};
+
+	const handleFontButtonClick = () => {
+		setFontDropdown({ ...fontDropdown, color: !fontDropdown.color });
 	};
 
 	const handleAlignment = align => () => {
@@ -46,6 +55,9 @@ export default function FontContainer() {
 			if (!fontSizeRef.current.contains(target)) {
 				setFontDropdown(prevState => ({ ...prevState, size: false }));
 			}
+
+			if (!fontColorRef.current.contains(target)) {
+				setFontDropdown(prevState => ({ ...prevState, color: false }));
 			}
 		};
 
@@ -64,8 +76,12 @@ export default function FontContainer() {
 				handleFontSizeInputClick={handleFontSizeInputClick}
 			/>
 			<FontColorSelector
-				onChange={handleFontColor}
+				fontColorRef={fontColorRef}
 				fontColor={fontInfo.color}
+				fontDropdown={fontDropdown}
+				onChange={handleFontColorChange}
+				onClickItem={handleFontColorClick}
+				onClickButton={handleFontButtonClick}
 			/>
 			<IconButton
 				onClick={handleAlignment("left")}
