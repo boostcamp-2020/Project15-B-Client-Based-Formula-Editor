@@ -63,9 +63,9 @@ const Name = styled.div`
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
 
-export default function CharacterListItem({ item, onClick, isMagnifier }) {
+export default function CharacterListItem({ item, onClick, isMagnifier, onMouseEnter }) {
 	return (
-		<Item onClick={onClick(item.latex)}>
+		<Item onClick={onClick(item.latex)} onMouseEnter={onMouseEnter}>
 			<Symbol>
 				{item.isSymbol ?
 					<>

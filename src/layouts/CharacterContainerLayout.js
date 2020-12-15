@@ -7,8 +7,6 @@ const CharacterContainerLayout = styled.div`
 	padding-bottom: 150px;
 	overflow: hidden;
 	height: 100%;
-  transition: 0.5s;
-  position: relative;
 
   &:hover {
     overflow: overlay;

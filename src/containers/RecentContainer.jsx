@@ -22,6 +22,7 @@ export default function RecentContainer({ setTabState }) {
 	const { recentItems } = useSelector(state => state);
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
+	const [previewItem, setPreviewItem] = useState({ id: 0, top: 0 });
 
 	const handleBookmarkButtonClick = (id, isBookmark, latex) => async () => {
 		if (isBookmark) {
@@ -80,6 +81,10 @@ export default function RecentContainer({ setTabState }) {
 		setSearchTerm(inputValue);
 	};
 
+	const handleMouseEnterItem = id => e => {
+		setPreviewItem({ id, top: e.pageY });
+	};
+
 	return (
 		<>
 			<Filter onChange={handleFilter}/>
@@ -97,15 +102,19 @@ export default function RecentContainer({ setTabState }) {
 								<CharacterListItem
 									item={{ ...item, symbol: "Σ", name: item.date }}
 									onClick={handleFormulaClick}
+									onMouseEnter={handleMouseEnterItem(item.id)}
 								/>
-								<ListItem
-									latex={item.latex}
-									bookmarkOnClick={handleBookmarkButtonClick(item.id, item.isBookmark)}
-									customOnClick={handleCustomButtonClick(item.latex)}
-									deleteOnClick={handleDeleteButtonClick(item.id)}
-									intoLatexFieldOnClick={handleFormulaClick(item.latex)}
-									isBookmark={item.isBookmark}
-								/>
+								{previewItem.id === item.id &&
+									<ListItem
+										latex={item.latex}
+										bookmarkOnClick={handleBookmarkButtonClick(item.id, item.isBookmark)}
+										customOnClick={handleCustomButtonClick(item.latex)}
+										deleteOnClick={handleDeleteButtonClick(item.id)}
+										intoLatexFieldOnClick={handleFormulaClick(item.latex)}
+										isBookmark={item.isBookmark}
+										top={previewItem.top}
+									/>
+								}
 							</SideTabItemLayout>,
 						) :
 					<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}

@@ -11,12 +11,13 @@ import FilledStarIcon from "../icons/FilledStarIcon";
 import IconButton from "./IconButton";
 
 const Layout = styled.div`
-	position: fixed;
+	position: absolute;
 	width: 250px;
-	left: 270px;
-	transform: translate(0, -30px);
+	transform: translateX(90%);
 	color: black;
-	z-index: 1;
+	z-index: 10;
+	top: ${({ top }) => top}px;
+	right: 0;
 `;
 
 const Bottom = styled.div`
@@ -51,11 +52,12 @@ export default function ListItem({
 	editOnClick,
 	intoLatexFieldOnClick,
 	isBookmark,
+	top,
 }) {
 	const StarIcon = isBookmark ? <FilledStarIcon /> : <EmptyStarIcon fill={color.yellow} />;
 
 	return (
-		<Layout>
+		<Layout top={top}>
 			<Item onClick={intoLatexFieldOnClick}>
 				<StaticMathField>{latex}</StaticMathField>
 			</Item>
