@@ -15,6 +15,7 @@ export default function AutoKeywordContainer() {
 	const [itemIndex, setItemIndex] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
+	const secondBuffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
 	const MAX_LENGTH = 7;
 
@@ -34,6 +35,28 @@ export default function AutoKeywordContainer() {
 			setBackslashCount(backslashCountInLatex);
 			updateList();
 			toggleIsOpen(!isOpen);
+		}
+
+		if (!isOpen) return;
+
+		if (keyCode === KEY_CODE.LEFT) {
+			const item = buffer.current.pop();
+
+			if (item) {
+				dispatch(setBuffer([...buffer.current]));
+				secondBuffer.current.unshift(item);
+				updateList();
+			}
+		}
+
+		if (keyCode === KEY_CODE.RIGHT) {
+			const item = secondBuffer.current.shift();
+
+			if (item) {
+				buffer.current.push(item);
+				dispatch(setBuffer([...buffer.current]));
+				updateList();
+			}
 		}
 	};
 
