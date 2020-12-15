@@ -9,6 +9,7 @@ import {
 	setBookmarkItem,
 } from "../slice";
 import popup from "../popup";
+import { calcTopPreviewItem } from "../util";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -19,8 +20,8 @@ import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 
 export default function RecentContainer({ setTabState }) {
-	const { recentItems } = useSelector(state => state);
 	const dispatch = useDispatch();
+	const { recentItems } = useSelector(state => state);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [previewItem, setPreviewItem] = useState({ id: 0, top: 0 });
 
@@ -82,9 +83,7 @@ export default function RecentContainer({ setTabState }) {
 	};
 
 	const handleMouseEnterItem = id => e => {
-		const top = window.innerHeight - e.pageY > 150 ? e.pageY : window.innerHeight - 160;
-
-		setPreviewItem({ id, top });
+		setPreviewItem({ id, top: calcTopPreviewItem(e.pageY) });
 	};
 
 	return (

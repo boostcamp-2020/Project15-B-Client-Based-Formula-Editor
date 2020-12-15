@@ -60,3 +60,9 @@ export const calcCurrentXRatio = pageX => {
 };
 
 export const getBackslashCountFromLatex = latex => latex.split("").filter(char => char === "\\").length;
+
+export const calcTopPreviewItem = pageY => {
+	const previewHeight = 160;
+
+	return window.innerHeight - pageY > previewHeight ? pageY : window.innerHeight - previewHeight;
+};
