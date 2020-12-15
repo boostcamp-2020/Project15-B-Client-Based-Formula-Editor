@@ -120,19 +120,15 @@ export default function AutoKeywordContainer() {
 
 			const remainedLatexPart = target.replace(`\\${temp}`, "");
 
-			if (secondBuffer.current.length) {
-				let length = secondBuffer.current.length;
-
-				while (length-- > 0) {
-					latexFunction.keystroke("Shift-Right Del");
-				}
+			while (secondBuffer.current.pop()) {
+				latexFunction.keystroke("Shift-Right Del");
 			}
+
 			latexFunction.insertLatex(remainedLatexPart);
 
 			setRecommandationList([]);
 			buffer.current = [];
 			dispatch(setBuffer([]));
-			secondBuffer.current = [];
 			toggleIsOpen(false);
 			setItemIndex(0);
 		}
