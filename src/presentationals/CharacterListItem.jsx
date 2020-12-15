@@ -102,30 +102,31 @@ const ExampleSymbolLayout = styled.div`
 `;
 
 export default function CharacterListItem({ title, item, onClick, isMagnifier }) {
+	const getItemComponent = WrapperComponent =>
+		<SymbolWrapper>
+			{isMagnifier &&
+				<Magnifier>
+					<WrapperComponent>{item.symbol}</WrapperComponent>
+				</Magnifier>}
+			<WrapperComponent>{item.symbol}</WrapperComponent>
+		</SymbolWrapper>;
+
 	return (
 		<Item onClick={onClick(item.latex)}>
-			{title !== "example" ?
-				<Symbol>
-					{item.isSymbol ?
-						<SymbolWrapper>
-							{isMagnifier && <Magnifier><StaticMathField>{item.symbol}</StaticMathField></Magnifier>}
-							<StaticMathField>{item.symbol}</StaticMathField>
-						</SymbolWrapper> :
-						<SymbolWrapper>
-							{isMagnifier && <Magnifier><Text>{item.symbol}</Text></Magnifier>}
-							<Text>{item.symbol}</Text>
-						</SymbolWrapper>
-					}
-				</Symbol> :
-				<ExampleSymbolLayout>
-					<i><span>f</span><span>(x)</span></i>
-				</ExampleSymbolLayout>
-			}
+			<Symbol>
+				{item.isSymbol ? getItemComponent(StaticMathField) : getItemComponent(Text)}
+			</Symbol>
 			<Name isMagnifier={isMagnifier}>{item.name}</Name>
 			{title === "example" &&
-				<FormulaViewBox>
-					<StaticMathField>{item.latex}</StaticMathField>
-				</FormulaViewBox>
+				<>
+					<ExampleSymbolLayout>
+						<i><span>f</span><span>(x)</span></i>
+					</ExampleSymbolLayout>
+					<Name isMagnifier={isMagnifier}>{item.name}</Name>
+					<FormulaViewBox>
+						<StaticMathField>{item.latex}</StaticMathField>
+					</FormulaViewBox>
+				</>
 			}
 		</Item>
 	);
