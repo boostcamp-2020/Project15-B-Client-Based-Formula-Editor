@@ -6,6 +6,7 @@ import { color, themeColor } from "../GlobalStyle";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import FilledStarIcon from "../icons/FilledStarIcon";
 import PlusIcon from "../icons/PlusIcon";
+import EditIcon from "../icons/EditIcon";
 import DeleteIcon from "../icons/DeleteIcon";
 import IconButton from "./IconButton";
 
@@ -47,6 +48,7 @@ export default function ListItem({
 	deleteOnClick,
 	bookmarkOnClick,
 	customOnClick,
+	editOnClick,
 	intoLatexFieldOnClick,
 	isBookmark,
 }) {
@@ -65,10 +67,20 @@ export default function ListItem({
 							<EmptyStarIcon fill={color.yellow} />}
 					/>
 				}
-				<IconButton
-					onClick={customOnClick}
-					isHover={true}
-					icon={<PlusIcon />} />
+				{customOnClick &&
+					<IconButton
+						onClick={customOnClick}
+						isHover={true}
+						icon={<PlusIcon />}
+					/>
+				}
+				{editOnClick &&
+					<IconButton
+						onClick={editOnClick}
+						isHover={true}
+						icon={<EditIcon />}
+					/>
+				}
 				<IconButton
 					onClick={deleteOnClick}
 					isHover={true}

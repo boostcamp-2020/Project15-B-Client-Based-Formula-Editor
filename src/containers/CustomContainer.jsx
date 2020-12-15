@@ -11,10 +11,10 @@ import popup from "../popup";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import Filter from "../presentationals/Filter";
+import ListItem from "../presentationals/ListItem";
 import EmptyItem from "../presentationals/EmptyItem";
 import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
-import CustomItem from "../presentationals/CustomItem";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
@@ -157,11 +157,11 @@ export default function CustomContainer() {
 									item={{ ...item, symbol: "#", name: item.command }}
 									onClick={() => { }}
 								/>
-								<CustomItem
-									key={index}
-									name={item.latex}
-									onClickEdit={handleEditClick(index)}
-									onClickDelete={handleDeleteClick(index)}
+								<ListItem
+									latex={item.latex}
+									editOnClick={handleEditClick(index)}
+									deleteOnClick={handleDeleteClick(index)}
+									intoLatexFieldOnClick={handleEditClick(index)}
 								/>
 							</SideTabItemLayout>,
 						) :
