@@ -14,7 +14,7 @@ const Item = styled.div`
   &:hover {
     background-color: #2B2D2E;
 
-		> div > div:first-child {
+		> div > div > div:first-child {
 			visibility: visible;
 		}
 		> div:last-child {
