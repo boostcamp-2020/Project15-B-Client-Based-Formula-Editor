@@ -61,6 +61,8 @@ export default function BodyContainer({ bodyWidth }) {
 			mathField.cmd(`${latex} `);
 			mathField.focus();
 		};
+
+		mathField.focus();
 	};
 
 	const handleLatexTextarea = e => {
