@@ -82,7 +82,9 @@ export default function RecentContainer({ setTabState }) {
 	};
 
 	const handleMouseEnterItem = id => e => {
-		setPreviewItem({ id, top: e.pageY });
+		const top = window.innerHeight - e.pageY > 150 ? e.pageY : window.innerHeight - 160;
+
+		setPreviewItem({ id, top });
 	};
 
 	return (
