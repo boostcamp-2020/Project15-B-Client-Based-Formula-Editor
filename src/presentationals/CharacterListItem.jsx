@@ -62,7 +62,7 @@ const Name = styled.div`
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
 
-const AdditionalBox = styled.div`
+const FormulaViewBox = styled.div`
 	position: fixed;
 	left: 300px;
 	transform: translateY(60px);
@@ -123,9 +123,9 @@ export default function CharacterListItem({ title, item, onClick, isMagnifier })
 			}
 			<Name isMagnifier={isMagnifier}>{item.name}</Name>
 			{title === "example" &&
-				<AdditionalBox>
+				<FormulaViewBox>
 					<StaticMathField>{item.latex}</StaticMathField>
-				</AdditionalBox>
+				</FormulaViewBox>
 			}
 		</Item>
 	);
