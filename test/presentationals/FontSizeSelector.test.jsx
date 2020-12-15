@@ -12,7 +12,7 @@ describe("<FontSizeSelector />", () => {
 			<FontSizeSelector
 				fontSizeRef={null}
 				fontSize={defaultFontSize}
-				isFontSizeFocused={true}
+				fontDropdown={{ size: true }}
 				handleFontSizeChange={() => {}}
 				handleFontSizeItemClick={() => {}}
 				handleFontSizeInputClick={() => {}}
