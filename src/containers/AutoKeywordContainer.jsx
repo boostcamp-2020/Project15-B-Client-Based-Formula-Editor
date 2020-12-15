@@ -17,6 +17,7 @@ export default function AutoKeywordContainer() {
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
+	const [isCustom, setIsCustom] = useState(false);
 	const MAX_LENGTH = 7;
 	const rootBlock = document.querySelector(".mq-textarea");
 
@@ -27,6 +28,7 @@ export default function AutoKeywordContainer() {
 
 		if (list.length > MAX_LENGTH) list.length = MAX_LENGTH;
 		setRecommandationList(list);
+		setIsCustom(false);
 	};
 
 	const updateCustomList = () => {
@@ -34,7 +36,9 @@ export default function AutoKeywordContainer() {
 		const list = customCommandList.filter(elem => elem.command.includes(`${temp}`));
 
 		setRecommandationList(list);
+		setIsCustom(true);
 	};
+
 	const keyupEvent = ({ keyCode }) => {
 		if (keyCode === KEY_CODE.BACK_SLASH) {
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
@@ -63,7 +67,7 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		if (isRemoveKey(keyCode)) {
-			if (latexInput === "\\ ") {
+			if (latexInput === "\\ " || latexInput === "#") {
 				toggleIsOpen(false);
 				setRecommandationList([]);
 				setBackslashCount(0);
@@ -76,7 +80,7 @@ export default function AutoKeywordContainer() {
 			buffer.current.pop();
 			dispatch(setBuffer([...buffer.current]));
 
-			updateList();
+			isCustom ? updateCustomList() : updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
 				setBackslashCount(backslashCountInLatex);
@@ -126,7 +130,7 @@ export default function AutoKeywordContainer() {
 		const alphabet = String.fromCharCode(keyCode);
 
 		buffer.current.push(alphabet);
-		updateList();
+		isCustom ? updateCustomList() : updateList();
 	};
 
 	const onClick = () => {
@@ -158,6 +162,7 @@ export default function AutoKeywordContainer() {
 			targetIndex={itemIndex}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
+			type={isCustom}
 		/>
 	);
 }
