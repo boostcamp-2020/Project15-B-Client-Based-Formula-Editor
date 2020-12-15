@@ -55,8 +55,11 @@ export default function BodyContainer({ bodyWidth }) {
 
 	const setUpLatexInsertFunction = mathField => {
 		latexFunction.insertLatex = latex => {
-			mathField.cmd(latex);
-			mathField.cmd("");
+			mathField.write(latex);
+		};
+		latexFunction.insertClickedLatex = latex => {
+			mathField.cmd(`${latex} `);
+			mathField.focus();
 		};
 	};
 
