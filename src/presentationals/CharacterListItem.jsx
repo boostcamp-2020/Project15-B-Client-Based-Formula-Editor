@@ -78,7 +78,7 @@ const FormulaViewBox = styled.div`
 	position: fixed;
 	left: 300px;
 	transform: translateY(60px);
-	z-index: 3;
+	z-index: 5;
 	color: ${themeColor.white};
 	background-color: ${themeColor.normal};
 	width: 250px;
