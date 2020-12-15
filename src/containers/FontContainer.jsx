@@ -26,7 +26,6 @@ export default function FontContainer() {
 
 	const handleFontSizeItemClick = size => () => {
 		dispatch(setFont({ ...fontInfo, size }));
-		toggleIsFontSizeFocused(false);
 	};
 
 	const handleFontSizeInputClick = () => {
