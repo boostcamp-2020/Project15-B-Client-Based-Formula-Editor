@@ -6,6 +6,7 @@ export const latexFunction = {
 	insertLatex: () => { },
 	insertClickedLatex: () => { },
 	keystroke: () => { },
+	getCursor: () => { },
 };
 
 export const toFitSimple = cb => {
