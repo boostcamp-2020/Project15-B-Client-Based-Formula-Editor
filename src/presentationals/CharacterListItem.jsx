@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
 import { themeColor } from "../GlobalStyle";
+import ListItem from "./ListItem";
 
 const Item = styled.div`
   display: flex;
@@ -10,6 +11,10 @@ const Item = styled.div`
 	cursor: pointer;
 	color: ${themeColor.white};
 	padding: 4px 10px;
+
+	> div:nth-child(3) {
+		visibility: hidden;
+	}
 
   &:hover {
     background-color: #2B2D2E;
@@ -30,18 +35,9 @@ const SymbolWrapper = styled.div`
 
 const Symbol = styled.div`
 	position: relative;
-
 	width: 40px;
 	text-align: center;
-
-	> i > span:first-child {
-		font-size: 16px;
-	}
-
-	> i > span:last-child {
-		font-size: 10px;
-		font-weight: bold;
-	}
+	${({ fontSize }) => fontSize && `font-size: ${fontSize}px`};
 `;
 
 const Magnifier = styled.div`
@@ -62,6 +58,10 @@ const Magnifier = styled.div`
 	.mq-math-mode, > div {
 		font-size: 2rem;
 	}
+
+	* {
+		cursor: pointer;
+	}
 `;
 
 const Text = styled.div`
@@ -74,32 +74,14 @@ const Name = styled.div`
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
 
-const FormulaViewBox = styled.div`
-	position: fixed;
-	left: 300px;
-	transform: translateY(60px);
-	z-index: 5;
-	color: ${themeColor.white};
-	background-color: ${themeColor.normal};
-	width: 250px;
-	height: 150px;
-	visibility: hidden;
-	margin: 5px;
-	border-radius: 7px;
-	border: 1px solid ${themeColor.white};
-
-	> .mq-math-mode {
-		width: 90%;
-		text-align: center;
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		cursor: pointer;
-	}
-`;
-
-export default function CharacterListItem({ title, item, onClick, isMagnifier }) {
+export default function CharacterListItem({
+	title,
+	item,
+	onClick,
+	isMagnifier,
+	onMouseEnter,
+	previewItem,
+}) {
 	const getItemComponent = WrapperComponent =>
 		<SymbolWrapper>
 			{isMagnifier &&
@@ -110,7 +92,7 @@ export default function CharacterListItem({ title, item, onClick, isMagnifier })
 		</SymbolWrapper>;
 
 	return (
-		<Item onClick={onClick(item.latex)}>
+		<Item onClick={onClick(item.latex)} onMouseEnter={onMouseEnter}>
 			{title !== "example" &&
 				<>
 					<Symbol>
@@ -120,13 +102,12 @@ export default function CharacterListItem({ title, item, onClick, isMagnifier })
 				</>}
 			{title === "example" &&
 				<>
-					<Symbol>
-						<i><span>f</span><span>(x)</span></i>
+					<Symbol fontSize={12}>
+						<StaticMathField>f(x)</StaticMathField>
 					</Symbol>
 					<Name isMagnifier={isMagnifier}>{item.name}</Name>
-					<FormulaViewBox>
-						<StaticMathField>{item.latex}</StaticMathField>
-					</FormulaViewBox>
+					{previewItem.id === item.name &&
+						<ListItem latex={item.latex} top={previewItem.top} />}
 				</>}
 		</Item>
 	);

@@ -5,10 +5,12 @@ import {
 	setCustomFormValue,
 	setLatexInput,
 	addBookmarkItem,
+	setBookmarkItem,
 	removeBookmarkItem,
 	removeAllBookmarkItems,
 } from "../slice";
 import popup from "../popup";
+import { usePreviewItem } from "../hooks";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -23,6 +25,7 @@ export default function BookmarkContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 	const [searchTerm, setSearchTerm] = useState("");
+	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleCustomButtonClick = latex => () => {
 		dispatch(setCustomFormValue({ state: true, name: "등록", command: "", latex }));
@@ -78,6 +81,18 @@ export default function BookmarkContainer({ setTabState }) {
 		setSearchTerm(inputValue);
 	};
 
+	const handleEditButton = ({ id, description }) => async () => {
+		const answer = await popup({
+			mode: "prompt",
+			message: "해당 북마크의 변경할 이름을 적어주세요!",
+			placeholder: description,
+		});
+
+		if (answer) {
+			dispatch(setBookmarkItem({ id, description: answer }));
+		}
+	};
+
 	return (
 		<>
 			<Filter onChange={handleFilter} />
@@ -96,14 +111,18 @@ export default function BookmarkContainer({ setTabState }) {
 								<CharacterListItem
 									item={{ ...item, symbol: "★", name: item.description }}
 									onClick={handleFormulaClick}
+									onMouseEnter={handleMouseEnterItem(item.id)}
 								/>
-								<ListItem
-									key={item.id}
-									latex={item.latex}
-									customOnClick={handleCustomButtonClick(item.latex)}
-									intoLatexFieldOnClick={handleFormulaClick(item.latex)}
-									deleteOnClick={handleDeleteButton(item.id)}
-								/>
+								{previewItem.id === item.id &&
+									<ListItem
+										latex={item.latex}
+										customOnClick={handleCustomButtonClick(item.latex)}
+										intoLatexFieldOnClick={handleFormulaClick(item.latex)}
+										deleteOnClick={handleDeleteButton(item.id)}
+										editOnClick={handleEditButton(item)}
+										top={previewItem.top}
+									/>
+								}
 							</SideTabItemLayout>,
 						) :
 					<EmptyItem content="북마크 수식이 없습니다."/>

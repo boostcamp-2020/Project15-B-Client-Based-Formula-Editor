@@ -39,7 +39,7 @@ export default function SideBar({ sidebarWidth }) {
 
 	const handleOpenTutorial = async () => {
 		const answer = await popup({
-			mode: confirm,
+			mode: "confirm",
 			message: "튜토리얼을 다시 보시겠습니까?",
 		});
 

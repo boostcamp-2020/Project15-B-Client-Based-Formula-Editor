@@ -3,40 +3,35 @@ import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
 import { color, themeColor } from "../GlobalStyle";
+import PlusIcon from "../icons/PlusIcon";
+import EditIcon from "../icons/EditIcon";
+import MinusIcon from "../icons/MinusIcon";
 import EmptyStarIcon from "../icons/EmptyStarIcon";
 import FilledStarIcon from "../icons/FilledStarIcon";
-import PlusIcon from "../icons/PlusIcon";
-import CloseIcon from "../icons/CloseIcon";
 import IconButton from "./IconButton";
 
-const Layout = styled.div`
-	position: fixed;
+const Layout = styled.div.attrs(({ top }) => ({ style: { top: `${top}px` } }))`
+	position: absolute;
 	width: 250px;
-	left: 270px;
-	transform: translate(0, -30px);
+	transform: translateX(90%);
 	color: black;
-	z-index: 1;
-
-	&:hover {
-		> div:first-child {
-			display: block;
-		}
-	}
+	z-index: 10;
+	right: 0;
 `;
 
 const Bottom = styled.div`
 	position: absolute;
-	bottom: 0;
+	bottom: 5px;
 	right: 5px;
 `;
 
 const Item = styled.div`
-	background-color: ${themeColor.normal};
+	background-color: ${themeColor.light};
 	color: ${themeColor.white};
 	height: 150px;
-	margin: 5px;
 	border-radius: 7px;
-	border: 1px solid ${themeColor.white};
+	border: 1px solid black;
+	box-shadow: inset 0 0 2px white;
 
 	> .mq-math-mode {
 		width: 90%;
@@ -49,46 +44,32 @@ const Item = styled.div`
 	}
 `;
 
-const DeleteButton = styled.div`
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	display: none;
-`;
-
 export default function ListItem({
 	latex,
 	deleteOnClick,
 	bookmarkOnClick,
 	customOnClick,
+	editOnClick,
 	intoLatexFieldOnClick,
 	isBookmark,
+	top,
 }) {
+	const StarIcon = isBookmark ? <FilledStarIcon /> : <EmptyStarIcon fill={color.yellow} />;
+
 	return (
-		<Layout>
-			<DeleteButton>
-				<IconButton
-					onClick={deleteOnClick}
-					isHover={true}
-					icon={<CloseIcon fill={themeColor.white}/>}/>
-			</DeleteButton>
+		<Layout top={top}>
 			<Item onClick={intoLatexFieldOnClick}>
 				<StaticMathField>{latex}</StaticMathField>
 			</Item>
 			<Bottom>
 				{bookmarkOnClick &&
-					<IconButton
-						onClick={bookmarkOnClick}
-						isHover={true}
-						icon={isBookmark ?
-							<FilledStarIcon /> :
-							<EmptyStarIcon fill={color.yellow} />}
-					/>
-				}
-				<IconButton
-					onClick={customOnClick}
-					isHover={true}
-					icon={<PlusIcon />} />
+					<IconButton onClick={bookmarkOnClick} isHover={true} icon={StarIcon} />}
+				{editOnClick &&
+					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
+				{customOnClick &&
+					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
+				{deleteOnClick &&
+					<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />}
 			</Bottom>
 		</Layout>
 	);

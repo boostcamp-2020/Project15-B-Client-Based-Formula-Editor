@@ -2,7 +2,11 @@ import { SIDE_MIN_WIDTH, BODY_MIN_WIDTH } from "./constants/size";
 
 const changeOneLetterToTwo = number => (number > 9 ? number : number.toString().padStart(2, 0));
 
-export const latexFunction = { insertLatex: () => { }, insertClickedLatex: () => { } };
+export const latexFunction = {
+	insertLatex: () => { },
+	insertClickedLatex: () => { },
+	keystroke: () => { },
+};
 
 export const toFitSimple = cb => {
 	let tick = false;
@@ -60,3 +64,9 @@ export const calcCurrentXRatio = pageX => {
 };
 
 export const getBackslashCountFromLatex = latex => latex.split("").filter(char => char === "\\").length;
+
+export const calcTopPreviewItem = pageY => {
+	const previewHeight = 160;
+
+	return window.innerHeight - pageY > previewHeight ? pageY : window.innerHeight - previewHeight;
+};

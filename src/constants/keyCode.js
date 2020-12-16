@@ -6,6 +6,8 @@ const KEY_CODE = {
 	BACK_SPACE: 8,
 	DOWN: 40,
 	UP: 38,
+	LEFT: 37,
+	RIGHT: 39,
 	DELETE: 46,
 };
 
