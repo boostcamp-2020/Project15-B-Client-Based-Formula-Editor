@@ -9,7 +9,7 @@ import {
 	removeAllBookmarkItems,
 } from "../slice";
 import popup from "../popup";
-import { calcTopPreviewItem } from "../util";
+import { usePreviewItem } from "../hooks";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -24,7 +24,7 @@ export default function BookmarkContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 	const [searchTerm, setSearchTerm] = useState("");
-	const [previewItem, setPreviewItem] = useState({ id: 0, top: 0 });
+	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleCustomButtonClick = latex => () => {
 		dispatch(setCustomFormValue({ state: true, name: "등록", command: "", latex }));
@@ -78,10 +78,6 @@ export default function BookmarkContainer({ setTabState }) {
 			return;
 		}
 		setSearchTerm(inputValue);
-	};
-
-	const handleMouseEnterItem = id => e => {
-		setPreviewItem({ id, top: calcTopPreviewItem(e.pageY) });
 	};
 
 	return (

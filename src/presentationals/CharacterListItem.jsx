@@ -115,7 +115,7 @@ export default function CharacterListItem({
 						<i><span>f</span><span>(x)</span></i>
 					</Symbol>
 					<Name isMagnifier={isMagnifier}>{item.name}</Name>
-					{previewItem.name === item.name &&
+					{previewItem.id === item.name &&
 						<ListItem latex={item.latex} top={previewItem.top} />}
 				</>}
 		</Item>
