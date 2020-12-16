@@ -16,13 +16,13 @@ const Layout = styled.div`
   z-index: 100;
 `;
 
-export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) {
+export default function TutorialMain({ slide, handleSlideUp, handleSlideDown, handleSlideEnd }) {
 	return (
 		<Layout slide={slide}>
 			<TutorialStart
 				handleSlideUp={handleSlideUp}
-				handleSlideDown={handleSlideDown(0)}
-				handleSlideEnd={handleSlideDown(100000)}
+				handleSlideDown={handleSlideDown}
+				handleSlideEnd={handleSlideEnd}
 			/>
 			<TutorialPage
 				imageURL="../../public/FormulaRepresentation.gif"
@@ -30,7 +30,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) 
 				content=""
 				nextButtonName="다음"
 				handleSlideUp={handleSlideUp}
-				handleSlideDown={handleSlideDown(0)}
+				handleSlideDown={handleSlideDown}
 			/>
 			<TutorialPage
 				imageURL="../../public/FormulaRepresentation_top.gif"
@@ -38,7 +38,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) 
 				content=""
 				nextButtonName="다음"
 				handleSlideUp={handleSlideUp}
-				handleSlideDown={handleSlideDown(0)}
+				handleSlideDown={handleSlideDown}
 			/>
 			<TutorialPage
 				imageURL="../../public/LatexRepresantation.gif"
@@ -46,7 +46,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) 
 				content=""
 				nextButtonName="다음"
 				handleSlideUp={handleSlideUp}
-				handleSlideDown={handleSlideDown(0)}
+				handleSlideDown={handleSlideDown}
 			/>
 			<TutorialPage
 				imageURL="../../public/SideBar_character.gif"
@@ -54,7 +54,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) 
 				content=""
 				nextButtonName="다음"
 				handleSlideUp={handleSlideUp}
-				handleSlideDown={handleSlideDown(0)}
+				handleSlideDown={handleSlideDown}
 			/>
 			<TutorialPage
 				imageURL="../../public/SideTab_top.gif"
@@ -62,7 +62,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) 
 				content="커스텀 명령어는 $#[명령어][스페이스]$ 로 사용 가능합니다."
 				nextButtonName="다음"
 				handleSlideUp={handleSlideUp}
-				handleSlideDown={handleSlideDown(0)}
+				handleSlideDown={handleSlideDown}
 			/>
 			<TutorialPage
 				imageURL="../../public/SideTab_bottom.gif"
@@ -70,7 +70,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) 
 				content="수식 링크 저장을 통해 다른 사람에게 공유하면, 해당 사용자가 링크를 클릭했을 때 동일한 수식을 볼 수 있습니다."
 				nextButtonName="튜토리얼 완료"
 				handleSlideUp={handleSlideUp}
-				handleSlideDown={handleSlideDown(200)}
+				handleSlideDown={handleSlideEnd}
 			/>
 		</Layout>
 	);

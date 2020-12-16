@@ -4,21 +4,27 @@ import TutorialMain from "../presentationals/TutorialMain";
 
 const BASE_TRANSFORM_Y = -750;
 const TRANSFORM_DIFFERENCE = 106.5;
+const MAX_DIFFERENCE = 100000;
 
 export default function TutorialContainer() {
 	const [slide, setSlide] = useState(BASE_TRANSFORM_Y);
-	const idTutorialDone = localStorage.getItem("tutorial");
+	const isTutorialDone = localStorage.getItem("isTutorialDone");
 
-	if (idTutorialDone) {
+	if (isTutorialDone) {
 		return null;
 	}
 
-	const handleSlideDown = additional => () => {
-		setSlide(slide - TRANSFORM_DIFFERENCE - additional);
+	const handleSlideDown = () => {
+		setSlide(slide - TRANSFORM_DIFFERENCE);
 	};
 
 	const handleSlideUp = () => {
 		setSlide(slide + TRANSFORM_DIFFERENCE);
+	};
+
+	const handleSlideEnd = () => {
+		setSlide(slide - MAX_DIFFERENCE);
+		localStorage.setItem("isTutorialDone", true);
 	};
 
 	return (
@@ -26,6 +32,7 @@ export default function TutorialContainer() {
 			slide={slide}
 			handleSlideUp={handleSlideUp}
 			handleSlideDown={handleSlideDown}
+			handleSlideEnd={handleSlideEnd}
 		/>
 	);
 }
