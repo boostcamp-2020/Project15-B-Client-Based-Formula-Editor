@@ -39,6 +39,8 @@ const ColorChart = styled.div`
 	padding: 10px;
 	z-index: 3;
 	background: ${themeColor.light};
+	border: 1px solid black;
+	box-shadow: inset 0 0 1px white;
 `;
 
 const ColorChartRow = styled.div`
