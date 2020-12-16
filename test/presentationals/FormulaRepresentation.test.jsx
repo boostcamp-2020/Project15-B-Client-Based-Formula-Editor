@@ -7,19 +7,23 @@ import FormulaRepresentation from "../../src/presentationals/FormulaRepresentati
 describe("<FormulaRepresentation />", () => {
 	it("renders formula representation", () => {
 		const latexInput = "1+2";
-		const handleLatexInput = () => {};
-		const mathquillDidMount = () => {};
+		const onEvent = () => {};
 		const fontInfo = { size: "16px", color: "black" };
 		const alignInfo = "left";
+		const height = 150;
 		const { container } = render(
 			<FormulaRepresentation
 				latexInput={latexInput}
-				handleLatexInput={handleLatexInput}
-				mathquillDidMount={mathquillDidMount}
+				onChange={onEvent}
+				mathquillDidMount={onEvent}
 				fontInfo={fontInfo}
 				alignInfo={alignInfo}
+				height={height}
 			/>);
 
-		expect(container).toHaveTextContent("1+2");
+		const EditableMathField = container.querySelector(".mq-math-mode");
+
+		expect(container).toHaveTextContent(latexInput);
+		expect(EditableMathField).toBeVisible();
 	});
 });
