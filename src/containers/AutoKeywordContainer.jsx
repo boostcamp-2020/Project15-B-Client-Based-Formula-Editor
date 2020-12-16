@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
-import { latexFunction, getBackslashCountFromLatex } from "../util";
+import { latexFunction, getBackslashCountFromLatex, sortFunction } from "../util";
 import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
 import AutoComplete from "../presentationals/AutoComplete";
@@ -15,10 +15,9 @@ export default function AutoKeywordContainer() {
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
+	const [recommandationList, setRecommandationList] = useState([]);
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
-	const [recommandationList, setRecommandationList] = useState([]);
-	const [isCustom, setIsCustom] = useState(false);
 	const MAX_LENGTH = 7;
 
 	const updateList = () => {
@@ -26,17 +25,14 @@ export default function AutoKeywordContainer() {
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
-		if (list.length > MAX_LENGTH) list.length = MAX_LENGTH;
-		setRecommandationList(list);
-		setIsCustom(false);
-	};
+		const regex = new RegExp(`^(${temp})`);
+		const customList = customCommandList.filter(elem => elem.command.match(regex));
 
-	const updateCustomList = () => {
-		const temp = buffer.current.join("").trim();
-		const list = customCommandList.filter(elem => elem.command.includes(`${temp}`));
+		const combinedList = [...list, ...customList].sort(sortFunction);
 
-		setRecommandationList(list);
-		setIsCustom(true);
+
+		if (combinedList.length > MAX_LENGTH) combinedList.length = MAX_LENGTH;
+		setRecommandationList(combinedList);
 	};
 
 	const keyupEvent = ({ keyCode }) => {
@@ -99,7 +95,7 @@ export default function AutoKeywordContainer() {
 			buffer.current.pop();
 			dispatch(setBuffer([...buffer.current]));
 
-			isCustom ? updateCustomList() : updateList();
+			updateList();
 
 			if (backslashCountInLatex !== backslashCount) {
 				setBackslashCount(backslashCountInLatex);
@@ -125,14 +121,28 @@ export default function AutoKeywordContainer() {
 			const target = recommandationList[itemIndex];
 
 			const temp = buffer.current.join("").trim();
-
-			const remainedLatexPart = isCustom ? target.command.replace(`${temp}`, "") : target.replace(`\\${temp}`, "");
+			const targetItem = target.latex ? target.latex : target;
 
 			while (secondBuffer.current.pop()) {
 				latexFunction.keystroke("Shift-Right Del");
 			}
 
-			latexFunction.insertLatex(remainedLatexPart);
+			const isInMathquillLatex = Object.keys(mathquillLatex).filter(key => mathquillLatex[key])
+				.includes(targetItem);
+
+			if (!isInMathquillLatex) {
+				const remainedLatexPart = targetItem.replace(`\\`, "");
+
+				while (buffer.current.pop()) {
+					latexFunction.keystroke("Shift-Left Del");
+				}
+				latexFunction.keystroke("Shift-Left Del");
+				latexFunction.insertCustomLatex(`\\${remainedLatexPart}`);
+			} else {
+				const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
+
+				latexFunction.insertLatex(remainedLatexPart);
+			}
 
 			setRecommandationList([]);
 			buffer.current = [];
@@ -143,18 +153,13 @@ export default function AutoKeywordContainer() {
 	};
 
 	const keypressEvent = ({ keyCode }) => {
-		if (keyCode === 35) {
-			updateCustomList();
-			toggleIsOpen(!isOpen);
-			return;
-		}
 		if (!isOpen) return;
 
 		const alphabet = String.fromCharCode(keyCode);
 
 		buffer.current.push(alphabet);
 		dispatch(setBuffer([...buffer.current]));
-		isCustom ? updateCustomList() : updateList();
+		updateList();
 	};
 
 	const onClick = () => {
@@ -200,7 +205,6 @@ export default function AutoKeywordContainer() {
 			targetIndex={itemIndex}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
-			type={isCustom}
 		/>
 	);
 }

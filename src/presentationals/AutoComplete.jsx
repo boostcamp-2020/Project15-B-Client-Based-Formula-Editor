@@ -49,16 +49,15 @@ export default function AutoComplete({
 	targetIndex,
 	onClick,
 	onMouseEnter,
-	type,
 }) {
 	return (
 		<AutoKeywordLayout x={x} y={y} isOpen={isOpen}>
 			{ isOpen && recommandationList.map((item, index) => (
 				<HightLight data-id={index} onClick={onClick} onMouseEnter={onMouseEnter}
 					key={index} isFocused={index === parseInt(targetIndex, 10)}>
-					{type ?
+					{item.command !== undefined ?
 						<>
-							<ItemWrapper>{item.command}</ItemWrapper>
+							<ItemWrapper>\{item.command}</ItemWrapper>
 							<div key={`C${item}`}>{item.description}</div>
 						</> :
 						<>
