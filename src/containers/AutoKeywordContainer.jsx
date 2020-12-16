@@ -80,7 +80,7 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		if (isRemoveKey(keyCode)) {
-			if (latexInput === "\\ ") {
+			if (latexInput === "\\ " && buffer.current.length === 0) {
 				toggleIsOpen(false);
 				setRecommandationList([]);
 				setBackslashCount(0);
