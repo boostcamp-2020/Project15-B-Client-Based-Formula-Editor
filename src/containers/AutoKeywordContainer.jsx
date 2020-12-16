@@ -130,7 +130,11 @@ export default function AutoKeywordContainer() {
 			const isInMathquillLatex = Object.keys(mathquillLatex).filter(key => mathquillLatex[key])
 				.includes(targetItem);
 
-			if (!isInMathquillLatex) {
+			if (isInMathquillLatex) {
+				const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
+
+				latexFunction.insertLatex(remainedLatexPart);
+			} else {
 				const remainedLatexPart = targetItem.replace(`\\`, "");
 
 				while (buffer.current.pop()) {
@@ -138,10 +142,6 @@ export default function AutoKeywordContainer() {
 				}
 				latexFunction.keystroke("Shift-Left Del");
 				latexFunction.insertCustomLatex(`\\${remainedLatexPart}`);
-			} else {
-				const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
-
-				latexFunction.insertLatex(remainedLatexPart);
 			}
 
 			setRecommandationList([]);
@@ -166,10 +166,24 @@ export default function AutoKeywordContainer() {
 		const target = recommandationList[itemIndex];
 
 		const temp = buffer.current.join("").trim();
+		const targetItem = target.latex ? target.latex : target;
 
-		const remainedLatexPart = target.replace(`\\${temp}`, "");
+		const isInMathquillLatex = Object.keys(mathquillLatex).filter(key => mathquillLatex[key])
+			.includes(targetItem);
 
-		latexFunction.insertClickedLatex(remainedLatexPart);
+		if (isInMathquillLatex) {
+			const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
+
+			latexFunction.insertClickedLatex(remainedLatexPart);
+		} else {
+			const remainedLatexPart = targetItem.replace(`\\`, "");
+
+			while (buffer.current.pop()) {
+				latexFunction.keystroke("Shift-Left Del");
+			}
+			latexFunction.keystroke("Shift-Left Del");
+			latexFunction.insertCustomLatex(`\\${remainedLatexPart}`);
+		}
 
 		setRecommandationList([]);
 		buffer.current = [];
