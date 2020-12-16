@@ -3,6 +3,15 @@ import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
 
+const Page = styled.div`
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  margin-bottom: 50vh;
+`;
+
 const Logo = styled.img`
   width: 100%;
   border-radius: 10px;
@@ -30,9 +39,9 @@ const StartButton = styled.button`
 
 export default function TutorialStart({ handleSlideMoving }) {
 	return (
-		<>
+		<Page>
 			<Logo src="../../public/dark_logo.png" />
-			<StartButton onClick={handleSlideMoving(0)}>튜토리얼 시작하기</StartButton>
-		</>
+			<StartButton onClick={handleSlideMoving}>튜토리얼 시작하기</StartButton>
+		</Page>
 	);
 }
