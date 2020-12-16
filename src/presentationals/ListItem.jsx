@@ -64,10 +64,10 @@ export default function ListItem({
 			<Bottom>
 				{bookmarkOnClick &&
 					<IconButton onClick={bookmarkOnClick} isHover={true} icon={StarIcon} />}
-				{customOnClick &&
-					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
 				{editOnClick &&
 					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
+				{customOnClick &&
+					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
 				{deleteOnClick &&
 					<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />}
 			</Bottom>
