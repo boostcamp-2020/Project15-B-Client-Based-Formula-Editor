@@ -9,7 +9,7 @@ import {
 	setBookmarkItem,
 } from "../slice";
 import popup from "../popup";
-import { calcTopPreviewItem } from "../util";
+import { usePreviewItem } from "../hooks";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -23,7 +23,7 @@ export default function RecentContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const { recentItems } = useSelector(state => state);
 	const [searchTerm, setSearchTerm] = useState("");
-	const [previewItem, setPreviewItem] = useState({ id: 0, top: 0 });
+	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleBookmarkButtonClick = (id, isBookmark, latex) => async () => {
 		if (isBookmark) {
@@ -80,10 +80,6 @@ export default function RecentContainer({ setTabState }) {
 			return;
 		}
 		setSearchTerm(inputValue);
-	};
-
-	const handleMouseEnterItem = id => e => {
-		setPreviewItem({ id, top: calcTopPreviewItem(e.pageY) });
 	};
 
 	return (

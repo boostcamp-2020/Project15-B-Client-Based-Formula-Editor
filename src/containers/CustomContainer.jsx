@@ -8,7 +8,7 @@ import {
 	removeCustomCommand,
 } from "../slice";
 import popup from "../popup";
-import { calcTopPreviewItem } from "../util";
+import { usePreviewItem } from "../hooks";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import Filter from "../presentationals/Filter";
@@ -22,15 +22,14 @@ import CharacterListItem from "../presentationals/CharacterListItem";
 export default function CustomContainer() {
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
-	const [previewItem, setPreviewItem] = useState({ id: -1, top: 0 });
 	const [warningMessage, setWarningMessage] = useState({});
 	const customFormValue = useSelector(state => state.customFormValue);
 	const customCommandList = useSelector(state => state.customCommandList);
+	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleFormOnButton = () => {
 		setWarningMessage({});
 		dispatch(setCustomFormValue({ state: !customFormValue.state, name: "등록", command: "", latex: "", description: "" }));
-		setPreviewItem({ id: -1 });
 	};
 
 	const handleEditClick = index => () => {
@@ -127,10 +126,6 @@ export default function CustomContainer() {
 			return;
 		}
 		setSearchTerm(inputValue);
-	};
-
-	const handleMouseEnterItem = id => e => {
-		setPreviewItem({ id, top: calcTopPreviewItem(e.pageY) });
 	};
 
 	return (

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
 import { themeColor } from "../GlobalStyle";
+import ListItem from "./ListItem";
 
 const Item = styled.div`
   display: flex;
@@ -11,22 +12,32 @@ const Item = styled.div`
 	color: ${themeColor.white};
 	padding: 4px 10px;
 
+	> div:nth-child(3) {
+		visibility: hidden;
+	}
+
   &:hover {
     background-color: #2B2D2E;
 
-		> div > div:first-child {
+		> div > div > div:first-child {
+			visibility: visible;
+		}
+		> div:last-child {
 			visibility: visible;
 		}
   }
+`;
 
-  > div:first-child {
-    width: 40px;
-    text-align: center;
-  }
+const SymbolWrapper = styled.div`
+  width: 40px;
+  text-align: center;
 `;
 
 const Symbol = styled.div`
 	position: relative;
+	width: 40px;
+	text-align: center;
+	${({ fontSize }) => fontSize && `font-size: ${fontSize}px`};
 `;
 
 const Magnifier = styled.div`
@@ -63,22 +74,41 @@ const Name = styled.div`
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
 
-export default function CharacterListItem({ item, onClick, isMagnifier, onMouseEnter }) {
+export default function CharacterListItem({
+	title,
+	item,
+	onClick,
+	isMagnifier,
+	onMouseEnter,
+	previewItem,
+}) {
+	const getItemComponent = WrapperComponent =>
+		<SymbolWrapper>
+			{isMagnifier &&
+				<Magnifier>
+					<WrapperComponent>{item.symbol}</WrapperComponent>
+				</Magnifier>}
+			<WrapperComponent>{item.symbol}</WrapperComponent>
+		</SymbolWrapper>;
+
 	return (
 		<Item onClick={onClick(item.latex)} onMouseEnter={onMouseEnter}>
-			<Symbol>
-				{item.isSymbol ?
-					<>
-						{isMagnifier && <Magnifier><StaticMathField>{item.symbol}</StaticMathField></Magnifier>}
-						<StaticMathField>{item.symbol}</StaticMathField>
-					</> :
-					<>
-						{isMagnifier && <Magnifier><Text>{item.symbol}</Text></Magnifier>}
-						<Text>{item.symbol}</Text>
-					</>
-				}
-			</Symbol>
-			<Name isMagnifier={isMagnifier}>{item.name}</Name>
+			{title !== "example" &&
+				<>
+					<Symbol>
+						{item.isSymbol ? getItemComponent(StaticMathField) : getItemComponent(Text)}
+					</Symbol>
+					<Name isMagnifier={isMagnifier}>{item.name}</Name>
+				</>}
+			{title === "example" &&
+				<>
+					<Symbol fontSize={12}>
+						<StaticMathField>f(x)</StaticMathField>
+					</Symbol>
+					<Name isMagnifier={isMagnifier}>{item.name}</Name>
+					{previewItem.id === item.name &&
+						<ListItem latex={item.latex} top={previewItem.top} />}
+				</>}
 		</Item>
 	);
 }

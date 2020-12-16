@@ -10,13 +10,12 @@ import EmptyStarIcon from "../icons/EmptyStarIcon";
 import FilledStarIcon from "../icons/FilledStarIcon";
 import IconButton from "./IconButton";
 
-const Layout = styled.div`
+const Layout = styled.div.attrs(({ top }) => ({ style: { top: `${top}px` } }))`
 	position: absolute;
 	width: 250px;
 	transform: translateX(90%);
 	color: black;
 	z-index: 10;
-	top: ${({ top }) => top}px;
 	right: 0;
 `;
 
@@ -69,7 +68,8 @@ export default function ListItem({
 					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
 				{customOnClick &&
 					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
-				<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />
+				{deleteOnClick &&
+					<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />}
 			</Bottom>
 		</Layout>
 	);

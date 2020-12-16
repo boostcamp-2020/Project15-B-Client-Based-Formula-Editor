@@ -22,6 +22,10 @@ const HightLight = styled.div`
 	min-width: 180px;
 	padding: 2px 5px;
 
+	* {
+		pointer-events: none;
+	}
+	
 	${({ isFocused }) => (isFocused && `
     background: #5F7E97;
     color: white;
@@ -43,11 +47,14 @@ export default function AutoComplete({
 	y,
 	recommandationList,
 	targetIndex,
+	onClick,
+	onMouseEnter,
 }) {
 	return (
 		<AutoKeywordLayout x={x} y={y} isOpen={isOpen}>
 			{ isOpen && recommandationList.map((item, index) => (
-				<HightLight key={index} isFocused={index === targetIndex}>
+				<HightLight data-id={index} onClick={onClick} onMouseEnter={onMouseEnter}
+					key={index} isFocused={index === parseInt(targetIndex, 10)}>
 					<ItemWrapper>{item}</ItemWrapper>
 					<MathFieldWrapper>
 						<StaticMathField key={`S${item}`}>{item}</StaticMathField>

@@ -6,7 +6,10 @@ module.exports = function(api) {
 			"@babel/preset-env", {
 				targets: {
 					node: "current",
+					ie: "11",
 				},
+				useBuiltIns: "usage",
+				corejs: 3,
 			},
 		], "@babel/preset-react",
 	];
