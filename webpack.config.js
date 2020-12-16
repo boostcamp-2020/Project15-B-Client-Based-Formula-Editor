@@ -4,7 +4,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
-	entry: "./src/index.jsx",
+	entry: ["@babel/polyfill", "./src/index.jsx"],
 	output: {
 		path: path.resolve(__dirname, "./dist"),
 		filename: "[name].[hash].js",

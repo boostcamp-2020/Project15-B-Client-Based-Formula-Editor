@@ -8,6 +8,8 @@ module.exports = function(api) {
 					node: "current",
 					ie: "11",
 				},
+				useBuiltIns: "usage",
+				corejs: 3,
 			},
 		], "@babel/preset-react",
 	];

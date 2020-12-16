@@ -42,6 +42,7 @@ const { reducer, actions } = createSlice({
 			character: false,
 			operator: false,
 			formula: false,
+			example: false,
 		},
 		buffer: [],
 		sidebarState: true,

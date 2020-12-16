@@ -16,6 +16,7 @@ export default function AutoKeywordContainer() {
 	const [itemIndex, setItemIndex] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
+	const secondBuffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
 	const [isCustom, setIsCustom] = useState(false);
 	const MAX_LENGTH = 7;
@@ -45,6 +46,25 @@ export default function AutoKeywordContainer() {
 			setBackslashCount(backslashCountInLatex);
 			updateList();
 			toggleIsOpen(!isOpen);
+		}
+
+		if (!isOpen) return;
+
+		const bufferShift = (fromBuffer, toBuffer) => {
+			const item = fromBuffer.current.pop();
+
+			if (item) {
+				toBuffer.current.push(item);
+				dispatch(setBuffer([...buffer.current]));
+				updateList();
+			}
+		};
+
+		if (keyCode === KEY_CODE.LEFT) {
+			bufferShift(buffer, secondBuffer);
+		}
+		if (keyCode === KEY_CODE.RIGHT) {
+			bufferShift(secondBuffer, buffer);
 		}
 	};
 
@@ -108,6 +128,10 @@ export default function AutoKeywordContainer() {
 
 			const remainedLatexPart = isCustom ? target.command.replace(`${temp}`, "") : target.replace(`\\${temp}`, "");
 
+			while (secondBuffer.current.pop()) {
+				latexFunction.keystroke("Shift-Right Del");
+			}
+
 			latexFunction.insertLatex(remainedLatexPart);
 
 			setRecommandationList([]);
@@ -129,6 +153,7 @@ export default function AutoKeywordContainer() {
 		const alphabet = String.fromCharCode(keyCode);
 
 		buffer.current.push(alphabet);
+		dispatch(setBuffer([...buffer.current]));
 		isCustom ? updateCustomList() : updateList();
 	};
 
