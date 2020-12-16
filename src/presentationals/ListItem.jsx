@@ -68,7 +68,8 @@ export default function ListItem({
 					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
 				{editOnClick &&
 					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
-				<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />
+				{deleteOnClick &&
+					<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />}
 			</Bottom>
 		</Layout>
 	);
