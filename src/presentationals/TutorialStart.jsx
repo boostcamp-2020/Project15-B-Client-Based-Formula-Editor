@@ -37,11 +37,30 @@ const StartButton = styled.button`
   }
 `;
 
-export default function TutorialStart({ handleSlideDown }) {
+const EndButton = styled.button`
+  display: block;
+  position: fixed;
+  right: 0;
+  background-color: ${themeColor.superLight};
+  color: ${themeColor.white};
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 80px;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    background-color: ${themeColor.light};
+  }
+`;
+
+export default function TutorialStart({ handleSlideDown, handleSlideEnd }) {
 	return (
 		<Page>
 			<Logo src="../../public/dark_logo.png" />
 			<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
+			<EndButton onClick={handleSlideEnd}>Skip {`>`}</EndButton>
 		</Page>
 	);
 }

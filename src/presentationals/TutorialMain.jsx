@@ -22,6 +22,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown }) 
 			<TutorialStart
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideDown(0)}
+				handleSlideEnd={handleSlideDown(100000)}
 			/>
 			<TutorialPage
 				imageURL="../../public/FormulaRepresentation.gif"
