@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { setCharacterTabState } from "../slice";
 import { latexFunction } from "../util";
+import { usePreviewItem } from "../hooks";
 import characterLatex from "../constants/characterLatex";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import CharacterList from "../presentationals/CharacterList";
@@ -13,6 +14,7 @@ export default function CharacterContainer() {
 	const dispatch = useDispatch();
 	const isOpenMenu = useSelector(state => state.characterTabState);
 	const [searchTerm, setSearchTerm] = useState("");
+	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 	const titles = Object.keys(isOpenMenu);
 
 	const handleClickItem = latex => () => {
@@ -62,6 +64,8 @@ export default function CharacterContainer() {
 								isOpen={isOpenMenu[title]}
 								list={filteredList}
 								handleClickItem={handleClickItem}
+								handleMouseEnterItem={handleMouseEnterItem}
+								previewItem={previewItem}
 							/>
 						</div>
 					);
