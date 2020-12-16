@@ -116,17 +116,16 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
-			const target = recommandationList[itemIndex];
-
-			const temp = buffer.current.join("").trim();
-
-			const remainedLatexPart = target.replace(`\\${temp}`, "");
-
 			while (secondBuffer.current.pop()) {
 				latexFunction.keystroke("Shift-Right Del");
 			}
 
-			latexFunction.insertLatex(remainedLatexPart);
+			const target = recommandationList[itemIndex];
+			const temp = buffer.current.join("").trim();
+
+			const remainedLatexPart = target?.replace(`\\${temp}`, "");
+
+			latexFunction.insertLatex(remainedLatexPart || "");
 
 			setRecommandationList([]);
 			buffer.current = [];
