@@ -35,18 +35,9 @@ const SymbolWrapper = styled.div`
 
 const Symbol = styled.div`
 	position: relative;
-
 	width: 40px;
 	text-align: center;
-
-	> i > span:first-child {
-		font-size: 16px;
-	}
-
-	> i > span:last-child {
-		font-size: 10px;
-		font-weight: bold;
-	}
+	${({ fontSize }) => fontSize && `font-size: ${fontSize}px`};
 `;
 
 const Magnifier = styled.div`
@@ -111,8 +102,8 @@ export default function CharacterListItem({
 				</>}
 			{title === "example" &&
 				<>
-					<Symbol>
-						<i><span>f</span><span>(x)</span></i>
+					<Symbol fontSize={12}>
+						<StaticMathField>f(x)</StaticMathField>
 					</Symbol>
 					<Name isMagnifier={isMagnifier}>{item.name}</Name>
 					{previewItem.id === item.name &&
