@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
+import TutorialStart from "./TutorialStart";
 import DownIcon from "../icons/DownIcon";
 
 const Layout = styled.div`
@@ -93,8 +94,9 @@ export default function TutorialMain({ slide, handleSlideMoving }) {
 	return (
 		<Layout slide={slide}>
 			<Page>
-				<LogoImage src="../../public/dark_logo.png" />
-				<StartButton onClick={handleSlideMoving(0)}>튜토리얼 시작하기</StartButton>
+				<TutorialStart
+					handleSlideMoving={handleSlideMoving}
+				/>
 			</Page>
 			<Page>
 				<LogoImage src="../../public/FormulaRepresentation.gif" />
