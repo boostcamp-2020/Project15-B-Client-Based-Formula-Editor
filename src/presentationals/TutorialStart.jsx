@@ -37,11 +37,11 @@ const StartButton = styled.button`
   }
 `;
 
-export default function TutorialStart({ handleSlideMoving }) {
+export default function TutorialStart({ handleSlideDown }) {
 	return (
 		<Page>
 			<Logo src="../../public/dark_logo.png" />
-			<StartButton onClick={handleSlideMoving}>튜토리얼 시작하기</StartButton>
+			<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
 		</Page>
 	);
 }

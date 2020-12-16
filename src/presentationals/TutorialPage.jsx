@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
 import DownIcon from "../icons/DownIcon";
+import UpIcon from "../icons/UpIcon";
 
 const Page = styled.div`
   position: relative;
@@ -22,6 +23,7 @@ const Title = styled.div`
   padding: 10px 20px;
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
 `;
 
 const Content = styled.div`
@@ -29,6 +31,7 @@ const Content = styled.div`
   color: ${themeColor.white};
   font-size: 14px;
   font-weight: bold;
+  text-align: center;
 `;
 
 const Highlight = styled.span`
@@ -37,11 +40,31 @@ const Highlight = styled.span`
   padding: 0 3px;
 `;
 
+const PrevButton = styled.div`
+  position: absolute;
+  left: 50%;
+  top: -180px;
+  transform: translateX(-50%);
+  font-size: 20px;
+  font-weight: bold;
+  padding: 5px 20px;
+  color: ${themeColor.white};
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+
+    > div {
+      color: white;
+    }
+  }
+`;
+
 const NextButton = styled.div`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -23vh;
+  bottom: -180px;
   font-size: 20px;
   font-weight: bold;
   padding: 5px 20px;
@@ -67,12 +90,16 @@ export default function TutorialPage({
 	title,
 	content,
 	nextButtonName,
-	handleSlideMoving,
+	handleSlideUp,
+	handleSlideDown,
 }) {
 	const [front, highlight, back] = content.split("$");
 
 	return (
 		<Page>
+			<PrevButton onClick={handleSlideUp}>
+				<IconWrapper><UpIcon /></IconWrapper>이전
+			</PrevButton>
 			<LogoImage src={imageURL} />
 			<Title>{title}</Title>
 			<Content>
@@ -80,7 +107,7 @@ export default function TutorialPage({
 				{highlight && <Highlight>{highlight}</Highlight>}
 				{back}
 			</Content>
-			<NextButton onClick={handleSlideMoving}>
+			<NextButton onClick={handleSlideDown}>
 				{nextButtonName}
 				{nextButtonName === "다음" && <IconWrapper><DownIcon /></IconWrapper>}
 			</NextButton>
