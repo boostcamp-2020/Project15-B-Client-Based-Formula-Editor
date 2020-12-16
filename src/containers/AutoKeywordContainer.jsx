@@ -30,6 +30,11 @@ export default function AutoKeywordContainer() {
 
 	const keyupEvent = ({ keyCode }) => {
 		if (keyCode === KEY_CODE.BACK_SLASH) {
+			const cursor = latexFunction.getCursor();
+
+			if (cursor.parent.jQ[0].className.includes("text-mode")) {
+				return;
+			}
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
 			setBackslashCount(backslashCountInLatex);
