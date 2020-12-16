@@ -8,7 +8,9 @@ describe("<IconButton />", () => {
 	it("renders icon button", () => {
 		const icon = "test";
 		const { container } = render(<IconButton icon={icon} />);
+		const button = container.querySelector("button");
 
-		expect(container).toHaveTextContent(icon);
+		expect(button).toBeVisible();
+		expect(button).toHaveTextContent(icon);
 	});
 });
