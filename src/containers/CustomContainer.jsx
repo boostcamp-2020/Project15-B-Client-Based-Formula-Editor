@@ -8,13 +8,14 @@ import {
 	removeCustomCommand,
 } from "../slice";
 import popup from "../popup";
+import { usePreviewItem } from "../hooks";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import Filter from "../presentationals/Filter";
+import ListItem from "../presentationals/ListItem";
 import EmptyItem from "../presentationals/EmptyItem";
 import BlueButton from "../presentationals/BlueButton";
 import CustomForm from "../presentationals/CustomForm";
-import CustomItem from "../presentationals/CustomItem";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
@@ -24,6 +25,7 @@ export default function CustomContainer() {
 	const [warningMessage, setWarningMessage] = useState({});
 	const customFormValue = useSelector(state => state.customFormValue);
 	const customCommandList = useSelector(state => state.customCommandList);
+	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleFormOnButton = () => {
 		setWarningMessage({});
@@ -156,13 +158,17 @@ export default function CustomContainer() {
 								<CharacterListItem
 									item={{ ...item, symbol: "#", name: item.command }}
 									onClick={() => { }}
+									onMouseEnter={handleMouseEnterItem(index)}
 								/>
-								<CustomItem
-									key={index}
-									name={item.latex}
-									onClickEdit={handleEditClick(index)}
-									onClickDelete={handleDeleteClick(index)}
-								/>
+								{previewItem.id === index &&
+									<ListItem
+										latex={item.latex}
+										editOnClick={handleEditClick(index)}
+										deleteOnClick={handleDeleteClick(index)}
+										intoLatexFieldOnClick={handleEditClick(index)}
+										top={previewItem.top}
+									/>
+								}
 							</SideTabItemLayout>,
 						) :
 					<EmptyItem content={"최근 저장한 명령어가 없습니다"} />}

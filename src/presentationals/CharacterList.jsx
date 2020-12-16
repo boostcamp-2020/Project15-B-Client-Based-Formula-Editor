@@ -5,7 +5,9 @@ import CharacterListItem from "./CharacterListItem";
 
 const Layout = styled.div``;
 
-export default function CharacterList({ title, isOpen, list, handleClickItem }) {
+export default function CharacterList({
+	title, isOpen, list, handleClickItem, handleMouseEnterItem, previewItem,
+}) {
 	return (
 		<Layout>
 			{isOpen && list.map((item, index) =>
@@ -15,6 +17,8 @@ export default function CharacterList({ title, isOpen, list, handleClickItem }) 
 					title={title}
 					onClick={handleClickItem}
 					isMagnifier={true}
+					onMouseEnter={handleMouseEnterItem(item.name)}
+					previewItem={previewItem}
 				/>,
 			)}
 		</Layout>
