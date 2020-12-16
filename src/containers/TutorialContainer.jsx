@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import TutorialMain from "../presentationals/TutorialMain";
 
 const BASE_TRANSFORM_Y = -760;
-const TRANSFORM_DIFFERENCE = 120;
+const TRANSFORM_DIFFERENCE = 106.5;
 
 export default function TutorialContainer() {
 	const [slide, setSlide] = useState(BASE_TRANSFORM_Y);
