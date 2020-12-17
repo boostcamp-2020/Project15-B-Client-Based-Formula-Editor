@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setCharacterTabState } from "../slice";
@@ -10,21 +10,20 @@ import CharacterList from "../presentationals/CharacterList";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import Filter from "../presentationals/Filter";
 
-export default function CharacterContainer() {
+function CharacterContainer() {
 	const dispatch = useDispatch();
 	const isOpenMenu = useSelector(state => state.characterTabState);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 	const titles = Object.keys(isOpenMenu);
 
-	const handleClickItem = latex => () => {
+	const handleClickItem = useCallback(latex => () => {
 		latexFunction.insertLatex(latex);
-	};
+	}, []);
 
-	const handleClickMenu = title => () => {
+	const handleClickMenu = title => useCallback(() => {
 		dispatch(setCharacterTabState(title));
-	};
-
+	}, []);
 
 	const handleFilter = ({ target }) => {
 		const inputValue = target.value;
@@ -43,13 +42,15 @@ export default function CharacterContainer() {
 		});
 	};
 
+	const getFilteredList = title => characterLatex[title].filter(item =>
+		(searchTerm ? item.name.includes(searchTerm) || item.symbol.includes(searchTerm) : true));
+
 	return (
 		<>
 			<Filter onChange={handleFilter}/>
 			<CharacterContainerLayout>
 				{titles.map(title => {
-					const filteredList = characterLatex[title].filter(item =>
-						(searchTerm ? item.name.includes(searchTerm) || item.symbol.includes(searchTerm) : true));
+					const filteredList = useMemo(() => getFilteredList(title), [title]);
 
 					return (
 						<div key={title}>
@@ -75,3 +76,5 @@ export default function CharacterContainer() {
 		</>
 	);
 }
+
+export default React.memo(CharacterContainer);
