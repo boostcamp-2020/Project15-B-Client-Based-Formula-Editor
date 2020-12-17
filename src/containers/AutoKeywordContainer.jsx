@@ -202,7 +202,7 @@ export default function AutoKeywordContainer() {
 	};
 
 	const onMouseEnter = e => {
-		setItemIndex(e.target.dataset.id);
+		setItemIndex(+e.target.dataset.id);
 	};
 
 	useEffect(() => {
