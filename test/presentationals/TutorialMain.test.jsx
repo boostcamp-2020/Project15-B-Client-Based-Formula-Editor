@@ -24,7 +24,7 @@ describe("<TutorialMain />", () => {
 		expect(container).toHaveTextContent("이전");
 		expect(container).toHaveTextContent("다음");
 		expect(container).toHaveTextContent("튜토리얼 완료");
-		expect(divs.length).toBe(43);
+		expect(divs.length).toBe(44);
 		expect(imgs.length).toBe(7);
 	});
 });
