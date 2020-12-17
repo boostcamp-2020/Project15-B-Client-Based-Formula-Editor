@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setLatexInputWithDebounce, setLatexTextInputWithDebounce, setCursorPosition } from "../slice";
@@ -15,7 +15,7 @@ import LatexRepresentation from "../presentationals/LatexRepresentation";
 import DynamicBarVertical from "../presentationals/DynamicBarVertical";
 import GhostBar from "../presentationals/GhostBar";
 
-export default function BodyContainer({ bodyWidth }) {
+function BodyContainer({ bodyWidth }) {
 	const SUM_OF_OTHER_COMPONENTS_HEIGHT = 45;
 	const MIN_HEIGHT = 100;
 	const initialFormula = (window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT) / MIN_HEIGHT * 60;
@@ -61,6 +61,7 @@ export default function BodyContainer({ bodyWidth }) {
 		latexFunction.insertLatex = latex => {
 			mathField.write(latex);
 		};
+
 		latexFunction.insertClickedLatex = latex => {
 			mathField.cmd(`${latex} `);
 			mathField.focus();
@@ -79,7 +80,7 @@ export default function BodyContainer({ bodyWidth }) {
 		setGhostHeight(e.pageY - 40);
 	};
 
-	const handleMouseUp = e => {
+	const handleMouseUp = useCallback(e => {
 		if (isMove) {
 			setIsMove(false);
 
@@ -109,7 +110,7 @@ export default function BodyContainer({ bodyWidth }) {
 			});
 			setGhostHeight(heights.formula);
 		}
-	};
+	}, [isMove]);
 
 	const resizeEvent = rate => () => {
 		const allowedHeight = window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT;
@@ -132,11 +133,11 @@ export default function BodyContainer({ bodyWidth }) {
 		setHeights(changedHeight);
 	};
 
-	const handleMouseMove = e => {
+	const handleMouseMove = useCallback(e => {
 		if (isMove) {
 			setGhostHeight(e.pageY - 40);
 		}
-	};
+	}, [isMove]);
 
 	useEffect(() => {
 		const eventFunc = toFitSimple(resizeEvent(rateOfFormulaHeight));
@@ -178,3 +179,5 @@ export default function BodyContainer({ bodyWidth }) {
 		</BodyLayout>
 	);
 }
+
+export default React.memo(BodyContainer);
