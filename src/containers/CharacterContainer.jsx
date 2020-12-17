@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setCharacterTabState } from "../slice";
@@ -10,16 +10,16 @@ import CharacterList from "../presentationals/CharacterList";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import Filter from "../presentationals/Filter";
 
-export default function CharacterContainer() {
+function CharacterContainer() {
 	const dispatch = useDispatch();
 	const isOpenMenu = useSelector(state => state.characterTabState);
 	const [searchTerm, setSearchTerm] = useState("");
 	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 	const titles = Object.keys(isOpenMenu);
 
-	const handleClickItem = latex => () => {
+	const handleClickItem = useCallback(latex => () => {
 		latexFunction.insertLatex(latex);
-	};
+	}, []);
 
 	const handleClickMenu = title => useCallback(() => {
 		dispatch(setCharacterTabState(title));
@@ -76,3 +76,5 @@ export default function CharacterContainer() {
 		</>
 	);
 }
+
+export default React.memo(CharacterContainer);
