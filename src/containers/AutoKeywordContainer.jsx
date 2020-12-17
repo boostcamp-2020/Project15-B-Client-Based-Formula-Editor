@@ -30,6 +30,11 @@ export default function AutoKeywordContainer() {
 
 	const keyupEvent = ({ keyCode }) => {
 		if (keyCode === KEY_CODE.BACK_SLASH) {
+			const cursor = latexFunction.getCursor();
+
+			if (cursor.parent.jQ[0].className.includes("text-mode")) {
+				return;
+			}
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
 			setBackslashCount(backslashCountInLatex);
@@ -75,7 +80,7 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		if (isRemoveKey(keyCode)) {
-			if (latexInput === "\\ ") {
+			if (latexInput === "\\ " && buffer.current.length === 0) {
 				toggleIsOpen(false);
 				setRecommandationList([]);
 				setBackslashCount(0);
@@ -111,17 +116,16 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
-			const target = recommandationList[itemIndex];
-
-			const temp = buffer.current.join("").trim();
-
-			const remainedLatexPart = target.replace(`\\${temp}`, "");
-
 			while (secondBuffer.current.pop()) {
 				latexFunction.keystroke("Shift-Right Del");
 			}
 
-			latexFunction.insertLatex(remainedLatexPart);
+			const target = recommandationList[itemIndex];
+			const temp = buffer.current.join("").trim();
+
+			const remainedLatexPart = target?.replace(`\\${temp}`, "");
+
+			latexFunction.insertLatex(remainedLatexPart || "");
 
 			setRecommandationList([]);
 			buffer.current = [];
