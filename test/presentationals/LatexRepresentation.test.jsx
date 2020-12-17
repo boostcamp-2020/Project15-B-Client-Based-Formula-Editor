@@ -9,7 +9,9 @@ describe("<LatexRepresentation />", () => {
 		const latexInput = "1 + 2";
 		const onChange = () => {};
 		const { container } = render(<LatexRepresentation latexInput={latexInput} onChange={onChange} />);
+		const textarea = container.querySelector("textarea");
 
-		expect(container).toHaveTextContent(latexInput);
+		expect(textarea).toBeVisible();
+		expect(textarea).toHaveTextContent(latexInput);
 	});
 });
