@@ -43,17 +43,17 @@ export default function BodyContainer({ bodyWidth }) {
 		}
 		dispatch(setLatexInputWithDebounce(mathFieldLatex));
 
-		const root = document.querySelector(".mq-editable-field > .mq-root-block");
-		const cursor = root.querySelector(".mq-cursor");
+		const cursorPosition = latexFunction.getCursor()._jQ[0].getClientRects();
 
-		if (!cursor) return;
-
-		const [{ x, y }] = cursor.getClientRects();
+		if (!cursorPosition.length) return;
+		const [{ x, y }] = cursorPosition;
 
 		dispatch(setCursorPosition({ x, y }));
 	};
 
 	const setUpLatexInsertFunction = mathField => {
+		latexFunction.getCursor = () => mathField.__controller.cursor;
+
 		latexFunction.keystroke = key => {
 			mathField.keystroke(key);
 		};
