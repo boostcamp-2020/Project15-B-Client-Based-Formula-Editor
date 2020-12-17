@@ -43,12 +43,10 @@ export default function BodyContainer({ bodyWidth }) {
 		}
 		dispatch(setLatexInputWithDebounce(mathFieldLatex));
 
-		const root = document.querySelector(".mq-editable-field > .mq-root-block");
-		const cursor = root.querySelector(".mq-cursor");
+		const cursorPosition = latexFunction.getCursor()._jQ[0].getClientRects();
 
-		if (!cursor) return;
-
-		const [{ x, y }] = cursor.getClientRects();
+		if (!cursorPosition.length) return;
+		const [{ x, y }] = cursorPosition;
 
 		dispatch(setCursorPosition({ x, y }));
 	};
@@ -69,6 +67,8 @@ export default function BodyContainer({ bodyWidth }) {
 			mathField.keystroke("Shift-Left Del");
 			mathField.focus();
 		};
+
+		mathField.focus();
 	};
 
 	const handleLatexTextarea = e => {

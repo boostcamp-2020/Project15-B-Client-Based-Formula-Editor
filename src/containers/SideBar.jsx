@@ -23,7 +23,7 @@ export default function SideBar({ sidebarWidth }) {
 	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
 	const sidebarState = useSelector(state => state.sidebarState);
-	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
+	const { tutorial, imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
 
 	const tabMap = {
 		[CHARACTER_TAB]: <CharacterContainer />,
@@ -35,6 +35,18 @@ export default function SideBar({ sidebarWidth }) {
 	const handleTabClick = (tabId, isSelected) => () => {
 		dispatch(setSidebarState(!isSelected));
 		setTabState(isSelected ? CLOSE_TAB : tabId);
+	};
+
+	const handleOpenTutorial = async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "튜토리얼을 다시 보시겠습니까?",
+		});
+
+		if (!answer) return;
+
+		localStorage.removeItem("isTutorialDone");
+		location.reload();
 	};
 
 	const handleDownloadAsImage = async () => {
@@ -110,9 +122,11 @@ export default function SideBar({ sidebarWidth }) {
 				<SideBarTabLayout>
 					<SideTopTab currentTab={tabState} onClick={handleTabClick} />
 					<SideBottomTab {...{
+						tutorial,
 						imageDownload,
 						linkCopy,
 						formulaSave,
+						handleOpenTutorial,
 						handleSaveFormula,
 						handleCopyLink,
 						handleDownloadAsImage,

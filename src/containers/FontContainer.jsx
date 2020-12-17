@@ -13,19 +13,24 @@ import IconButton from "../presentationals/IconButton";
 export default function FontContainer() {
 	const fontSizeRef = useRef();
 	const fontColorRef = useRef();
+	const [fontSizeForView, setFontSizeForView] = useState(20);
 	const [fontDropdown, setFontDropdown] = useState({ size: false, color: false });
 	const fontInfo = useSelector(state => state.fontInfo);
 	const dispatch = useDispatch();
 
 	const handleFontSizeChange = e => {
 		const MAX_FONT_SIZE = 99;
-		const value = e.target.value;
+
+		const value = Number(e.target.value) || "";
 		const size = value < MAX_FONT_SIZE ? value : MAX_FONT_SIZE;
 
+		setFontSizeForView(size);
+		if (!size) return;
 		dispatch(setFont({ ...fontInfo, size }));
 	};
 
 	const handleFontSizeItemClick = size => () => {
+		setFontSizeForView(size);
 		dispatch(setFont({ ...fontInfo, size }));
 	};
 
@@ -69,6 +74,7 @@ export default function FontContainer() {
 			<FontSizeSelector
 				fontSizeRef={fontSizeRef}
 				fontSize={fontInfo.size}
+				fontSizeForView={fontSizeForView}
 				fontDropdown={fontDropdown}
 				handleFontSizeChange={handleFontSizeChange}
 				handleFontSizeItemClick={handleFontSizeItemClick}
