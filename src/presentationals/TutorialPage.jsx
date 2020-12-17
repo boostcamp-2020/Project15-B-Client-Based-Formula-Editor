@@ -3,25 +3,31 @@ import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
 import FILE_PATH from "../constants/filePath";
-import DownIcon from "../icons/DownIcon";
-import UpIcon from "../icons/UpIcon";
+import NextIcon from "../icons/NextIcon";
+import PrevIcon from "../icons/PrevIcon";
+import FlagIcon from "../icons/FlagIcon";
 
 const Page = styled.div`
+  display: flex;
+  align-items: center;
+  width: ${(({ browserWidth }) => browserWidth)}px;
+`;
+
+const Layout = styled.div`
   position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  margin-bottom: 50vh;
+  margin: 0 auto;
+  width: 60%;
 `;
 
 const LogoImage = styled.img`
+  display: block;
   width: 100%;
+  border-radius: 10px;
 `;
 
 const Title = styled.div`
   color: white;
-  padding: 10px 20px;
+  padding: 20px;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
@@ -35,74 +41,45 @@ const Content = styled.div`
   text-align: center;
 `;
 
-const PrevButton = styled.div`
-  position: absolute;
-  left: 50%;
-  top: -180px;
-  transform: translateX(-50%);
-  font-size: 20px;
-  font-weight: bold;
-  padding: 5px 20px;
+const MovingButton = styled.div`
   color: ${themeColor.white};
   cursor: pointer;
-
-  &:hover {
-    color: white;
-
-    > div {
-      color: white;
-    }
-  }
-`;
-
-const NextButton = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -180px;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 5px 20px;
-  color: ${themeColor.white};
-  cursor: pointer;
-
-  &:hover {
-    color: white;
-
-    > div {
-      color: white;
-    }
-  }
-`;
-
-const IconWrapper = styled.div`
-  visibility: ${(({ name }) => name === "튜토리얼 완료" && "hidden")};
-  color: ${themeColor.white};
+  margin: 50px;
   width: 36px;
+
+  &:hover {
+    color: white;
+
+    > div {
+      color: white;
+    }
+  }
 `;
 
 export default function TutorialPage({
+	browserWidth,
 	imageURL,
 	title,
 	content = "",
-	nextButtonName = "다음",
 	handleSlideUp,
 	handleSlideDown,
+	end = false,
 }) {
 	return (
-		<Page>
-			<PrevButton onClick={handleSlideUp}>
-				<IconWrapper name={nextButtonName}><UpIcon /></IconWrapper>이전
-			</PrevButton>
-			<LogoImage src={`${FILE_PATH}/${imageURL}`} />
-			<Title>{title}</Title>
-			<Content>
-				{content}
-			</Content>
-			<NextButton onClick={handleSlideDown}>
-				{nextButtonName}
-				<IconWrapper name={nextButtonName}><DownIcon /></IconWrapper>
-			</NextButton>
+		<Page browserWidth={browserWidth}>
+			<MovingButton onClick={handleSlideUp}>
+				<PrevIcon />
+			</MovingButton>
+			<Layout>
+				<LogoImage src={`${FILE_PATH}/${imageURL}`} />
+				<Title>{title}</Title>
+				<Content>
+					{content}
+				</Content>
+			</Layout>
+			<MovingButton onClick={handleSlideDown}>
+				{end ? <FlagIcon /> : <NextIcon />}
+			</MovingButton>
 		</Page>
 	);
 }
