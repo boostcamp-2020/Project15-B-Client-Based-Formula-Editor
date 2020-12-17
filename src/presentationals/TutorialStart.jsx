@@ -28,30 +28,30 @@ const StartButton = styled.button`
   font-size: 32px;
   font-weight: bold;
   color: ${themeColor.white};
-  background-color: ${themeColor.light};
+  background-color: ${themeColor.normal};
+  outline: none;
   cursor: pointer;
 
   &:hover {
     color: white;
-    background-color: ${themeColor.superLight};
   }
 `;
 
-const EndButton = styled.button`
+const SkipButton = styled.button`
   display: block;
   position: fixed;
   right: 0;
-  background-color: ${themeColor.superLight};
+  background-color: ${themeColor.normal};
   color: ${themeColor.white};
   font-weight: bold;
   border: none;
   border-radius: 4px;
-  padding: 10px 80px;
+  padding: 10px 10px 10px 80px;
+  outline: none;
   cursor: pointer;
 
   &:hover {
     color: white;
-    background-color: ${themeColor.light};
   }
 `;
 
@@ -60,7 +60,7 @@ export default function TutorialStart({ handleSlideDown, handleSlideEnd }) {
 		<Page>
 			<Logo src="../../public/dark_logo.png" />
 			<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
-			<EndButton onClick={handleSlideEnd}>Skip &gt;</EndButton>
+			<SkipButton onClick={handleSlideEnd}>Skip &gt;</SkipButton>
 		</Page>
 	);
 }
