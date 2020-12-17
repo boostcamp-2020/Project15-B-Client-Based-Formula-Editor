@@ -65,8 +65,10 @@ function FontContainer() {
 			}
 		};
 
-		window.addEventListener("click", outsideClickEvent);
-		return () => window.removeEventListener("click", outsideClickEvent);
+		if (fontDropdown.size || fontDropdown.color) {
+			window.addEventListener("click", outsideClickEvent);
+			return () => window.removeEventListener("click", outsideClickEvent);
+		}
 	});
 
 	return (
