@@ -34,7 +34,7 @@ export const toFitSimple = cb => {
 export const throttle = (fn, delay) => {
 	let timer = true;
 
-	return function (...args) {
+	return function(...args) {
 		if (!timer) return;
 		timer = false;
 		fn.apply(this, args);
