@@ -86,7 +86,9 @@ export default function AutoKeywordContainer() {
 				latexFunction.keystroke("Shift-Left Del");
 			}
 			latexFunction.keystroke("Shift-Left Del");
-			latexFunction.insertLatex(`\\${remainedLatexPart}`);
+			const isStartWithBackSlash = targetItem[0] === "\\";
+
+			latexFunction.insertLatex(isStartWithBackSlash ? `\\${remainedLatexPart}` : remainedLatexPart);
 		}
 
 		setRecommandationList([]);
