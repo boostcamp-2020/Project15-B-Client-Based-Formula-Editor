@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
-import { latexFunction, getBackslashCountFromLatex } from "../util";
+import { latexFunction, getBackslashCountFromLatex, sortFunction } from "../util";
 import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
 import AutoComplete from "../presentationals/AutoComplete";
@@ -12,21 +12,28 @@ export default function AutoKeywordContainer() {
 	const cursorPosition = useSelector(state => state.cursorPosition);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
+	const customCommandList = useSelector(state => state.customCommandList);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
+	const [recommandationList, setRecommandationList] = useState([]);
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
-	const [recommandationList, setRecommandationList] = useState([]);
 	const MAX_LENGTH = 7;
 
-	const updateList = () => {
-		const temp = buffer.current.join("").trim();
-		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
-			.map(key => mathquillLatex[key]);
+	const getBufferToString = () => buffer.current.join("").trim();
 
-		if (list.length > MAX_LENGTH) list.length = MAX_LENGTH;
-		setRecommandationList(list);
+	const updateList = () => {
+		const temp = getBufferToString();
+		const list = mathquillLatex.filter(elem => elem.includes(`\\${temp}`));
+
+		const regex = new RegExp(`^(${temp})`);
+		const customList = customCommandList.filter(elem => elem.command.match(regex));
+
+		const combinedList = [...list, ...customList].sort(sortFunction);
+
+		if (combinedList.length > MAX_LENGTH) combinedList.length = MAX_LENGTH;
+		setRecommandationList(combinedList);
 	};
 
 	const keyupEvent = ({ keyCode }) => {
@@ -61,6 +68,39 @@ export default function AutoKeywordContainer() {
 		if (keyCode === KEY_CODE.RIGHT) {
 			bufferShift(secondBuffer, buffer);
 		}
+	};
+
+	const selectAutoCompleteItem = isClicked => {
+		const target = recommandationList[itemIndex];
+
+		const temp = getBufferToString();
+		const targetItem = target.latex ? target.latex : target;
+
+		const isInMathquillLatex = mathquillLatex.includes(targetItem);
+
+		if (isInMathquillLatex) {
+			const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
+
+			isClicked ?
+				latexFunction.insertClickedLatex(remainedLatexPart) :
+				latexFunction.insertLatex(remainedLatexPart || "");
+		} else {
+			const remainedLatexPart = targetItem.replace(`\\`, "");
+
+			while (buffer.current.pop()) {
+				latexFunction.keystroke("Shift-Left Del");
+			}
+			latexFunction.keystroke("Shift-Left Del");
+			const isStartWithBackSlash = targetItem[0] === "\\";
+
+			latexFunction.insertLatex(isStartWithBackSlash ? `\\${remainedLatexPart}` : remainedLatexPart);
+		}
+
+		setRecommandationList([]);
+		buffer.current = [];
+		dispatch(setBuffer([]));
+		toggleIsOpen(false);
+		setItemIndex(0);
 	};
 
 	const keydownEvent = ({ keyCode }) => {
@@ -120,19 +160,7 @@ export default function AutoKeywordContainer() {
 			while (secondBuffer.current.pop()) {
 				latexFunction.keystroke("Shift-Right Del");
 			}
-
-			const target = recommandationList[itemIndex];
-			const temp = buffer.current.join("").trim();
-
-			const remainedLatexPart = target?.replace(`\\${temp}`, "");
-
-			latexFunction.insertLatex(remainedLatexPart || "");
-
-			setRecommandationList([]);
-			buffer.current = [];
-			dispatch(setBuffer([]));
-			toggleIsOpen(false);
-			setItemIndex(0);
+			selectAutoCompleteItem(false);
 		}
 	};
 
@@ -147,19 +175,7 @@ export default function AutoKeywordContainer() {
 	};
 
 	const onClick = () => {
-		const target = recommandationList[itemIndex];
-
-		const temp = buffer.current.join("").trim();
-
-		const remainedLatexPart = target.replace(`\\${temp}`, "");
-
-		latexFunction.insertClickedLatex(remainedLatexPart);
-
-		setRecommandationList([]);
-		buffer.current = [];
-		dispatch(setBuffer([]));
-		toggleIsOpen(false);
-		setItemIndex(0);
+		selectAutoCompleteItem(true);
 	};
 
 	const onMouseEnter = e => {
