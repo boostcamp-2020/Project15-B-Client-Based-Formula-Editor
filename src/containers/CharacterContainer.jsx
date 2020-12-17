@@ -42,13 +42,15 @@ export default function CharacterContainer() {
 		});
 	};
 
+	const getFilteredList = title => characterLatex[title].filter(item =>
+		(searchTerm ? item.name.includes(searchTerm) || item.symbol.includes(searchTerm) : true));
+
 	return (
 		<>
 			<Filter onChange={handleFilter}/>
 			<CharacterContainerLayout>
 				{titles.map(title => {
-					const filteredList = characterLatex[title].filter(item =>
-						(searchTerm ? item.name.includes(searchTerm) || item.symbol.includes(searchTerm) : true));
+					const filteredList = useMemo(() => getFilteredList(title), [title]);
 
 					return (
 						<div key={title}>
