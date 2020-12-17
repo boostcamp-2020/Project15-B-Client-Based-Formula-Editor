@@ -85,15 +85,12 @@ export default function AutoKeywordContainer() {
 				latexFunction.insertClickedLatex(remainedLatexPart) :
 				latexFunction.insertLatex(remainedLatexPart || "");
 		} else {
-			const remainedLatexPart = targetItem.replace(`\\`, "");
-
 			while (buffer.current.pop()) {
 				latexFunction.keystroke("Shift-Left Del");
 			}
 			latexFunction.keystroke("Shift-Left Del");
-			const isStartWithBackSlash = targetItem[0] === "\\";
 
-			latexFunction.insertLatex(isStartWithBackSlash ? `\\${remainedLatexPart}` : remainedLatexPart);
+			latexFunction.insertLatex(targetItem);
 		}
 
 		setRecommandationList([]);
