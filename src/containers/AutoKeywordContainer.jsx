@@ -7,7 +7,7 @@ import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
 import AutoComplete from "../presentationals/AutoComplete";
 
-function AutoKeywordContainer() {
+export default function AutoKeywordContainer() {
 	const dispatch = useDispatch();
 	const cursorPosition = useSelector(state => state.cursorPosition);
 	const fontInfo = useSelector(state => state.fontInfo);
@@ -209,5 +209,3 @@ function AutoKeywordContainer() {
 		/>
 	);
 }
-
-export default AutoKeywordContainer;
