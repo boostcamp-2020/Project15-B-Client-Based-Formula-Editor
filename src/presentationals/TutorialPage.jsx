@@ -82,6 +82,7 @@ const NextButton = styled.div`
 `;
 
 const IconWrapper = styled.div`
+  visibility: ${(({ name }) => name !== "다음" && "hidden")};
   color: ${themeColor.white};
   width: 36px;
 `;
@@ -110,7 +111,7 @@ export default function TutorialPage({
 			</Content>
 			<NextButton onClick={handleSlideDown}>
 				{nextButtonName}
-				{nextButtonName === "다음" && <IconWrapper><DownIcon /></IconWrapper>}
+				<IconWrapper name={nextButtonName}><DownIcon /></IconWrapper>
 			</NextButton>
 		</Page>
 	);
