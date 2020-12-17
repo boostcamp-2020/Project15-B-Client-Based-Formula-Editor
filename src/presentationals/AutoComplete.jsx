@@ -7,7 +7,7 @@ import { themeColor } from "../GlobalStyle";
 const AutoKeywordLayout = styled.div`
 	position: fixed;
 	left: ${({ x }) => x}px;
-	top: ${({ y }) => y + 15}px;
+	top: ${({ y, fontSize }) => y + fontSize}px;
 	width: fit-content;
 	height: fit-content;
 	background: ${themeColor.normal};
@@ -45,13 +45,14 @@ export default function AutoComplete({
 	isOpen,
 	x,
 	y,
+	fontSize,
 	recommandationList,
 	targetIndex,
 	onClick,
 	onMouseEnter,
 }) {
 	return (
-		<AutoKeywordLayout x={x} y={y} isOpen={isOpen}>
+		<AutoKeywordLayout x={x} y={y} isOpen={isOpen} fontSize={fontSize}>
 			{ isOpen && recommandationList.map((item, index) => (
 				<HightLight data-id={index} onClick={onClick} onMouseEnter={onMouseEnter}
 					key={index} isFocused={index === parseInt(targetIndex, 10)}>

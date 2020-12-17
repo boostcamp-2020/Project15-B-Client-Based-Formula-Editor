@@ -8,10 +8,9 @@ import RecentContainer from "../../src/containers/RecentContainer";
 jest.mock("react-redux");
 
 describe("<RecentContainer />", () => {
-	let dispatch;
+	const dispatch = jest.fn();
 
 	beforeEach(() => {
-		dispatch = jest.fn();
 		useDispatch.mockImplementation(() => dispatch);
 	});
 
