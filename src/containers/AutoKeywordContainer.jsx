@@ -25,6 +25,7 @@ export default function AutoKeywordContainer() {
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
+		console.log(temp);
 		const regex = new RegExp(`^(${temp})`);
 		const customList = customCommandList.filter(elem => elem.command.match(regex));
 
@@ -37,6 +38,11 @@ export default function AutoKeywordContainer() {
 
 	const keyupEvent = ({ keyCode }) => {
 		if (keyCode === KEY_CODE.BACK_SLASH) {
+			const cursor = latexFunction.getCursor();
+
+			if (cursor.parent.jQ[0].className.includes("text-mode")) {
+				return;
+			}
 			const backslashCountInLatex = getBackslashCountFromLatex(latexInput);
 
 			setBackslashCount(backslashCountInLatex);
@@ -78,7 +84,7 @@ export default function AutoKeywordContainer() {
 
 			isClicked ?
 				latexFunction.insertClickedLatex(remainedLatexPart) :
-				latexFunction.insertLatex(remainedLatexPart);
+				latexFunction.insertLatex(remainedLatexPart || "");
 		} else {
 			const remainedLatexPart = targetItem.replace(`\\`, "");
 
@@ -116,7 +122,7 @@ export default function AutoKeywordContainer() {
 		if (!isOpen) return;
 
 		if (isRemoveKey(keyCode)) {
-			if (latexInput === "\\ " || latexInput === "#") {
+			if (latexInput === "\\ " && buffer.current.length === 0) {
 				toggleIsOpen(false);
 				setRecommandationList([]);
 				setBackslashCount(0);

@@ -57,11 +57,11 @@ export const addLatexItem = (state, { latex, isRecent = false, isBookmark = fals
 export const setLatexItem = (state, { id, isRecent, isBookmark, description }) => {
 	const latexItem = state.latexList.find(item => item.id === id);
 
+	if (description) latexItem.description = description;
 	if (isRecent !== undefined) latexItem.isRecent = isRecent;
 	if (isBookmark !== undefined) {
 		latexItem.isBookmark = isBookmark;
 		latexItem.bookmarkPriority = getBookmarkPriorityToAdd(state.bookmarkItems, latexItem.isBookmark);
-		latexItem.description = description;
 	}
 	updateSidebar(state);
 };

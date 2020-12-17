@@ -5,6 +5,7 @@ import {
 	setCustomFormValue,
 	setLatexInput,
 	addBookmarkItem,
+	setBookmarkItem,
 	removeBookmarkItem,
 	removeAllBookmarkItems,
 } from "../slice";
@@ -80,6 +81,18 @@ export default function BookmarkContainer({ setTabState }) {
 		setSearchTerm(inputValue);
 	};
 
+	const handleEditButton = ({ id, description }) => async () => {
+		const answer = await popup({
+			mode: "prompt",
+			message: "해당 북마크의 변경할 이름을 적어주세요!",
+			placeholder: description,
+		});
+
+		if (answer) {
+			dispatch(setBookmarkItem({ id, description: answer }));
+		}
+	};
+
 	return (
 		<>
 			<Filter onChange={handleFilter} />
@@ -106,6 +119,7 @@ export default function BookmarkContainer({ setTabState }) {
 										customOnClick={handleCustomButtonClick(item.latex)}
 										intoLatexFieldOnClick={handleFormulaClick(item.latex)}
 										deleteOnClick={handleDeleteButton(item.id)}
+										editOnClick={handleEditButton(item)}
 										top={previewItem.top}
 									/>
 								}
