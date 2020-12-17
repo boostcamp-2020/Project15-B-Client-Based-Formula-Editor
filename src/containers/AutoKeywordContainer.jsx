@@ -10,6 +10,7 @@ import AutoComplete from "../presentationals/AutoComplete";
 export default function AutoKeywordContainer() {
 	const dispatch = useDispatch();
 	const cursorPosition = useSelector(state => state.cursorPosition);
+	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
@@ -184,6 +185,7 @@ export default function AutoKeywordContainer() {
 			isOpen={isOpen}
 			x={cursorPosition.x}
 			y={cursorPosition.y}
+			fontSize={fontInfo.size}
 			recommandationList={recommandationList}
 			targetIndex={itemIndex}
 			onClick={onClick}

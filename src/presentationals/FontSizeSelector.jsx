@@ -60,6 +60,7 @@ const FontItem = styled.div`
 export default function FontSizeSelector({
 	fontSizeRef,
 	fontSize,
+	fontSizeForView,
 	fontDropdown,
 	handleFontSizeChange,
 	handleFontSizeItemClick,
@@ -69,9 +70,10 @@ export default function FontSizeSelector({
 		<Layout ref={fontSizeRef}>
 			<FontSizeIcon fill={themeColor.white}/>
 			<FontSizeInput
-				value={fontSize}
+				value={fontSizeForView}
 				onChange={handleFontSizeChange}
 				onClick={handleFontSizeInputClick}
+				placeholder={fontSize}
 			/>
 			{fontDropdown.size &&
 				<FontDropdown>
