@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
+import FILE_PATH from "../constants/filePath";
 
 const Page = styled.div`
   position: relative;
@@ -56,9 +57,11 @@ const SkipButton = styled.button`
 `;
 
 export default function TutorialStart({ handleSlideDown, handleSlideEnd }) {
+	const fileURL = `${FILE_PATH}/dark_logo.png`;
+
 	return (
 		<Page>
-			<Logo src="../../public/dark_logo.png" />
+			<Logo src={fileURL} />
 			<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
 			<SkipButton onClick={handleSlideEnd}>Skip &gt;</SkipButton>
 		</Page>

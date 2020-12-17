@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
+import FILE_PATH from "../constants/filePath";
 import DownIcon from "../icons/DownIcon";
 import UpIcon from "../icons/UpIcon";
 
@@ -100,7 +101,7 @@ export default function TutorialPage({
 			<PrevButton onClick={handleSlideUp}>
 				<IconWrapper><UpIcon /></IconWrapper>이전
 			</PrevButton>
-			<LogoImage src={imageURL} />
+			<LogoImage src={`${FILE_PATH}/${imageURL}`} />
 			<Title>{title}</Title>
 			<Content>
 				{front}
