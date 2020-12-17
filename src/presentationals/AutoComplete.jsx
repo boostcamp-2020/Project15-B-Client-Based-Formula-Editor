@@ -41,7 +41,7 @@ const MathFieldWrapper = styled.div`
 	margin-left: auto;
 `;
 
-export default function AutoComplete({
+function AutoComplete({
 	isOpen,
 	x,
 	y,
@@ -64,3 +64,5 @@ export default function AutoComplete({
 		</AutoKeywordLayout>
 	);
 }
+
+export default React.memo(AutoComplete);
