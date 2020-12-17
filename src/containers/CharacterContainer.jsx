@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setCharacterTabState } from "../slice";
@@ -21,10 +21,9 @@ export default function CharacterContainer() {
 		latexFunction.insertLatex(latex);
 	};
 
-	const handleClickMenu = title => () => {
+	const handleClickMenu = title => useCallback(() => {
 		dispatch(setCharacterTabState(title));
-	};
-
+	}, []);
 
 	const handleFilter = ({ target }) => {
 		const inputValue = target.value;
