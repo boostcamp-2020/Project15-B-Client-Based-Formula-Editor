@@ -29,8 +29,10 @@ export default function AutoKeywordContainer() {
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
-		if (list.length > MAX_LENGTH) list.length = MAX_LENGTH;
 		setRecommandationList(list);
+		setPageCount(Math.ceil(list.length / MAX_LENGTH));
+		setCurrentPageList(list.slice(0, MAX_LENGTH));
+		setCurrentPageNumber(1);
 	};
 
 	const keyupEvent = ({ keyCode }) => {
@@ -190,7 +192,7 @@ export default function AutoKeywordContainer() {
 			x={cursorPosition.x}
 			y={cursorPosition.y}
 			fontSize={fontInfo.size}
-			recommandationList={recommandationList}
+			recommandationList={currentPageList}
 			targetIndex={itemIndex}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
