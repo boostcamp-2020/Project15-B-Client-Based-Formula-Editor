@@ -18,11 +18,11 @@ export default function AutoKeywordContainer() {
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
 	const [recommandationList, setRecommandationList] = useState([]);
-	const MAX_LENGTH = 7;
-
 	const [pageCount, setPageCount] = useState(0);
 	const [currentPageNumber, setCurrentPageNumber] = useState(0);
 	const [currentPageList, setCurrentPageList] = useState([]);
+	const MAX_LENGTH = 7;
+	const FIRST_PAGE_NUMBER = 1;
 
 	const updateList = () => {
 		const temp = buffer.current.join("").trim();
@@ -32,7 +32,7 @@ export default function AutoKeywordContainer() {
 		setRecommandationList(list);
 		setPageCount(Math.ceil(list.length / MAX_LENGTH));
 		setCurrentPageList(list.slice(0, MAX_LENGTH));
-		setCurrentPageNumber(1);
+		setCurrentPageNumber(FIRST_PAGE_NUMBER);
 	};
 
 	const keyupEvent = ({ keyCode }) => {
@@ -109,57 +109,49 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.DOWN) {
-			// itemIndex가 currenPageList의 마지막 아이템을 가리키고 있다면
-			if (itemIndex + 1 === currentPageList.length) {
-				// 다음 페이지가 있다면
-				if (currentPageNumber < pageCount) {
-					const start = currentPageNumber * MAX_LENGTH;
+			if (itemIndex + 1 !== currentPageList.length) {
+				setItemIndex(itemIndex + 1);
+				return;
+			}
 
-					setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
-					setCurrentPageNumber(currentPageNumber + 1);
-					setItemIndex(0);
-					return;
-				}
+			if (currentPageNumber < pageCount) {
+				const start = currentPageNumber * MAX_LENGTH;
 
-				// 다음 페이지 없다면 첫 페이지로
-				setCurrentPageList(recommandationList.slice(0, MAX_LENGTH));
-				setCurrentPageNumber(1);
+				setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
+				setCurrentPageNumber(currentPageNumber + 1);
 				setItemIndex(0);
 				return;
 			}
 
-			// itemIndex가 currenPageList의 첫 번째 또는 중간 아이템을 가리키고 있다면
-			setItemIndex(itemIndex + 1);
+			setCurrentPageList(recommandationList.slice(0, MAX_LENGTH));
+			setCurrentPageNumber(FIRST_PAGE_NUMBER);
+			setItemIndex(0);
 			return;
 		}
 
 		if (keyCode === KEY_CODE.UP) {
-			// itemIndex가 currentPageList의 첫 아이템을 가리키고 있다면
-			if (itemIndex === 0) {
-				// 현재 첫 페이지라면
-				if (currentPageNumber === 1) {
-					const start = (pageCount - 1) * MAX_LENGTH;
-
-					setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
-					setCurrentPageNumber(pageCount);
-
-					const lastIndex = (recommandationList.length - 1) % MAX_LENGTH;
-
-					setItemIndex(lastIndex);
-					return;
-				}
-
-				// 현재 중간 페이지 라면
-				const end = (currentPageNumber - 1) * MAX_LENGTH;
-
-				setCurrentPageList(recommandationList.slice(end - MAX_LENGTH, end));
-				setCurrentPageNumber(currentPageNumber - 1);
-				setItemIndex(MAX_LENGTH - 1);
+			if (itemIndex !== 0) {
+				setItemIndex(itemIndex - 1);
 				return;
 			}
 
-			// itemIntex가 currentPageList의 중간 또는 마지막 아이템을 가리키고 있다면
-			setItemIndex(itemIndex - 1);
+			if (currentPageNumber === FIRST_PAGE_NUMBER) {
+				const start = (pageCount - 1) * MAX_LENGTH;
+
+				setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
+				setCurrentPageNumber(pageCount);
+
+				const lastIndex = (recommandationList.length - 1) % MAX_LENGTH;
+
+				setItemIndex(lastIndex);
+				return;
+			}
+
+			const end = (currentPageNumber - 1) * MAX_LENGTH;
+
+			setCurrentPageList(recommandationList.slice(end - MAX_LENGTH, end));
+			setCurrentPageNumber(currentPageNumber - 1);
+			setItemIndex(MAX_LENGTH - 1);
 			return;
 		}
 
