@@ -22,12 +22,19 @@ export default function AutoKeywordContainer() {
 	const MAX_LENGTH = 7;
 
 	const getBufferToString = () => buffer.current.join("").trim();
+	const cleanUp = () => {
+		setRecommandationList([]);
+		buffer.current = [];
+		dispatch(setBuffer([]));
+		toggleIsOpen(false);
+		setItemIndex(0);
+	};
 
 	const updateList = () => {
 		const temp = getBufferToString();
 		const list = mathquillLatex.filter(elem => elem.includes(`\\${temp}`));
-
 		const regex = new RegExp(`^(${temp})`);
+
 		const customList = customCommandList.filter(elem => elem.command.match(regex));
 
 		const combinedList = [...list, ...customList].sort(sortFunction);
@@ -74,6 +81,11 @@ export default function AutoKeywordContainer() {
 		const target = recommandationList[itemIndex];
 
 		const temp = getBufferToString();
+
+		if (!target) {
+			cleanUp();
+			return;
+		}
 		const targetItem = target.latex ? target.latex : target;
 
 		const isInMathquillLatex = mathquillLatex.includes(targetItem);
@@ -92,12 +104,7 @@ export default function AutoKeywordContainer() {
 
 			latexFunction.insertLatex(targetItem);
 		}
-
-		setRecommandationList([]);
-		buffer.current = [];
-		dispatch(setBuffer([]));
-		toggleIsOpen(false);
-		setItemIndex(0);
+		cleanUp();
 	};
 
 	const keydownEvent = ({ keyCode }) => {
@@ -119,9 +126,7 @@ export default function AutoKeywordContainer() {
 
 		if (isRemoveKey(keyCode)) {
 			if (latexInput === "\\ " && buffer.current.length === 0) {
-				toggleIsOpen(false);
-				setRecommandationList([]);
-				setBackslashCount(0);
+				cleanUp();
 				dispatch(setLatexInput(""));
 				dispatch(setLatexTextInput(""));
 			}
