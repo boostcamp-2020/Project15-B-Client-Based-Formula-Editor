@@ -64,6 +64,38 @@ export default function AutoKeywordContainer() {
 		}
 	};
 
+	const selectAutoCompleteItem = isClicked => {
+		const target = recommandationList[itemIndex];
+
+		const temp = buffer.current.join("").trim();
+		const targetItem = target.latex ? target.latex : target;
+
+		const isInMathquillLatex = Object.keys(mathquillLatex).filter(key => mathquillLatex[key])
+			.includes(targetItem);
+
+		if (isInMathquillLatex) {
+			const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
+
+			isClicked ?
+				latexFunction.insertClickedLatex(remainedLatexPart) :
+				latexFunction.insertLatex(remainedLatexPart);
+		} else {
+			const remainedLatexPart = targetItem.replace(`\\`, "");
+
+			while (buffer.current.pop()) {
+				latexFunction.keystroke("Shift-Left Del");
+			}
+			latexFunction.keystroke("Shift-Left Del");
+			latexFunction.insertLatex(`\\${remainedLatexPart}`);
+		}
+
+		setRecommandationList([]);
+		buffer.current = [];
+		dispatch(setBuffer([]));
+		toggleIsOpen(false);
+		setItemIndex(0);
+	};
+
 	const keydownEvent = ({ keyCode }) => {
 		if (itemIndex > 0) {
 			setItemIndex(0);
@@ -118,37 +150,10 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.ENTER || keyCode === KEY_CODE.SPACE || keyCode === KEY_CODE.TAB) {
-			const target = recommandationList[itemIndex];
-
-			const temp = buffer.current.join("").trim();
-			const targetItem = target.latex ? target.latex : target;
-
 			while (secondBuffer.current.pop()) {
 				latexFunction.keystroke("Shift-Right Del");
 			}
-
-			const isInMathquillLatex = Object.keys(mathquillLatex).filter(key => mathquillLatex[key])
-				.includes(targetItem);
-
-			if (isInMathquillLatex) {
-				const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
-
-				latexFunction.insertLatex(remainedLatexPart);
-			} else {
-				const remainedLatexPart = targetItem.replace(`\\`, "");
-
-				while (buffer.current.pop()) {
-					latexFunction.keystroke("Shift-Left Del");
-				}
-				latexFunction.keystroke("Shift-Left Del");
-				latexFunction.insertLatex(`\\${remainedLatexPart}`);
-			}
-
-			setRecommandationList([]);
-			buffer.current = [];
-			dispatch(setBuffer([]));
-			toggleIsOpen(false);
-			setItemIndex(0);
+			selectAutoCompleteItem(false);
 		}
 	};
 
@@ -163,33 +168,7 @@ export default function AutoKeywordContainer() {
 	};
 
 	const onClick = () => {
-		const target = recommandationList[itemIndex];
-
-		const temp = buffer.current.join("").trim();
-		const targetItem = target.latex ? target.latex : target;
-
-		const isInMathquillLatex = Object.keys(mathquillLatex).filter(key => mathquillLatex[key])
-			.includes(targetItem);
-
-		if (isInMathquillLatex) {
-			const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
-
-			latexFunction.insertClickedLatex(remainedLatexPart);
-		} else {
-			const remainedLatexPart = targetItem.replace(`\\`, "");
-
-			while (buffer.current.pop()) {
-				latexFunction.keystroke("Shift-Left Del");
-			}
-			latexFunction.keystroke("Shift-Left Del");
-			latexFunction.insertLatex(`\\${remainedLatexPart}`);
-		}
-
-		setRecommandationList([]);
-		buffer.current = [];
-		dispatch(setBuffer([]));
-		toggleIsOpen(false);
-		setItemIndex(0);
+		selectAutoCompleteItem(true);
 	};
 
 	const onMouseEnter = e => {
