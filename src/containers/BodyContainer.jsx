@@ -36,10 +36,10 @@ function BodyContainer({ bodyWidth }) {
 		let mathFieldLatex = mathField.latex();
 		const customList = getLocalStorage("customList", []);
 
-		const target = customList.find(elem => mathFieldLatex.includes(`#${elem.command}\\`));
+		const target = customList.find(elem => mathFieldLatex.includes(`\\${elem.command}\\`));
 
 		if (target) {
-			mathFieldLatex = mathFieldLatex.replace(`#${target.command}\\`, target.latex);
+			mathFieldLatex = mathFieldLatex.replace(`\\${target.command}\\`, target.latex);
 		}
 		dispatch(setLatexInputWithDebounce(mathFieldLatex));
 
@@ -63,7 +63,9 @@ function BodyContainer({ bodyWidth }) {
 		};
 
 		latexFunction.insertClickedLatex = latex => {
-			mathField.cmd(`${latex} `);
+			mathField.cmd(`${latex}`);
+			mathField.cmd("");
+			mathField.keystroke("Shift-Left Del");
 			mathField.focus();
 		};
 

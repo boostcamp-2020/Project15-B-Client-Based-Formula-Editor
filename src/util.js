@@ -9,6 +9,13 @@ export const latexFunction = {
 	getCursor: () => { },
 };
 
+export const sortFunction = (a, b) => {
+	const alpha = a.command ? a.command : a.slice(1);
+	const beta = b.command ? b.command : b.slice(1);
+
+	return alpha.localeCompare(beta);
+};
+
 export const toFitSimple = cb => {
 	let tick = false;
 
