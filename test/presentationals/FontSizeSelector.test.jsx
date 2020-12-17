@@ -12,6 +12,7 @@ describe("<FontSizeSelector />", () => {
 			<FontSizeSelector
 				fontSizeRef={null}
 				fontSize={defaultFontSize}
+				fontSizeForView={defaultFontSize}
 				fontDropdown={{ size: true }}
 				handleFontSizeChange={() => {}}
 				handleFontSizeItemClick={() => {}}
@@ -20,7 +21,7 @@ describe("<FontSizeSelector />", () => {
 
 		const input = container.querySelector("input");
 
-		expect(input.value).toBe(defaultFontSize);
+		expect(input).toHaveValue(defaultFontSize);
 		fontSizes.forEach(size => {
 			expect(container).toHaveTextContent(size);
 		});
