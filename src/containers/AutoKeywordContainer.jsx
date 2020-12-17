@@ -20,6 +20,10 @@ export default function AutoKeywordContainer() {
 	const [recommandationList, setRecommandationList] = useState([]);
 	const MAX_LENGTH = 7;
 
+	const [pageCount, setPageCount] = useState(0);
+	const [currentPageNumber, setCurrentPageNumber] = useState(0);
+	const [currentPageList, setCurrentPageList] = useState([]);
+
 	const updateList = () => {
 		const temp = buffer.current.join("").trim();
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
