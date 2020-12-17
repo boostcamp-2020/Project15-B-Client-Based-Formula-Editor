@@ -25,7 +25,6 @@ export default function AutoKeywordContainer() {
 		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
 			.map(key => mathquillLatex[key]);
 
-		console.log(temp);
 		const regex = new RegExp(`^(${temp})`);
 		const customList = customCommandList.filter(elem => elem.command.match(regex));
 
