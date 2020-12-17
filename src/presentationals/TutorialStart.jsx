@@ -60,7 +60,7 @@ export default function TutorialStart({ handleSlideDown, handleSlideEnd }) {
 		<Page>
 			<Logo src="../../public/dark_logo.png" />
 			<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
-			<EndButton onClick={handleSlideEnd}>Skip {`>`}</EndButton>
+			<EndButton onClick={handleSlideEnd}>Skip &gt;</EndButton>
 		</Page>
 	);
 }
