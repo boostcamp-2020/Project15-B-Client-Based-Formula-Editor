@@ -26,6 +26,7 @@ const { reducer, actions } = createSlice({
 		},
 		alignInfo: "center",
 		bubblePopup: {
+			tutorial: { isOpen: false, message: "" },
 			imageDownload: { isOpen: false, message: "" },
 			linkCopy: { isOpen: false, message: "" },
 			formulaSave: { isOpen: false, message: "" },
