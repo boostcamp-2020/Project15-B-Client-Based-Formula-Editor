@@ -51,7 +51,7 @@ export default function TutorialMain({ slide, handleSlideUp, handleSlideDown, ha
 			<TutorialPage
 				imageURL="SideTab_top.gif"
 				title="임시 저장된 수식이나 북마크, 커스텀 명령어 지정을 사용 할 수 있습니다."
-				content="커스텀 명령어는 $#[명령어][스페이스]$ 로 사용 가능합니다."
+				content="커스텀 명령어는 LaTeX 명령어와 같은 방식으로 사용할 수 있습니다."
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideDown}
 			/>

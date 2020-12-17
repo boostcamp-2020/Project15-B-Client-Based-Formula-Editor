@@ -35,12 +35,6 @@ const Content = styled.div`
   text-align: center;
 `;
 
-const Highlight = styled.span`
-  color: black;
-  background-color: #b2a42f;
-  padding: 0 3px;
-`;
-
 const PrevButton = styled.div`
   position: absolute;
   left: 50%;
@@ -95,8 +89,6 @@ export default function TutorialPage({
 	handleSlideUp,
 	handleSlideDown,
 }) {
-	const [front, highlight, back] = content.split("$");
-
 	return (
 		<Page>
 			<PrevButton onClick={handleSlideUp}>
@@ -105,9 +97,7 @@ export default function TutorialPage({
 			<LogoImage src={`${FILE_PATH}/${imageURL}`} />
 			<Title>{title}</Title>
 			<Content>
-				{front}
-				{highlight && <Highlight>{highlight}</Highlight>}
-				{back}
+				{content}
 			</Content>
 			<NextButton onClick={handleSlideDown}>
 				{nextButtonName}
