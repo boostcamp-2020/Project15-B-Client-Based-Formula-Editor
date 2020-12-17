@@ -134,9 +134,32 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.UP) {
-			const prevIndex = (itemIndex - 1) < 0 ? recommandationList.length - 1 : itemIndex - 1;
+			// itemIndex가 currentPageList의 첫 아이템을 가리키고 있다면
+			if (itemIndex === 0) {
+				// 현재 첫 페이지라면
+				if (currentPageNumber === 1) {
+					const start = (pageCount - 1) * MAX_LENGTH;
 
-			setItemIndex(prevIndex);
+					setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
+					setCurrentPageNumber(pageCount);
+
+					const lastIndex = (recommandationList.length - 1) % MAX_LENGTH;
+
+					setItemIndex(lastIndex);
+					return;
+				}
+
+				// 현재 중간 페이지 라면
+				const end = (currentPageNumber - 1) * MAX_LENGTH;
+
+				setCurrentPageList(recommandationList.slice(end - MAX_LENGTH, end));
+				setCurrentPageNumber(currentPageNumber - 1);
+				setItemIndex(MAX_LENGTH - 1);
+				return;
+			}
+
+			// itemIntex가 currentPageList의 중간 또는 마지막 아이템을 가리키고 있다면
+			setItemIndex(itemIndex - 1);
 			return;
 		}
 
