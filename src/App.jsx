@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 import GlobalStyle from "./GlobalStyle";
 import QueryStringCatcher from "./containers/QueryStringCatcher";
+import TutorialContainer from "./containers/TutorialContainer";
 import MainContainer from "./containers/MainContainer";
 
 export default function App() {
@@ -11,6 +12,7 @@ export default function App() {
 			<Route exact path="/">
 				<GlobalStyle />
 				<QueryStringCatcher />
+				<TutorialContainer />
 				<MainContainer />
 			</Route>
 		</BrowserRouter>
