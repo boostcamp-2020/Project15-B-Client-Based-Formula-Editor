@@ -10,7 +10,7 @@ import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
 import IconButton from "../presentationals/IconButton";
 
-export default function FontContainer() {
+function FontContainer() {
 	const fontSizeRef = useRef();
 	const fontColorRef = useRef();
 	const [fontDropdown, setFontDropdown] = useState({ size: false, color: false });
@@ -97,3 +97,5 @@ export default function FontContainer() {
 		</FontContainerLayout>
 	);
 }
+
+export default React.memo(FontContainer);
