@@ -141,7 +141,7 @@ export default function AutoKeywordContainer() {
 					latexFunction.keystroke("Shift-Left Del");
 				}
 				latexFunction.keystroke("Shift-Left Del");
-				latexFunction.insertCustomLatex(`\\${remainedLatexPart}`);
+				latexFunction.insertLatex(`\\${remainedLatexPart}`);
 			}
 
 			setRecommandationList([]);
@@ -182,7 +182,7 @@ export default function AutoKeywordContainer() {
 				latexFunction.keystroke("Shift-Left Del");
 			}
 			latexFunction.keystroke("Shift-Left Del");
-			latexFunction.insertCustomLatex(`\\${remainedLatexPart}`);
+			latexFunction.insertLatex(`\\${remainedLatexPart}`);
 		}
 
 		setRecommandationList([]);

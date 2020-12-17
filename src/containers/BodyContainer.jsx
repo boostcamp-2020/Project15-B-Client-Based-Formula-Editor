@@ -67,9 +67,6 @@ export default function BodyContainer({ bodyWidth }) {
 			mathField.keystroke("Shift-Left Del");
 			mathField.focus();
 		};
-		latexFunction.insertCustomLatex = latex => {
-			mathField.write(latex);
-		};
 	};
 
 	const handleLatexTextarea = e => {

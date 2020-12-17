@@ -5,7 +5,6 @@ const changeOneLetterToTwo = number => (number > 9 ? number : number.toString().
 export const latexFunction = {
 	insertLatex: () => { },
 	insertClickedLatex: () => { },
-	insertCustomLatex: () => { },
 };
 
 export const sortFunction = (a, b) => {
