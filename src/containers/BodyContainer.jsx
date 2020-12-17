@@ -57,7 +57,6 @@ export default function BodyContainer({ bodyWidth }) {
 		latexFunction.keystroke = key => {
 			mathField.keystroke(key);
 		};
-
 		latexFunction.insertLatex = latex => {
 			mathField.write(latex);
 		};
