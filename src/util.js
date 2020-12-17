@@ -13,9 +13,7 @@ export const sortFunction = (a, b) => {
 	const alpha = a.command ? a.command : a.slice(1);
 	const beta = b.command ? b.command : b.slice(1);
 
-	if (alpha < beta) return -1;
-	if (alpha === beta) return 0;
-	return 1;
+	return alpha.localeCompare(beta);
 };
 
 export const toFitSimple = cb => {

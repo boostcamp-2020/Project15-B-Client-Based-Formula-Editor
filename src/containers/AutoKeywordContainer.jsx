@@ -20,16 +20,16 @@ export default function AutoKeywordContainer() {
 	const secondBuffer = useRef([]);
 	const MAX_LENGTH = 7;
 
+	const getBufferToString = () => buffer.current.join("").trim();
+
 	const updateList = () => {
-		const temp = buffer.current.join("").trim();
-		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
-			.map(key => mathquillLatex[key]);
+		const temp = getBufferToString();
+		const list = mathquillLatex.filter(elem => elem.includes(`\\${temp}`));
 
 		const regex = new RegExp(`^(${temp})`);
 		const customList = customCommandList.filter(elem => elem.command.match(regex));
 
 		const combinedList = [...list, ...customList].sort(sortFunction);
-
 
 		if (combinedList.length > MAX_LENGTH) combinedList.length = MAX_LENGTH;
 		setRecommandationList(combinedList);
@@ -72,11 +72,10 @@ export default function AutoKeywordContainer() {
 	const selectAutoCompleteItem = isClicked => {
 		const target = recommandationList[itemIndex];
 
-		const temp = buffer.current.join("").trim();
+		const temp = getBufferToString();
 		const targetItem = target.latex ? target.latex : target;
 
-		const isInMathquillLatex = Object.keys(mathquillLatex).filter(key => mathquillLatex[key])
-			.includes(targetItem);
+		const isInMathquillLatex = mathquillLatex.includes(targetItem);
 
 		if (isInMathquillLatex) {
 			const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
