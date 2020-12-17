@@ -19,7 +19,7 @@ const Button = styled.button`
 	
 `;
 
-export default function IconButton({ icon, onClick, isHover, hoverColor }) {
+function IconButton({ icon, onClick, isHover, hoverColor }) {
 	return (
 		<Button {...{
 			onClick,
@@ -28,3 +28,5 @@ export default function IconButton({ icon, onClick, isHover, hoverColor }) {
 		}}>{icon}</Button>
 	);
 }
+
+export default React.memo(IconButton);

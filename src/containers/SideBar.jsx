@@ -37,7 +37,7 @@ export default function SideBar({ sidebarWidth }) {
 		setTabState(isSelected ? CLOSE_TAB : tabId);
 	}, []);
 
-	const handleOpenTutorial = async () => {
+	const handleOpenTutorial = useCallback(async () => {
 		const answer = await popup({
 			mode: "confirm",
 			message: "튜토리얼을 다시 보시겠습니까?",
@@ -47,9 +47,9 @@ export default function SideBar({ sidebarWidth }) {
 
 		localStorage.removeItem("isTutorialDone");
 		location.reload();
-	};
+	}, []);
 
-	const handleDownloadAsImage = async () => {
+	const handleDownloadAsImage = useCallback(async () => {
 		const answer = await popup({
 			mode: "image",
 			message: "저장하실 파일명을 입력해주세요",
@@ -85,9 +85,9 @@ export default function SideBar({ sidebarWidth }) {
 			target: "imageDownload",
 			message: "수식을 이미지로 저장하였습니다",
 		}));
-	};
+	}, [fontInfo]);
 
-	const handleCopyLink = () => {
+	const handleCopyLink = useCallback(() => {
 		const FROM_BEGINNING = 0;
 		const TO_END = 99999;
 		const virtualCopyTarget = document.createElement("textarea");
@@ -105,32 +105,32 @@ export default function SideBar({ sidebarWidth }) {
 			target: "linkCopy",
 			message: "수식 링크를 복사하였습니다",
 		}));
-	};
+	}, [latexInput]);
 
-	const handleSaveFormula = () => {
+	const handleSaveFormula = useCallback(() => {
 		if (!latexInput) return;
 		dispatch(addRecentItem(latexInput));
 		dispatch(openBubblePopup({
 			target: "formulaSave",
 			message: "수식을 저장하였습니다",
 		}));
-	};
+	}, [latexInput]);
 
 	return (
 		<>
 			<SideBarLayout width={sidebarWidth} sidebarState={sidebarState}>
 				<SideBarTabLayout>
 					<SideTopTab currentTab={tabState} onClick={handleTabClick} />
-					<SideBottomTab {...{
-						tutorial,
-						imageDownload,
-						linkCopy,
-						formulaSave,
-						handleOpenTutorial,
-						handleSaveFormula,
-						handleCopyLink,
-						handleDownloadAsImage,
-					}} />
+					<SideBottomTab
+						tutorial={tutorial}
+						imageDownload={imageDownload}
+						linkCopy={linkCopy}
+						formulaSave={formulaSave}
+						handleOpenTutorial={handleOpenTutorial}
+						handleSaveFormula={handleSaveFormula}
+						handleCopyLink={handleCopyLink}
+						handleDownloadAsImage={handleDownloadAsImage}
+					/>
 				</SideBarTabLayout>
 				{sidebarState &&
 				<SideBarContentLayout>
