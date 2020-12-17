@@ -82,7 +82,7 @@ const NextButton = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  visibility: ${(({ name }) => name !== "다음" && "hidden")};
+  visibility: ${(({ name }) => name === "튜토리얼 완료" && "hidden")};
   color: ${themeColor.white};
   width: 36px;
 `;
@@ -100,7 +100,7 @@ export default function TutorialPage({
 	return (
 		<Page>
 			<PrevButton onClick={handleSlideUp}>
-				<IconWrapper><UpIcon /></IconWrapper>이전
+				<IconWrapper name={nextButtonName}><UpIcon /></IconWrapper>이전
 			</PrevButton>
 			<LogoImage src={`${FILE_PATH}/${imageURL}`} />
 			<Title>{title}</Title>
