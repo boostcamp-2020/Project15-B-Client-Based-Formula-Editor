@@ -55,7 +55,7 @@ export default function AutoComplete({
 			{ isOpen && recommandationList.map((item, index) => (
 				<HightLight data-id={index} onClick={onClick} onMouseEnter={onMouseEnter}
 					key={index} isFocused={index === parseInt(targetIndex, 10)}>
-					{item.command !== undefined ?
+					{item.command ?
 						<>
 							<ItemWrapper>\{item.command}</ItemWrapper>
 							<div key={`C${item}`}>{item.description}</div>
