@@ -8,7 +8,7 @@ import UndoIcon from "../icons/UndoIcon";
 import RedoIcon from "../icons/RedoIcon";
 import ResetIcon from "../icons/ResetIcon";
 
-export default function ControlButtonContainer(params) {
+function ControlButtonContainer() {
 	const dispatch = useDispatch();
 
 	const handleControl = action => () => dispatch(action());
@@ -21,3 +21,5 @@ export default function ControlButtonContainer(params) {
 		</ControlContainerLayout>
 	);
 }
+
+export default React.memo(ControlButtonContainer);

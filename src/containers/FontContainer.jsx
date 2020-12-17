@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setAlign, setFont } from "../slice";
@@ -10,7 +10,7 @@ import FontColorSelector from "../presentationals/FontColorSelector";
 import FontSizeSelector from "../presentationals/FontSizeSelector";
 import IconButton from "../presentationals/IconButton";
 
-export default function FontContainer() {
+function FontContainer() {
 	const fontSizeRef = useRef();
 	const fontColorRef = useRef();
 	const [fontSizeForView, setFontSizeForView] = useState(20);
@@ -18,7 +18,7 @@ export default function FontContainer() {
 	const fontInfo = useSelector(state => state.fontInfo);
 	const dispatch = useDispatch();
 
-	const handleFontSizeChange = e => {
+	const handleFontSizeChange = useCallback(e => {
 		const MAX_FONT_SIZE = 99;
 
 		const value = Number(e.target.value) || "";
@@ -27,16 +27,16 @@ export default function FontContainer() {
 		setFontSizeForView(size);
 		if (!size) return;
 		dispatch(setFont({ ...fontInfo, size }));
-	};
+	}, []);
 
-	const handleFontSizeItemClick = size => () => {
+	const handleFontSizeItemClick = useCallback(size => () => {
 		setFontSizeForView(size);
 		dispatch(setFont({ ...fontInfo, size }));
-	};
+	}, []);
 
-	const handleFontSizeInputClick = () => {
+	const handleFontSizeInputClick = useCallback(() => {
 		setFontDropdown({ ...fontDropdown, size: true });
-	};
+	}, []);
 
 	const handleFontColorChange = e => {
 		dispatch(setFont({ ...fontInfo, color: e.target.value }));
@@ -103,3 +103,5 @@ export default function FontContainer() {
 		</FontContainerLayout>
 	);
 }
+
+export default React.memo(FontContainer);

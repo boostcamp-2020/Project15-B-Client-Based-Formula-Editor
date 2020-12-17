@@ -57,7 +57,7 @@ const FontItem = styled.div`
 	}
 `;
 
-export default function FontSizeSelector({
+function FontSizeSelector({
 	fontSizeRef,
 	fontSize,
 	fontSizeForView,
@@ -88,3 +88,27 @@ export default function FontSizeSelector({
 		</Layout>
 	);
 }
+
+export default React.memo(FontSizeSelector, (prev, next) => {
+	const fontDropdownSizeValidation =
+		prev.fontDropdown.size === next.fontDropdown.size;
+	const fontSizeRefValidation =
+		prev.fontSizeRef === next.fontSizeRef;
+	const fontSizeValidation =
+		prev.fontSize === next.fontSize;
+	const handleFontSizeChangeValidation =
+		prev.handleFontSizeChange === next.handleFontSizeChange;
+	const handleFontSizeItemClickValidation =
+		prev.handleFontSizeItemClick === next.handleFontSizeItemClick;
+	const handleFontSizeInputClickValidation =
+		prev.handleFontSizeInputClick === next.handleFontSizeInputClick;
+
+	return (
+		fontDropdownSizeValidation &&
+		fontSizeRefValidation &&
+		fontSizeValidation &&
+		handleFontSizeChangeValidation &&
+		handleFontSizeItemClickValidation &&
+		handleFontSizeInputClickValidation
+	);
+});

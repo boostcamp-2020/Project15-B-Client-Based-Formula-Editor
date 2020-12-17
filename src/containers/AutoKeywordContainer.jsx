@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
@@ -7,17 +7,17 @@ import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
 import AutoComplete from "../presentationals/AutoComplete";
 
-export default function AutoKeywordContainer() {
+function AutoKeywordContainer() {
 	const dispatch = useDispatch();
 	const cursorPosition = useSelector(state => state.cursorPosition);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
+	const [recommandationList, setRecommandationList] = useState([]);
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
-	const [recommandationList, setRecommandationList] = useState([]);
 	const MAX_LENGTH = 7;
 
 	const updateList = () => {
@@ -146,7 +146,7 @@ export default function AutoKeywordContainer() {
 		updateList();
 	};
 
-	const onClick = () => {
+	const onClick = useCallback(() => {
 		const target = recommandationList[itemIndex];
 
 		const temp = buffer.current.join("").trim();
@@ -160,11 +160,11 @@ export default function AutoKeywordContainer() {
 		dispatch(setBuffer([]));
 		toggleIsOpen(false);
 		setItemIndex(0);
-	};
+	}, [recommandationList, itemIndex]);
 
-	const onMouseEnter = e => {
+	const onMouseEnter = useCallback(e => {
 		setItemIndex(e.target.dataset.id);
-	};
+	}, [itemIndex]);
 
 	useEffect(() => {
 		const rootBlock = document.querySelector(".mq-textarea");
@@ -193,3 +193,5 @@ export default function AutoKeywordContainer() {
 		/>
 	);
 }
+
+export default AutoKeywordContainer;
