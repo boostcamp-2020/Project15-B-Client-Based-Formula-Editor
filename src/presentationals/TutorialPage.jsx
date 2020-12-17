@@ -88,8 +88,8 @@ const IconWrapper = styled.div`
 export default function TutorialPage({
 	imageURL,
 	title,
-	content,
-	nextButtonName,
+	content = "",
+	nextButtonName = "다음",
 	handleSlideUp,
 	handleSlideDown,
 }) {
