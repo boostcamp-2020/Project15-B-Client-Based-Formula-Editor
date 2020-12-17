@@ -164,7 +164,7 @@ function AutoKeywordContainer() {
 
 	const onMouseEnter = useCallback(e => {
 		setItemIndex(e.target.dataset.id);
-	}, [itemIndex]);
+	}, []);
 
 	useEffect(() => {
 		const rootBlock = document.querySelector(".mq-textarea");

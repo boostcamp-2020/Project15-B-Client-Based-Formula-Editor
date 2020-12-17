@@ -110,7 +110,7 @@ function BodyContainer({ bodyWidth }) {
 			});
 			setGhostHeight(heights.formula);
 		}
-	}, [isMove]);
+	}, [isMove, heights]);
 
 	const resizeEvent = rate => () => {
 		const allowedHeight = window.innerHeight - SUM_OF_OTHER_COMPONENTS_HEIGHT;
