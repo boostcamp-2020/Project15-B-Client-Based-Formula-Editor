@@ -21,7 +21,7 @@ export default function FontContainer() {
 	const handleFontSizeChange = e => {
 		const MAX_FONT_SIZE = 99;
 
-		const value = e.target.value ? parseInt(e.target.value, 10) : "";
+		const value = Number(e.target.value) || "";
 		const size = value < MAX_FONT_SIZE ? value : MAX_FONT_SIZE;
 
 		setFontSizeForView(size);
