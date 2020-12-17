@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
@@ -32,10 +32,10 @@ export default function SideBar({ sidebarWidth }) {
 		[CUSTOM_COMMAND_TAB]: <CustomContainer />,
 	};
 
-	const handleTabClick = (tabId, isSelected) => () => {
+	const handleTabClick = useCallback((tabId, isSelected) => () => {
 		dispatch(setSidebarState(!isSelected));
 		setTabState(isSelected ? CLOSE_TAB : tabId);
-	};
+	}, []);
 
 	const handleOpenTutorial = async () => {
 		const answer = await popup({
