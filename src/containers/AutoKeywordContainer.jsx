@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
@@ -15,8 +15,8 @@ export default function AutoKeywordContainer() {
 	const customCommandList = useSelector(state => state.customCommandList);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
-	const [backslashCount, setBackslashCount] = useState(0);
 	const [recommandationList, setRecommandationList] = useState([]);
+	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
 	const [pageCount, setPageCount] = useState(0);
@@ -210,13 +210,13 @@ export default function AutoKeywordContainer() {
 		updateList();
 	};
 
-	const onClick = () => {
+	const onClick = useCallback(() => {
 		selectAutoCompleteItem(true);
-	};
+	}, []);
 
-	const onMouseEnter = e => {
+	const onMouseEnter = useCallback(e => {
 		setItemIndex(+e.target.dataset.id);
-	};
+	}, []);
 
 	useEffect(() => {
 		const rootBlock = document.querySelector(".mq-textarea");

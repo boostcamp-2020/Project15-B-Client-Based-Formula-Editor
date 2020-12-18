@@ -17,7 +17,7 @@ const Div = styled.div`
 	}
 `;
 
-export default function SideBottomTab({
+function SideBottomTab({
 	tutorial,
 	imageDownload,
 	linkCopy,
@@ -61,3 +61,5 @@ export default function SideBottomTab({
 		</div>
 	);
 }
+
+export default React.memo(SideBottomTab);

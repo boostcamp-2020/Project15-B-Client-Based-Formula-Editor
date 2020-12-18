@@ -5,7 +5,7 @@ import CharacterListItem from "./CharacterListItem";
 
 const Layout = styled.div``;
 
-export default function CharacterList({
+function CharacterList({
 	title, isOpen, list, handleClickItem, handleMouseEnterItem, previewItem,
 }) {
 	return (
@@ -24,3 +24,5 @@ export default function CharacterList({
 		</Layout>
 	);
 }
+
+export default React.memo(CharacterList);

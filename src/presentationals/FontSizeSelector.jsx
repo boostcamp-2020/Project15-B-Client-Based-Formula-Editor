@@ -57,7 +57,7 @@ const FontItem = styled.div`
 	}
 `;
 
-export default function FontSizeSelector({
+function FontSizeSelector({
 	fontSizeRef,
 	fontSize,
 	fontSizeForView,
@@ -88,3 +88,5 @@ export default function FontSizeSelector({
 		</Layout>
 	);
 }
+
+export default React.memo(FontSizeSelector);

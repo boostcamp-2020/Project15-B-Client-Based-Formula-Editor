@@ -17,7 +17,7 @@ const Tab = styled.div`
 	}
 `;
 
-export default function SideTopTab({ currentTab, onClick }) {
+function SideTopTab({ currentTab, onClick }) {
 	const tabMenus = [
 		<PageIcon key={CHARACTER_TAB} />,
 		<TimeIcon key={RECENT_TAB}/>,
@@ -41,3 +41,5 @@ export default function SideTopTab({ currentTab, onClick }) {
 		</div>
 	);
 }
+
+export default React.memo(SideTopTab);
