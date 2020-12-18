@@ -10,6 +10,7 @@ jest.mock("react-redux");
 
 describe("<SideBar />", () => {
 	const bubblePopup = {
+		tutorial: { isOpen: false, message: "" },
 		imageDownload: { isOpen: false, message: "" },
 		linkCopy: { isOpen: false, message: "" },
 		formulaSave: { isOpen: false, message: "" },
@@ -44,9 +45,9 @@ describe("<SideBar />", () => {
 			const buttons = container.querySelectorAll("button");
 			const input = container.querySelector("input");
 
-			expect(divs).toHaveLength(39);
-			expect(svgs).toHaveLength(14);
-			expect(buttons).toHaveLength(7);
+			expect(divs).toHaveLength(42);
+			expect(svgs).toHaveLength(16);
+			expect(buttons).toHaveLength(8);
 			expect(input.placeholder).toEqual("Search");
 			Object.keys(characterLatex).forEach(item => {
 				expect(container).toHaveTextContent(item);
@@ -78,9 +79,9 @@ describe("<SideBar />", () => {
 			const svgs = container.querySelectorAll("svg");
 			const buttons = container.querySelectorAll("button");
 
-			expect(divs).toHaveLength(17);
-			expect(svgs).toHaveLength(10);
-			expect(buttons).toHaveLength(7);
+			expect(divs).toHaveLength(20);
+			expect(svgs).toHaveLength(12);
+			expect(buttons).toHaveLength(8);
 		});
 	});
 });
