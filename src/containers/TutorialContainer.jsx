@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { toggleIsTutorialOn } from "../slice";
 import TutorialMain from "../presentationals/TutorialMain";
 
 const BROWSER_WIDTH = window.innerWidth;
-const MAX_DIFFERENCE = 100000;
 
 export default function TutorialContainer() {
+	const dispatch = useDispatch();
 	const [browserWidth, setBrowserWidth] = useState(BROWSER_WIDTH);
 	const [slide, setSlide] = useState(0);
-	const isTutorialDone = localStorage.getItem("isTutorialDone");
+	const isTutorialOn = useSelector(state => state.isTutorialOn);
 
-	if (isTutorialDone) {
+	if (!isTutorialOn) {
 		return null;
 	}
 
@@ -23,8 +25,8 @@ export default function TutorialContainer() {
 	};
 
 	const handleSlideEnd = () => {
-		setSlide(slide - MAX_DIFFERENCE);
-		localStorage.setItem("isTutorialDone", true);
+		setSlide(0);
+		dispatch(toggleIsTutorialOn(false));
 	};
 
 	useEffect(() => {

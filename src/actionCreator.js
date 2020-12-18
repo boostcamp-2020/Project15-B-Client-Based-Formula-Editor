@@ -151,4 +151,9 @@ export default {
 	setSidebarState(state, { payload }) {
 		state.sidebarState = payload;
 	},
+	toggleIsTutorialOn(state, { payload }) {
+		localStorage.setItem("isTutorialOn", payload);
+
+		state.isTutorialOn = payload;
+	},
 };
