@@ -5,22 +5,26 @@ import { themeColor } from "../GlobalStyle";
 import FILE_PATH from "../constants/filePath";
 
 const Page = styled.div`
+	overflow: hidden;
+  width: ${(({ browserWidth }) => browserWidth)}px;
+`;
+
+const Layout = styled.div`
   position: relative;
-  left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  margin-bottom: 50vh;
+  margin: 0 auto;
+  width: 60%;
+  transform: translateY(-50%);
 `;
 
 const Logo = styled.img`
+  display: block;
   width: 100%;
   border-radius: 10px;
 `;
 
 const StartButton = styled.button`
   display: block;
-  position: relative;
   width: 100%;
   height: 80px;
   margin: 0 auto;
@@ -44,6 +48,7 @@ const SkipButton = styled.button`
   right: 0;
   background-color: ${themeColor.normal};
   color: ${themeColor.white};
+  font-size: 20px;
   font-weight: bold;
   border: none;
   border-radius: 4px;
@@ -56,14 +61,16 @@ const SkipButton = styled.button`
   }
 `;
 
-export default function TutorialStart({ handleSlideDown, handleSlideEnd }) {
+export default function TutorialStart({ browserWidth, handleSlideDown, handleSlideEnd }) {
 	const fileURL = `${FILE_PATH}/dark_logo.png`;
 
 	return (
-		<Page>
-			<Logo src={fileURL} />
-			<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
-			<SkipButton onClick={handleSlideEnd}>Skip &gt;</SkipButton>
+		<Page browserWidth={browserWidth}>
+			<Layout>
+				<Logo src={fileURL} />
+				<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
+				<SkipButton onClick={handleSlideEnd}>Skip &gt;</SkipButton>
+			</Layout>
 		</Page>
 	);
 }

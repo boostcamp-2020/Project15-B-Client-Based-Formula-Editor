@@ -74,7 +74,7 @@ const Name = styled.div`
 	"font-family: Verdana, Geneva, Tahoma, sans-serif;"}
 `;
 
-export default function CharacterListItem({
+function CharacterListItem({
 	title,
 	item,
 	onClick,
@@ -112,3 +112,5 @@ export default function CharacterListItem({
 		</Item>
 	);
 }
+
+export default React.memo(CharacterListItem);

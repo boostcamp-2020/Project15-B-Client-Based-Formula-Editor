@@ -36,7 +36,7 @@ const Message = styled.div`
   }
 `;
 
-export default function BubblePopup({ isOpen, message }) {
+function BubblePopup({ isOpen, message }) {
 	return (
 		<Layout isOpen={isOpen}>
 			<Message isOpen={isOpen}>
@@ -46,3 +46,5 @@ export default function BubblePopup({ isOpen, message }) {
 		</Layout>
 	);
 }
+
+export default React.memo(BubblePopup);
