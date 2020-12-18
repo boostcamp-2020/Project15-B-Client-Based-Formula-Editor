@@ -84,7 +84,7 @@ export default function AutoKeywordContainer() {
 	};
 
 	const selectAutoCompleteItem = isClicked => {
-		const target = recommandationList[itemIndex];
+		const target = currentPageList[itemIndex];
 
 		const temp = getBufferToString();
 
@@ -215,9 +215,9 @@ export default function AutoKeywordContainer() {
 		updateList();
 	};
 
-	const onClick = useCallback(() => {
+	const onClick = () => {
 		selectAutoCompleteItem(true);
-	}, []);
+	};
 
 	const onMouseEnter = useCallback(e => {
 		setItemIndex(+e.target.dataset.id);
