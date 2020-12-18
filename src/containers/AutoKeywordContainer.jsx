@@ -19,7 +19,11 @@ export default function AutoKeywordContainer() {
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
+	const [pageCount, setPageCount] = useState(0);
+	const [currentPageNumber, setCurrentPageNumber] = useState(0);
+	const [currentPageList, setCurrentPageList] = useState([]);
 	const MAX_LENGTH = 7;
+	const FIRST_PAGE_NUMBER = 1;
 
 	const getBufferToString = () => buffer.current.join("").trim();
 
@@ -32,8 +36,10 @@ export default function AutoKeywordContainer() {
 
 		const combinedList = [...list, ...customList].sort(sortFunction);
 
-		if (combinedList.length > MAX_LENGTH) combinedList.length = MAX_LENGTH;
 		setRecommandationList(combinedList);
+		setPageCount(Math.ceil(combinedList.length / MAX_LENGTH));
+		setCurrentPageList(combinedList.slice(0, MAX_LENGTH));
+		setCurrentPageNumber(FIRST_PAGE_NUMBER);
 	};
 
 	const keyupEvent = ({ keyCode }) => {
@@ -140,16 +146,49 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.DOWN) {
-			const nextIndex = (itemIndex + 1) % recommandationList.length;
+			if (itemIndex + 1 !== currentPageList.length) {
+				setItemIndex(itemIndex + 1);
+				return;
+			}
 
-			setItemIndex(nextIndex);
+			if (currentPageNumber < pageCount) {
+				const start = currentPageNumber * MAX_LENGTH;
+
+				setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
+				setCurrentPageNumber(currentPageNumber + 1);
+				setItemIndex(0);
+				return;
+			}
+
+			setCurrentPageList(recommandationList.slice(0, MAX_LENGTH));
+			setCurrentPageNumber(FIRST_PAGE_NUMBER);
+			setItemIndex(0);
 			return;
 		}
 
 		if (keyCode === KEY_CODE.UP) {
-			const prevIndex = (itemIndex - 1) < 0 ? recommandationList.length - 1 : itemIndex - 1;
+			if (itemIndex !== 0) {
+				setItemIndex(itemIndex - 1);
+				return;
+			}
 
-			setItemIndex(prevIndex);
+			if (currentPageNumber === FIRST_PAGE_NUMBER) {
+				const start = (pageCount - 1) * MAX_LENGTH;
+
+				setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
+				setCurrentPageNumber(pageCount);
+
+				const lastIndex = (recommandationList.length - 1) % MAX_LENGTH;
+
+				setItemIndex(lastIndex);
+				return;
+			}
+
+			const end = (currentPageNumber - 1) * MAX_LENGTH;
+
+			setCurrentPageList(recommandationList.slice(end - MAX_LENGTH, end));
+			setCurrentPageNumber(currentPageNumber - 1);
+			setItemIndex(MAX_LENGTH - 1);
 			return;
 		}
 
@@ -176,7 +215,7 @@ export default function AutoKeywordContainer() {
 	}, []);
 
 	const onMouseEnter = useCallback(e => {
-		setItemIndex(e.target.dataset.id);
+		setItemIndex(+e.target.dataset.id);
 	}, []);
 
 	useEffect(() => {
@@ -199,7 +238,7 @@ export default function AutoKeywordContainer() {
 			x={cursorPosition.x}
 			y={cursorPosition.y}
 			fontSize={fontInfo.size}
-			recommandationList={recommandationList}
+			recommandationList={currentPageList}
 			targetIndex={itemIndex}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
