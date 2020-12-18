@@ -6,7 +6,9 @@ export const usePreviewItem = initialValue => {
 	const [previewItem, setPreviewItem] = useState(initialValue);
 
 	const handleMouseEnterItem = useCallback(id => e => {
-		setPreviewItem({ id, top: calcTopPreviewItem(e.pageY) });
+		const [{ y }] = e.target.getClientRects();
+
+		setPreviewItem({ id, top: calcTopPreviewItem(y) });
 	}, []);
 
 	return [previewItem, handleMouseEnterItem];
