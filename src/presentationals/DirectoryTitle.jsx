@@ -7,8 +7,6 @@ import RightIcon from "../icons/RightIcon";
 import CloseIcon from "../icons/CloseIcon";
 import IconButton from "../presentationals/IconButton";
 
-const color = "#86C290";
-
 const Layout = styled.div`
 	display: flex;
 	cursor: pointer;
@@ -18,7 +16,7 @@ const Layout = styled.div`
 	padding: 0 10px;
 
 	&:hover {
-		background-color: #2B2D2E;
+		background-color: ${themeColor.light};
 
 		> button {
 			display: block;
@@ -37,11 +35,11 @@ const Layout = styled.div`
 	}
 `;
 const Title = styled.div`
-	color: ${color};
+	color: ${themeColor.green};
 `;
 
 const Number = styled.div`
-	color: ${color};
+	color: ${themeColor.green};
 	position: absolute;
 	right: 20px;
 	font-size: 13px;

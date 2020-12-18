@@ -26,8 +26,8 @@ const FontDropdown = styled.div`
 	position: absolute;
 	bottom: 0;
 	transform: translate(-4px, 100%);
-	background: linear-gradient(180deg, #5c5c5c, #303030 );
-	color: white;
+	background: ${themeColor.light};
+	color: ${themeColor.white};
 	font-size: 13px;
 	font-weight: bold;
 	padding: 5px 0;

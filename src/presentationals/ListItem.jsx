@@ -26,7 +26,7 @@ const Bottom = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: ${themeColor.light};
+	background-color: ${themeColor.normal};
 	color: ${themeColor.white};
 	height: 150px;
 	border-radius: 7px;
@@ -54,7 +54,7 @@ export default function ListItem({
 	isBookmark,
 	top,
 }) {
-	const StarIcon = isBookmark ? <FilledStarIcon /> : <EmptyStarIcon fill={color.yellow} />;
+	const StarIcon = isBookmark ? <FilledStarIcon /> : <EmptyStarIcon fill={themeColor.yellow} />;
 
 	return (
 		<Layout top={top}>

@@ -11,7 +11,7 @@ const AutoKeywordLayout = styled.div`
 	width: fit-content;
 	height: fit-content;
 	background: ${themeColor.normal};
-	color: white;
+	color: ${themeColor.white};
 	box-shadow: 0 0 7px 3px black;
 	visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
   z-index: 500;

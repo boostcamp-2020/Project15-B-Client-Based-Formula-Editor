@@ -24,8 +24,8 @@ const Message = styled.div`
   font-weight: bold;
   transition: ${transition};
   background-color: ${themeColor.normal};
-  box-shadow: 0 0 7px 3px black;
-  color: white;
+  box-shadow: 0 0 7px 3px ${themeColor.black};
+  color: ${themeColor.white};
   opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
 
   > svg {
