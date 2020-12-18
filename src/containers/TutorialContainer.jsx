@@ -15,11 +15,11 @@ export default function TutorialContainer() {
 	}
 
 	const handleSlideDown = () => {
-		setSlide(slide - BROWSER_WIDTH);
+		setSlide(slide - browserWidth);
 	};
 
 	const handleSlideUp = () => {
-		setSlide(slide + BROWSER_WIDTH);
+		setSlide(slide + browserWidth);
 	};
 
 	const handleSlideEnd = () => {
