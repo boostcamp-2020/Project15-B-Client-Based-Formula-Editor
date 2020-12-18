@@ -13,7 +13,7 @@ import {
 const latexList = initLatexList();
 
 const { reducer, actions } = createSlice({
-	name: "FEditor",
+	name: "FECode",
 	initialState: {
 		selectedButton: "",
 		pastLatexCommands: [],
