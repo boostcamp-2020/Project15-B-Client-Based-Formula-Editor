@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import TutorialMain from "../presentationals/TutorialMain";
 
-const BASE_TRANSFORM_Y = -750;
-const TRANSFORM_DIFFERENCE = 106.5;
+const BROWSER_WIDTH = window.innerWidth;
 const MAX_DIFFERENCE = 100000;
 
 export default function TutorialContainer() {
-	const [slide, setSlide] = useState(BASE_TRANSFORM_Y);
+	const [browserWidth, setBrowserWidth] = useState(BROWSER_WIDTH);
+	const [slide, setSlide] = useState(0);
 	const isTutorialDone = localStorage.getItem("isTutorialDone");
 
 	if (isTutorialDone) {
@@ -15,11 +15,11 @@ export default function TutorialContainer() {
 	}
 
 	const handleSlideDown = () => {
-		setSlide(slide - TRANSFORM_DIFFERENCE);
+		setSlide(slide - BROWSER_WIDTH);
 	};
 
 	const handleSlideUp = () => {
-		setSlide(slide + TRANSFORM_DIFFERENCE);
+		setSlide(slide + BROWSER_WIDTH);
 	};
 
 	const handleSlideEnd = () => {
@@ -27,8 +27,18 @@ export default function TutorialContainer() {
 		localStorage.setItem("isTutorialDone", true);
 	};
 
+	useEffect(() => {
+		const resizeEvent = () => {
+			setBrowserWidth(window.innerWidth);
+		};
+
+		window.addEventListener("resize", resizeEvent);
+		return () => window.removeEventListener("resize", resizeEvent);
+	});
+
 	return (
 		<TutorialMain
+			browserWidth={browserWidth}
 			slide={slide}
 			handleSlideUp={handleSlideUp}
 			handleSlideDown={handleSlideDown}
