@@ -13,7 +13,7 @@ import {
 const latexList = initLatexList();
 
 const { reducer, actions } = createSlice({
-	name: "FEditor",
+	name: "FECode",
 	initialState: {
 		selectedButton: "",
 		pastLatexCommands: [],
@@ -47,6 +47,7 @@ const { reducer, actions } = createSlice({
 		},
 		buffer: [],
 		sidebarState: true,
+		isTutorialOn: JSON.parse(localStorage.getItem("isTutorialOn")),
 	},
 	reducers: actionCreator,
 });
@@ -78,6 +79,7 @@ export const {
 	setCharacterTabState,
 	setBuffer,
 	setSidebarState,
+	toggleIsTutorialOn,
 } = actions;
 
 const setPopup = (dispatch, config, ms) => {

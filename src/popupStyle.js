@@ -53,6 +53,7 @@ const popupStyle = `
           border-radius: 3px;
           font-weight: bold;
           cursor: pointer;
+					outline: none;
 
           &:first-child {
             background-color: #666666;

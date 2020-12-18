@@ -86,7 +86,7 @@ const customPopup = ({ mode, message, placeholder = "" }) => new Promise(resolve
 	};
 
 	document.body.appendChild(popup);
-	input?.focus();
+	input ? input.focus() : confirm.focus();
 });
 
 export default customPopup;
