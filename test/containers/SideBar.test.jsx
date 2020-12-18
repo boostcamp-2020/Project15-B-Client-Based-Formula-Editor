@@ -25,7 +25,6 @@ describe("<SideBar />", () => {
 	const dispatch = jest.fn();
 
 	beforeEach(() => {
-		window.console.error = jest.fn();
 		useDispatch.mockImplementation(() => dispatch);
 	});
 
