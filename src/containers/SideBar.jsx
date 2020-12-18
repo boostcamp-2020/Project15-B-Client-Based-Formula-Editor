@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
@@ -23,7 +23,7 @@ export default function SideBar({ sidebarWidth }) {
 	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
 	const sidebarState = useSelector(state => state.sidebarState);
-	const { imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
+	const { tutorial, imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
 
 	const tabMap = {
 		[CHARACTER_TAB]: <CharacterContainer />,
@@ -32,12 +32,24 @@ export default function SideBar({ sidebarWidth }) {
 		[CUSTOM_COMMAND_TAB]: <CustomContainer />,
 	};
 
-	const handleTabClick = (tabId, isSelected) => () => {
+	const handleTabClick = useCallback((tabId, isSelected) => () => {
 		dispatch(setSidebarState(!isSelected));
 		setTabState(isSelected ? CLOSE_TAB : tabId);
-	};
+	}, []);
 
-	const handleDownloadAsImage = async () => {
+	const handleOpenTutorial = useCallback(async () => {
+		const answer = await popup({
+			mode: "confirm",
+			message: "튜토리얼을 다시 보시겠습니까?",
+		});
+
+		if (!answer) return;
+
+		localStorage.removeItem("isTutorialDone");
+		location.reload();
+	}, []);
+
+	const handleDownloadAsImage = useCallback(async () => {
 		const answer = await popup({
 			mode: "image",
 			message: "저장하실 파일명을 입력해주세요",
@@ -73,9 +85,9 @@ export default function SideBar({ sidebarWidth }) {
 			target: "imageDownload",
 			message: "수식을 이미지로 저장하였습니다",
 		}));
-	};
+	}, [fontInfo]);
 
-	const handleCopyLink = () => {
+	const handleCopyLink = useCallback(() => {
 		const FROM_BEGINNING = 0;
 		const TO_END = 99999;
 		const virtualCopyTarget = document.createElement("textarea");
@@ -93,30 +105,32 @@ export default function SideBar({ sidebarWidth }) {
 			target: "linkCopy",
 			message: "수식 링크를 복사하였습니다",
 		}));
-	};
+	}, [latexInput]);
 
-	const handleSaveFormula = () => {
+	const handleSaveFormula = useCallback(() => {
 		if (!latexInput) return;
 		dispatch(addRecentItem(latexInput));
 		dispatch(openBubblePopup({
 			target: "formulaSave",
 			message: "수식을 저장하였습니다",
 		}));
-	};
+	}, [latexInput]);
 
 	return (
 		<>
 			<SideBarLayout width={sidebarWidth} sidebarState={sidebarState}>
 				<SideBarTabLayout>
 					<SideTopTab currentTab={tabState} onClick={handleTabClick} />
-					<SideBottomTab {...{
-						imageDownload,
-						linkCopy,
-						formulaSave,
-						handleSaveFormula,
-						handleCopyLink,
-						handleDownloadAsImage,
-					}} />
+					<SideBottomTab
+						tutorial={tutorial}
+						imageDownload={imageDownload}
+						linkCopy={linkCopy}
+						formulaSave={formulaSave}
+						handleOpenTutorial={handleOpenTutorial}
+						handleSaveFormula={handleSaveFormula}
+						handleCopyLink={handleCopyLink}
+						handleDownloadAsImage={handleDownloadAsImage}
+					/>
 				</SideBarTabLayout>
 				{sidebarState &&
 				<SideBarContentLayout>

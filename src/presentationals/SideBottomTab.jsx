@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { themeColor } from "../GlobalStyle";
+import HelpIcon from "../icons/HelpIcon";
 import SaveIcon from "../icons/SaveIcon";
 import ShareIcon from "../icons/ShareIcon";
 import ImageFileIcon from "../icons/ImageFileIcon";
@@ -16,15 +17,22 @@ const Div = styled.div`
 	}
 `;
 
-export default function SideBottomTab({
+function SideBottomTab({
+	tutorial,
 	imageDownload,
 	linkCopy,
 	formulaSave,
+	handleOpenTutorial,
 	handleSaveFormula,
 	handleCopyLink,
 	handleDownloadAsImage,
 }) {
 	const bottomMenus = [
+		{
+			icon: <HelpIcon />,
+			popup: tutorial,
+			onClick: handleOpenTutorial,
+		},
 		{
 			icon: <SaveIcon />,
 			popup: formulaSave,
@@ -53,3 +61,5 @@ export default function SideBottomTab({
 		</div>
 	);
 }
+
+export default React.memo(SideBottomTab);

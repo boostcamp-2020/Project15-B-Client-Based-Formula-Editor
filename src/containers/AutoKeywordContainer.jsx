@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setLatexInput, setLatexTextInput, setBuffer } from "../slice";
-import { latexFunction, getBackslashCountFromLatex } from "../util";
+import { latexFunction, getBackslashCountFromLatex, sortFunction } from "../util";
 import KEY_CODE from "../constants/keyCode";
 import mathquillLatex from "../constants/mathquillLatex";
 import AutoComplete from "../presentationals/AutoComplete";
@@ -12,21 +12,34 @@ export default function AutoKeywordContainer() {
 	const cursorPosition = useSelector(state => state.cursorPosition);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
+	const customCommandList = useSelector(state => state.customCommandList);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
+	const [recommandationList, setRecommandationList] = useState([]);
 	const [backslashCount, setBackslashCount] = useState(0);
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
-	const [recommandationList, setRecommandationList] = useState([]);
+	const [pageCount, setPageCount] = useState(0);
+	const [currentPageNumber, setCurrentPageNumber] = useState(0);
+	const [currentPageList, setCurrentPageList] = useState([]);
 	const MAX_LENGTH = 7;
+	const FIRST_PAGE_NUMBER = 1;
+
+	const getBufferToString = () => buffer.current.join("").trim();
 
 	const updateList = () => {
-		const temp = buffer.current.join("").trim();
-		const list = Object.keys(mathquillLatex).filter(key => mathquillLatex[key].includes(`\\${temp}`))
-			.map(key => mathquillLatex[key]);
+		const temp = getBufferToString();
+		const list = mathquillLatex.filter(elem => elem.includes(`\\${temp}`));
 
-		if (list.length > MAX_LENGTH) list.length = MAX_LENGTH;
-		setRecommandationList(list);
+		const regex = new RegExp(`^(${temp})`);
+		const customList = customCommandList.filter(elem => elem.command.match(regex));
+
+		const combinedList = [...list, ...customList].sort(sortFunction);
+
+		setRecommandationList(combinedList);
+		setPageCount(Math.ceil(combinedList.length / MAX_LENGTH));
+		setCurrentPageList(combinedList.slice(0, MAX_LENGTH));
+		setCurrentPageNumber(FIRST_PAGE_NUMBER);
 	};
 
 	const keyupEvent = ({ keyCode }) => {
@@ -61,6 +74,36 @@ export default function AutoKeywordContainer() {
 		if (keyCode === KEY_CODE.RIGHT) {
 			bufferShift(secondBuffer, buffer);
 		}
+	};
+
+	const selectAutoCompleteItem = isClicked => {
+		const target = recommandationList[itemIndex];
+
+		const temp = getBufferToString();
+		const targetItem = target.latex ? target.latex : target;
+
+		const isInMathquillLatex = mathquillLatex.includes(targetItem);
+
+		if (isInMathquillLatex) {
+			const remainedLatexPart = targetItem.replace(`\\${temp}`, "");
+
+			isClicked ?
+				latexFunction.insertClickedLatex(remainedLatexPart) :
+				latexFunction.insertLatex(remainedLatexPart || "");
+		} else {
+			while (buffer.current.pop()) {
+				latexFunction.keystroke("Shift-Left Del");
+			}
+			latexFunction.keystroke("Shift-Left Del");
+
+			latexFunction.insertLatex(targetItem);
+		}
+
+		setRecommandationList([]);
+		buffer.current = [];
+		dispatch(setBuffer([]));
+		toggleIsOpen(false);
+		setItemIndex(0);
 	};
 
 	const keydownEvent = ({ keyCode }) => {
@@ -103,16 +146,49 @@ export default function AutoKeywordContainer() {
 		}
 
 		if (keyCode === KEY_CODE.DOWN) {
-			const nextIndex = (itemIndex + 1) % recommandationList.length;
+			if (itemIndex + 1 !== currentPageList.length) {
+				setItemIndex(itemIndex + 1);
+				return;
+			}
 
-			setItemIndex(nextIndex);
+			if (currentPageNumber < pageCount) {
+				const start = currentPageNumber * MAX_LENGTH;
+
+				setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
+				setCurrentPageNumber(currentPageNumber + 1);
+				setItemIndex(0);
+				return;
+			}
+
+			setCurrentPageList(recommandationList.slice(0, MAX_LENGTH));
+			setCurrentPageNumber(FIRST_PAGE_NUMBER);
+			setItemIndex(0);
 			return;
 		}
 
 		if (keyCode === KEY_CODE.UP) {
-			const prevIndex = (itemIndex - 1) < 0 ? recommandationList.length - 1 : itemIndex - 1;
+			if (itemIndex !== 0) {
+				setItemIndex(itemIndex - 1);
+				return;
+			}
 
-			setItemIndex(prevIndex);
+			if (currentPageNumber === FIRST_PAGE_NUMBER) {
+				const start = (pageCount - 1) * MAX_LENGTH;
+
+				setCurrentPageList(recommandationList.slice(start, start + MAX_LENGTH));
+				setCurrentPageNumber(pageCount);
+
+				const lastIndex = (recommandationList.length - 1) % MAX_LENGTH;
+
+				setItemIndex(lastIndex);
+				return;
+			}
+
+			const end = (currentPageNumber - 1) * MAX_LENGTH;
+
+			setCurrentPageList(recommandationList.slice(end - MAX_LENGTH, end));
+			setCurrentPageNumber(currentPageNumber - 1);
+			setItemIndex(MAX_LENGTH - 1);
 			return;
 		}
 
@@ -120,19 +196,7 @@ export default function AutoKeywordContainer() {
 			while (secondBuffer.current.pop()) {
 				latexFunction.keystroke("Shift-Right Del");
 			}
-
-			const target = recommandationList[itemIndex];
-			const temp = buffer.current.join("").trim();
-
-			const remainedLatexPart = target?.replace(`\\${temp}`, "");
-
-			latexFunction.insertLatex(remainedLatexPart || "");
-
-			setRecommandationList([]);
-			buffer.current = [];
-			dispatch(setBuffer([]));
-			toggleIsOpen(false);
-			setItemIndex(0);
+			selectAutoCompleteItem(false);
 		}
 	};
 
@@ -146,25 +210,13 @@ export default function AutoKeywordContainer() {
 		updateList();
 	};
 
-	const onClick = () => {
-		const target = recommandationList[itemIndex];
+	const onClick = useCallback(() => {
+		selectAutoCompleteItem(true);
+	}, []);
 
-		const temp = buffer.current.join("").trim();
-
-		const remainedLatexPart = target.replace(`\\${temp}`, "");
-
-		latexFunction.insertClickedLatex(remainedLatexPart);
-
-		setRecommandationList([]);
-		buffer.current = [];
-		dispatch(setBuffer([]));
-		toggleIsOpen(false);
-		setItemIndex(0);
-	};
-
-	const onMouseEnter = e => {
-		setItemIndex(e.target.dataset.id);
-	};
+	const onMouseEnter = useCallback(e => {
+		setItemIndex(+e.target.dataset.id);
+	}, []);
 
 	useEffect(() => {
 		const rootBlock = document.querySelector(".mq-textarea");
@@ -186,7 +238,7 @@ export default function AutoKeywordContainer() {
 			x={cursorPosition.x}
 			y={cursorPosition.y}
 			fontSize={fontInfo.size}
-			recommandationList={recommandationList}
+			recommandationList={currentPageList}
 			targetIndex={itemIndex}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}

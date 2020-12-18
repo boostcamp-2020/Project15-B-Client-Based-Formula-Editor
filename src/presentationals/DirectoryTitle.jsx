@@ -47,7 +47,7 @@ const Number = styled.div`
 	font-size: 13px;
 `;
 
-export default function DirectoryTitle({
+function DirectoryTitle({
 	title,
 	onClick,
 	isOpen,
@@ -68,3 +68,5 @@ export default function DirectoryTitle({
 		</Layout>
 	);
 }
+
+export default React.memo(DirectoryTitle);

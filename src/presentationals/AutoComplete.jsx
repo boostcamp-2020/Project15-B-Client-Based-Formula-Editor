@@ -41,7 +41,7 @@ const MathFieldWrapper = styled.div`
 	margin-left: auto;
 `;
 
-export default function AutoComplete({
+function AutoComplete({
 	isOpen,
 	x,
 	y,
@@ -56,12 +56,22 @@ export default function AutoComplete({
 			{ isOpen && recommandationList.map((item, index) => (
 				<HightLight data-id={index} onClick={onClick} onMouseEnter={onMouseEnter}
 					key={index} isFocused={index === parseInt(targetIndex, 10)}>
-					<ItemWrapper>{item}</ItemWrapper>
-					<MathFieldWrapper>
-						<StaticMathField key={`S${item}`}>{item}</StaticMathField>
-					</MathFieldWrapper>
+					{item.command ?
+						<>
+							<ItemWrapper>\{item.command}</ItemWrapper>
+							<div key={`C${item}`}>{item.description}</div>
+						</> :
+						<>
+							<ItemWrapper>{item}</ItemWrapper>
+							<MathFieldWrapper>
+								<StaticMathField key={`S${item}`}>{item}</StaticMathField>
+							</MathFieldWrapper>
+						</>
+					}
 				</HightLight>
 			))}
 		</AutoKeywordLayout>
 	);
 }
+
+export default React.memo(AutoComplete);
