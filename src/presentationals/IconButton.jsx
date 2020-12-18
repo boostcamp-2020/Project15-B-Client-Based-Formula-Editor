@@ -2,24 +2,31 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = styled.button`
+	width: 40px;
 	padding: 0 5px;
 	background-color: transparent;
 	border: none;
 	outline: none;
 	cursor: pointer;
 
-	${({ isHover }) => isHover && `
+	${({ isHover, hoverColor }) => isHover && `
 		&:hover {
 			svg {
-				fill-opacity: 0.7;
+				${hoverColor ? `fill: ${hoverColor}` : "fill-opacity: 0.7"};
 			}
 		}
 	`}
 	
 `;
 
-export default function IconButton({ icon, onClick, isHover }) {
+function IconButton({ icon, onClick, isHover, hoverColor }) {
 	return (
-		<Button onClick={onClick} isHover={isHover}>{icon}</Button>
+		<Button {...{
+			onClick,
+			isHover,
+			hoverColor,
+		}}>{icon}</Button>
 	);
 }
+
+export default React.memo(IconButton);

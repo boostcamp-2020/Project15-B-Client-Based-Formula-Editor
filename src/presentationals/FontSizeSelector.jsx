@@ -1,33 +1,92 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
+import { fontSizes } from "../constants/fontConfig";
 import FontSizeIcon from "../icons/FontSizeIcon";
+import CheckIcon from "../icons/CheckIcon";
 
-const Layout = styled.label`
+const Layout = styled.div`
 	display: flex;
 	align-items: center;
 	padding: 0 5px;
-	border-right: 1px dashed ${color.dark};
+	border-right: 1px dashed ${themeColor.white};
+	position: relative;
 `;
 
-const FontSizeSelectorStyle = styled.select`
-	border: 0;
-	color: ${color.dark};
-	background-color: inherit;
+const FontSizeInput = styled.input`
+	width: 24px;
+	margin-left: 3px;
+	border: none;
+	border-radius: 2px;
+	padding: 0 4px;
+`;
+
+const FontDropdown = styled.div`
+	position: absolute;
+	bottom: 0;
+	transform: translate(-4px, 100%);
+	background: linear-gradient(180deg, #5c5c5c, #303030 );
+	color: white;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 5px 0;
+	z-index: 3;
+	width: 55px;
 	cursor: pointer;
-	outline: none;
+	border-radius: 5px;
+	border: 1px solid black;
+	box-shadow: inset 0 0 1px white;
 `;
 
-export default function FontSizeSelector({ fontSize, onChange }) {
-	const ableFontSize = [11, 12, 13, 14, 15, 16, 17, 18, 19];
+const FontItem = styled.div`
+	text-align: center;
+	width: 100%;
+	position: relative;
 
+	> svg {
+		position: absolute;
+		width: 10px;
+		left: 5px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	&:hover {
+    background-color: #43c343;
+	}
+`;
+
+function FontSizeSelector({
+	fontSizeRef,
+	fontSize,
+	fontSizeForView,
+	fontDropdown,
+	handleFontSizeChange,
+	handleFontSizeItemClick,
+	handleFontSizeInputClick,
+}) {
 	return (
-		<Layout>
-			<FontSizeIcon fill={color.dark}/>
-			<FontSizeSelectorStyle value={fontSize} onChange={onChange} >
-				{ableFontSize.map((elem, index) => <option key={index} value={elem}>{elem}</option>)}
-			</FontSizeSelectorStyle>
+		<Layout ref={fontSizeRef}>
+			<FontSizeIcon fill={themeColor.white}/>
+			<FontSizeInput
+				value={fontSizeForView}
+				onChange={handleFontSizeChange}
+				onClick={handleFontSizeInputClick}
+				placeholder={fontSize}
+			/>
+			{fontDropdown.size &&
+				<FontDropdown>
+					{fontSizes.map((size, index) =>
+						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>
+							<div>{size}</div>
+							{fontSize === size && <CheckIcon />}
+						</FontItem>,
+					)}
+				</FontDropdown>
+			}
 		</Layout>
 	);
 }
+
+export default React.memo(FontSizeSelector);

@@ -13,7 +13,7 @@ import {
 const latexList = initLatexList();
 
 const { reducer, actions } = createSlice({
-	name: "FEditor",
+	name: "FECode",
 	initialState: {
 		selectedButton: "",
 		pastLatexCommands: [],
@@ -21,11 +21,12 @@ const { reducer, actions } = createSlice({
 		latexInput: "",
 		pastLatexInput: "",
 		fontInfo: {
-			size: "15",
-			color: "#000000",
+			size: 20,
+			color: "#ffffff",
 		},
 		alignInfo: "center",
 		bubblePopup: {
+			tutorial: { isOpen: false, message: "" },
 			imageDownload: { isOpen: false, message: "" },
 			linkCopy: { isOpen: false, message: "" },
 			formulaSave: { isOpen: false, message: "" },
@@ -35,8 +36,18 @@ const { reducer, actions } = createSlice({
 		customCommandList: getLocalStorage(CUSTOM_LIST, []),
 		recentItems: latexList.filter(item => item.isRecent).sort(compareRecent),
 		bookmarkItems: latexList.filter(item => item.isBookmark).sort(compareBookmark),
-		customFormValue: { state: false, name: "등록", command: "", latex: "", id: -1, isDisabled: false },
+		customFormValue: { state: false, name: "등록", command: "", latex: "", description: "", id: -1 },
 		timerId: "",
+		cursorPosition: { x: 0, y: 0 },
+		characterTabState: {
+			character: false,
+			operator: false,
+			formula: false,
+			example: false,
+		},
+		buffer: [],
+		sidebarState: true,
+		isTutorialOn: JSON.parse(localStorage.getItem("isTutorialOn")),
 	},
 	reducers: actionCreator,
 });
@@ -50,24 +61,26 @@ export const {
 	undoEvent,
 	redoEvent,
 	resetEvent,
-	addBookmarkItem,
 	setBookmarkItem,
+	addBookmarkItem,
+	removeBookmarkItem,
 	removeAllBookmarkItems,
 	addRecentItem,
-	deleteRecentItem,
+	removeRecentItem,
 	removeAllRecentItems,
 	setBubblePopupOn,
+	removeCustomCommand,
 	setCustomCommandList,
 	setCustomFormValue,
-	setTimerId,
 	setCustomFormLatex,
+	setTimerId,
 	setTempSavedItem,
+	setCursorPosition,
+	setCharacterTabState,
+	setBuffer,
+	setSidebarState,
+	toggleIsTutorialOn,
 } = actions;
-
-export const deleteCustomCommand = payload => dispatch => {
-	dispatch(setCustomFormValue({ ...payload.customFormValue, state: false }));
-	dispatch(setCustomCommandList(payload.tempCustomCommands));
-};
 
 const setPopup = (dispatch, config, ms) => {
 	dispatch(setBubblePopupOn({ ...config, isOpen: true }));

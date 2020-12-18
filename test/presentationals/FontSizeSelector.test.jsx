@@ -3,17 +3,27 @@ import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import FontSizeSelector from "../../src/presentationals/FontSizeSelector";
+import { fontSizes } from "../../src/constants/fontConfig";
 
 describe("<FontSizeSelector />", () => {
 	it("renders font size selector", () => {
-		const defaultFontSize = "15";
-		const ableFontSize = [11, 12, 13, 14, 15, 16, 17, 18, 19];
-		const onChange = () => {};
-		const { container } = render(<FontSizeSelector fontSize={defaultFontSize} onChange={onChange} />);
-		const options = container.querySelectorAll("option");
-		const initValue = container.querySelector("option:checked");
+		const defaultFontSize = "20";
+		const { container } = render(
+			<FontSizeSelector
+				fontSizeRef={null}
+				fontSize={defaultFontSize}
+				fontSizeForView={defaultFontSize}
+				fontDropdown={{ size: true }}
+				handleFontSizeChange={() => {}}
+				handleFontSizeItemClick={() => {}}
+				handleFontSizeInputClick={() => {}}
+			/>);
 
-		expect(options).toHaveLength(ableFontSize.length);
-		expect(initValue.value).toEqual(defaultFontSize);
+		const input = container.querySelector("input");
+
+		expect(input).toHaveValue(defaultFontSize);
+		fontSizes.forEach(size => {
+			expect(container).toHaveTextContent(size);
+		});
 	});
 });

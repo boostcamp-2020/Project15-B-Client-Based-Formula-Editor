@@ -2,9 +2,10 @@ const path = require("path");
 
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-	entry: "./src/index.jsx",
+	entry: ["@babel/polyfill", "./src/index.jsx"],
 	output: {
 		path: path.resolve(__dirname, "./dist"),
 		filename: "[name].[hash].js",
@@ -31,6 +32,9 @@ module.exports = {
 		new HtmlWebPackPlugin({
 			template: "./public/index.html",
 			favicon: "public/favicon.ico",
+		}),
+		new CopyPlugin({
+			patterns: [{ from: "public", to: "public" }],
 		}),
 	],
 	devServer: {

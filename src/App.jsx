@@ -1,35 +1,23 @@
-import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { setLatexInput } from "./slice";
-import { decodeQueryString } from "./util";
 import GlobalStyle from "./GlobalStyle";
-import HeaderContainer from "./containers/HeaderContainer";
-import BodyContainer from "./containers/BodyContainer";
-import FooterContainer from "./containers/FooterContainer";
-import SideBar from "./containers/SideBar";
-import MainWrapper from "./layouts/MainWrapper";
-import MainLayout from "./layouts/MainLayout";
+import QueryStringCatcher from "./containers/QueryStringCatcher";
+import TutorialContainer from "./containers/TutorialContainer";
+import MainContainer from "./containers/MainContainer";
 
 export default function App() {
-	const dispatch = useDispatch();
-	const mainWrapperRef = useRef();
-
-	const latex = decodeQueryString();
-
-	dispatch(setLatexInput(latex));
+	const isTutorialOn = useSelector(state => state.isTutorialOn);
 
 	return (
-		<>
-			<GlobalStyle />
-			<MainWrapper ref={mainWrapperRef} >
-				<MainLayout >
-					<HeaderContainer />
-					<BodyContainer />
-					<FooterContainer />
-				</MainLayout>
-			</MainWrapper>
-			<SideBar mainWrapperRef={mainWrapperRef} />
-		</>
+		<BrowserRouter>
+			<Route exact path="/">
+				<GlobalStyle />
+				<QueryStringCatcher />
+				{isTutorialOn && <TutorialContainer />}
+				<MainContainer />
+			</Route>
+		</BrowserRouter>
 	);
 }

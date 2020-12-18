@@ -1,63 +1,50 @@
 import React from "react";
 import styled from "styled-components";
 
-import { color } from "../GlobalStyle";
+import { themeColor } from "../GlobalStyle";
+import NotificationIcon from "../icons/NotificationIcon";
+
+const transition = "0.5s";
 
 const Layout = styled.div`
-  position: absolute;
-  transition: 0.5s;
+  position: fixed;
+  transition: ${transition};
   width: max-content;
   z-index: 2;
-  transform: translate(-17%, 0);
-  
-  ${({ isOpen }) =>
-		(isOpen ? `
-      display: block;
-      top: 600px;
-    ` : `
-      display: block;
-      top: 640px;
-    `)}
+  transform: translateX(-10%);
+  height: 30px;
+  display: block;
+  margin-bottom: 30px;
+  bottom: 5px;
+  right: ${({ isOpen }) => (isOpen ? "0" : "-15")}px;
 `;
 
 const Message = styled.div`
-  width: max-content;
-  padding: 10px 20px;
+  padding: 15px 30px;
   font-weight: bold;
-  border-radius: 10px;
-  transition: 0.5s;
+  transition: ${transition};
+  background-color: ${themeColor.normal};
+  box-shadow: 0 0 7px 3px black;
+  color: white;
+  opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
 
-  ${({ isOpen }) =>
-		(isOpen ? `
-      background-color: ${color.normal};
-      color: white;
-    ` : `
-      background-color: #4db6ac00;
-      color: #ffffff00;
-    `)}
+  > svg {
+    width: 20px;
+    position: relative;
+    top: 4px;
+    right: 8px;
+  }
 `;
 
-const Triangle = styled.div`
-  margin: 0 auto;
-  width: 0px;
-  height: 0px;
-  border-right: 10px solid transparent;
-  border-left: 10px solid transparent;
-  transition: 0.5s;
-
-  ${({ isOpen }) =>
-		(isOpen ? `
-      border-top: 15px solid ${color.normal};
-    ` : `
-      border-top: 15px solid #4db6ac00;
-    `)}
-`;
-
-export default function BubblePopup({ isOpen, message }) {
+function BubblePopup({ isOpen, message }) {
 	return (
 		<Layout isOpen={isOpen}>
-			<Message isOpen={isOpen}>{message}</Message>
-			<Triangle isOpen={isOpen}></Triangle>
+			<Message isOpen={isOpen}>
+				<NotificationIcon fill={themeColor.blue} />
+				{message}
+			</Message>
 		</Layout>
 	);
 }
+
+export default React.memo(BubblePopup);

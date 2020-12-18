@@ -5,21 +5,37 @@ import "@testing-library/jest-dom";
 import FormulaRepresentation from "../../src/presentationals/FormulaRepresentation";
 
 describe("<FormulaRepresentation />", () => {
+	const onChange = jest.fn();
+	const latexFunction = {
+		insertLatex: () => { },
+	};
+	const mathquillDidMount = mathField => {
+		latexFunction.insertLatex = latex => {
+			mathField.write(latex);
+		};
+	};
+
 	it("renders formula representation", () => {
 		const latexInput = "1+2";
-		const handleLatexInput = () => {};
-		const mathquillDidMount = () => {};
 		const fontInfo = { size: "16px", color: "black" };
 		const alignInfo = "left";
+		const height = 150;
 		const { container } = render(
 			<FormulaRepresentation
 				latexInput={latexInput}
-				handleLatexInput={handleLatexInput}
+				onChange={onChange}
 				mathquillDidMount={mathquillDidMount}
 				fontInfo={fontInfo}
 				alignInfo={alignInfo}
+				height={height}
 			/>);
 
-		expect(container).toHaveTextContent("1+2");
+		const EditableMathField = container.querySelector(".mq-math-mode");
+
+		latexFunction.insertLatex("hi");
+
+		expect(container).toHaveTextContent(latexInput);
+		expect(EditableMathField).toBeVisible();
+		expect(onChange).toBeCalled();
 	});
 });

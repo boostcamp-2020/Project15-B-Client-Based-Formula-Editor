@@ -4,8 +4,11 @@ import {
 	updateCustomCommandList,
 	addLatexItem,
 	getIdToAdd,
-	setBookmark,
+	setLatexItem,
+	checkIfPayloadEndsSpace,
 } from "./sliceUtil";
+
+import { getCurrentDate } from "./util";
 
 export default {
 	setSelectedButton(state, { payload }) {
@@ -13,12 +16,18 @@ export default {
 	},
 	setLatexInput(state, { payload }) {
 		if (state.pastLatexInput === payload) return;
+		if (state.buffer.length) return;
 		state.futureLatexCommands = [];
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.pastLatexInput = state.latexInput;
+		if (checkIfPayloadEndsSpace(payload)) {
+			state.latexInput = payload.trim();
+			return;
+		}
 		state.latexInput = payload;
 	},
 	setLatexTextInput(state, { payload }) {
+		if (state.buffer.length) return;
 		state.futureLatexCommands = [];
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.pastLatexInput = payload;
@@ -46,12 +55,15 @@ export default {
 		state.pastLatexCommands.unshift(state.latexInput);
 		state.latexInput = "";
 	},
-	addBookmarkItem(state, { payload }) {
-		addLatexItem(state, { latex: payload, isBookmark: true });
+	setBookmarkItem(state, { payload }) {
+		setLatexItem(state, payload);
+	},
+	addBookmarkItem(state, { payload: { latex, description } }) {
+		addLatexItem(state, { latex, isBookmark: true, date: getCurrentDate(), description });
 		updateSidebar(state);
 	},
-	setBookmarkItem(state, { payload }) {
-		setBookmark(state, payload);
+	removeBookmarkItem(state, { payload: id }) {
+		setLatexItem(state, { id, isBookmark: false });
 		updateSidebar(state);
 	},
 	removeAllBookmarkItems(state) {
@@ -61,7 +73,7 @@ export default {
 		updateSidebar(state);
 	},
 	addRecentItem(state, { payload }) {
-		addLatexItem(state, { latex: payload, isRecent: true });
+		addLatexItem(state, { latex: payload, isRecent: true, date: getCurrentDate() });
 
 		if (state.tempSavedLatexId !== INITIAL_ID) {
 			state.latexList = state.latexList.filter(({ id }) => id !== state.tempSavedLatexId);
@@ -71,10 +83,8 @@ export default {
 		clearTimeout(state.timerId);
 		updateSidebar(state);
 	},
-	deleteRecentItem(state, { payload }) {
-		const latexItem = state.latexList.find(({ id }) => id === payload);
-
-		latexItem.isRecent = false;
+	removeRecentItem(state, { payload: id }) {
+		setLatexItem(state, { id, isRecent: false });
 		updateSidebar(state);
 	},
 	removeAllRecentItems(state) {
@@ -88,6 +98,10 @@ export default {
 
 		state.bubblePopup[target] = { isOpen, message };
 	},
+	removeCustomCommand(state, { payload }) {
+		state.customCommandList = state.customCommandList.filter((_, index) => index !== payload);
+		updateCustomCommandList(state);
+	},
 	setCustomCommandList(state, { payload }) {
 		state.customCommandList = payload;
 		updateCustomCommandList(state);
@@ -95,16 +109,22 @@ export default {
 	setCustomFormValue(state, { payload }) {
 		state.customFormValue = payload;
 	},
-	setTimerId(state, { payload }) {
-		state.timerId = payload;
-	},
 	setCustomFormLatex(state, { payload }) {
 		state.customFormValue.latex = payload;
 	},
-	setTempSavedItem(state, { payload }) {
+	setTimerId(state, { payload }) {
+		state.timerId = payload;
+	},
+	setTempSavedItem(state) {
 		if (state.tempSavedLatexId === INITIAL_ID) {
 			const id = getIdToAdd(state.latexList);
-			const newItem = { id, latex: state.latexInput, isRecent: true, isBookmark: false };
+			const newItem = {
+				id,
+				latex: state.latexInput,
+				isRecent: true,
+				isBookmark: false,
+				date: getCurrentDate(),
+			};
 
 			state.latexList.push(newItem);
 			state.tempSavedLatexId = id;
@@ -116,6 +136,24 @@ export default {
 		const targetItem = state.latexList.find(({ id }) => id === state.tempSavedLatexId);
 
 		targetItem.latex = state.latexInput;
+		targetItem.date = getCurrentDate();
 		updateSidebar(state);
+	},
+	setCursorPosition(state, { payload }) {
+		state.cursorPosition = payload;
+	},
+	setCharacterTabState(state, { payload }) {
+		state.characterTabState[payload] = !state.characterTabState[payload];
+	},
+	setBuffer(state, { payload }) {
+		state.buffer = payload;
+	},
+	setSidebarState(state, { payload }) {
+		state.sidebarState = payload;
+	},
+	toggleIsTutorialOn(state, { payload }) {
+		localStorage.setItem("isTutorialOn", payload);
+
+		state.isTutorialOn = payload;
 	},
 };
