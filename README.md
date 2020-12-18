@@ -7,7 +7,10 @@
 자동 완성과 커스텀 명령어 등을 통해 사용자에게 최적화된 수식 편집기를 제공합니다.
 
 - [배포 주소](https://fecode.netlify.app)  
+- [데모 영상](https://www.youtube.com/watch?v=cihkLcJDl9M)
 - 기간 2020.11.16 ~ 2020.12.18
+
+<br><br>
 
 ## 실행방법 및 테스트 방법
 
@@ -29,6 +32,7 @@ $ npm test -- --coverage
 ```bash
 $ npm run lint
 ```
+<br><br>
 
 ## 팀원 소개 (with 팀원들이 서로에게 써 준 키워드)
 
@@ -109,9 +113,22 @@ $ npm run lint
     </td>
   </tr>
 </table>
+
+<br><br>
+ 
+## 핵심 기능 소개
+### 자동 완성
+<p align=center><img src=https://i.imgur.com/yfJ5jYH.gif></p>
+
+### 커스텀명령어
+<p align=center><img src=https://i.imgur.com/9X76BDY.gif></p>
+ 
+<br><br> 
  
 ## 사용기술
 ![](https://i.imgur.com/7543DKF.png)
+
+<br><br>
 
 ## 기술 특장점
 <details>
@@ -214,3 +231,9 @@ keypress 이벤트 함수에서는 Alphabet 키에 대한 이벤트를 처리했
 
 </div>
 </details>
+
+<br><br>
+
+## 문서
+- [우리들의 협업 이야기 - Wiki](https://github.com/boostcamp-2020/Project15-B-Client-Based-Formula-Editor/wiki)
+- [우리들의 개발 현황판 - backlog](https://docs.google.com/spreadsheets/d/1Whg91xBsPuZCFKDpJzppVnxhlBDXxtJItBx2t-jHHds/edit#gid=0)
