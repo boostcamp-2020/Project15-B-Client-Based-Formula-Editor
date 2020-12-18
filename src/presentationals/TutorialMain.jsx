@@ -8,7 +8,7 @@ import TutorialPage from "./TutorialPage";
 const Layout = styled.div`
 	display: flex;
   position: fixed;
-  width: ${(({ height }) => height * 7)}px;
+  width: ${(({ browserWidth }) => browserWidth * 7)}px;
   height: 100vh;
   background: ${themeColor.normal};
   transform: ${(({ slide }) => `translateX(${slide}px)`)};
