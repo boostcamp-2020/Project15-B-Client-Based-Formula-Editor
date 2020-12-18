@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import FEditorReducer from "./slice";
+import FECodeReducer from "./slice";
 
 const store = configureStore({
-	reducer: FEditorReducer,
+	reducer: FECodeReducer,
 });
 
 export default store;
