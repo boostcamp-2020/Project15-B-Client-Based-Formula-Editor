@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 
-import { openBubblePopup, addRecentItem, setSidebarState } from "../slice";
+import { openBubblePopup, addRecentItem, setSidebarState, toggleIsTutorialOn } from "../slice";
 import { encodeLatex } from "../util";
 import popup from "../popup";
 import { color } from "../GlobalStyle";
@@ -45,8 +45,7 @@ export default function SideBar({ sidebarWidth }) {
 
 		if (!answer) return;
 
-		localStorage.removeItem("isTutorialDone");
-		location.reload();
+		dispatch(toggleIsTutorialOn(true));
 	}, []);
 
 	const handleDownloadAsImage = useCallback(async () => {
@@ -133,9 +132,9 @@ export default function SideBar({ sidebarWidth }) {
 					/>
 				</SideBarTabLayout>
 				{sidebarState &&
-				<SideBarContentLayout>
-					{tabMap[tabState]}
-				</SideBarContentLayout>
+					<SideBarContentLayout>
+						{tabMap[tabState]}
+					</SideBarContentLayout>
 				}
 			</SideBarLayout>
 		</>
