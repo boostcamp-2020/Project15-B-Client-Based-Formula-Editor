@@ -7,9 +7,11 @@ import {
 	setLatexItem,
 	checkIfPayloadEndsSpace,
 } from "./sliceUtil";
-import { getCurrentDate, reverseTheme } from "./util";
-import Theme from "./constants/theme";
-import color from "./constants/color";
+import {
+	getCurrentDate,
+	reverseTheme,
+	getReverseColorIfDefault,
+} from "./util";
 
 export default {
 	setSelectedButton(state, { payload }) {
@@ -160,11 +162,6 @@ export default {
 	toggleThemeColor(state) {
 		state.theme = reverseTheme(state.theme);
 		localStorage.setItem("theme", JSON.stringify(state.theme));
-
-		if (state.theme === Theme.DARK && state.fontInfo.color === color.black) {
-			state.fontInfo.color = color.white;
-		} else if (state.theme === Theme.LIGHT && state.fontInfo.color === color.white) {
-			state.fontInfo.color = color.black;
-		}
+		state.fontInfo.color = getReverseColorIfDefault(state.theme, state.fontInfo.color);
 	},
 };

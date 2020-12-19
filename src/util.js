@@ -1,4 +1,5 @@
 import Theme from "./constants/theme";
+import color from "./constants/color";
 import { SIDE_MIN_WIDTH, BODY_MIN_WIDTH } from "./constants/size";
 
 const changeOneLetterToTwo = number => (number > 9 ? number : number.toString().padStart(2, 0));
@@ -82,6 +83,12 @@ export const calcTopPreviewItem = pageY => {
 
 export const getTheme = () => JSON.parse(localStorage.getItem("theme")) || Theme.DARK;
 
-export const getThemeColor = () => (getTheme() === Theme.DARK ? "#ffffff" : "#000000");
+export const getThemeColor = () => (getTheme() === Theme.DARK ? color.white : color.black);
 
 export const reverseTheme = theme => (theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
+
+export const getReverseColorIfDefault = (theme, fontColor) => {
+	if (theme === Theme.DARK && fontColor === color.black) return color.white;
+	if (theme === Theme.LIGHT && fontColor === color.white) return color.black;
+	return fontColor;
+};
