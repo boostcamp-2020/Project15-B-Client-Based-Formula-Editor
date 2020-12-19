@@ -170,6 +170,7 @@ export default function CustomContainer({ theme }) {
 										deleteOnClick={handleDeleteClick(index)}
 										intoLatexFieldOnClick={handleEditClick(index)}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,

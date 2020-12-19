@@ -123,6 +123,7 @@ export default function BookmarkContainer({ theme, setTabState }) {
 										deleteOnClick={handleDeleteButton(item.id)}
 										editOnClick={handleEditButton(item)}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,

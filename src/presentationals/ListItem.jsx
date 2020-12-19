@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
-import { color, themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import PlusIcon from "../icons/PlusIcon";
 import EditIcon from "../icons/EditIcon";
 import MinusIcon from "../icons/MinusIcon";
@@ -26,8 +26,8 @@ const Bottom = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: ${themeColor.normal};
-	color: ${themeColor.white};
+	background-color: ${({ theme }) => color.mainTheme3[theme]};
+	color: ${({ theme }) => color.mainTheme0[theme]};
 	height: 150px;
 	border-radius: 7px;
 	border: 1px solid black;
@@ -53,12 +53,14 @@ export default function ListItem({
 	intoLatexFieldOnClick,
 	isBookmark,
 	top,
+	theme,
 }) {
-	const StarIcon = isBookmark ? <FilledStarIcon /> : <EmptyStarIcon fill={themeColor.yellow} />;
+	const StarIcon = isBookmark ?
+		<FilledStarIcon /> : <EmptyStarIcon fill={color.mainThemeYellow[theme]} />;
 
 	return (
 		<Layout top={top}>
-			<Item onClick={intoLatexFieldOnClick}>
+			<Item onClick={intoLatexFieldOnClick} theme={theme}>
 				<StaticMathField>{latex}</StaticMathField>
 			</Item>
 			<Bottom>

@@ -108,7 +108,7 @@ function CharacterListItem({
 					</Symbol>
 					<Name isMagnifier={isMagnifier}>{item.name}</Name>
 					{previewItem.id === item.name &&
-						<ListItem latex={item.latex} top={previewItem.top} />}
+						<ListItem latex={item.latex} top={previewItem.top} theme={theme}/>}
 				</>}
 		</Item>
 	);

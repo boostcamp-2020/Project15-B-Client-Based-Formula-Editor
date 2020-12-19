@@ -112,6 +112,7 @@ export default function RecentContainer({ theme, setTabState }) {
 										intoLatexFieldOnClick={handleFormulaClick(item.latex)}
 										isBookmark={item.isBookmark}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,
