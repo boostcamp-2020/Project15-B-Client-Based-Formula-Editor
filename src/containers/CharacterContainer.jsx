@@ -59,6 +59,7 @@ function CharacterContainer({ theme }) {
 								onClick={handleClickMenu(title)}
 								isOpen={isOpenMenu[title]}
 								length={`${filteredList.length}`}
+								theme={theme}
 							/>
 							<CharacterList
 								title={title}

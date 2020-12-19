@@ -150,6 +150,7 @@ export default function CustomContainer({ theme }) {
 					title="커스텀 명령어 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{customCommandList.length ?
 					customCommandList

@@ -90,6 +90,7 @@ export default function RecentContainer({ theme, setTabState }) {
 					title="최근 수식 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{recentItems.length ?
 					recentItems

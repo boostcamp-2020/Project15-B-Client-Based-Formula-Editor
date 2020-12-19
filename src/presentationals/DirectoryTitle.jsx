@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import DownIcon from "../icons/DownIcon";
 import RightIcon from "../icons/RightIcon";
 import CloseIcon from "../icons/CloseIcon";
@@ -16,7 +16,7 @@ const Layout = styled.div`
 	padding: 0 10px;
 
 	&:hover {
-		background-color: ${themeColor.light};
+		background-color: ${({ theme }) => color.mainTheme2[theme]};
 
 		> button {
 			display: block;
@@ -35,11 +35,11 @@ const Layout = styled.div`
 	}
 `;
 const Title = styled.div`
-	color: ${themeColor.green};
+	color: ${({ theme }) => color.mainThemeGreen[theme]};
 `;
 
 const Number = styled.div`
-	color: ${themeColor.green};
+	color: ${({ theme }) => color.mainThemeGreen[theme]};
 	position: absolute;
 	right: 20px;
 	font-size: 13px;
@@ -51,15 +51,16 @@ function DirectoryTitle({
 	isOpen,
 	length,
 	onClickDeleteButton,
+	theme,
 }) {
 	return (
-		<Layout onClick={onClick} isOpen={isOpen}>
+		<Layout onClick={onClick} isOpen={isOpen} theme={theme}>
 			{isOpen ? <DownIcon /> : <RightIcon/>}
-			<Title>{title}</Title>
-			{length && <Number>{length}</Number>}
+			<Title theme={theme}>{title}</Title>
+			{length && <Number theme={theme}>{length}</Number>}
 			{onClickDeleteButton &&
 				<IconButton
-					icon={<CloseIcon fill={themeColor.white} />}
+					icon={<CloseIcon fill={color.mainTheme0[theme]} />}
 					isHover={true}
 					onClick={onClickDeleteButton}
 				/>}

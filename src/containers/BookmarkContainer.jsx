@@ -102,6 +102,7 @@ export default function BookmarkContainer({ theme, setTabState }) {
 					title="북마크 수식 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{bookmarkItems.length ?
 					bookmarkItems
