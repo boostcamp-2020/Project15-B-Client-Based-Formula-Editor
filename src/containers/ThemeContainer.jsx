@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { toggleThemeColor } from "../slice";
+import ThemeButton from "../presentationals/ThemeButton";
 
-export default function ThemeContainer() {
+export default function ThemeContainer({ theme }) {
 	const dispatch = useDispatch();
 
 	const handleThemeColor = () => {
@@ -12,7 +13,7 @@ export default function ThemeContainer() {
 
 	return (
 		<div>
-			<button onClick={handleThemeColor}>테마</button>
+			<ThemeButton onClick={handleThemeColor} theme={theme} />
 		</div>
 	);
 }

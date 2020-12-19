@@ -159,7 +159,7 @@ function BodyContainer({ bodyWidth }) {
 		<BodyLayout width={bodyWidth} sidebarState={sidebarState}>
 			<EditTabHeaderLayout theme={theme}>
 				<FontContainer />
-				<ThemeContainer />
+				<ThemeContainer theme={theme} />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
 			<AutoKeywordContainer />
