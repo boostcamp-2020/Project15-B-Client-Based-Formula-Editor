@@ -9,7 +9,7 @@ import {
 	getLocalStorage,
 } from "./sliceUtil";
 import actionCreator from "./actionCreator";
-import { getTheme, getThemeColor } from "./util";
+import { getTheme, getThemeColor, getIsTutorialOn } from "./util";
 
 const latexList = initLatexList();
 
@@ -48,7 +48,7 @@ const { reducer, actions } = createSlice({
 		},
 		buffer: [],
 		sidebarState: true,
-		isTutorialOn: JSON.parse(localStorage.getItem("isTutorialOn")),
+		isTutorialOn: getIsTutorialOn(),
 		theme: getTheme(),
 	},
 	reducers: actionCreator,

@@ -92,3 +92,9 @@ export const getReverseColorIfDefault = (theme, fontColor) => {
 	if (theme === Theme.LIGHT && fontColor === color.white) return color.black;
 	return fontColor;
 };
+
+export const getIsTutorialOn = () => {
+	const isTutorialOn = JSON.parse(localStorage.getItem("isTutorialOn"));
+
+	return isTutorialOn === null ? true : isTutorialOn;
+};
