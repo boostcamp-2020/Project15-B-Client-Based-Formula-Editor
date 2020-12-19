@@ -30,10 +30,12 @@ const color = {
 		[Theme.LIGHT]: "#f7ab6f",
 	},
 	deepDark: "#151515",
+	green: "#42ad12",
 	blue: "#22659a",
 	lightBlue: "#2a7ab8",
 	red: "#d3715e",
 	yellow: "#ddb87c",
+	grey: "#666666",
 	white: "#ffffff",
 	black: "#000000",
 };

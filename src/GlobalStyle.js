@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 	::-webkit-scrollbar-thumb:active { background: ${scrollBackgroundColor}44; } /* 실질적 스크롤 바를 클릭할 때 */
 	::-webkit-scrollbar-button { display: none; } /* 스크롤 바 상 하단 버튼 */
 
-	${popupStyle}
+	${popupStyle(theme)}
 `;
 
 export default GlobalStyle;
