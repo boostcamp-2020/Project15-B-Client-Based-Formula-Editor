@@ -130,7 +130,7 @@ export default function CustomContainer({ theme }) {
 
 	return (
 		<>
-			<Filter onChange={handleFilter} />
+			<Filter onChange={handleFilter} theme={theme} />
 			<CharacterContainerLayout theme={theme}>
 				<BlueButton
 					value={customFormValue.state ? "취소" : "새 커스텀 추가하기"}

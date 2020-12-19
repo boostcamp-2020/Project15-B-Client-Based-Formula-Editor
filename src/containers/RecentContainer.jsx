@@ -84,7 +84,7 @@ export default function RecentContainer({ theme, setTabState }) {
 
 	return (
 		<>
-			<Filter onChange={handleFilter}/>
+			<Filter onChange={handleFilter} theme={theme} />
 			<CharacterContainerLayout theme={theme}>
 				<DirectoryTitle
 					title="최근 수식 목록"

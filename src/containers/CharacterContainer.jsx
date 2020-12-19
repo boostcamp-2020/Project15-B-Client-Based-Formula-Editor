@@ -47,7 +47,7 @@ function CharacterContainer({ theme }) {
 
 	return (
 		<>
-			<Filter onChange={handleFilter}/>
+			<Filter onChange={handleFilter} theme={theme} />
 			<CharacterContainerLayout theme={theme}>
 				{titles.map(title => {
 					const filteredList = useMemo(() => getFilteredList(title), [title]);

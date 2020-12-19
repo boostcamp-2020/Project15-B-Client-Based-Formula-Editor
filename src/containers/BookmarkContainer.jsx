@@ -95,7 +95,7 @@ export default function BookmarkContainer({ theme, setTabState }) {
 
 	return (
 		<>
-			<Filter onChange={handleFilter} />
+			<Filter onChange={handleFilter} theme={theme} />
 			<CharacterContainerLayout theme={theme}>
 				<BlueButton value="현재 수식 북마크에 추가" onClick={addCurrentLatexToBookmark}/>
 				<DirectoryTitle
