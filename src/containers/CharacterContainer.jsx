@@ -50,7 +50,7 @@ function CharacterContainer() {
 			<Filter onChange={handleFilter}/>
 			<CharacterContainerLayout>
 				{titles.map(title => {
-					const filteredList = useMemo(() => getFilteredList(title), [title]);
+					const filteredList = useMemo(() => getFilteredList(title), [title, searchTerm]);
 
 					return (
 						<div key={title}>
