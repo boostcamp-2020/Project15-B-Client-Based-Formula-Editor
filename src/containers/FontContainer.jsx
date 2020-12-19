@@ -82,6 +82,7 @@ function FontContainer() {
 				handleFontSizeChange={handleFontSizeChange}
 				handleFontSizeItemClick={handleFontSizeItemClick}
 				handleFontSizeInputClick={handleFontSizeInputClick}
+				theme={theme}
 			/>
 			<FontColorSelector
 				fontColorRef={fontColorRef}

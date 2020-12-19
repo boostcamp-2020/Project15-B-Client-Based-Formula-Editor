@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import { fontSizes } from "../constants/fontConfig";
 import FontSizeIcon from "../icons/FontSizeIcon";
 import CheckIcon from "../icons/CheckIcon";
@@ -10,7 +10,7 @@ const Layout = styled.div`
 	display: flex;
 	align-items: center;
 	padding: 0 5px;
-	border-right: 1px dashed ${themeColor.white};
+	border-right: 1px dashed ${({ theme }) => color.mainTheme0[theme]};
 	position: relative;
 `;
 
@@ -26,8 +26,8 @@ const FontDropdown = styled.div`
 	position: absolute;
 	bottom: 0;
 	transform: translate(-4px, 100%);
-	background: ${themeColor.light};
-	color: ${themeColor.white};
+	background: ${({ theme }) => color.mainTheme2[theme]};
+	color: ${({ theme }) => color.mainTheme0[theme]};
 	font-size: 13px;
 	font-weight: bold;
 	padding: 5px 0;
@@ -65,10 +65,11 @@ function FontSizeSelector({
 	handleFontSizeChange,
 	handleFontSizeItemClick,
 	handleFontSizeInputClick,
+	theme,
 }) {
 	return (
-		<Layout ref={fontSizeRef}>
-			<FontSizeIcon fill={themeColor.white}/>
+		<Layout ref={fontSizeRef} theme={theme}>
+			<FontSizeIcon fill={color.mainTheme0[theme]}/>
 			<FontSizeInput
 				value={fontSizeForView}
 				onChange={handleFontSizeChange}
@@ -76,7 +77,7 @@ function FontSizeSelector({
 				placeholder={fontSize}
 			/>
 			{fontDropdown.size &&
-				<FontDropdown>
+				<FontDropdown theme={theme}>
 					{fontSizes.map((size, index) =>
 						<FontItem key={index} onClick={handleFontSizeItemClick(size)}>
 							<div>{size}</div>
