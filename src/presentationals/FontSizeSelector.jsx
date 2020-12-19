@@ -54,6 +54,7 @@ const FontItem = styled.div`
 
 	&:hover {
     background-color: #43c343;
+		color: ${color.deepDark};
 	}
 `;
 
