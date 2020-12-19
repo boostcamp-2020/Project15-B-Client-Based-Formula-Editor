@@ -177,6 +177,7 @@ function BodyContainer({ bodyWidth }) {
 					height={heights.latex}
 					latexInput={latexInput}
 					onChange={handleLatexTextarea}
+					theme={theme}
 				/>
 			</DropdownWrapper>
 		</BodyLayout>
