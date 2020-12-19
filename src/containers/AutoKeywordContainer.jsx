@@ -207,6 +207,7 @@ export default function AutoKeywordContainer() {
 				latexFunction.keystroke("Shift-Right Del");
 			}
 			selectAutoCompleteItem(false);
+			latexFunction.insertClickedLatex("");
 		}
 	};
 
