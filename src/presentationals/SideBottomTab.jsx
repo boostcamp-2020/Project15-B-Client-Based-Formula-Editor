@@ -26,6 +26,7 @@ function SideBottomTab({
 	handleSaveFormula,
 	handleCopyLink,
 	handleDownloadAsImage,
+	theme,
 }) {
 	const bottomMenus = [
 		{
@@ -54,7 +55,7 @@ function SideBottomTab({
 		<div>
 			{bottomMenus.map(({ icon, popup, onClick }, idx) =>
 				<Div key={idx} onClick={onClick}>
-					<BubblePopup isOpen={popup.isOpen} message={popup.message} />
+					<BubblePopup isOpen={popup.isOpen} message={popup.message} theme={theme} />
 					<IconButton isHover={true} icon={icon} hoverColor={themeColor.white} />
 				</Div>,
 			)}

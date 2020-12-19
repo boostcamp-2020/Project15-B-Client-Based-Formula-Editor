@@ -133,6 +133,7 @@ export default function SideBar({ sidebarWidth }) {
 						handleSaveFormula={handleSaveFormula}
 						handleCopyLink={handleCopyLink}
 						handleDownloadAsImage={handleDownloadAsImage}
+						theme={theme}
 					/>
 				</SideBarTabLayout>
 				{sidebarState &&

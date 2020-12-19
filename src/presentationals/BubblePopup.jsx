@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import NotificationIcon from "../icons/NotificationIcon";
 
 const transition = "0.5s";
@@ -23,9 +23,9 @@ const Message = styled.div`
   padding: 15px 30px;
   font-weight: bold;
   transition: ${transition};
-  background-color: ${themeColor.normal};
-  box-shadow: 0 0 7px 3px ${themeColor.black};
-  color: ${themeColor.white};
+  background-color: ${({ theme }) => color.mainTheme3[theme]};
+  box-shadow: 0 0 7px 3px ${color.deepDark};
+  color: ${({ theme }) => color.mainTheme0[theme]};
   opacity: ${({ isOpen }) => (isOpen ? "1" : "0")};
 
   > svg {
@@ -36,11 +36,11 @@ const Message = styled.div`
   }
 `;
 
-function BubblePopup({ isOpen, message }) {
+function BubblePopup({ isOpen, message, theme }) {
 	return (
 		<Layout isOpen={isOpen}>
-			<Message isOpen={isOpen}>
-				<NotificationIcon fill={themeColor.blue} />
+			<Message isOpen={isOpen} theme={theme}>
+				<NotificationIcon fill={color.blue} />
 				{message}
 			</Message>
 		</Layout>
