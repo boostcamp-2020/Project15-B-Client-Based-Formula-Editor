@@ -1,10 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
-import { getTheme } from "./util";
+import { getTheme, reverseTheme } from "./util";
 import popupStyle from "./popupStyle";
 import color from "./constants/color";
 
 const theme = getTheme();
+const bodyBackgroundColor = color.mainTheme4[theme];
+const scrollBackgroundColor = color.mainTheme4[reverseTheme(theme)];
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -18,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		background-color: ${color.mainTheme4[theme]};
+		background-color: ${bodyBackgroundColor};
 		-ms-user-select: none; /* Internet Explorer/Edge */
 		-moz-user-select: -moz-none; /* Firefox */ 
 		-webkit-user-select: none; /* Safari */ 
@@ -27,9 +29,9 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	::-webkit-scrollbar { width: 12px; } /* 스크롤 바 */
-	::-webkit-scrollbar-thumb { background: #fff2; } /* 실질적 스크롤 바 */
-	::-webkit-scrollbar-thumb:hover { background: #fff3; } /* 실질적 스크롤 바 위에 마우스를 올려다 둘 때 */
-	::-webkit-scrollbar-thumb:active { background: #fff4; } /* 실질적 스크롤 바를 클릭할 때 */
+	::-webkit-scrollbar-thumb { background: ${scrollBackgroundColor}22; } /* 실질적 스크롤 바 */
+	::-webkit-scrollbar-thumb:hover { background: ${scrollBackgroundColor}33; } /* 실질적 스크롤 바 위에 마우스를 올려다 둘 때 */
+	::-webkit-scrollbar-thumb:active { background: ${scrollBackgroundColor}44; } /* 실질적 스크롤 바를 클릭할 때 */
 	::-webkit-scrollbar-button { display: none; } /* 스크롤 바 상 하단 버튼 */
 
 	${popupStyle}

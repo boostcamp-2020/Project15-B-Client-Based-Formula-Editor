@@ -83,3 +83,5 @@ export const calcTopPreviewItem = pageY => {
 export const getTheme = () => JSON.parse(localStorage.getItem("theme")) || Theme.DARK;
 
 export const getThemeColor = () => (getTheme() === Theme.DARK ? "#ffffff" : "#000000");
+
+export const reverseTheme = theme => (theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
