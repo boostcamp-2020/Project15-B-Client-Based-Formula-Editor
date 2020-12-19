@@ -169,6 +169,7 @@ function BodyContainer({ bodyWidth }) {
 					mathquillDidMount={setUpLatexInsertFunction}
 					fontInfo={fontInfo}
 					alignInfo={alignInfo}
+					theme={theme}
 				/>
 				{isMove && <GhostBar ghostHeight={ghostHeight} />}
 				<DynamicBarVertical onMouseDown={handleMouseDown} top={heights.formula} theme={theme} />
