@@ -171,7 +171,7 @@ function BodyContainer({ bodyWidth }) {
 					alignInfo={alignInfo}
 					theme={theme}
 				/>
-				{isMove && <GhostBar ghostHeight={ghostHeight} />}
+				{isMove && <GhostBar ghostHeight={ghostHeight} theme={theme} />}
 				<DynamicBarVertical onMouseDown={handleMouseDown} top={heights.formula} theme={theme} />
 				<LatexRepresentation
 					height={heights.latex}
