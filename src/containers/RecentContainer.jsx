@@ -116,7 +116,7 @@ export default function RecentContainer({ theme, setTabState }) {
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
+					<EmptyItem content={"최근 저장한 수식이 없습니다"} theme={theme} />}
 			</CharacterContainerLayout>
 		</>
 	);

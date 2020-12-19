@@ -127,7 +127,7 @@ export default function BookmarkContainer({ theme, setTabState }) {
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content="북마크 수식이 없습니다."/>
+					<EmptyItem content="북마크 수식이 없습니다." theme={theme} />
 				}
 			</CharacterContainerLayout>
 		</>

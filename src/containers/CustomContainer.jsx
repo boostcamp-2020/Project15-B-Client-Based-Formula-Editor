@@ -174,7 +174,7 @@ export default function CustomContainer({ theme }) {
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content={"최근 저장한 명령어가 없습니다"} />}
+					<EmptyItem content={"최근 저장한 명령어가 없습니다"} theme={theme} />}
 			</CharacterContainerLayout>
 		</>
 	);
