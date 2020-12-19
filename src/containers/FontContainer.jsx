@@ -90,6 +90,7 @@ function FontContainer() {
 				onChange={handleFontColorChange}
 				onClickItem={handleFontColorClick}
 				onClickButton={handleFontButtonClick}
+				theme={theme}
 			/>
 			<IconButton
 				onClick={handleAlignment("left")}
