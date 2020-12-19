@@ -17,9 +17,8 @@ export default function MainContainer() {
 	const sidebarState = useSelector(state => state.sidebarState);
 	const bodyWidth = 100 - sidebarWidth;
 
-	const handleMouseDown = e => {
+	const handleMouseDown = () => {
 		setIsMove(true);
-		setDivLeft(e.pageX);
 	};
 
 	const handleMouseMove = e => {

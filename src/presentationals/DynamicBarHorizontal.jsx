@@ -22,10 +22,10 @@ const ResizeBarHorizontal = styled.div`
 	}
 `;
 const DashedBarHorizontal = styled.div.attrs(({ left }) => ({ style: { left: `${left}%` } }))`
-	${prop => prop.isMove && `
+	${({ isMove, theme }) => isMove && `
 		height: 100%;
 		position: absolute;
-		border-right: 2px dashed ${({ theme }) => color.mainTheme1[theme]};
+		border-right: 2px dashed ${color.mainTheme1[theme]};
 		z-index: 10;
 	`}
 `;
