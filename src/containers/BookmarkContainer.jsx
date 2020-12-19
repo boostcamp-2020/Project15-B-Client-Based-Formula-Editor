@@ -21,7 +21,7 @@ import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
-export default function BookmarkContainer({ setTabState }) {
+export default function BookmarkContainer({ theme, setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -96,7 +96,7 @@ export default function BookmarkContainer({ setTabState }) {
 	return (
 		<>
 			<Filter onChange={handleFilter} />
-			<CharacterContainerLayout>
+			<CharacterContainerLayout theme={theme}>
 				<BlueButton value="현재 수식 북마크에 추가" onClick={addCurrentLatexToBookmark}/>
 				<DirectoryTitle
 					title="북마크 수식 목록"

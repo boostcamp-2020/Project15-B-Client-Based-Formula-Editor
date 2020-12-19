@@ -5,8 +5,9 @@ import html2canvas from "html2canvas";
 import { openBubblePopup, addRecentItem, setSidebarState, toggleIsTutorialOn } from "../slice";
 import { encodeLatex } from "../util";
 import popup from "../popup";
-import { color } from "../GlobalStyle";
 import { CLOSE_TAB, CHARACTER_TAB, RECENT_TAB, BOOKMARK_TAB, CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
+import color from "../constants/color";
+import Theme from "../constants/theme";
 import CharacterContainer from "./CharacterContainer";
 import RecentContainer from "./RecentContainer";
 import BookmarkContainer from "./BookmarkContainer";
@@ -20,16 +21,17 @@ import SideBottomTab from "../presentationals/SideBottomTab";
 export default function SideBar({ sidebarWidth }) {
 	const dispatch = useDispatch();
 	const [tabState, setTabState] = useState(CHARACTER_TAB);
+	const theme = useSelector(state => state.theme);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
 	const sidebarState = useSelector(state => state.sidebarState);
 	const { tutorial, imageDownload, linkCopy, formulaSave } = useSelector(state => state.bubblePopup);
 
 	const tabMap = {
-		[CHARACTER_TAB]: <CharacterContainer />,
-		[RECENT_TAB]: <RecentContainer setTabState={setTabState} />,
-		[BOOKMARK_TAB]: <BookmarkContainer setTabState={setTabState} />,
-		[CUSTOM_COMMAND_TAB]: <CustomContainer />,
+		[CHARACTER_TAB]: <CharacterContainer theme={theme}/>,
+		[RECENT_TAB]: <RecentContainer theme={theme} setTabState={setTabState} />,
+		[BOOKMARK_TAB]: <BookmarkContainer theme={theme} setTabState={setTabState} />,
+		[CUSTOM_COMMAND_TAB]: <CustomContainer theme={theme} />,
 	};
 
 	const handleTabClick = useCallback((tabId, isSelected) => () => {
@@ -49,6 +51,7 @@ export default function SideBar({ sidebarWidth }) {
 	}, []);
 
 	const handleDownloadAsImage = useCallback(async () => {
+		let isChanged = false;
 		const answer = await popup({
 			mode: "image",
 			message: "저장하실 파일명을 입력해주세요",
@@ -61,8 +64,9 @@ export default function SideBar({ sidebarWidth }) {
 		const mathquillArea = document.querySelector(".mq-editable-field > .mq-root-block");
 
 		mathquillArea.style.width = "max-content";
-		if (fontInfo.color === "#ffffff") {
+		if (theme === Theme.DARK && fontInfo.color === color.white) {
 			mathquillArea.style.color = color.black;
+			isChanged = true;
 		}
 
 		const canvas = await html2canvas(mathquillArea);
@@ -76,8 +80,8 @@ export default function SideBar({ sidebarWidth }) {
 		document.body.removeChild(virtualLink);
 
 		mathquillArea.style.width = "100%";
-		if (mathquillArea.style.color === color.black) {
-			mathquillArea.style.color = color.white;
+		if (isChanged) {
+			mathquillArea.style.color = "";
 		}
 
 		dispatch(openBubblePopup({
@@ -118,7 +122,7 @@ export default function SideBar({ sidebarWidth }) {
 	return (
 		<>
 			<SideBarLayout width={sidebarWidth} sidebarState={sidebarState}>
-				<SideBarTabLayout>
+				<SideBarTabLayout theme={theme}>
 					<SideTopTab currentTab={tabState} onClick={handleTabClick} />
 					<SideBottomTab
 						tutorial={tutorial}
@@ -132,7 +136,7 @@ export default function SideBar({ sidebarWidth }) {
 					/>
 				</SideBarTabLayout>
 				{sidebarState &&
-					<SideBarContentLayout>
+					<SideBarContentLayout theme={theme}>
 						{tabMap[tabState]}
 					</SideBarContentLayout>
 				}

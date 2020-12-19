@@ -15,6 +15,7 @@ function FontContainer() {
 	const fontColorRef = useRef();
 	const [fontSizeForView, setFontSizeForView] = useState(20);
 	const [fontDropdown, setFontDropdown] = useState({ size: false, color: false });
+	const theme = useSelector(state => state.theme);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const dispatch = useDispatch();
 
@@ -72,7 +73,7 @@ function FontContainer() {
 	});
 
 	return (
-		<FontContainerLayout>
+		<FontContainerLayout theme={theme}>
 			<FontSizeSelector
 				fontSizeRef={fontSizeRef}
 				fontSize={fontInfo.size}

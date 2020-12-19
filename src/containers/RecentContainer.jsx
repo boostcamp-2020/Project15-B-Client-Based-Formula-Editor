@@ -19,7 +19,7 @@ import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 
-export default function RecentContainer({ setTabState }) {
+export default function RecentContainer({ theme, setTabState }) {
 	const dispatch = useDispatch();
 	const { recentItems } = useSelector(state => state);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -85,7 +85,7 @@ export default function RecentContainer({ setTabState }) {
 	return (
 		<>
 			<Filter onChange={handleFilter}/>
-			<CharacterContainerLayout>
+			<CharacterContainerLayout theme={theme}>
 				<DirectoryTitle
 					title="최근 수식 목록"
 					isOpen={true}

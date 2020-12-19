@@ -27,9 +27,10 @@ function BodyContainer({ bodyWidth }) {
 	const [isMove, setIsMove] = useState(false);
 	const [ghostHeight, setGhostHeight] = useState(heights.formula);
 	const dispatch = useDispatch();
-	const latexInput = useSelector(state => state.latexInput);
+	const theme = useSelector(state => state.theme);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const alignInfo = useSelector(state => state.alignInfo);
+	const latexInput = useSelector(state => state.latexInput);
 	const sidebarState = useSelector(state => state.sidebarState);
 
 	const handleLatexInput = mathField => {
@@ -155,7 +156,7 @@ function BodyContainer({ bodyWidth }) {
 
 	return (
 		<BodyLayout width={bodyWidth} sidebarState={sidebarState}>
-			<EditTabHeaderLayout>
+			<EditTabHeaderLayout theme={theme}>
 				<FontContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>

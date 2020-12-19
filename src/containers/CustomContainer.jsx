@@ -19,7 +19,7 @@ import CustomForm from "../presentationals/CustomForm";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
-export default function CustomContainer() {
+export default function CustomContainer({ theme }) {
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
 	const [warningMessage, setWarningMessage] = useState({});
@@ -131,7 +131,7 @@ export default function CustomContainer() {
 	return (
 		<>
 			<Filter onChange={handleFilter} />
-			<CharacterContainerLayout>
+			<CharacterContainerLayout theme={theme}>
 				<BlueButton
 					value={customFormValue.state ? "취소" : "새 커스텀 추가하기"}
 					onClick={handleFormOnButton}

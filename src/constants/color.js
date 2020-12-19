@@ -11,6 +11,8 @@ const color = {
 	lightBlue: "#2a7ab8",
 	red: "#d3715e",
 	yellow: "#ddb87c",
+	white: "#ffffff",
+	black: "#000000",
 };
 
 export default color;
