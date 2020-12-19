@@ -2,12 +2,12 @@ import React from "react";
 import { EditableMathField } from "react-mathquill";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
 const Form = styled.form`
 	display: flex;
 	flex-direction: column;
-	background-color: ${themeColor.light};
+	background-color: ${({ theme }) => color.mainTheme2[theme]};
 	margin: 5px;
 	border-radius: 5px;
 	padding: 5px;
@@ -15,7 +15,7 @@ const Form = styled.form`
 	> * {
 		border: none;
 		outline: none;
-		background-color: ${themeColor.dark};
+		background-color: ${({ theme }) => color.mainTheme4[theme]};
 		color: white;
 		text-align: center;
 		padding: 3px;
@@ -24,19 +24,19 @@ const Form = styled.form`
 	}
 
 	.mq-cursor {
-    border: 1px solid ${themeColor.white};
-		background-color: ${themeColor.white};
+    border: 1px solid ${({ theme }) => color.mainTheme0[theme]};
+		background-color: ${({ theme }) => color.mainTheme0[theme]};
 	}
 `;
 
 const Button = styled.button`
 	color: white;
-	background-color: ${themeColor.blue};
+	background-color: ${color.blue};
 	border: none;
 	margin-top: 15px;
 
 	&:hover {
-		background-color: ${themeColor.lightBlue};
+		background-color: ${color.lightBlue};
 		cursor: pointer;
 	}
 `;
@@ -57,9 +57,10 @@ export default function CustomForm({
 	onChangeDescription,
 	onSubmit,
 	warningMessage,
+	theme,
 }) {
 	return (
-		<Form onSubmit={onSubmit}>
+		<Form onSubmit={onSubmit} theme={theme}>
 			<input
 				value={value.command}
 				onChange={onChangeCommand}

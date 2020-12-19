@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
 const Layout = styled.input.attrs({ placeholder: "Search" })`
-	background-color: ${themeColor.light};
-	border: 1px solid ${themeColor.light};
-	color: ${themeColor.white};
+	background-color: ${({ theme }) => color.mainTheme2[theme]};
+	border: 1px solid ${({ theme }) => color.mainTheme2[theme]};
+	color: ${({ theme }) => color.mainTheme0[theme]};
 	outline: none;
 	padding: 5px;
 	margin: 12px;
@@ -20,8 +20,8 @@ const Layout = styled.input.attrs({ placeholder: "Search" })`
 	}
 `;
 
-export default function Filter({ onChange }) {
+export default function Filter({ onChange, theme }) {
 	return (
-		<Layout onChange={onChange} />
+		<Layout onChange={onChange} theme={theme} />
 	);
 }

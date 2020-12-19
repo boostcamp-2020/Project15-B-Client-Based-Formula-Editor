@@ -6,7 +6,7 @@ import CharacterListItem from "./CharacterListItem";
 const Layout = styled.div``;
 
 function CharacterList({
-	title, isOpen, list, handleClickItem, handleMouseEnterItem, previewItem,
+	title, isOpen, list, handleClickItem, handleMouseEnterItem, previewItem, theme,
 }) {
 	return (
 		<Layout>
@@ -19,6 +19,7 @@ function CharacterList({
 					isMagnifier={true}
 					onMouseEnter={handleMouseEnterItem(item.name)}
 					previewItem={previewItem}
+					theme={theme}
 				/>,
 			)}
 		</Layout>

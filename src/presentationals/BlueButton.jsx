@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
 const interval = 12;
 
 const Item = styled.button`
 	color: white;
-	background-color: ${themeColor.blue};
+	background-color: ${color.blue};
 	margin: ${interval}px;
 	margin-top: 0;
 	border: none;
@@ -17,7 +17,7 @@ const Item = styled.button`
 	padding: 7px;
 
 	&:hover {
-		background-color: ${themeColor.lightBlue};
+		background-color: ${color.lightBlue};
 	} 
 `;
 

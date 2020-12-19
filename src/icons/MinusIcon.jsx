@@ -1,6 +1,6 @@
 import React from "react";
 
-import { color } from "../GlobalStyle";
+import color from "../constants/color";
 
 export default function MinusIcon() {
 	return (

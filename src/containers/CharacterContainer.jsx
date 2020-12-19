@@ -10,7 +10,7 @@ import CharacterList from "../presentationals/CharacterList";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import Filter from "../presentationals/Filter";
 
-function CharacterContainer() {
+function CharacterContainer({ theme }) {
 	const dispatch = useDispatch();
 	const isOpenMenu = useSelector(state => state.characterTabState);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -47,8 +47,8 @@ function CharacterContainer() {
 
 	return (
 		<>
-			<Filter onChange={handleFilter}/>
-			<CharacterContainerLayout>
+			<Filter onChange={handleFilter} theme={theme} />
+			<CharacterContainerLayout theme={theme}>
 				{titles.map(title => {
 					const filteredList = useMemo(() => getFilteredList(title), [title, searchTerm]);
 
@@ -59,6 +59,7 @@ function CharacterContainer() {
 								onClick={handleClickMenu(title)}
 								isOpen={isOpenMenu[title]}
 								length={`${filteredList.length}`}
+								theme={theme}
 							/>
 							<CharacterList
 								title={title}
@@ -67,6 +68,7 @@ function CharacterContainer() {
 								handleClickItem={handleClickItem}
 								handleMouseEnterItem={handleMouseEnterItem}
 								previewItem={previewItem}
+								theme={theme}
 							/>
 						</div>
 					);

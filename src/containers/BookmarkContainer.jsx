@@ -21,7 +21,7 @@ import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
-export default function BookmarkContainer({ setTabState }) {
+export default function BookmarkContainer({ theme, setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
 	const [searchTerm, handleFilter] = useSearch("");
@@ -85,13 +85,14 @@ export default function BookmarkContainer({ setTabState }) {
 
 	return (
 		<>
-			<Filter onChange={handleFilter} />
-			<CharacterContainerLayout>
+			<Filter onChange={handleFilter} theme={theme} />
+			<CharacterContainerLayout theme={theme}>
 				<BlueButton value="현재 수식 북마크에 추가" onClick={addCurrentLatexToBookmark}/>
 				<DirectoryTitle
 					title="북마크 수식 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{bookmarkItems.length ?
 					bookmarkItems
@@ -102,6 +103,7 @@ export default function BookmarkContainer({ setTabState }) {
 									item={{ ...item, symbol: "★", name: item.description }}
 									onClick={handleFormulaClick}
 									onMouseEnter={handleMouseEnterItem(item.id)}
+									theme={theme}
 								/>
 								{previewItem.id === item.id &&
 									<ListItem
@@ -111,11 +113,12 @@ export default function BookmarkContainer({ setTabState }) {
 										deleteOnClick={handleDeleteButton(item.id)}
 										editOnClick={handleEditButton(item)}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content="북마크 수식이 없습니다."/>
+					<EmptyItem content="북마크 수식이 없습니다." theme={theme} />
 				}
 			</CharacterContainerLayout>
 		</>

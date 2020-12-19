@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import HelpIcon from "../icons/HelpIcon";
 import SaveIcon from "../icons/SaveIcon";
 import ShareIcon from "../icons/ShareIcon";
@@ -13,7 +13,7 @@ const Div = styled.div`
 	margin: 12px 0;
 
 	svg {
-		fill: ${themeColor.superLight};
+		fill: ${({ theme }) => color.mainTheme1[theme]};
 	}
 `;
 
@@ -26,6 +26,7 @@ function SideBottomTab({
 	handleSaveFormula,
 	handleCopyLink,
 	handleDownloadAsImage,
+	theme,
 }) {
 	const bottomMenus = [
 		{
@@ -53,9 +54,9 @@ function SideBottomTab({
 	return (
 		<div>
 			{bottomMenus.map(({ icon, popup, onClick }, idx) =>
-				<Div key={idx} onClick={onClick}>
-					<BubblePopup isOpen={popup.isOpen} message={popup.message} />
-					<IconButton isHover={true} icon={icon} hoverColor={themeColor.white} />
+				<Div key={idx} onClick={onClick} theme={theme}>
+					<BubblePopup isOpen={popup.isOpen} message={popup.message} theme={theme} />
+					<IconButton isHover={true} icon={icon} hoverColor={color.mainTheme0[theme]} />
 				</Div>,
 			)}
 		</div>

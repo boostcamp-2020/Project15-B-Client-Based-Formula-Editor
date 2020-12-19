@@ -1,29 +1,31 @@
-const popupStyle = `
+import color from "./constants/color";
+
+const popupStyle = theme => `
   .popup {
-		width: max-content;
+    width: max-content;
     position: fixed;
-    color: white;
-    background-color: #3c3c3c;
-    border: 1px solid #666666;
+    color: ${color.mainTheme0[theme]};
+    background-color: ${color.mainTheme3[theme]};
+    border: 1px solid ${color.mainTheme2[theme]};
     border-radius: 3px;
     padding: 20px 30px;
-		left: 50%;
-		transform: translateX(-50%);
-		transition: 1s;
-		z-index: 3;
-		box-shadow: 0 0 20px 3px black;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 1s;
+    z-index: 3;
+    box-shadow: 0 0 15px 1px ${color.grey};
     font-weight: bold;
     display: flex;
 
-		animation-name: down;
-		animation-duration: 0.5s;
-		animation-iteration-count: 1;
-		animation-fill-mode: forwards;
+    animation-name: down;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 
     > svg {
       width: 50px;
       margin-right: 20px;
-      color: #e4bd12;
+      color: ${color.mainThemeYellow[theme]};
     }
     
     > div {
@@ -47,39 +49,42 @@ const popupStyle = `
 
         > button {
           color: white;
-          padding: 1px 20px 2px 20px;
+          padding: 2px 25px;
           margin-left: 8px;
           border: none;
           border-radius: 3px;
           font-weight: bold;
           cursor: pointer;
-					outline: none;
+          outline: none;
+
+          &:hover:not([disabled]) {
+            opacity: 0.8;
+          }
 
           &:first-child {
-            background-color: #666666;
+            background-color: ${color.mainTheme1[theme]};
           }
           &:last-child {
-            background-color: #15ab15;
+            background-color: ${color.green};
           }
           &:disabled {
             &:last-child {
-              background-color: #0f5d0f;
-              color: #666666;
+              background-color: ${color.green}55;
               cursor: default;
             }
           }
         }
       }
     }
-	}
+  }
 
-	@keyframes down {
-		0%   { top: -200px; }
-		100% { top: 10px; }
+  @keyframes down {
+    0%   { top: -200px; }
+    100% { top: 0; }
   }
   @keyframes up {
-    0%   { top: 10px; }
-		100% { top: -200px; }
+    0%   { top: 0; }
+    100% { top: -200px; }
   }
 `;
 

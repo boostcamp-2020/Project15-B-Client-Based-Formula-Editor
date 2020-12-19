@@ -1,12 +1,15 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { setLatexInput } from "../slice";
 import { decodeQueryString } from "../util";
 
-export default function RouterExceptionCatcher() {
+export default function QueryStringCatcher() {
 	const dispatch = useDispatch();
+	const latexInput = useSelector(state => state.latexInput);
+
+	if (latexInput !== "") return null;
 
 	const latex = decodeQueryString();
 

@@ -9,19 +9,20 @@ import AutoComplete from "../presentationals/AutoComplete";
 
 export default function AutoKeywordContainer() {
 	const dispatch = useDispatch();
-	const cursorPosition = useSelector(state => state.cursorPosition);
+	const theme = useSelector(state => state.theme);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const latexInput = useSelector(state => state.latexInput);
+	const cursorPosition = useSelector(state => state.cursorPosition);
 	const customCommandList = useSelector(state => state.customCommandList);
 	const [isOpen, toggleIsOpen] = useState(false);
 	const [itemIndex, setItemIndex] = useState(0);
-	const [recommandationList, setRecommandationList] = useState([]);
+	const [pageCount, setPageCount] = useState(0);
 	const [backslashCount, setBackslashCount] = useState(0);
+	const [currentPageList, setCurrentPageList] = useState([]);
+	const [currentPageNumber, setCurrentPageNumber] = useState(0);
+	const [recommandationList, setRecommandationList] = useState([]);
 	const buffer = useRef([]);
 	const secondBuffer = useRef([]);
-	const [pageCount, setPageCount] = useState(0);
-	const [currentPageNumber, setCurrentPageNumber] = useState(0);
-	const [currentPageList, setCurrentPageList] = useState([]);
 	const MAX_LENGTH = 7;
 	const FIRST_PAGE_NUMBER = 1;
 
@@ -257,6 +258,7 @@ export default function AutoKeywordContainer() {
 			targetIndex={itemIndex}
 			onClick={onClick}
 			onMouseEnter={onMouseEnter}
+			theme={theme}
 		/>
 	);
 }
