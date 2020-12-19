@@ -22,6 +22,11 @@ const Form = styled.form`
 		margin: 3px;
 		border-radius: 3px;
 	}
+
+	.mq-cursor {
+    border: 1px solid ${themeColor.white};
+		background-color: ${themeColor.white};
+	}
 `;
 
 const Button = styled.button`
