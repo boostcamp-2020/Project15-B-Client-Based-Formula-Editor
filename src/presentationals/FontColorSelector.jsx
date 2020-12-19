@@ -65,7 +65,7 @@ const ColorCodeInput = styled.input`
   margin-left: 10px;
   width: 144px;
   text-align: center;
-	background: ${({ theme }) => color.mainTheme0[theme]};;
+	background: ${({ theme }) => color.mainTheme1[theme]};;
   border: none;
 `;
 

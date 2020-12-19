@@ -55,8 +55,8 @@ export default function ListItem({
 	top,
 	theme,
 }) {
-	const StarIcon = isBookmark ?
-		<FilledStarIcon /> : <EmptyStarIcon fill={color.mainThemeYellow[theme]} />;
+	const yellow = color.mainThemeYellow[theme];
+	const StarIcon = isBookmark ? <FilledStarIcon fill={yellow}/> : <EmptyStarIcon fill={yellow} />;
 
 	return (
 		<Layout top={top}>
@@ -69,7 +69,7 @@ export default function ListItem({
 				{editOnClick &&
 					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
 				{customOnClick &&
-					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
+					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon fill={color.mainTheme0[theme]}/>} />}
 				{deleteOnClick &&
 					<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />}
 			</Bottom>
