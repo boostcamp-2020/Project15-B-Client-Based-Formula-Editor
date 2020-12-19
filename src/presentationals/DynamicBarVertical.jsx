@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import AngleUpIcon from "../icons/AngleUpIcon";
 import AngleDownIcon from "../icons/AngleDownIcon";
 
 const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px` } }))`
-	border-top: 1px solid ${themeColor.dark};
-	border-bottom: 1px solid ${themeColor.dark};
+	border-top: 1px solid ${({ theme }) => color.mainTheme4[theme]};
+	border-bottom: 1px solid ${({ theme }) => color.mainTheme4[theme]};
 	height: 3px;
 	width: 100%;
-  background-color: ${themeColor.superLight};
+  background-color: ${({ theme }) => color.mainTheme1[theme]};
 	position: absolute;
 	display: grid;
   cursor: row-resize;
@@ -39,11 +39,11 @@ const DynamicBarStyle = styled.div.attrs(({ top }) => ({ style: { top: `${top}px
 	} 
 `;
 
-export default function DynamicBarVertical({ onMouseDown, top }) {
+export default function DynamicBarVertical({ onMouseDown, top, theme }) {
 	return (
-		<DynamicBarStyle onMouseDown={onMouseDown} top={top}>
-			<AngleUpIcon fill={themeColor.white} />
-			<AngleDownIcon fill={themeColor.white} />
+		<DynamicBarStyle onMouseDown={onMouseDown} top={top} theme={theme}>
+			<AngleUpIcon fill={color.mainTheme0[theme]} />
+			<AngleDownIcon fill={color.mainTheme0[theme]} />
 		</DynamicBarStyle>
 	);
 }

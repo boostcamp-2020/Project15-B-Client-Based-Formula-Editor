@@ -19,7 +19,7 @@ import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 
-export default function RecentContainer({ setTabState }) {
+export default function RecentContainer({ theme, setTabState }) {
 	const dispatch = useDispatch();
 	const { recentItems } = useSelector(state => state);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -84,12 +84,13 @@ export default function RecentContainer({ setTabState }) {
 
 	return (
 		<>
-			<Filter onChange={handleFilter}/>
-			<CharacterContainerLayout>
+			<Filter onChange={handleFilter} theme={theme} />
+			<CharacterContainerLayout theme={theme}>
 				<DirectoryTitle
 					title="최근 수식 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{recentItems.length ?
 					recentItems
@@ -100,6 +101,7 @@ export default function RecentContainer({ setTabState }) {
 									item={{ ...item, symbol: "Σ", name: item.date }}
 									onClick={handleFormulaClick}
 									onMouseEnter={handleMouseEnterItem(item.id)}
+									theme={theme}
 								/>
 								{previewItem.id === item.id &&
 									<ListItem
@@ -110,11 +112,12 @@ export default function RecentContainer({ setTabState }) {
 										intoLatexFieldOnClick={handleFormulaClick(item.latex)}
 										isBookmark={item.isBookmark}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
+					<EmptyItem content={"최근 저장한 수식이 없습니다"} theme={theme} />}
 			</CharacterContainerLayout>
 		</>
 	);

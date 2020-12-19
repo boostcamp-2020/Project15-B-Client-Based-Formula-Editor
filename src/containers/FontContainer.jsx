@@ -15,6 +15,7 @@ function FontContainer() {
 	const fontColorRef = useRef();
 	const [fontSizeForView, setFontSizeForView] = useState(20);
 	const [fontDropdown, setFontDropdown] = useState({ size: false, color: false });
+	const theme = useSelector(state => state.theme);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const dispatch = useDispatch();
 
@@ -27,12 +28,12 @@ function FontContainer() {
 		setFontSizeForView(size);
 		if (!size) return;
 		dispatch(setFont({ ...fontInfo, size }));
-	}, []);
+	}, [fontInfo]);
 
 	const handleFontSizeItemClick = useCallback(size => () => {
 		setFontSizeForView(size);
 		dispatch(setFont({ ...fontInfo, size }));
-	}, []);
+	}, [fontInfo]);
 
 	const handleFontSizeInputClick = useCallback(() => {
 		setFontDropdown({ ...fontDropdown, size: true });
@@ -69,10 +70,11 @@ function FontContainer() {
 			window.addEventListener("click", outsideClickEvent);
 			return () => window.removeEventListener("click", outsideClickEvent);
 		}
+		return () => {};
 	});
 
 	return (
-		<FontContainerLayout>
+		<FontContainerLayout theme={theme}>
 			<FontSizeSelector
 				fontSizeRef={fontSizeRef}
 				fontSize={fontInfo.size}
@@ -81,6 +83,7 @@ function FontContainer() {
 				handleFontSizeChange={handleFontSizeChange}
 				handleFontSizeItemClick={handleFontSizeItemClick}
 				handleFontSizeInputClick={handleFontSizeInputClick}
+				theme={theme}
 			/>
 			<FontColorSelector
 				fontColorRef={fontColorRef}
@@ -89,6 +92,7 @@ function FontContainer() {
 				onChange={handleFontColorChange}
 				onClickItem={handleFontColorClick}
 				onClickButton={handleFontButtonClick}
+				theme={theme}
 			/>
 			<IconButton
 				onClick={handleAlignment("left")}

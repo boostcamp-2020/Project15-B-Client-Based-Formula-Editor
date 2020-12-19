@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import { colorChart } from "../constants/fontConfig";
 import FontIcon from "../icons/FontIcon";
 
@@ -10,14 +10,14 @@ const FontColorSelectorStyle = styled.div`
 	flex-direction: column;
 	cursor: pointer;
 	padding: 0 5px;
-	border-right: 1px dashed ${themeColor.white};
+	border-right: 1px dashed ${({ theme }) => color.mainTheme0[theme]};
 `;
 
 const ColorButtonLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-	fill: ${themeColor.white};
+	fill: ${({ theme }) => color.mainTheme0[theme]};
 `;
 
 const FontColorUnderline = styled.div`
@@ -38,7 +38,7 @@ const ColorChart = styled.div`
 	border-radius: 3px;
 	padding: 10px;
 	z-index: 3;
-	background: ${themeColor.light};
+	background: ${({ theme }) => color.mainTheme2[theme]};
 	border: 1px solid black;
 	box-shadow: inset 0 0 1px white;
 `;
@@ -52,7 +52,7 @@ const ColorItem = styled.button`
 	height: 20px;
 	margin: 1px;
 	border: none;
-	background-color: ${(({ color }) => color)};
+	background-color: ${({ backGroundColor }) => backGroundColor};
 	cursor: pointer;
 `;
 
@@ -65,7 +65,8 @@ const ColorCodeInput = styled.input`
   margin-left: 10px;
   width: 144px;
   text-align: center;
-	background: ${themeColor.white};
+	background: ${({ theme }) => color.mainTheme3[theme]};
+	color: ${({ theme }) => color.mainTheme0[theme]};
   border: none;
 `;
 
@@ -76,32 +77,34 @@ export default function FontColorSelector({
 	onChange,
 	onClickItem,
 	onClickButton,
+	theme,
 }) {
 	return (
-		<FontColorSelectorStyle ref={fontColorRef}>
-			<ColorButtonLayout onClick={onClickButton}>
+		<FontColorSelectorStyle ref={fontColorRef} theme={theme}>
+			<ColorButtonLayout onClick={onClickButton} theme={theme}>
 				<FontIcon />
 				<FontColorUnderline fontColor={fontColor} />
 			</ColorButtonLayout>
 			<ColorChartLayout>
 				{fontDropdown.color &&
-					<ColorChart>
+					<ColorChart theme={theme}>
 						{colorChart.map((row, index) =>
 							<ColorChartRow key={index}>
-								{row.map((color, i) =>
+								{row.map((backGroundColor, i) =>
 									<ColorItem
 										key={i}
-										data-testid={color}
-										color={color}
-										onClick={onClickItem(color)}
+										data-testid={backGroundColor}
+										backGroundColor={backGroundColor}
+										onClick={onClickItem(backGroundColor)}
 									/>)}
 							</ColorChartRow>,
 						)}
 						<ColorCodeLayout>
-							<ColorItem color={fontColor} />
+							<ColorItem backGroundColor={fontColor} />
 							<ColorCodeInput
 								value={fontColor}
 								onChange={onChange}
+								theme={theme}
 							/>
 						</ColorCodeLayout>
 					</ColorChart>}

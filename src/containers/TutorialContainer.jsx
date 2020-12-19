@@ -11,6 +11,7 @@ export default function TutorialContainer() {
 	const [browserWidth, setBrowserWidth] = useState(BROWSER_WIDTH);
 	const [slide, setSlide] = useState(0);
 	const isTutorialOn = useSelector(state => state.isTutorialOn);
+	const theme = useSelector(state => state.theme);
 
 	if (!isTutorialOn) {
 		return null;
@@ -45,6 +46,7 @@ export default function TutorialContainer() {
 			handleSlideUp={handleSlideUp}
 			handleSlideDown={handleSlideDown}
 			handleSlideEnd={handleSlideEnd}
+			theme={theme}
 		/>
 	);
 }
