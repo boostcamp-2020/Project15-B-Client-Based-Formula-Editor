@@ -123,7 +123,7 @@ export default function SideBar({ sidebarWidth }) {
 		<>
 			<SideBarLayout width={sidebarWidth} sidebarState={sidebarState}>
 				<SideBarTabLayout theme={theme}>
-					<SideTopTab currentTab={tabState} onClick={handleTabClick} />
+					<SideTopTab currentTab={tabState} onClick={handleTabClick} theme={theme}/>
 					<SideBottomTab
 						tutorial={tutorial}
 						imageDownload={imageDownload}
