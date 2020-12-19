@@ -6,6 +6,7 @@ import { latexFunction, throttle, toFitSimple } from "../util";
 import { getLocalStorage } from "../sliceUtil";
 import AutoKeywordContainer from "./AutoKeywordContainer";
 import FontContainer from "./FontContainer";
+import ThemeContainer from "./ThemeContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
 import DropdownWrapper from "../layouts/DropdownWrapper";
@@ -158,6 +159,7 @@ function BodyContainer({ bodyWidth }) {
 		<BodyLayout width={bodyWidth} sidebarState={sidebarState}>
 			<EditTabHeaderLayout theme={theme}>
 				<FontContainer />
+				<ThemeContainer />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
 			<AutoKeywordContainer />

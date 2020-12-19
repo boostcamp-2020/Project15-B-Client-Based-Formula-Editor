@@ -157,6 +157,6 @@ export default {
 	},
 	toggleThemeColor(state) {
 		state.theme = reverseTheme(state.theme);
-		localStorage.setItem("theme", state.theme);
+		localStorage.setItem("theme", JSON.stringify(state.theme));
 	},
 };
