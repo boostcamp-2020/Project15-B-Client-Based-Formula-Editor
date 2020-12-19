@@ -67,6 +67,7 @@ function CharacterContainer({ theme }) {
 								handleClickItem={handleClickItem}
 								handleMouseEnterItem={handleMouseEnterItem}
 								previewItem={previewItem}
+								theme={theme}
 							/>
 						</div>
 					);

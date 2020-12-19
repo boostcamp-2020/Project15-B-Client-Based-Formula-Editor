@@ -159,6 +159,7 @@ export default function CustomContainer({ theme }) {
 									item={{ ...item, symbol: "#", name: item.command }}
 									onClick={() => { }}
 									onMouseEnter={handleMouseEnterItem(index)}
+									theme={theme}
 								/>
 								{previewItem.id === index &&
 									<ListItem

@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import ListItem from "./ListItem";
 
 const Item = styled.div`
   display: flex;
   align-items: center;
 	cursor: pointer;
-	color: ${themeColor.white};
+	color: ${({ theme }) => color.mainTheme0[theme]};
 	padding: 4px 10px;
 
 	> div:nth-child(3) {
@@ -17,7 +17,7 @@ const Item = styled.div`
 	}
 
   &:hover {
-    background-color: ${themeColor.light};
+    background-color: ${({ theme }) => color.mainTheme2[theme]};
 
 		> div > div > div:first-child {
 			visibility: visible;
@@ -42,8 +42,8 @@ const Symbol = styled.div`
 
 const Magnifier = styled.div`
 	position: absolute;
-	border: 1px solid ${themeColor.white};
-	background-color: ${themeColor.normal};
+	border: 1px solid ${({ theme }) => color.mainTheme0[theme]};;
+	background-color: ${({ theme }) => color.mainTheme3[theme]};;
 	left: 20px;
 	transform: translate(-50%, -15px);
 	width: 50px;
@@ -81,18 +81,19 @@ function CharacterListItem({
 	isMagnifier,
 	onMouseEnter,
 	previewItem,
+	theme,
 }) {
 	const getItemComponent = WrapperComponent =>
 		<SymbolWrapper>
 			{isMagnifier &&
-				<Magnifier>
+				<Magnifier theme={theme}>
 					<WrapperComponent>{item.symbol}</WrapperComponent>
 				</Magnifier>}
 			<WrapperComponent>{item.symbol}</WrapperComponent>
 		</SymbolWrapper>;
 
 	return (
-		<Item onClick={onClick(item.latex)} onMouseEnter={onMouseEnter}>
+		<Item onClick={onClick(item.latex)} onMouseEnter={onMouseEnter} theme={theme}>
 			{title !== "example" &&
 				<>
 					<Symbol>

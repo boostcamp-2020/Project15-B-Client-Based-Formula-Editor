@@ -112,6 +112,7 @@ export default function BookmarkContainer({ theme, setTabState }) {
 									item={{ ...item, symbol: "★", name: item.description }}
 									onClick={handleFormulaClick}
 									onMouseEnter={handleMouseEnterItem(item.id)}
+									theme={theme}
 								/>
 								{previewItem.id === item.id &&
 									<ListItem

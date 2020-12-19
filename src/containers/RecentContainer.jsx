@@ -100,6 +100,7 @@ export default function RecentContainer({ theme, setTabState }) {
 									item={{ ...item, symbol: "Σ", name: item.date }}
 									onClick={handleFormulaClick}
 									onMouseEnter={handleMouseEnterItem(item.id)}
+									theme={theme}
 								/>
 								{previewItem.id === item.id &&
 									<ListItem
