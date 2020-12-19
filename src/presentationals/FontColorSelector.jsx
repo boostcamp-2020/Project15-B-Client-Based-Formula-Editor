@@ -52,7 +52,7 @@ const ColorItem = styled.button`
 	height: 20px;
 	margin: 1px;
 	border: none;
-	background-color: ${(({ backGroundColor }) => backGroundColor)};
+	background-color: ${({ backGroundColor }) => backGroundColor};
 	cursor: pointer;
 `;
 
@@ -65,7 +65,8 @@ const ColorCodeInput = styled.input`
   margin-left: 10px;
   width: 144px;
   text-align: center;
-	background: ${({ theme }) => color.mainTheme1[theme]};;
+	background: ${({ theme }) => color.mainTheme3[theme]};
+	color: ${({ theme }) => color.mainTheme0[theme]};
   border: none;
 `;
 
@@ -99,7 +100,7 @@ export default function FontColorSelector({
 							</ColorChartRow>,
 						)}
 						<ColorCodeLayout>
-							<ColorItem color={fontColor} />
+							<ColorItem backGroundColor={fontColor} />
 							<ColorCodeInput
 								value={fontColor}
 								onChange={onChange}
