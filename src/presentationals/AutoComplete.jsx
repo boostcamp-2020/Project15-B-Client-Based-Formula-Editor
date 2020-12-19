@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
 const AutoKeywordLayout = styled.div`
 	position: fixed;
@@ -10,8 +10,8 @@ const AutoKeywordLayout = styled.div`
 	top: ${({ y, fontSize }) => y + fontSize}px;
 	width: fit-content;
 	height: fit-content;
-	background: ${themeColor.normal};
-	color: ${themeColor.white};
+	background: ${({ theme }) => color.mainTheme4[theme]};
+	color: ${({ theme }) => color.mainTheme0[theme]};
 	box-shadow: 0 0 7px 3px black;
 	visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
   z-index: 500;
@@ -50,9 +50,10 @@ function AutoComplete({
 	targetIndex,
 	onClick,
 	onMouseEnter,
+	theme,
 }) {
 	return (
-		<AutoKeywordLayout x={x} y={y} isOpen={isOpen} fontSize={fontSize}>
+		<AutoKeywordLayout x={x} y={y} isOpen={isOpen} fontSize={fontSize} theme={theme}>
 			{ isOpen && recommandationList.map((item, index) => (
 				<HightLight data-id={index} onClick={onClick} onMouseEnter={onMouseEnter}
 					key={index} isFocused={index === parseInt(targetIndex, 10)}>
