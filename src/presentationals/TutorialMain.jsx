@@ -29,7 +29,6 @@ export default function TutorialMain({
 			<TutorialStart
 				browserWidth={browserWidth}
 				handleSlideDown={handleSlideDown}
-				handleSlideEnd={handleSlideEnd}
 				theme={theme}
 			/>
 			<TutorialPage

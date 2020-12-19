@@ -42,26 +42,7 @@ const StartButton = styled.button`
   }
 `;
 
-const SkipButton = styled.button`
-  display: block;
-  position: fixed;
-  right: 0;
-  color: ${({ theme }) => color.mainTheme0[theme]};
-  background-color: ${({ theme }) => color.mainTheme3[theme]};
-  font-size: 20px;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 10px 10px 80px;
-  outline: none;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.8;
-  }
-`;
-
-export default function TutorialStart({ browserWidth, handleSlideDown, handleSlideEnd, theme }) {
+export default function TutorialStart({ browserWidth, handleSlideDown, theme }) {
 	const fileURL = `${FILE_PATH}/dark_logo.png`;
 
 	return (
@@ -69,7 +50,6 @@ export default function TutorialStart({ browserWidth, handleSlideDown, handleSli
 			<Layout>
 				<Logo src={fileURL} />
 				<StartButton onClick={handleSlideDown} theme={theme}>튜토리얼 시작하기</StartButton>
-				<SkipButton onClick={handleSlideEnd} theme={theme}>Skip &gt;</SkipButton>
 			</Layout>
 		</Page>
 	);
