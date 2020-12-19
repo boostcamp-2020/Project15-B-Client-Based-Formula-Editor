@@ -7,8 +7,7 @@ import {
 	setLatexItem,
 	checkIfPayloadEndsSpace,
 } from "./sliceUtil";
-import { getCurrentDate } from "./util";
-import Theme from "./constants/theme";
+import { getCurrentDate, reverseTheme } from "./util";
 
 export default {
 	setSelectedButton(state, { payload }) {
@@ -157,7 +156,7 @@ export default {
 		state.isTutorialOn = payload;
 	},
 	toggleThemeColor(state) {
-		state.theme = state.theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
+		state.theme = reverseTheme(state.theme);
 		localStorage.setItem("theme", state.theme);
 	},
 };
