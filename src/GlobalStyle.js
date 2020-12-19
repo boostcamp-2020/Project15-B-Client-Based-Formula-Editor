@@ -1,28 +1,10 @@
 import { createGlobalStyle } from "styled-components";
+
+import { getTheme } from "./util";
 import popupStyle from "./popupStyle";
+import color from "./constants/color";
 
-export const themeColor = {
-	white: "#cccccc",
-	superLight: "#666666",
-	light: "#313131",
-	normal: "#252526",
-	dark: "#1E1E1E",
-	black: "#000000",
-	blue: "#22659A",
-	lightBlue: "#2A7AB8",
-};
-
-export const color = {
-	superLight: "#ddfff6",
-	light: "#82e9de",
-	normal: "#4db6ac",
-	dark: "#00867d",
-	red: "#d3715e",
-	blue: "#0366d6",
-	yellow: "#ddb87c",
-	black: "black",
-	white: "white",
-};
+const theme = getTheme();
 
 const GlobalStyle = createGlobalStyle`
 	* {
@@ -36,12 +18,12 @@ const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		background-color: ${themeColor.dark};
+		background-color: ${color.mainTheme4[theme]};
 		-ms-user-select: none; /* Internet Explorer/Edge */
 		-moz-user-select: -moz-none; /* Firefox */ 
 		-webkit-user-select: none; /* Safari */ 
 		-khtml-user-select: none; /* Konqueror HTML */ 
-		user-select:none; /* supported by Chrome and Opera */
+		user-select: none; /* supported by Chrome and Opera */
 	}
 
 	::-webkit-scrollbar { width: 12px; } /* 스크롤 바 */

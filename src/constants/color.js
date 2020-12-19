@@ -1,12 +1,35 @@
+import Theme from "./theme";
+
 const color = {
-	mainTheme0: ["#cccccc", "#666666"],	// white
-	mainTheme1: ["#666666", "#aaaaaa"],	// superLight
-	mainTheme2: ["#313131", "#dedede"],	// light
-	mainTheme3: ["#252526", "#f3f3f3"],	// normal
-	mainTheme4: ["#1e1e1e", "#ffffff"], // dark
-	mainThemeGreen: ["#86C290", "#539a5f"], // green
-	mainThemeYellow: ["#ddb87c", "#f7ab6f"], // yellow
-	deepDark: "#151515", // black
+	mainTheme0: {
+		[Theme.DARK]: "#cccccc",
+		[Theme.LIGHT]: "#666666",
+	},
+	mainTheme1: {
+		[Theme.DARK]: "#666666",
+		[Theme.LIGHT]: "#aaaaaa",
+	},
+	mainTheme2: {
+		[Theme.DARK]: "#313131",
+		[Theme.LIGHT]: "#dedede",
+	},
+	mainTheme3: {
+		[Theme.DARK]: "#252526",
+		[Theme.LIGHT]: "#f3f3f3",
+	},
+	mainTheme4: {
+		[Theme.DARK]: "#1e1e1e",
+		[Theme.LIGHT]: "#ffffff",
+	},
+	mainThemeGreen: {
+		[Theme.DARK]: "#86C290",
+		[Theme.LIGHT]: "#539a5f",
+	},
+	mainThemeYellow: {
+		[Theme.DARK]: "#ddb87c",
+		[Theme.LIGHT]: "#f7ab6f",
+	},
+	deepDark: "#151515",
 	blue: "#22659a",
 	lightBlue: "#2a7ab8",
 	red: "#d3715e",
