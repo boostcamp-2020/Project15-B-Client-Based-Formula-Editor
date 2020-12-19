@@ -28,12 +28,12 @@ function FontContainer() {
 		setFontSizeForView(size);
 		if (!size) return;
 		dispatch(setFont({ ...fontInfo, size }));
-	}, []);
+	}, [fontInfo]);
 
 	const handleFontSizeItemClick = useCallback(size => () => {
 		setFontSizeForView(size);
 		dispatch(setFont({ ...fontInfo, size }));
-	}, []);
+	}, [fontInfo]);
 
 	const handleFontSizeInputClick = useCallback(() => {
 		setFontDropdown({ ...fontDropdown, size: true });
