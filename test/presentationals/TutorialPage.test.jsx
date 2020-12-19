@@ -19,9 +19,14 @@ describe("<TutorialPage />", () => {
 				content={testContent}
 				handleSlideUp={() => {}}
 				handleSlideDown={() => {}}
+				browserWidth={1000}
+				end={false}
 			/>,
 		);
 
+		const svgs = container.querySelectorAll("svg");
+
+		expect(svgs.length).toBe(2);
 		expect(container).toHaveTextContent(testTitle);
 		expect(container).toHaveTextContent(testContent);
 	});
