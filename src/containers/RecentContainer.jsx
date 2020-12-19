@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -9,7 +9,7 @@ import {
 	setBookmarkItem,
 } from "../slice";
 import popup from "../popup";
-import { usePreviewItem } from "../hooks";
+import { usePreviewItem, useSearch } from "../hooks";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -22,7 +22,7 @@ import DirectoryTitle from "../presentationals/DirectoryTitle";
 export default function RecentContainer({ setTabState }) {
 	const dispatch = useDispatch();
 	const { recentItems } = useSelector(state => state);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, handleFilter] = useSearch("");
 	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleBookmarkButtonClick = (id, isBookmark, latex) => async () => {
@@ -70,16 +70,6 @@ export default function RecentContainer({ setTabState }) {
 		if (answer) {
 			dispatch(removeAllRecentItems());
 		}
-	};
-
-	const handleFilter = ({ target }) => {
-		const inputValue = target.value;
-
-		if (!inputValue) {
-			setSearchTerm("");
-			return;
-		}
-		setSearchTerm(inputValue);
 	};
 
 	return (

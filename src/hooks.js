@@ -14,4 +14,20 @@ export const usePreviewItem = initialValue => {
 	return [previewItem, handleMouseEnterItem];
 };
 
+export const useSearch = initialValue => {
+	const [searchTerm, setSearchTerm] = useState(initialValue);
+
+	const handleFilter = ({ target }) => {
+		const inputValue = target.value;
+
+		if (!inputValue) {
+			setSearchTerm("");
+			return;
+		}
+		setSearchTerm(inputValue);
+	};
+
+	return [searchTerm, handleFilter];
+};
+
 export default usePreviewItem;
