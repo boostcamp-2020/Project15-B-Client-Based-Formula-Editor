@@ -1,3 +1,4 @@
+import Theme from "./constants/theme";
 import { SIDE_MIN_WIDTH, BODY_MIN_WIDTH } from "./constants/size";
 
 const changeOneLetterToTwo = number => (number > 9 ? number : number.toString().padStart(2, 0));
@@ -78,3 +79,7 @@ export const calcTopPreviewItem = pageY => {
 
 	return window.innerHeight - pageY > previewHeight ? pageY : window.innerHeight - previewHeight;
 };
+
+export const getTheme = () => JSON.parse(localStorage.getItem("theme")) || Theme.DARK;
+
+export const getThemeColor = () => (getTheme() === Theme.DARK ? "#ffffff" : "#000000");
