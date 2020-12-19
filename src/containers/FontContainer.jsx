@@ -70,6 +70,7 @@ function FontContainer() {
 			window.addEventListener("click", outsideClickEvent);
 			return () => window.removeEventListener("click", outsideClickEvent);
 		}
+		return () => {};
 	});
 
 	return (

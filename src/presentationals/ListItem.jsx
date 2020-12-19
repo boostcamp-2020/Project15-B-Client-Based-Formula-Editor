@@ -56,6 +56,7 @@ export default function ListItem({
 	theme,
 }) {
 	const yellow = color.mainThemeYellow[theme];
+	const mainTheme = color.mainTheme0[theme];
 	const StarIcon = isBookmark ? <FilledStarIcon fill={yellow}/> : <EmptyStarIcon fill={yellow} />;
 
 	return (
@@ -69,7 +70,7 @@ export default function ListItem({
 				{editOnClick &&
 					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
 				{customOnClick &&
-					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon fill={color.mainTheme0[theme]}/>} />}
+					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon fill={mainTheme}/>} />}
 				{deleteOnClick &&
 					<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />}
 			</Bottom>
