@@ -6,7 +6,7 @@ import FILE_PATH from "../constants/filePath";
 
 const Page = styled.div`
 	overflow: hidden;
-  width: ${(({ browserWidth }) => browserWidth)}px;
+  width: ${({ browserWidth }) => browserWidth}px;
 `;
 
 const Layout = styled.div`
@@ -38,7 +38,7 @@ const StartButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: white;
+    opacity: 0.8;
   }
 `;
 
@@ -57,7 +57,7 @@ const SkipButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: white;
+    opacity: 0.8;
   }
 `;
 
