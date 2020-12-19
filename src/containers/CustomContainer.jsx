@@ -144,6 +144,7 @@ export default function CustomContainer({ theme }) {
 						onChangeDescription={onChangeDescription}
 						onSubmit={handleSubmit}
 						warningMessage={warningMessage}
+						theme={theme}
 					/>}
 				<DirectoryTitle
 					title="커스텀 명령어 목록"
