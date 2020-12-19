@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import FILE_PATH from "../constants/filePath";
 import NextIcon from "../icons/NextIcon";
 import PrevIcon from "../icons/PrevIcon";
@@ -35,14 +35,14 @@ const Title = styled.div`
 
 const Content = styled.div`
   padding: 0 20px;
-  color: ${themeColor.white};
+  color: ${({ theme }) => color.mainTheme0[theme]};
   font-size: 14px;
   font-weight: bold;
   text-align: center;
 `;
 
 const MovingButton = styled.div`
-  color: ${themeColor.white};
+  color: ${({ theme }) => color.mainTheme0[theme]};
   cursor: pointer;
   margin: 50px;
   width: 36px;
@@ -64,6 +64,7 @@ export default function TutorialPage({
 	handleSlideUp,
 	handleSlideDown,
 	end = false,
+	theme,
 }) {
 	return (
 		<Page browserWidth={browserWidth}>
@@ -73,11 +74,11 @@ export default function TutorialPage({
 			<Layout>
 				<LogoImage src={`${FILE_PATH}/${imageURL}`} />
 				<Title>{title}</Title>
-				<Content>
+				<Content theme={theme}>
 					{content}
 				</Content>
 			</Layout>
-			<MovingButton onClick={handleSlideDown}>
+			<MovingButton onClick={handleSlideDown} theme={theme}>
 				{end ? <FlagIcon /> : <NextIcon />}
 			</MovingButton>
 		</Page>

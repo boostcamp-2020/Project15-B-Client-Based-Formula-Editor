@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import FILE_PATH from "../constants/filePath";
 
 const Page = styled.div`
@@ -32,8 +32,8 @@ const StartButton = styled.button`
   border-radius: 7px;
   font-size: 32px;
   font-weight: bold;
-  color: ${themeColor.white};
-  background-color: ${themeColor.normal};
+  color: ${({ theme }) => color.mainTheme0[theme]};
+  background-color: ${({ theme }) => color.mainTheme3[theme]};
   outline: none;
   cursor: pointer;
 
@@ -46,8 +46,8 @@ const SkipButton = styled.button`
   display: block;
   position: fixed;
   right: 0;
-  background-color: ${themeColor.normal};
-  color: ${themeColor.white};
+  color: ${({ theme }) => color.mainTheme0[theme]};
+  background-color: ${({ theme }) => color.mainTheme3[theme]};
   font-size: 20px;
   font-weight: bold;
   border: none;
@@ -61,15 +61,15 @@ const SkipButton = styled.button`
   }
 `;
 
-export default function TutorialStart({ browserWidth, handleSlideDown, handleSlideEnd }) {
+export default function TutorialStart({ browserWidth, handleSlideDown, handleSlideEnd, theme }) {
 	const fileURL = `${FILE_PATH}/dark_logo.png`;
 
 	return (
 		<Page browserWidth={browserWidth}>
 			<Layout>
 				<Logo src={fileURL} />
-				<StartButton onClick={handleSlideDown}>튜토리얼 시작하기</StartButton>
-				<SkipButton onClick={handleSlideEnd}>Skip &gt;</SkipButton>
+				<StartButton onClick={handleSlideDown} theme={theme}>튜토리얼 시작하기</StartButton>
+				<SkipButton onClick={handleSlideEnd} theme={theme}>Skip &gt;</SkipButton>
 			</Layout>
 		</Page>
 	);

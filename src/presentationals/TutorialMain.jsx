@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import TutorialStart from "./TutorialStart";
 import TutorialPage from "./TutorialPage";
 
@@ -10,7 +10,7 @@ const Layout = styled.div`
   position: fixed;
   width: ${(({ browserWidth }) => browserWidth * 7)}px;
   height: 100vh;
-  background: ${themeColor.normal};
+	background: ${({ theme }) => color.mainTheme3[theme]};
   transform: ${(({ slide }) => `translateX(${slide}px)`)};
   transition: 1s;
   z-index: 100;
@@ -22,13 +22,15 @@ export default function TutorialMain({
 	handleSlideUp,
 	handleSlideDown,
 	handleSlideEnd,
+	theme,
 }) {
 	return (
-		<Layout slide={slide} browserWidth={browserWidth}>
+		<Layout slide={slide} browserWidth={browserWidth} theme={theme}>
 			<TutorialStart
 				browserWidth={browserWidth}
 				handleSlideDown={handleSlideDown}
 				handleSlideEnd={handleSlideEnd}
+				theme={theme}
 			/>
 			<TutorialPage
 				browserWidth={browserWidth}
@@ -36,6 +38,7 @@ export default function TutorialMain({
 				title="이곳에서 원하시는 수식을 편집할 수 있습니다."
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideDown}
+				theme={theme}
 			/>
 			<TutorialPage
 				browserWidth={browserWidth}
@@ -43,6 +46,7 @@ export default function TutorialMain({
 				title="수식을 작성하면서 필요한 도구들을 사용할 수 있습니다."
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideDown}
+				theme={theme}
 			/>
 			<TutorialPage
 				browserWidth={browserWidth}
@@ -50,6 +54,7 @@ export default function TutorialMain({
 				title="LaTeX 코드를 입력하여 수식을 만들 수 있습니다."
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideDown}
+				theme={theme}
 			/>
 			<TutorialPage
 				browserWidth={browserWidth}
@@ -57,6 +62,7 @@ export default function TutorialMain({
 				title="수식에 필요한 기호나 연산자 등을 가져다 사용할 수 있습니다."
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideDown}
+				theme={theme}
 			/>
 			<TutorialPage
 				browserWidth={browserWidth}
@@ -65,6 +71,7 @@ export default function TutorialMain({
 				content="커스텀 명령어는 LaTeX 명령어와 같은 방식으로 사용할 수 있습니다."
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideDown}
+				theme={theme}
 			/>
 			<TutorialPage
 				browserWidth={browserWidth}
@@ -74,6 +81,7 @@ export default function TutorialMain({
 				handleSlideUp={handleSlideUp}
 				handleSlideDown={handleSlideEnd}
 				end={true}
+				theme={theme}
 			/>
 		</Layout>
 	);
