@@ -13,6 +13,9 @@ describe("<CharacterListItem />", () => {
 				item={item}
 				onClick={() => {}}
 				isMagnifier={true}
+				title="operator"
+				onMouseEnter={() => {}}
+				previewItem={() => {}}
 			/>,
 		);
 

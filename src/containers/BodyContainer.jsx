@@ -6,6 +6,7 @@ import { latexFunction, throttle, toFitSimple } from "../util";
 import { getLocalStorage } from "../sliceUtil";
 import AutoKeywordContainer from "./AutoKeywordContainer";
 import FontContainer from "./FontContainer";
+import ThemeContainer from "./ThemeContainer";
 import ControlButtonContainer from "./ControlButtonContainer";
 import BodyLayout from "../layouts/BodyLayout";
 import DropdownWrapper from "../layouts/DropdownWrapper";
@@ -27,9 +28,10 @@ function BodyContainer({ bodyWidth }) {
 	const [isMove, setIsMove] = useState(false);
 	const [ghostHeight, setGhostHeight] = useState(heights.formula);
 	const dispatch = useDispatch();
-	const latexInput = useSelector(state => state.latexInput);
+	const theme = useSelector(state => state.theme);
 	const fontInfo = useSelector(state => state.fontInfo);
 	const alignInfo = useSelector(state => state.alignInfo);
+	const latexInput = useSelector(state => state.latexInput);
 	const sidebarState = useSelector(state => state.sidebarState);
 
 	const handleLatexInput = mathField => {
@@ -155,8 +157,9 @@ function BodyContainer({ bodyWidth }) {
 
 	return (
 		<BodyLayout width={bodyWidth} sidebarState={sidebarState}>
-			<EditTabHeaderLayout>
+			<EditTabHeaderLayout theme={theme}>
 				<FontContainer />
+				<ThemeContainer theme={theme} />
 				<ControlButtonContainer />
 			</EditTabHeaderLayout>
 			<AutoKeywordContainer />
@@ -168,13 +171,15 @@ function BodyContainer({ bodyWidth }) {
 					mathquillDidMount={setUpLatexInsertFunction}
 					fontInfo={fontInfo}
 					alignInfo={alignInfo}
+					theme={theme}
 				/>
-				{isMove && <GhostBar ghostHeight={ghostHeight} />}
-				<DynamicBarVertical onMouseDown={handleMouseDown} top={heights.formula} />
+				{isMove && <GhostBar ghostHeight={ghostHeight} theme={theme} />}
+				<DynamicBarVertical onMouseDown={handleMouseDown} top={heights.formula} theme={theme} />
 				<LatexRepresentation
 					height={heights.latex}
 					latexInput={latexInput}
 					onChange={handleLatexTextarea}
+					theme={theme}
 				/>
 			</DropdownWrapper>
 		</BodyLayout>

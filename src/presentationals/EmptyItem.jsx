@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import ExclamationIcon from "../icons/ExclamationIcon";
 
 const Layout = styled.div`
@@ -12,14 +12,14 @@ const Layout = styled.div`
 
 const Content = styled.div`
   margin-top: 10px;
-  color: ${themeColor.white};
+  color: ${({ theme }) => color.mainTheme0[theme]};
 `;
 
-export default function EmptyItem({ content }) {
+export default function EmptyItem({ content, theme }) {
 	return (
 		<Layout>
-			<ExclamationIcon fill={themeColor.white}/>
-			<Content>{content}</Content>
+			<ExclamationIcon fill={color.mainTheme0[theme]}/>
+			<Content theme={theme}>{content}</Content>
 		</Layout>
 	);
 }

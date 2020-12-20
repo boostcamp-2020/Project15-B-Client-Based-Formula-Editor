@@ -10,6 +10,7 @@ describe("<TutorialMain />", () => {
 	it("renders all tutorial slides", () => {
 		const initialSlideValue = 1000;
 		const { container } = render(<TutorialMain
+			browserWidth={1000}
 			slide={initialSlideValue}
 			handleSlideUp={() => {}}
 			handleSlideDown={() => {}}

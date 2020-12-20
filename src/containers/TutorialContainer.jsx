@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { toggleIsTutorialOn } from "../slice";
 import TutorialMain from "../presentationals/TutorialMain";
+import SkipButton from "../presentationals/SkipButton";
 
 const BROWSER_WIDTH = window.innerWidth;
 
@@ -11,6 +12,7 @@ export default function TutorialContainer() {
 	const [browserWidth, setBrowserWidth] = useState(BROWSER_WIDTH);
 	const [slide, setSlide] = useState(0);
 	const isTutorialOn = useSelector(state => state.isTutorialOn);
+	const theme = useSelector(state => state.theme);
 
 	if (!isTutorialOn) {
 		return null;
@@ -39,12 +41,16 @@ export default function TutorialContainer() {
 	});
 
 	return (
-		<TutorialMain
-			browserWidth={browserWidth}
-			slide={slide}
-			handleSlideUp={handleSlideUp}
-			handleSlideDown={handleSlideDown}
-			handleSlideEnd={handleSlideEnd}
-		/>
+		<>
+			<TutorialMain
+				browserWidth={browserWidth}
+				slide={slide}
+				handleSlideUp={handleSlideUp}
+				handleSlideDown={handleSlideDown}
+				handleSlideEnd={handleSlideEnd}
+				theme={theme}
+			/>
+			<SkipButton handleSlideEnd={handleSlideEnd} theme={theme}>Skip &gt;</SkipButton>
+		</>
 	);
 }

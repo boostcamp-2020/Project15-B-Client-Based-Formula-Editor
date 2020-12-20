@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import FILE_PATH from "../constants/filePath";
 import NextIcon from "../icons/NextIcon";
 import PrevIcon from "../icons/PrevIcon";
@@ -10,7 +10,8 @@ import FlagIcon from "../icons/FlagIcon";
 const Page = styled.div`
   display: flex;
   align-items: center;
-  width: ${(({ browserWidth }) => browserWidth)}px;
+  width: ${({ browserWidth }) => browserWidth}px;
+  color: ${({ theme }) => color.mainTheme0[theme]};
 `;
 
 const Layout = styled.div`
@@ -26,7 +27,6 @@ const LogoImage = styled.img`
 `;
 
 const Title = styled.div`
-  color: white;
   padding: 20px;
   font-size: 20px;
   font-weight: bold;
@@ -35,24 +35,18 @@ const Title = styled.div`
 
 const Content = styled.div`
   padding: 0 20px;
-  color: ${themeColor.white};
   font-size: 14px;
   font-weight: bold;
   text-align: center;
 `;
 
 const MovingButton = styled.div`
-  color: ${themeColor.white};
   cursor: pointer;
   margin: 50px;
   width: 36px;
 
   &:hover {
-    color: white;
-
-    > div {
-      color: white;
-    }
+    opacity: 0.7;
   }
 `;
 
@@ -64,9 +58,10 @@ export default function TutorialPage({
 	handleSlideUp,
 	handleSlideDown,
 	end = false,
+	theme,
 }) {
 	return (
-		<Page browserWidth={browserWidth}>
+		<Page browserWidth={browserWidth} theme={theme}>
 			<MovingButton onClick={handleSlideUp}>
 				<PrevIcon />
 			</MovingButton>

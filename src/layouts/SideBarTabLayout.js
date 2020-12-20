@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
 const SideBarTabLayout = styled.div`
-  background-color: ${themeColor.light};
+  background-color: ${({ theme }) => color.mainTheme2[theme]};
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
