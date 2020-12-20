@@ -57,6 +57,11 @@ export default function CustomContainer({ theme }) {
 		const buttonName = e.target.submitBtn.innerText;
 		const index = customFormValue.id;
 
+		if (customFormValue.command.match(/\d/g)) {
+			setWarningMessage({ command: "명령어에는 숫자가 들어갈 수 없습니다." });
+			return;
+		}
+
 		if (!customFormValue.command) {
 			setWarningMessage({ command: "명령어는 공백일 수 없습니다." });
 			return;

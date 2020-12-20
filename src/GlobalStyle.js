@@ -5,10 +5,19 @@ import popupStyle from "./popupStyle";
 import color from "./constants/color";
 
 const GlobalStyle = createGlobalStyle`
+	@font-face {
+		font-family: "NotoSansKR-Regular";
+		src: local(※), url("../public/NotoSansKR-Regular.otf") format("opentype");
+	}
+
 	* {
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
+
+		&:not(.mq-math-mode, .mq-editable-field) {
+			font-family: "NotoSansKR-Regular";
+		}
 	}
 	
 	html, body, #app {

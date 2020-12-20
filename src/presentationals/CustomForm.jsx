@@ -22,6 +22,11 @@ const Form = styled.form`
 		margin: 3px;
 		border-radius: 3px;
 	}
+
+	.mq-cursor {
+    border: 1px solid ${({ theme }) => color.mainTheme0[theme]};
+		background-color: ${({ theme }) => color.mainTheme0[theme]};
+	}
 `;
 
 const Button = styled.button`

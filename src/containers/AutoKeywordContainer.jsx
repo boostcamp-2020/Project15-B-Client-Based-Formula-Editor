@@ -115,6 +115,11 @@ export default function AutoKeywordContainer() {
 	};
 
 	const keydownEvent = ({ keyCode }) => {
+		if (isOpen && (keyCode >= KEY_CODE.NUMBER_ONE && keyCode <= KEY_CODE.NUMBER_ONE)) {
+			cleanUp();
+			return;
+		}
+
 		if (itemIndex > 0) {
 			setItemIndex(0);
 		}
@@ -203,6 +208,11 @@ export default function AutoKeywordContainer() {
 				latexFunction.keystroke("Shift-Right Del");
 			}
 			selectAutoCompleteItem(false);
+
+			if (keyCode === KEY_CODE.ENTER) {
+				latexFunction.insertClickedLatex("");
+				latexFunction.keystroke("Shift-Left Del");
+			}
 		}
 	};
 
