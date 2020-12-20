@@ -74,7 +74,7 @@ export default function BookmarkContainer({ theme, setTabState }) {
 	const handleEditButton = ({ id, description }) => async () => {
 		const answer = await popup({
 			mode: "prompt",
-			message: "해당 북마크의 변경할 이름을 적어주세요!",
+			message: "해당 북마크의 변경할 키워드를 작성해주세요.",
 			placeholder: description,
 		});
 
