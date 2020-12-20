@@ -9,6 +9,8 @@ const KEY_CODE = {
 	LEFT: 37,
 	RIGHT: 39,
 	DELETE: 46,
+	NUMBER_ONE: 48,
+	NUMBER_ZERO: 57,
 };
 
 export default KEY_CODE;

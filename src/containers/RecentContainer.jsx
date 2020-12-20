@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	setLatexInput,
 	setCustomFormValue,
 	removeRecentItem,
 	removeAllRecentItems,
 	setBookmarkItem,
 } from "../slice";
 import popup from "../popup";
-import { usePreviewItem } from "../hooks";
+import { usePreviewItem, useSearch } from "../hooks";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -18,11 +17,12 @@ import EmptyItem from "../presentationals/EmptyItem";
 import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
+import { latexFunction } from "../util";
 
-export default function RecentContainer({ setTabState }) {
+export default function RecentContainer({ theme, setTabState }) {
 	const dispatch = useDispatch();
 	const { recentItems } = useSelector(state => state);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, handleFilter] = useSearch("");
 	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleBookmarkButtonClick = (id, isBookmark, latex) => async () => {
@@ -58,7 +58,7 @@ export default function RecentContainer({ setTabState }) {
 	};
 
 	const handleFormulaClick = latex => () => {
-		dispatch(setLatexInput(latex));
+		latexFunction.insertLatex(latex);
 	};
 
 	const handleDeleteAllClick = async () => {
@@ -72,24 +72,15 @@ export default function RecentContainer({ setTabState }) {
 		}
 	};
 
-	const handleFilter = ({ target }) => {
-		const inputValue = target.value;
-
-		if (!inputValue) {
-			setSearchTerm("");
-			return;
-		}
-		setSearchTerm(inputValue);
-	};
-
 	return (
 		<>
-			<Filter onChange={handleFilter}/>
-			<CharacterContainerLayout>
+			<Filter onChange={handleFilter} theme={theme} />
+			<CharacterContainerLayout theme={theme}>
 				<DirectoryTitle
 					title="최근 수식 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{recentItems.length ?
 					recentItems
@@ -100,6 +91,7 @@ export default function RecentContainer({ setTabState }) {
 									item={{ ...item, symbol: "Σ", name: item.date }}
 									onClick={handleFormulaClick}
 									onMouseEnter={handleMouseEnterItem(item.id)}
+									theme={theme}
 								/>
 								{previewItem.id === item.id &&
 									<ListItem
@@ -110,11 +102,12 @@ export default function RecentContainer({ setTabState }) {
 										intoLatexFieldOnClick={handleFormulaClick(item.latex)}
 										isBookmark={item.isBookmark}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content={"최근 저장한 수식이 없습니다"}/>}
+					<EmptyItem content={"최근 저장한 수식이 없습니다"} theme={theme} />}
 			</CharacterContainerLayout>
 		</>
 	);

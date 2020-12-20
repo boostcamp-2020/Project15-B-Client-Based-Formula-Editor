@@ -2,14 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { addStyles, EditableMathField } from "react-mathquill";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
 addStyles();
 
 const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: { color: fontInfo.color } }))`
   height: ${prop => prop.height}px;
 	min-height: 100px;
-	background-color: ${themeColor.dark};
+	background-color: ${({ theme }) => color.mainTheme4[theme]};
 	border-top: none;
 	display: flex;
 	flex-direction: row;
@@ -26,16 +26,16 @@ const FormulaRepresentationStyle = styled.div.attrs(({ fontInfo }) => ({ style: 
 	}
 
 	.mq-cursor {
-    border: 1px solid ${themeColor.white};
-		background-color: ${themeColor.white};
+    border: 1px solid ${({ theme }) => color.mainTheme0[theme]};
+		background-color: ${({ theme }) => color.mainTheme0[theme]};
 	}
 `;
 
 export default function FormulaRepresentation({
-	latexInput, onChange, mathquillDidMount, fontInfo, alignInfo, height,
+	latexInput, onChange, mathquillDidMount, fontInfo, alignInfo, height, theme,
 }) {
 	return (
-		<FormulaRepresentationStyle fontInfo={fontInfo} align={alignInfo} height={height}>
+		<FormulaRepresentationStyle fontInfo={fontInfo} align={alignInfo} height={height} theme={theme}>
 			<EditableMathField
 				latex={latexInput}
 				onChange={onChange}

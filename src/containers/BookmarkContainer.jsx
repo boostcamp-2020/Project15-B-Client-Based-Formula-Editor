@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
 	setCustomFormValue,
-	setLatexInput,
 	addBookmarkItem,
 	setBookmarkItem,
 	removeBookmarkItem,
 	removeAllBookmarkItems,
 } from "../slice";
 import popup from "../popup";
-import { usePreviewItem } from "../hooks";
+import { usePreviewItem, useSearch } from "../hooks";
 import { CUSTOM_COMMAND_TAB } from "../constants/sidebarTab";
 import CharacterContainerLayout from "../layouts/CharacterContainerLayout";
 import SideTabItemLayout from "../layouts/SideTabItemLayout";
@@ -20,11 +19,12 @@ import EmptyItem from "../presentationals/EmptyItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
+import { latexFunction } from "../util";
 
-export default function BookmarkContainer({ setTabState }) {
+export default function BookmarkContainer({ theme, setTabState }) {
 	const dispatch = useDispatch();
 	const { bookmarkItems, latexInput } = useSelector(state => state);
-	const [searchTerm, setSearchTerm] = useState("");
+	const [searchTerm, handleFilter] = useSearch("");
 	const [previewItem, handleMouseEnterItem] = usePreviewItem({ id: "", top: 0 });
 
 	const handleCustomButtonClick = latex => () => {
@@ -33,7 +33,7 @@ export default function BookmarkContainer({ setTabState }) {
 	};
 
 	const handleFormulaClick = latex => () => {
-		dispatch(setLatexInput(latex));
+		latexFunction.insertLatex(latex);
 	};
 
 	const addCurrentLatexToBookmark = async () => {
@@ -71,16 +71,6 @@ export default function BookmarkContainer({ setTabState }) {
 		}
 	};
 
-	const handleFilter = ({ target }) => {
-		const inputValue = target.value;
-
-		if (!inputValue) {
-			setSearchTerm("");
-			return;
-		}
-		setSearchTerm(inputValue);
-	};
-
 	const handleEditButton = ({ id, description }) => async () => {
 		const answer = await popup({
 			mode: "prompt",
@@ -95,13 +85,14 @@ export default function BookmarkContainer({ setTabState }) {
 
 	return (
 		<>
-			<Filter onChange={handleFilter} />
-			<CharacterContainerLayout>
+			<Filter onChange={handleFilter} theme={theme} />
+			<CharacterContainerLayout theme={theme}>
 				<BlueButton value="현재 수식 북마크에 추가" onClick={addCurrentLatexToBookmark}/>
 				<DirectoryTitle
 					title="북마크 수식 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{bookmarkItems.length ?
 					bookmarkItems
@@ -112,6 +103,7 @@ export default function BookmarkContainer({ setTabState }) {
 									item={{ ...item, symbol: "★", name: item.description }}
 									onClick={handleFormulaClick}
 									onMouseEnter={handleMouseEnterItem(item.id)}
+									theme={theme}
 								/>
 								{previewItem.id === item.id &&
 									<ListItem
@@ -121,11 +113,12 @@ export default function BookmarkContainer({ setTabState }) {
 										deleteOnClick={handleDeleteButton(item.id)}
 										editOnClick={handleEditButton(item)}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content="북마크 수식이 없습니다."/>
+					<EmptyItem content="북마크 수식이 없습니다." theme={theme} />
 				}
 			</CharacterContainerLayout>
 		</>

@@ -19,7 +19,7 @@ import CustomForm from "../presentationals/CustomForm";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
 
-export default function CustomContainer() {
+export default function CustomContainer({ theme }) {
 	const dispatch = useDispatch();
 	const [searchTerm, setSearchTerm] = useState("");
 	const [warningMessage, setWarningMessage] = useState({});
@@ -56,6 +56,11 @@ export default function CustomContainer() {
 		const isExist = customCommandList.find(elem => elem.command === customFormValue.command);
 		const buttonName = e.target.submitBtn.innerText;
 		const index = customFormValue.id;
+
+		if (customFormValue.command.match(/\d/g)) {
+			setWarningMessage({ command: "명령어에는 숫자가 들어갈 수 없습니다." });
+			return;
+		}
 
 		if (!customFormValue.command) {
 			setWarningMessage({ command: "명령어는 공백일 수 없습니다." });
@@ -130,8 +135,8 @@ export default function CustomContainer() {
 
 	return (
 		<>
-			<Filter onChange={handleFilter} />
-			<CharacterContainerLayout>
+			<Filter onChange={handleFilter} theme={theme} />
+			<CharacterContainerLayout theme={theme}>
 				<BlueButton
 					value={customFormValue.state ? "취소" : "새 커스텀 추가하기"}
 					onClick={handleFormOnButton}
@@ -144,11 +149,13 @@ export default function CustomContainer() {
 						onChangeDescription={onChangeDescription}
 						onSubmit={handleSubmit}
 						warningMessage={warningMessage}
+						theme={theme}
 					/>}
 				<DirectoryTitle
 					title="커스텀 명령어 목록"
 					isOpen={true}
 					onClickDeleteButton={handleDeleteAllClick}
+					theme={theme}
 				/>
 				{customCommandList.length ?
 					customCommandList
@@ -159,6 +166,7 @@ export default function CustomContainer() {
 									item={{ ...item, symbol: "#", name: item.command }}
 									onClick={() => { }}
 									onMouseEnter={handleMouseEnterItem(index)}
+									theme={theme}
 								/>
 								{previewItem.id === index &&
 									<ListItem
@@ -167,11 +175,12 @@ export default function CustomContainer() {
 										deleteOnClick={handleDeleteClick(index)}
 										intoLatexFieldOnClick={handleEditClick(index)}
 										top={previewItem.top}
+										theme={theme}
 									/>
 								}
 							</SideTabItemLayout>,
 						) :
-					<EmptyItem content={"최근 저장한 명령어가 없습니다"} />}
+					<EmptyItem content={"최근 저장한 명령어가 없습니다"} theme={theme} />}
 			</CharacterContainerLayout>
 		</>
 	);

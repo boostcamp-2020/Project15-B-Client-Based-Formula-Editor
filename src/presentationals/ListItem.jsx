@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { StaticMathField } from "react-mathquill";
 
-import { color, themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 import PlusIcon from "../icons/PlusIcon";
 import EditIcon from "../icons/EditIcon";
 import MinusIcon from "../icons/MinusIcon";
@@ -26,8 +26,8 @@ const Bottom = styled.div`
 `;
 
 const Item = styled.div`
-	background-color: ${themeColor.light};
-	color: ${themeColor.white};
+	background-color: ${({ theme }) => color.mainTheme3[theme]};
+	color: ${({ theme }) => color.mainTheme0[theme]};
 	height: 150px;
 	border-radius: 7px;
 	border: 1px solid black;
@@ -53,12 +53,15 @@ export default function ListItem({
 	intoLatexFieldOnClick,
 	isBookmark,
 	top,
+	theme,
 }) {
-	const StarIcon = isBookmark ? <FilledStarIcon /> : <EmptyStarIcon fill={color.yellow} />;
+	const yellow = color.mainThemeYellow[theme];
+	const mainTheme = color.mainTheme0[theme];
+	const StarIcon = isBookmark ? <FilledStarIcon fill={yellow}/> : <EmptyStarIcon fill={yellow} />;
 
 	return (
 		<Layout top={top}>
-			<Item onClick={intoLatexFieldOnClick}>
+			<Item onClick={intoLatexFieldOnClick} theme={theme}>
 				<StaticMathField>{latex}</StaticMathField>
 			</Item>
 			<Bottom>
@@ -67,7 +70,7 @@ export default function ListItem({
 				{editOnClick &&
 					<IconButton onClick={editOnClick} isHover={true} icon={<EditIcon />} />}
 				{customOnClick &&
-					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon />} />}
+					<IconButton onClick={customOnClick} isHover={true} icon={<PlusIcon fill={mainTheme}/>} />}
 				{deleteOnClick &&
 					<IconButton onClick={deleteOnClick} isHover={true} icon={<MinusIcon />} />}
 			</Bottom>

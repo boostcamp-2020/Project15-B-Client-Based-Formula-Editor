@@ -13,12 +13,12 @@ export default function MainContainer() {
 	const [isMove, setIsMove] = useState(false);
 	const [divLeft, setDivLeft] = useState(initialValue);
 	const [sidebarWidth, setSidebarWidth] = useState(initialValue);
+	const theme = useSelector(state => state.theme);
 	const sidebarState = useSelector(state => state.sidebarState);
 	const bodyWidth = 100 - sidebarWidth;
 
-	const handleMouseDown = e => {
+	const handleMouseDown = () => {
 		setIsMove(true);
-		setDivLeft(e.pageX);
 	};
 
 	const handleMouseMove = e => {
@@ -46,6 +46,7 @@ export default function MainContainer() {
 					isMove={isMove}
 					onMouseDown={handleMouseDown}
 					divLeft={divLeft}
+					theme={theme}
 				/>
 			}
 			<BodyContainer bodyWidth={bodyWidth} />

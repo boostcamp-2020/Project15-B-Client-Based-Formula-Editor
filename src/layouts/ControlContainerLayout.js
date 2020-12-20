@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
 const ControlContainerLayout = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const ControlContainerLayout = styled.div`
     margin-right: 5px;
 
     svg {
-      fill: ${themeColor.white};
+      fill: ${({ theme }) => color.mainTheme0[theme]};
     }
   }
 `;

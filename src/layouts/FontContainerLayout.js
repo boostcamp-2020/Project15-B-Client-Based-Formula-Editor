@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-import { themeColor } from "../GlobalStyle";
+import color from "../constants/color";
 
-const FontContainerStyle = styled.div`
+const FontContainerLayout = styled.div`
 	display: flex;
 	margin: 5px 0;
 
 	button svg {
-		fill: ${themeColor.white};
+		fill: ${({ theme }) => color.mainTheme0[theme]};
 	}
 `;
 
-export default FontContainerStyle;
+export default FontContainerLayout;

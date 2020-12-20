@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import actionCreator from "./actionCreator";
 import {
 	INITIAL_ID,
 	initLatexList,
@@ -9,6 +8,8 @@ import {
 	CUSTOM_LIST,
 	getLocalStorage,
 } from "./sliceUtil";
+import actionCreator from "./actionCreator";
+import { getTheme, getThemeColor, getIsTutorialOn } from "./util";
 
 const latexList = initLatexList();
 
@@ -22,7 +23,7 @@ const { reducer, actions } = createSlice({
 		pastLatexInput: "",
 		fontInfo: {
 			size: 20,
-			color: "#ffffff",
+			color: getThemeColor(),
 		},
 		alignInfo: "center",
 		bubblePopup: {
@@ -47,7 +48,8 @@ const { reducer, actions } = createSlice({
 		},
 		buffer: [],
 		sidebarState: true,
-		isTutorialOn: JSON.parse(localStorage.getItem("isTutorialOn")),
+		isTutorialOn: getIsTutorialOn(),
+		theme: getTheme(),
 	},
 	reducers: actionCreator,
 });
@@ -80,6 +82,7 @@ export const {
 	setBuffer,
 	setSidebarState,
 	toggleIsTutorialOn,
+	toggleThemeColor,
 } = actions;
 
 const setPopup = (dispatch, config, ms) => {
