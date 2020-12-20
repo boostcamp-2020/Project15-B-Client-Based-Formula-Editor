@@ -12,7 +12,7 @@ const popupStyle = theme => `
     left: 50%;
     transform: translateX(-50%);
     transition: 1s;
-    z-index: 3;
+    z-index: 1000;
     box-shadow: 0 0 15px 1px ${color.grey};
     font-weight: bold;
     display: flex;

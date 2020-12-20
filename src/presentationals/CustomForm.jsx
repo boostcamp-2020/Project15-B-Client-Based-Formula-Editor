@@ -16,7 +16,7 @@ const Form = styled.form`
 		border: none;
 		outline: none;
 		background-color: ${({ theme }) => color.mainTheme4[theme]};
-		color: white;
+		color: ${({ theme }) => color.mainTheme0[theme]};
 		text-align: center;
 		padding: 3px;
 		margin: 3px;
