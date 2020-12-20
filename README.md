@@ -7,7 +7,7 @@
 자동 완성과 커스텀 명령어 등을 통해 사용자에게 최적화된 수식 편집기를 제공합니다.
 
 - [배포 주소](https://fecode.netlify.app)  
-- [데모 영상](https://www.youtube.com/watch?v=cihkLcJDl9M)
+- [데모 영상](https://youtu.be/tUQJeEMWoAQ)
 - 기간 2020.11.16 ~ 2020.12.18
 
 <br><br>
