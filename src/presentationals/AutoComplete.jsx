@@ -7,12 +7,14 @@ import color from "../constants/color";
 const AutoKeywordLayout = styled.div`
 	position: fixed;
 	left: ${({ x }) => x}px;
-	top: ${({ y, fontSize }) => y + fontSize}px;
+	top: ${({ top }) => top}px;
 	width: fit-content;
 	height: fit-content;
-	background: ${({ theme }) => color.mainTheme4[theme]};
-	color: ${({ theme }) => color.mainTheme0[theme]};
-	box-shadow: 0 0 7px 3px black;
+	${({ theme }) => `
+		background: ${color.mainTheme4[theme]};
+		color: ${color.mainTheme0[theme]};
+		box-shadow: 0 0 5px 2px ${color.mainTheme1[theme]};
+	`}
 	visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
   z-index: 500;
 `;
@@ -53,7 +55,11 @@ function AutoComplete({
 	theme,
 }) {
 	return (
-		<AutoKeywordLayout x={x} y={y} isOpen={isOpen} fontSize={fontSize} theme={theme}>
+		<AutoKeywordLayout
+			x={x}
+			top={y + fontSize}
+			isOpen={isOpen && recommandationList.length}
+			theme={theme}>
 			{ isOpen && recommandationList.map((item, index) => (
 				<HightLight data-id={index} onClick={onClick} onMouseEnter={onMouseEnter}
 					key={index} isFocused={index === parseInt(targetIndex, 10)}>
