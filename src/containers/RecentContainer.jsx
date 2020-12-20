@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-	setLatexInput,
 	setCustomFormValue,
 	removeRecentItem,
 	removeAllRecentItems,
@@ -18,6 +17,7 @@ import EmptyItem from "../presentationals/EmptyItem";
 import CharacterListItem from "../presentationals/CharacterListItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
+import { latexFunction } from "../util";
 
 export default function RecentContainer({ theme, setTabState }) {
 	const dispatch = useDispatch();
@@ -58,7 +58,7 @@ export default function RecentContainer({ theme, setTabState }) {
 	};
 
 	const handleFormulaClick = latex => () => {
-		dispatch(setLatexInput(latex));
+		latexFunction.insertLatex(latex);
 	};
 
 	const handleDeleteAllClick = async () => {
