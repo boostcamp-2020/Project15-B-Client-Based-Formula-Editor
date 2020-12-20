@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
 	setCustomFormValue,
-	setLatexInput,
 	addBookmarkItem,
 	setBookmarkItem,
 	removeBookmarkItem,
@@ -20,6 +19,7 @@ import EmptyItem from "../presentationals/EmptyItem";
 import Filter from "../presentationals/Filter";
 import DirectoryTitle from "../presentationals/DirectoryTitle";
 import CharacterListItem from "../presentationals/CharacterListItem";
+import { latexFunction } from "../util";
 
 export default function BookmarkContainer({ setTabState }) {
 	const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export default function BookmarkContainer({ setTabState }) {
 	};
 
 	const handleFormulaClick = latex => () => {
-		dispatch(setLatexInput(latex));
+		latexFunction.insertLatex(latex);
 	};
 
 	const addCurrentLatexToBookmark = async () => {
