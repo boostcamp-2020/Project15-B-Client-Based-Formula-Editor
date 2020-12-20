@@ -115,7 +115,7 @@ export default function AutoKeywordContainer() {
 	};
 
 	const keydownEvent = ({ keyCode }) => {
-		if (isOpen && (keyCode >= 48 && keyCode <= 57)) {
+		if (isOpen && (keyCode >= KEY_CODE.NUMBER_ONE && keyCode <= KEY_CODE.NUMBER_ONE)) {
 			cleanUp();
 			return;
 		}

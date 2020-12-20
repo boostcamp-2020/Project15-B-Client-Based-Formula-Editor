@@ -29,5 +29,3 @@ export const useSearch = initialValue => {
 
 	return [searchTerm, handleFilter];
 };
-
-export default usePreviewItem;

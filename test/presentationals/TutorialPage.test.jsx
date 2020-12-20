@@ -26,7 +26,7 @@ describe("<TutorialPage />", () => {
 
 		const svgs = container.querySelectorAll("svg");
 
-		expect(svgs.length).toBe(2);
+		expect(svgs).toHaveLength(2);
 		expect(container).toHaveTextContent(testTitle);
 		expect(container).toHaveTextContent(testContent);
 	});
